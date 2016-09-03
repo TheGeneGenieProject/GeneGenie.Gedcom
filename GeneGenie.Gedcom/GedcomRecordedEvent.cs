@@ -1,121 +1,156 @@
-/*
- *  $Id: GedcomRecordedEvent.cs 199 2008-11-15 15:20:44Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomRecordedEvent.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
     using System;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
     public class GedcomRecordedEvent
     {
-        private GedcomDatabase _database;
+        private GedcomDatabase database;
 
-        private GedcomRecordList<GedcomEventType> _types;
-        private GedcomDate _date;
-        private GedcomPlace _place;
+        private GedcomRecordList<GedcomEventType> types;
+        private GedcomDate date;
+        private GedcomPlace place;
 
-        private GedcomChangeDate _ChangeDate;
+        private GedcomChangeDate changeDate;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomRecordedEvent"/> class.
+        /// </summary>
         public GedcomRecordedEvent()
         {
         }
 
+        /// <summary>
+        /// Gets or sets the database.
+        /// </summary>
+        /// <value>
+        /// The database.
+        /// </value>
         public GedcomDatabase Database
         {
-            get { return _database; }
-            set { _database = value; }
+            get { return database; }
+            set { database = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the types.
+        /// </summary>
+        /// <value>
+        /// The types.
+        /// </value>
         public GedcomRecordList<GedcomEventType> Types
         {
             get
             {
-                if (_types == null)
+                if (types == null)
                 {
-                    _types = new GedcomRecordList<GedcomEventType>();
+                    types = new GedcomRecordList<GedcomEventType>();
                 }
 
-                return _types;
+                return types;
             }
+
             set
             {
-                if (_types != value)
+                if (types != value)
                 {
-                    _types = value;
+                    types = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the date.
+        /// </summary>
+        /// <value>
+        /// The date.
+        /// </value>
         public GedcomDate Date
         {
             get
             {
-                return _date;
+                return date;
             }
 
             set
             {
-                if (value != _date)
+                if (value != date)
                 {
-                    _date = value;
+                    date = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the place.
+        /// </summary>
+        /// <value>
+        /// The place.
+        /// </value>
         public GedcomPlace Place
         {
             get
             {
-                return _place;
+                return place;
             }
 
             set
             {
-                if (value != _place)
+                if (value != place)
                 {
-                    _place = value;
+                    place = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public GedcomChangeDate ChangeDate
         {
             get
             {
                 GedcomChangeDate realChangeDate = null;
                 GedcomChangeDate childChangeDate;
-                if (_date != null)
+                if (date != null)
                 {
-                    childChangeDate = _date.ChangeDate;
+                    childChangeDate = date.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
                     }
                 }
 
-                if (_place != null)
+                if (place != null)
                 {
-                    childChangeDate = _place.ChangeDate;
+                    childChangeDate = place.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
@@ -127,15 +162,18 @@ namespace GeneGenie.Gedcom
 
             set
             {
-                _ChangeDate = value;
+                changeDate = value;
             }
         }
 
+        /// <summary>
+        /// Changeds this instance.
+        /// </summary>
         protected virtual void Changed()
         {
-            if (_database == null)
+            if (database == null)
             {
-                //              System.Console.WriteLine("Changed() called on record with no database set");
+                // System.Console.WriteLine("Changed() called on record with no database set");
                 //
                 //              System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
                 //              foreach (System.Diagnostics.StackFrame f in trace.GetFrames())
@@ -143,18 +181,17 @@ namespace GeneGenie.Gedcom
                 //                  System.Console.WriteLine(f);
                 //              }
             }
-            else if (!_database.Loading)
+            else if (!database.Loading)
             {
-                if (_ChangeDate == null)
+                if (changeDate == null)
                 {
-                    _ChangeDate = new GedcomChangeDate(_database);
-                    // FIXME: what level?
+                    changeDate = new GedcomChangeDate(database); // TODO: what level?
                 }
 
                 DateTime now = DateTime.Now;
 
-                _ChangeDate.Date1 = now.ToString("dd MMM yyyy");
-                _ChangeDate.Time = now.ToString("hh:mm:ss");
+                changeDate.Date1 = now.ToString("dd MMM yyyy");
+                changeDate.Time = now.ToString("hh:mm:ss");
             }
         }
     }

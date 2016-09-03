@@ -243,14 +243,14 @@
 			<tr>
 				<th>Address and Phone(s)</th>
 				<td>
-					<!-- FIXME insert addresses / phones -->
+					<!-- TODO insert addresses / phones -->
 				</td>
 			</tr>
 		
 			<tr>
 				<th>Medical</th>
 				<td>
-					<!-- FIXME insert medical -->
+					<!-- TODO insert medical -->
 				</td>
 			</tr>
 		

@@ -1,23 +1,21 @@
-/*
- *  $Id: Util.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="Util.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -25,17 +23,25 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Text;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
     public static class Util
     {
-        private static readonly char[] _newLineArray = Environment.NewLine.ToCharArray();
+        private static readonly char[] NewLineArray = Environment.NewLine.ToCharArray();
 
+        /// <summary>
+        /// Generates a soundex string for the passed value.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns>A string of characters representing the soundex value.</returns>
         public static string GenerateSoundex(string str)
         {
             StringBuilder sb = new StringBuilder(str.Length);
 
             if (!string.IsNullOrEmpty(str))
             {
-                sb.Append(Char.ToLower(str[0]));
+                sb.Append(char.ToLower(str[0]));
 
                 for (int i = 1; i < str.Length; i++)
                 {
@@ -46,9 +52,14 @@ namespace GeneGenie.Gedcom
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Encodes the passed character to it's soundex value.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>The soundex character (as a string).</returns>
         public static string SoundExEncodeChar(char c)
         {
-            switch (Char.ToLower(c))
+            switch (char.ToLower(c))
             {
                 case 'b':
                 case 'f':
@@ -79,6 +90,11 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Ints to string.
+        /// </summary>
+        /// <param name="i">The i.</param>
+        /// <returns>TODO: Doc, also, why is this needed? Not in the framework?</returns>
         public static string IntToString(int i)
         {
             bool neg = i < 0;
@@ -161,6 +177,11 @@ namespace GeneGenie.Gedcom
             return ret;
         }
 
+        /// <summary>
+        /// Escapes at sign.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns>TODO: Doc</returns>
         public static string EscapeAtSign(string str)
         {
             if (str.IndexOf("@") != -1)
@@ -171,6 +192,11 @@ namespace GeneGenie.Gedcom
             return str;
         }
 
+        /// <summary>
+        /// Returns the position of the escaped character in the passed string.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns>TODO: Doc</returns>
         public static int EscapedAtLength(string str)
         {
             int i = 0;
@@ -189,16 +215,32 @@ namespace GeneGenie.Gedcom
             return count;
         }
 
+        /// <summary>
+        /// Splits the line text.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="level">The level.</param>
+        /// <param name="maxLen">The maximum length.</param>
         public static void SplitLineText(TextWriter sw, string text, int level, int maxLen)
         {
             SplitLineText(sw, text, level, maxLen, int.MaxValue, false);
         }
 
+        /// <summary>
+        /// Splits the line text.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="level">The level.</param>
+        /// <param name="maxLen">The maximum length.</param>
+        /// <param name="maxSplits">The maximum splits.</param>
+        /// <param name="cont">if set to <c>true</c> [cont].</param>
         public static void SplitLineText(TextWriter sw, string text, int level, int maxLen, int maxSplits, bool cont)
         {
             string line = text.Replace("@", "@@");
 
-            string[] lines = line.Split(_newLineArray);
+            string[] lines = line.Split(NewLineArray);
             bool first = true;
 
             string levelPlusOne = null;
@@ -240,13 +282,30 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Splits the text.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
+        /// <param name="line">The line.</param>
+        /// <param name="level">The level.</param>
+        /// <param name="maxLen">The maximum length.</param>
         public static void SplitText(TextWriter sw, string line, int level, int maxLen)
         {
             SplitText(sw, line, level, maxLen, int.MaxValue, false);
         }
 
-        // FIXME: this is potentially bad, lots of substrings, only potentially though, large notes for example
+        // TODO: this is potentially bad, lots of substrings, only potentially though, large notes for example
         // in practice probably not that bad.
+
+        /// <summary>
+        /// Splits the text.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
+        /// <param name="line">The line.</param>
+        /// <param name="level">The level.</param>
+        /// <param name="maxLen">The maximum length.</param>
+        /// <param name="maxSplits">The maximum splits.</param>
+        /// <param name="cont">if set to <c>true</c> [cont].</param>
         public static void SplitText(TextWriter sw, string line, int level, int maxLen, int maxSplits, bool cont)
         {
             bool firstSplit = true;
@@ -265,7 +324,7 @@ namespace GeneGenie.Gedcom
                 int space = line.LastIndexOf(" ", maxLen - 1, maxLen);
 
                 // can't split it, just output the line,
-                // FIXME: this becomes invalid gedcom, should split in a word
+                // TODO: this becomes invalid gedcom, should split in a word
                 // according to the spec
                 if (space == -1)
                 {

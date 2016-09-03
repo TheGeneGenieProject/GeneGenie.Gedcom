@@ -375,7 +375,7 @@ namespace GeneGenie.Gedcom
             {
                 if (ChangeDate == null)
                 {
-                    ChangeDate = new GedcomChangeDate(Database); // FIXME: what level?
+                    ChangeDate = new GedcomChangeDate(Database); // TODO: what level?
                 }
 
                 DateTime now = DateTime.Now;

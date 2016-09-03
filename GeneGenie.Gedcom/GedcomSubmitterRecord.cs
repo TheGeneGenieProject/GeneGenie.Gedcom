@@ -1,48 +1,50 @@
-/*
- *  $Id: GedcomSubmitterRecord.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomSubmitterRecord.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
     public class GedcomSubmitterRecord : GedcomRecord
     {
-        private string _Name;
-        private GedcomAddress _Address;
-        private string[] _LanguagePreferences;
-        private string _RegisteredRFN;
+        private string name;
+        private GedcomAddress address;
+        private string[] languagePreferences;
+        private string registeredRFN;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSubmitterRecord"/> class.
         /// </summary>
         public GedcomSubmitterRecord()
         {
-            _LanguagePreferences = new string[3];
+            LanguagePreferences = new string[3];
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSubmitterRecord"/> class.
         /// </summary>
-        /// <param name="database"></param>
+        /// <param name="database">The database to associate with this record.</param>
         public GedcomSubmitterRecord(GedcomDatabase database)
             : this()
         {
@@ -54,84 +56,126 @@ namespace GeneGenie.Gedcom
             database.Add(XRefID, this);
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Submitter; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "SUBM"; }
         }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name
         {
             get
             {
-                return _Name;
+                return name;
             }
 
             set
             {
-                if (value != _Name)
+                if (value != name)
                 {
-                    _Name = value;
+                    name = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
         public GedcomAddress Address
         {
             get
             {
-                return _Address;
+                return address;
             }
 
             set
             {
-                if (value != _Address)
+                if (value != address)
                 {
-                    _Address = value;
+                    address = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the language preferences.
+        /// </summary>
+        /// <value>
+        /// The language preferences.
+        /// </value>
         public string[] LanguagePreferences
         {
             get
             {
-                return _LanguagePreferences;
+                return languagePreferences;
             }
 
             set
             {
-                if (value != _LanguagePreferences)
+                if (value != languagePreferences)
                 {
-                    _LanguagePreferences = value;
+                    languagePreferences = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the registered RFN.
+        /// </summary>
+        /// <value>
+        /// The registered RFN.
+        /// </value>
         public string RegisteredRFN
         {
             get
             {
-                return _RegisteredRFN;
+                return registeredRFN;
             }
 
             set
             {
-                if (value != _RegisteredRFN)
+                if (value != registeredRFN)
                 {
-                    _RegisteredRFN = value;
+                    registeredRFN = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -161,16 +205,20 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
             sw.Write(Util.IntToString(Level));
             sw.Write(" ");
 
-            if (!string.IsNullOrEmpty(_XrefID))
+            if (!string.IsNullOrEmpty(XrefId))
             {
                 sw.Write("@");
-                sw.Write(_XrefID);
+                sw.Write(XrefId);
                 sw.Write("@ ");
             }
 

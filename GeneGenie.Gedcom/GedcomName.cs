@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomName.cs 201 2008-12-01 20:00:26Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomName.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -31,76 +29,87 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomName : GedcomRecord
     {
-        private string _Type;
+        private string type;
 
         // name pieces
-        private string _prefix;
-        private string _given; // not same as firstname, includes middle etc.
-        private string _surnamePrefix;
+        private string prefix;
+        private string given; // not same as firstname, includes middle etc.
+        private string surnamePrefix;
+
         // already got surname
-        private string _suffix;
-        private string _nick;
+        private string suffix;
+        private string nick;
 
-        private GedcomRecordList<GedcomVariation> _PhoneticVariations;
-        private GedcomRecordList<GedcomVariation> _RomanizedVariations;
+        private GedcomRecordList<GedcomVariation> phoneticVariations;
+        private GedcomRecordList<GedcomVariation> romanizedVariations;
 
-        private bool _preferedName;
+        private bool preferedName;
 
         // cached surname / firstname split, this is expensive
         // when trying to filter a list of individuals, so do it
         // upon setting the name
-        private string _Surname;
+        private string surname;
 
-        private string _SurnameSoundex;
-        private string _FirstnameSoundex;
+        private string surnameSoundex;
+        private string firstnameSoundex;
 
-        private StringBuilder _builtName;
+        private StringBuilder builtName;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomName"/> class.
+        /// </summary>
         public GedcomName()
         {
-            _prefix = string.Empty;
-            _given = string.Empty;
-            _surnamePrefix = string.Empty;
-            _suffix = string.Empty;
-            _nick = string.Empty;
-            _Surname = string.Empty;
-            _SurnameSoundex = string.Empty;
-            _FirstnameSoundex = string.Empty;
+            prefix = string.Empty;
+            given = string.Empty;
+            surnamePrefix = string.Empty;
+            suffix = string.Empty;
+            nick = string.Empty;
+            surname = string.Empty;
+            surnameSoundex = string.Empty;
+            firstnameSoundex = string.Empty;
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Name; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "NAME"; }
         }
 
-        private bool IsSet
-        {
-            get
-            {
-                return (!string.IsNullOrEmpty(_prefix)) ||
-                        (!string.IsNullOrEmpty(_given)) ||
-                        (!string.IsNullOrEmpty(_surnamePrefix)) ||
-                        (!string.IsNullOrEmpty(_Surname)) ||
-                        (!string.IsNullOrEmpty(_suffix));
-            }
-        }
-
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name
         {
             get
             {
-                if (_builtName == null)
+                if (builtName == null)
                 {
-                    _builtName = BuildName();
+                    builtName = BuildName();
                 }
 
-                return _builtName.ToString();
+                return builtName.ToString();
             }
+
             set
             {
                 // check to see if a name has been set before
@@ -120,7 +129,7 @@ namespace GeneGenie.Gedcom
                         i = name.LastIndexOf(" ");
                         if (i != -1)
                         {
-                            Surname = _database.NameCollection[name, i + 1, name.Length - i - 1];
+                            Surname = Database.NameCollection[name, i + 1, name.Length - i - 1];
                         }
                         else
                         {
@@ -132,11 +141,11 @@ namespace GeneGenie.Gedcom
                         int j = name.IndexOf("/", i + 1);
                         if (j == -1)
                         {
-                            Surname = _database.NameCollection[name, i + 1, name.Length - i - 1];
+                            Surname = Database.NameCollection[name, i + 1, name.Length - i - 1];
                         }
                         else
                         {
-                            Surname = _database.NameCollection[name, i + 1, j - i - 1];
+                            Surname = Database.NameCollection[name, i + 1, j - i - 1];
                         }
                     }
 
@@ -144,14 +153,14 @@ namespace GeneGenie.Gedcom
                     {
                         // given is everything up to the surname, not right
                         // but will do for now
-                        Given = _database.NameCollection[name, 0, i];
+                        Given = Database.NameCollection[name, 0, i];
 
                         // prefix is foo.  e.g.  Prof.  Dr.  Lt. Cmd.
                         // strip it from the given name
                         // prefix must be > 2 chars so we avoid initials
                         // being treated as prefixes
-                        int l = _given.IndexOf(".");
-                        int n = _given.IndexOf(" ");
+                        int l = given.IndexOf(".");
+                        int n = given.IndexOf(" ");
                         if (l > 2)
                         {
                             if (n != -1 && l < n)
@@ -164,40 +173,40 @@ namespace GeneGenie.Gedcom
                                     l = o;
                                     n = p;
 
-                                    o = _given.IndexOf(".", o + 1);
-                                    p = _given.IndexOf(" ", p + 1);
+                                    o = given.IndexOf(".", o + 1);
+                                    p = given.IndexOf(" ", p + 1);
                                 }
                                 while (o != -1 && (p != -1 && o < p));
 
-                                Prefix = _database.NameCollection[_given, 0, l + 1];
-                                Given = _database.NameCollection[_given, l + 1, _given.Length - l - 1];
+                                Prefix = Database.NameCollection[given, 0, l + 1];
+                                Given = Database.NameCollection[given, l + 1, given.Length - l - 1];
                             }
                         }
 
                         // get surname prefix, everything before the last space
                         // is part of the surname prefix
-                        int m = _Surname.LastIndexOf(" ");
+                        int m = surname.LastIndexOf(" ");
                         if (m != -1)
                         {
-                            SurnamePrefix = _database.NameCollection[_Surname, 0, m];
-                            Surname = _database.NameCollection[_Surname, m + 1, _Surname.Length - m - 1];
+                            SurnamePrefix = Database.NameCollection[surname, 0, m];
+                            Surname = Database.NameCollection[surname, m + 1, surname.Length - m - 1];
                         }
                         else
                         {
                             SurnamePrefix = string.Empty;
                         }
 
-                        // FIXME: anything after surname is suffix, again not right
+                        // TODO: anything after surname is suffix, again not right
                         // but works for now
-                        int offset = i + 1 + _Surname.Length + 1;
-                        if (!string.IsNullOrEmpty(_surnamePrefix))
+                        int offset = i + 1 + surname.Length + 1;
+                        if (!string.IsNullOrEmpty(surnamePrefix))
                         {
-                            offset += _surnamePrefix.Length + 1;
+                            offset += surnamePrefix.Length + 1;
                         }
 
                         if (offset < name.Length)
                         {
-                            Suffix = _database.NameCollection[name, offset, name.Length - offset];
+                            Suffix = Database.NameCollection[name, offset, name.Length - offset];
                         }
                         else
                         {
@@ -208,179 +217,251 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
         public string Type
         {
             get
             {
-                return _Type;
+                return type;
             }
 
             set
             {
-                if (value != _Type)
+                if (value != type)
                 {
-                    _Type = value;
+                    type = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the phonetic variations.
+        /// </summary>
+        /// <value>
+        /// The phonetic variations.
+        /// </value>
         public GedcomRecordList<GedcomVariation> PhoneticVariations
         {
             get
             {
-                if (_PhoneticVariations == null)
+                if (phoneticVariations == null)
                 {
-                    _PhoneticVariations = new GedcomRecordList<GedcomVariation>();
-                    _PhoneticVariations.Changed += ListChanged;
+                    phoneticVariations = new GedcomRecordList<GedcomVariation>();
+                    phoneticVariations.Changed += ListChanged;
                 }
 
-                return _PhoneticVariations;
+                return phoneticVariations;
             }
         }
 
+        /// <summary>
+        /// Gets the romanized variations.
+        /// </summary>
+        /// <value>
+        /// The romanized variations.
+        /// </value>
         public GedcomRecordList<GedcomVariation> RomanizedVariations
         {
             get
             {
-                if (_RomanizedVariations == null)
+                if (romanizedVariations == null)
                 {
-                    _RomanizedVariations = new GedcomRecordList<GedcomVariation>();
-                    _RomanizedVariations.Changed += ListChanged;
+                    romanizedVariations = new GedcomRecordList<GedcomVariation>();
+                    romanizedVariations.Changed += ListChanged;
                 }
 
-                return _RomanizedVariations;
+                return romanizedVariations;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the surname.
+        /// </summary>
+        /// <value>
+        /// The surname.
+        /// </value>
         public string Surname
         {
             get
             {
-                return _Surname;
+                return surname;
             }
 
             set
             {
-                if (_Surname != value)
+                if (surname != value)
                 {
-                    _Surname = value;
-                    _SurnameSoundex = Util.GenerateSoundex(_Surname);
-                    _builtName = null;
+                    surname = value;
+                    surnameSoundex = Util.GenerateSoundex(surname);
+                    builtName = null;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the surname soundex.
+        /// </summary>
+        /// <value>
+        /// The surname soundex.
+        /// </value>
         public string SurnameSoundex
         {
-            get { return _SurnameSoundex; }
+            get { return surnameSoundex; }
         }
 
+        /// <summary>
+        /// Gets the firstname soundex.
+        /// </summary>
+        /// <value>
+        /// The firstname soundex.
+        /// </value>
         public string FirstnameSoundex
         {
-            get { return _FirstnameSoundex; }
+            get { return firstnameSoundex; }
         }
 
+        /// <summary>
+        /// Gets or sets the prefix.
+        /// </summary>
+        /// <value>
+        /// The prefix.
+        /// </value>
         public string Prefix
         {
             get
             {
-                return _prefix;
+                return prefix;
             }
 
             set
             {
-                if (_prefix != value)
+                if (prefix != value)
                 {
-                    _prefix = value;
-                    _builtName = null;
+                    prefix = value;
+                    builtName = null;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the given.
+        /// </summary>
+        /// <value>
+        /// The given.
+        /// </value>
         public string Given
         {
             get
             {
-                return _given;
+                return given;
             }
 
             set
             {
-                if (_given != value)
+                if (given != value)
                 {
-                    _given = value;
-                    _FirstnameSoundex = Util.GenerateSoundex(_given);
-                    _builtName = null;
+                    given = value;
+                    firstnameSoundex = Util.GenerateSoundex(given);
+                    builtName = null;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the surname prefix.
+        /// </summary>
+        /// <value>
+        /// The surname prefix.
+        /// </value>
         public string SurnamePrefix
         {
             get
             {
-                return _surnamePrefix;
+                return surnamePrefix;
             }
 
             set
             {
-                if (_surnamePrefix != value)
+                if (surnamePrefix != value)
                 {
-                    _surnamePrefix = value;
-                    _builtName = null;
+                    surnamePrefix = value;
+                    builtName = null;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the suffix.
+        /// </summary>
+        /// <value>
+        /// The suffix.
+        /// </value>
         public string Suffix
         {
             get
             {
-                return _suffix;
+                return suffix;
             }
 
             set
             {
-                if (_suffix != value)
+                if (suffix != value)
                 {
-                    _suffix = value;
-                    _builtName = null;
+                    suffix = value;
+                    builtName = null;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the nick.
+        /// </summary>
+        /// <value>
+        /// The nick.
+        /// </value>
         public string Nick
         {
             get
             {
-                return _nick;
+                return nick;
             }
 
             set
             {
-                if (value != _nick)
+                if (value != nick)
                 {
-                    _nick = value;
+                    nick = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (_PhoneticVariations != null)
+                if (phoneticVariations != null)
                 {
-                    foreach (GedcomVariation variation in _PhoneticVariations)
+                    foreach (GedcomVariation variation in phoneticVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -390,9 +471,9 @@ namespace GeneGenie.Gedcom
                     }
                 }
 
-                if (_RomanizedVariations != null)
+                if (romanizedVariations != null)
                 {
-                    foreach (GedcomVariation variation in _RomanizedVariations)
+                    foreach (GedcomVariation variation in romanizedVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -416,47 +497,70 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [prefered name].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [prefered name]; otherwise, <c>false</c>.
+        /// </value>
         public bool PreferedName
         {
-            get { return _preferedName; }
-            set { _preferedName = value; }
+            get { return preferedName; }
+            set { preferedName = value; }
         }
 
+        private bool IsSet
+        {
+            get
+            {
+                return (!string.IsNullOrEmpty(prefix)) ||
+                        (!string.IsNullOrEmpty(given)) ||
+                        (!string.IsNullOrEmpty(surnamePrefix)) ||
+                        (!string.IsNullOrEmpty(surname)) ||
+                        (!string.IsNullOrEmpty(suffix));
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified name is a match.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>TODO: Doc</returns>
         public float IsMatch(GedcomName name)
         {
             float match = 0F;
 
             int parts = 0;
 
-            // FIXME: perform soundex check as well?
+            // TODO: perform soundex check as well?
             // how would that effect returning a % match?
             float matches = 0;
 
             bool surnameMatched = false;
 
-            if (!(string.IsNullOrEmpty(name.Prefix) && string.IsNullOrEmpty(_prefix)))
+            if (!(string.IsNullOrEmpty(name.Prefix) && string.IsNullOrEmpty(prefix)))
             {
                 parts++;
-                if (name.Prefix == _prefix)
+                if (name.Prefix == prefix)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Given) && string.IsNullOrEmpty(_given)))
+            if (!(string.IsNullOrEmpty(name.Given) && string.IsNullOrEmpty(given)))
             {
                 parts++;
-                if (name.Given == _given)
+                if (name.Given == given)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Surname) && string.IsNullOrEmpty(_Surname)))
+            if (!(string.IsNullOrEmpty(name.Surname) && string.IsNullOrEmpty(surname)))
             {
-                if ((name.Surname == "?" && _Surname == "?") ||
+                if ((name.Surname == "?" && surname == "?") ||
                     ((string.Compare(name.Surname, "unknown", true) == 0) &&
-                     (string.Compare(_Surname, "unknown", true) == 0)))
+                     (string.Compare(surname, "unknown", true) == 0)))
                 {
                     // not really matched, surname isn't known,
                     // don't count as part being checked, and don't penalize
@@ -465,7 +569,7 @@ namespace GeneGenie.Gedcom
                 else
                 {
                     parts++;
-                    if (name.Surname == _Surname)
+                    if (name.Surname == surname)
                     {
                         matches++;
                         surnameMatched = true;
@@ -478,28 +582,28 @@ namespace GeneGenie.Gedcom
                 surnameMatched = true;
             }
 
-            if (!(string.IsNullOrEmpty(name.SurnamePrefix) && string.IsNullOrEmpty(_surnamePrefix)))
+            if (!(string.IsNullOrEmpty(name.SurnamePrefix) && string.IsNullOrEmpty(surnamePrefix)))
             {
                 parts++;
-                if (name.SurnamePrefix == _surnamePrefix)
+                if (name.SurnamePrefix == surnamePrefix)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Suffix) && string.IsNullOrEmpty(_suffix)))
+            if (!(string.IsNullOrEmpty(name.Suffix) && string.IsNullOrEmpty(suffix)))
             {
                 parts++;
-                if (name.Suffix == _suffix)
+                if (name.Suffix == suffix)
                 {
                     matches++;
                 }
             }
 
-            if (!(string.IsNullOrEmpty(name.Nick) && string.IsNullOrEmpty(_nick)))
+            if (!(string.IsNullOrEmpty(name.Nick) && string.IsNullOrEmpty(nick)))
             {
                 parts++;
-                if (name.Nick == _nick)
+                if (name.Nick == nick)
                 {
                     matches++;
                 }
@@ -507,7 +611,7 @@ namespace GeneGenie.Gedcom
 
             match = (matches / parts) * 100.0F;
 
-            // FIXME: heavily penalise the surname not matching
+            // TODO: heavily penalise the surname not matching
             // for this to work correctly better matching needs to be
             // performed, not just string comparison
             if (!surnameMatched)
@@ -518,95 +622,13 @@ namespace GeneGenie.Gedcom
             return match;
         }
 
-        private StringBuilder BuildName()
-        {
-            int capacity = 0;
-            if (!string.IsNullOrEmpty(_prefix))
-            {
-                capacity += _prefix.Length;
-            }
-
-            if (!string.IsNullOrEmpty(_given))
-            {
-                capacity += _given.Length;
-            }
-
-            if (!string.IsNullOrEmpty(_surnamePrefix))
-            {
-                capacity += _surnamePrefix.Length;
-            }
-
-            if (!string.IsNullOrEmpty(_Surname))
-            {
-                capacity += _Surname.Length;
-            }
-
-            if (!string.IsNullOrEmpty(_suffix))
-            {
-                capacity += _suffix.Length;
-            }
-
-            // for the // surrounding surname + potential spaces
-            capacity += 4;
-
-            StringBuilder name = new StringBuilder(capacity);
-
-            if (!string.IsNullOrEmpty(_prefix))
-            {
-                name.Append(_prefix);
-            }
-
-            if (!string.IsNullOrEmpty(_given))
-            {
-                if (name.Length != 0)
-                {
-                    name.Append(" ");
-                }
-
-                name.Append(_given);
-            }
-
-            // ALWAYS output a surname, even if it is empty
-            if (name.Length != 0)
-            {
-                name.Append(" ");
-            }
-
-            name.Append("/");
-            if (!string.IsNullOrEmpty(_surnamePrefix))
-            {
-                name.Append(_surnamePrefix);
-                name.Append(" ");
-            }
-
-            if (!string.IsNullOrEmpty(_Surname))
-            {
-                name.Append(_Surname);
-            }
-
-            name.Append("/");
-
-            if (!string.IsNullOrEmpty(_suffix))
-            {
-                // some data in test set has ,foobar on the end,
-                // in this instance don't append a space.
-                if (!_suffix.StartsWith(","))
-                {
-                    if (name.Length != 0)
-                    {
-                        name.Append(" ");
-                    }
-                }
-
-                name.Append(_suffix);
-            }
-
-            return name;
-        }
-
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
-            // FIXME: should output name parts?  not well supported by other
+            // TODO: should output name parts?  not well supported by other
             // apps?
             sw.Write(Environment.NewLine);
             sw.Write(Util.IntToString(Level));
@@ -632,7 +654,7 @@ namespace GeneGenie.Gedcom
 
             OutputStandard(sw);
 
-            if (_PhoneticVariations != null)
+            if (phoneticVariations != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -662,7 +684,7 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            if (_RomanizedVariations != null)
+            if (romanizedVariations != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -691,6 +713,92 @@ namespace GeneGenie.Gedcom
                     }
                 }
             }
+        }
+
+        private StringBuilder BuildName()
+        {
+            int capacity = 0;
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                capacity += prefix.Length;
+            }
+
+            if (!string.IsNullOrEmpty(given))
+            {
+                capacity += given.Length;
+            }
+
+            if (!string.IsNullOrEmpty(surnamePrefix))
+            {
+                capacity += surnamePrefix.Length;
+            }
+
+            if (!string.IsNullOrEmpty(surname))
+            {
+                capacity += surname.Length;
+            }
+
+            if (!string.IsNullOrEmpty(suffix))
+            {
+                capacity += suffix.Length;
+            }
+
+            // for the // surrounding surname + potential spaces
+            capacity += 4;
+
+            StringBuilder name = new StringBuilder(capacity);
+
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                name.Append(prefix);
+            }
+
+            if (!string.IsNullOrEmpty(given))
+            {
+                if (name.Length != 0)
+                {
+                    name.Append(" ");
+                }
+
+                name.Append(given);
+            }
+
+            // ALWAYS output a surname, even if it is empty
+            if (name.Length != 0)
+            {
+                name.Append(" ");
+            }
+
+            name.Append("/");
+            if (!string.IsNullOrEmpty(surnamePrefix))
+            {
+                name.Append(surnamePrefix);
+                name.Append(" ");
+            }
+
+            if (!string.IsNullOrEmpty(surname))
+            {
+                name.Append(surname);
+            }
+
+            name.Append("/");
+
+            if (!string.IsNullOrEmpty(suffix))
+            {
+                // some data in test set has ,foobar on the end,
+                // in this instance don't append a space.
+                if (!suffix.StartsWith(","))
+                {
+                    if (name.Length != 0)
+                    {
+                        name.Append(" ");
+                    }
+                }
+
+                name.Append(suffix);
+            }
+
+            return name;
         }
     }
 }

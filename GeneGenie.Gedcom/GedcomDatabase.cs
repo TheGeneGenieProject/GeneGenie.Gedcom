@@ -321,7 +321,7 @@ namespace GeneGenie.Gedcom
                     // remove names from surname cache
                     foreach (GedcomName name in indi.Names)
                     {
-                        // FIXME: not right, need to include prefix + suffix
+                        // TODO: not right, need to include prefix + suffix
                         string surname = name.Surname;
 
                         if (surnames.ContainsKey(surname))
@@ -364,7 +364,7 @@ namespace GeneGenie.Gedcom
                     submitters.Remove((GedcomSubmitterRecord)record);
                 }
 
-                // FIXME: should we set this to null? part of the deletion
+                // TODO: should we set this to null? part of the deletion
                 // methods may still want to access the database
                 // record.Database = null;
             }
@@ -467,7 +467,7 @@ namespace GeneGenie.Gedcom
         {
             foreach (GedcomName name in indi.Names)
             {
-                // FIXME: not right, need to include prefix + suffix
+                // TODO: not right, need to include prefix + suffix
                 string surname = name.Surname;
 
                 if (!surnames.ContainsKey(surname))

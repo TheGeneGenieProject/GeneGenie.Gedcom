@@ -777,12 +777,12 @@ namespace GeneGenie.Gedcom.Parser
                         switch (record.RecordType)
                         {
                             case GedcomRecordType.Individual:
-                                // FIXME: don't increase ref count on individuals,
+                                // TODO: don't increase ref count on individuals,
                                 // a bit of a hack, only place where it may be
                                 // needed is on assocciations
                                 break;
                             case GedcomRecordType.Family:
-                                // FIXME: don't increase ref count on families
+                                // TODO: don't increase ref count on families
                                 break;
                             default:
                                 record.RefCount++;
@@ -883,7 +883,7 @@ namespace GeneGenie.Gedcom.Parser
         {
             bool done = false;
 
-            //  FIXME: checking for ADDR is wrong, doesn't work properly, ok to just
+            //  TODO: checking for ADDR is wrong, doesn't work properly, ok to just
             //  check address is not null?  Real solution is to use a stack for PreviousTag
             // like it should have been doing in the first place
             // PreviousTag is now using a stack so will return the parent tag, which should be ADDR
@@ -1012,7 +1012,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = _lineValue;
                         }
 
-                        // FIXME: may want to use customs at some point
+                        // TODO: may want to use customs at some point
 
                         _ParseState.Records.Push(custom);
                         break;
@@ -1379,7 +1379,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = _lineValue;
                         }
 
-                        // FIXME: may want to use customs at some point
+                        // TODO: may want to use customs at some point
                         //familyRecord.Events.Add(custom);
 
                         _ParseState.Records.Push(custom);
@@ -1552,7 +1552,7 @@ namespace GeneGenie.Gedcom.Parser
                         }
 
                         break;
-                    case "FIXME?????":
+                    case "FIXME?????": // TODO:
                         // lds spouse sealing
                         break;
                     case "REFN":
@@ -1699,7 +1699,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = _lineValue;
                         }
 
-                        // FIXME: may want to use customs at some point
+                        // TODO: may want to use customs at some point
                         //individualRecord.Events.Add(custom);
 
                         _ParseState.Records.Push(custom);
@@ -2737,7 +2737,7 @@ namespace GeneGenie.Gedcom.Parser
                         if (_tag == "MEDI" &&
                             _lineValueType == GedcomLineValueType.DataType)
                         {
-                            // FIXME: GedcomMultiMediaFile should use the enum?
+                            // TODO: GedcomMultiMediaFile should use the enum?
                             multimediaRecord.Files[multimediaRecord.Files.Count - 1].SourceMediaType = _lineValue;
                         }
                     }
@@ -2748,7 +2748,7 @@ namespace GeneGenie.Gedcom.Parser
                     {
                         if (_lineValueType == GedcomLineValueType.DataType)
                         {
-                            // FIXME: GedcomMultiMediaFile should use the enum?
+                            // TODO: GedcomMultiMediaFile should use the enum?
                             multimediaRecord.Files[multimediaRecord.Files.Count - 1].SourceMediaType = _lineValue;
                         }
                     }
@@ -2840,7 +2840,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = _lineValue;
                         }
 
-                        // FIXME: may want to use customs at some point
+                        // TODO: may want to use customs at some point
 
                         _ParseState.Records.Push(custom);
                         break;
@@ -3257,7 +3257,7 @@ namespace GeneGenie.Gedcom.Parser
                                             }
                                             catch
                                             {
-                                                // FIXME: shouldn't lose data like this
+                                                // TODO: shouldn't lose data like this
                                             }
                                         }
                                     }
@@ -3340,7 +3340,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = _lineValue;
                         }
 
-                        // FIXME: may want to use customs at some point
+                        // TODO: may want to use customs at some point
 
                         _ParseState.Records.Push(custom);
                         break;
@@ -3636,7 +3636,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = _lineValue;
                         }
 
-                        // FIXME: may want to use customs at some point
+                        // TODO: may want to use customs at some point
 
                         _ParseState.Records.Push(custom);
                         break;

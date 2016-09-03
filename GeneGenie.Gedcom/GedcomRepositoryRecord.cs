@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomRepositoryRecord.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomRepositoryRecord.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -25,12 +23,17 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Xml;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
+    /// <seealso cref="System.IComparable" />
     public class GedcomRepositoryRecord : GedcomRecord, IComparable
     {
-        private string _Name;
-        private GedcomAddress _Address;
+        private string name;
+        private GedcomAddress address;
 
-        private GedcomRecordList<GedcomRepositoryCitation> _Citations;
+        private GedcomRecordList<GedcomRepositoryCitation> citations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRepositoryRecord"/> class.
@@ -42,7 +45,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRepositoryRecord"/> class.
         /// </summary>
-        /// <param name="database"></param>
+        /// <param name="database">The database to associate with this record.</param>
         public GedcomRepositoryRecord(GedcomDatabase database)
             : this()
         {
@@ -55,64 +58,100 @@ namespace GeneGenie.Gedcom
             database.Add(XRefID, this);
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Repository; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "REPO"; }
         }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name
         {
             get
             {
-                return _Name;
+                return name;
             }
 
             set
             {
-                if (value != _Name)
+                if (value != name)
                 {
-                    _Name = value;
+                    name = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
         public GedcomAddress Address
         {
             get
             {
-                return _Address;
+                return address;
             }
 
             set
             {
-                if (value != _Address)
+                if (value != address)
                 {
-                    _Address = value;
+                    address = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the citations.
+        /// </summary>
+        /// <value>
+        /// The citations.
+        /// </value>
         public GedcomRecordList<GedcomRepositoryCitation> Citations
         {
             get
             {
-                if (_Citations == null)
+                if (citations == null)
                 {
-                    _Citations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    _Citations.Changed += ListChanged;
+                    citations = new GedcomRecordList<GedcomRepositoryCitation>();
+                    citations.Changed += ListChanged;
                 }
 
-                return _Citations;
+                return citations;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -151,16 +190,31 @@ namespace GeneGenie.Gedcom
             }
         }
 
-        public int CompareTo(object repoB)
-        {
-            return GedcomRepositoryRecord.CompareByName(this, (GedcomRepositoryRecord)repoB);
-        }
-
+        /// <summary>
+        /// Compares the names of the passed records.
+        /// </summary>
+        /// <param name="repoA">The repo a.</param>
+        /// <param name="repoB">The repo b.</param>
+        /// <returns>TODO: Doc</returns>
         public static int CompareByName(GedcomRepositoryRecord repoA, GedcomRepositoryRecord repoB)
         {
             return string.Compare(repoA.Name, repoB.Name);
         }
 
+        /// <summary>
+        /// Compares to.
+        /// </summary>
+        /// <param name="repoB">The repo b.</param>
+        /// <returns>TODO: Doc</returns>
+        public int CompareTo(object repoB)
+        {
+            return GedcomRepositoryRecord.CompareByName(this, (GedcomRepositoryRecord)repoB);
+        }
+
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -173,16 +227,16 @@ namespace GeneGenie.Gedcom
 
             node.Attributes.Append(attr);
 
-            // FIXME:  Type attribute comes from where?
-            if (!string.IsNullOrEmpty(_Name))
+            // TODO:  Type attribute comes from where?
+            if (!string.IsNullOrEmpty(Name))
             {
                 XmlNode name = doc.CreateElement("Name");
-                name.AppendChild(doc.CreateTextNode(_Name));
+                name.AppendChild(doc.CreateTextNode(Name));
             }
 
-            if (_Address != null)
+            if (Address != null)
             {
-                _Address.GenerateXML(node);
+                Address.GenerateXML(node);
             }
 
             GenerateNoteXML(node);
@@ -191,6 +245,10 @@ namespace GeneGenie.Gedcom
             root.AppendChild(node);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

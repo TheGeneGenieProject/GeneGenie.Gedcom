@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomSourceCitation.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomSourceCitation.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -26,166 +24,236 @@ namespace GeneGenie.Gedcom
     using System.Text;
     using System.Xml;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
     public class GedcomSourceCitation : GedcomRecord
     {
-        private string _Source;
+        private string source;
 
         // source citation fields
-        private string _Page;
-        private string _EventType;
-        private string _Role;
-        private GedcomCertainty _Certainty = GedcomCertainty.Unknown;
+        private string page;
+        private string eventType;
+        private string role;
+        private GedcomCertainty certainty = GedcomCertainty.Unknown;
 
-        private GedcomDate _Date;
-        private string _Text;
+        private GedcomDate date;
+        private string text;
 
-        // hack
-        public StringBuilder ParsedText;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomSourceCitation"/> class.
+        /// </summary>
         public GedcomSourceCitation()
         {
         }
 
+        /// <summary>
+        /// Gets or sets the parsed text. HACK.
+        /// </summary>
+        public StringBuilder ParsedText { get; set; }
+
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.SourceCitation; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "SOUR"; }
         }
 
+        /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
+        /// <value>
+        /// The source.
+        /// </value>
         public string Source
         {
             get
             {
-                return _Source;
+                return source;
             }
 
             set
             {
-                if (value != _Source)
+                if (value != source)
                 {
-                    _Source = value;
+                    source = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the page.
+        /// </summary>
+        /// <value>
+        /// The page.
+        /// </value>
         public string Page
         {
             get
             {
-                return _Page;
+                return page;
             }
 
             set
             {
-                if (value != _Page)
+                if (value != page)
                 {
-                    _Page = value;
+                    page = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the type of the event.
+        /// </summary>
+        /// <value>
+        /// The type of the event.
+        /// </value>
         public string EventType
         {
             get
             {
-                return _EventType;
+                return eventType;
             }
 
             set
             {
-                if (value != _EventType)
+                if (value != eventType)
                 {
-                    _EventType = value;
+                    eventType = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the role.
+        /// </summary>
+        /// <value>
+        /// The role.
+        /// </value>
         public string Role
         {
             get
             {
-                return _Role;
+                return role;
             }
 
             set
             {
-                if (value != _Role)
+                if (value != role)
                 {
-                    _Role = value;
+                    role = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the certainty.
+        /// </summary>
+        /// <value>
+        /// The certainty.
+        /// </value>
         public GedcomCertainty Certainty
         {
             get
             {
-                return _Certainty;
+                return certainty;
             }
 
             set
             {
-                if (value != _Certainty)
+                if (value != certainty)
                 {
-                    _Certainty = value;
+                    certainty = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the date.
+        /// </summary>
+        /// <value>
+        /// The date.
+        /// </value>
         public GedcomDate Date
         {
             get
             {
-                return _Date;
+                return date;
             }
 
             set
             {
-                if (value != _Date)
+                if (value != date)
                 {
-                    _Date = value;
+                    date = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
         public string Text
         {
             get
             {
-                return _Text;
+                return text;
             }
 
             set
             {
-                if (value != _Text)
+                if (value != text)
                 {
-                    _Text = value;
+                    text = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Deletes this instance.
+        /// </summary>
         public override void Delete()
         {
             base.Delete();
 
-            GedcomSourceRecord source = (GedcomSourceRecord)_database[_Source];
+            GedcomSourceRecord source = (GedcomSourceRecord)Database[Source];
 
             source.Citations.Remove(this);
 
             source.Delete();
         }
 
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -195,7 +263,7 @@ namespace GeneGenie.Gedcom
 
             if (!string.IsNullOrEmpty(Source))
             {
-                GedcomSourceRecord source = _database[Source] as GedcomSourceRecord;
+                GedcomSourceRecord source = Database[Source] as GedcomSourceRecord;
                 if (source != null)
                 {
                     XmlNode sourceNode = doc.CreateElement("Source");
@@ -233,7 +301,7 @@ namespace GeneGenie.Gedcom
                     whenNode.AppendChild(doc.CreateTextNode(Date.DateString));
                 }
 
-                // FIXME: output source citation fields
+                // TODO: output source citation fields
                 //   Caption,     element
                 //   Extract,    element
                 GenerateNoteXML(node);
@@ -242,6 +310,10 @@ namespace GeneGenie.Gedcom
             root.AppendChild(node);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);

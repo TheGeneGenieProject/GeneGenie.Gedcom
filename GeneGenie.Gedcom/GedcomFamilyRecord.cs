@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomFamilyRecord.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomFamilyRecord.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -32,46 +30,47 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomFamilyRecord : GedcomRecord
     {
-        private GedcomRecordList<GedcomFamilyEvent> _Events;
+        private GedcomRecordList<GedcomFamilyEvent> events;
 
-        private string _Husband;
-        private string _Wife;
+        private string husband;
+        private string wife;
 
-        private GedcomRecordList<string> _Children;
+        private GedcomRecordList<string> children;
+
         // not just _Children.Count, may be unknown children
-        private int _NumberOfChildren;
+        private int numberOfChildren;
 
-        private GedcomRecordList<string> _SubmitterRecords;
+        private GedcomRecordList<string> submitterRecords;
 
-        // FIXME
-        private object _LDSSpouseSealings;
+        // TODO
+        private object lDSSpouseSealings;
 
-        private MarriageStartStatus _startStatus;
+        private MarriageStartStatus startStatus;
 
         // only used during parsing
-        private Dictionary<string, Gedcom.PedegreeLinkageType> _linkageTypes;
-        private Dictionary<string, Gedcom.PedegreeLinkageType> _husbLinkageTypes;
-        private Dictionary<string, Gedcom.PedegreeLinkageType> _wifeLinkageTypes;
+        private Dictionary<string, Gedcom.PedegreeLinkageType> linkageTypes;
+        private Dictionary<string, Gedcom.PedegreeLinkageType> husbLinkageTypes;
+        private Dictionary<string, Gedcom.PedegreeLinkageType> wifeLinkageTypes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomFamilyRecord"/> class.
         /// </summary>
         public GedcomFamilyRecord()
         {
-            _Events = new GedcomRecordList<GedcomFamilyEvent>();
-            _Events.Changed += ListChanged;
-            _Children = new GedcomRecordList<string>();
-            _Children.Changed += ListChanged;
+            events = new GedcomRecordList<GedcomFamilyEvent>();
+            events.Changed += ListChanged;
+            children = new GedcomRecordList<string>();
+            children.Changed += ListChanged;
 
-            _startStatus = MarriageStartStatus.Unknown;
+            startStatus = MarriageStartStatus.Unknown;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomFamilyRecord"/> class.
+        /// Initializes a new instance of the <see cref="GedcomFamilyRecord" /> class.
         /// </summary>
-        /// <param name="database"></param>
-        /// <param name="indi1"></param>
-        /// <param name="indi2"></param>
+        /// <param name="database">The database to associate with this record.</param>
+        /// <param name="indi1">The indi1.</param>
+        /// <param name="indi2">The indi2.</param>
         public GedcomFamilyRecord(GedcomDatabase database, GedcomIndividualRecord indi1, GedcomIndividualRecord indi2)
             : this()
         {
@@ -122,99 +121,154 @@ namespace GeneGenie.Gedcom
             database.Add(XRefID, this);
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Family; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "FAM"; }
         }
 
+        /// <summary>
+        /// Gets the events.
+        /// </summary>
+        /// <value>
+        /// The events.
+        /// </value>
         public GedcomRecordList<GedcomFamilyEvent> Events
         {
-            get { return _Events; }
+            get { return events; }
         }
 
+        /// <summary>
+        /// Gets or sets the husband.
+        /// </summary>
+        /// <value>
+        /// The husband.
+        /// </value>
         public string Husband
         {
             get
             {
-                return _Husband;
+                return husband;
             }
 
             set
             {
-                if (value != _Husband)
+                if (value != husband)
                 {
-                    _Husband = value;
+                    husband = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the wife.
+        /// </summary>
+        /// <value>
+        /// The wife.
+        /// </value>
         public string Wife
         {
             get
             {
-                return _Wife;
+                return wife;
             }
 
             set
             {
-                if (value != _Wife)
+                if (value != wife)
                 {
-                    _Wife = value;
+                    wife = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the children.
+        /// </summary>
+        /// <value>
+        /// The children.
+        /// </value>
         public GedcomRecordList<string> Children
         {
-            get { return _Children; }
+            get { return children; }
         }
 
+        /// <summary>
+        /// Gets or sets the number of children.
+        /// </summary>
+        /// <value>
+        /// The number of children.
+        /// </value>
         public int NumberOfChildren
         {
             get
             {
-                return _NumberOfChildren;
+                return numberOfChildren;
             }
 
             set
             {
-                if (value != _NumberOfChildren)
+                if (value != numberOfChildren)
                 {
-                    _NumberOfChildren = value;
+                    numberOfChildren = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the submitter records.
+        /// </summary>
+        /// <value>
+        /// The submitter records.
+        /// </value>
         public GedcomRecordList<string> SubmitterRecords
         {
             get
             {
-                if (_SubmitterRecords == null)
+                if (submitterRecords == null)
                 {
-                    _SubmitterRecords = new GedcomRecordList<string>();
-                    _SubmitterRecords.Changed += ListChanged;
+                    submitterRecords = new GedcomRecordList<string>();
+                    submitterRecords.Changed += ListChanged;
                 }
 
-                return _SubmitterRecords;
+                return submitterRecords;
             }
         }
 
         // Util properties to get marriage event
+
+        /// <summary>
+        /// Gets the marriage.
+        /// </summary>
+        /// <value>
+        /// The marriage.
+        /// </value>
         public GedcomFamilyEvent Marriage
         {
             get
             {
                 GedcomFamilyEvent marriage = null;
 
-                foreach (GedcomFamilyEvent e in _Events)
+                foreach (GedcomFamilyEvent e in events)
                 {
                     if (e.EventType == GedcomEventType.MARR)
                     {
@@ -227,23 +281,35 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the start status.
+        /// </summary>
+        /// <value>
+        /// The start status.
+        /// </value>
         public MarriageStartStatus StartStatus
         {
             get
             {
-                return _startStatus;
+                return startStatus;
             }
 
             set
             {
-                if (value != _startStatus)
+                if (value != startStatus)
                 {
-                    _startStatus = value;
+                    startStatus = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -262,7 +328,7 @@ namespace GeneGenie.Gedcom
 
                 foreach (string submitterID in SubmitterRecords)
                 {
-                    record = _database[submitterID];
+                    record = Database[submitterID];
                     childChangeDate = record.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
@@ -284,19 +350,27 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Deletes this instance.
+        /// </summary>
         public override void Delete()
         {
             base.Delete();
 
-            if (_Events != null && _refCount == 0)
+            if (events != null && RefCount == 0)
             {
-                foreach (GedcomEvent ev in _Events)
+                foreach (GedcomEvent ev in events)
                 {
                     ev.Delete();
                 }
             }
         }
 
+        /// <summary>
+        /// Adds the new event.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>TODO: Doc</returns>
         public GedcomFamilyEvent AddNewEvent(GedcomEventType type)
         {
             GedcomFamilyEvent familyEvent = new GedcomFamilyEvent();
@@ -309,22 +383,27 @@ namespace GeneGenie.Gedcom
             return familyEvent;
         }
 
+        /// <summary>
+        /// Adds the child.
+        /// </summary>
+        /// <param name="indi">The indi.</param>
+        /// <returns>TODO: Doc</returns>
         public bool AddChild(GedcomIndividualRecord indi)
         {
             bool added = false;
 
-            if (indi != null && ! Children.Contains(indi.XRefID))
+            if (indi != null && !Children.Contains(indi.XRefID))
             {
                 if (string.IsNullOrEmpty(XRefID))
                 {
-                    XRefID = _database.GenerateXref("FAM");
-                    _database.Add(XRefID,this);
+                    XRefID = Database.GenerateXref("FAM");
+                    Database.Add(XRefID, this);
                 }
 
                 if (!indi.ChildInFamily(XRefID))
                 {
                     GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = _database;
+                    link.Database = Database;
                     link.Family = XRefID;
                     link.Indi = indi.XRefID;
                     link.Level = 1;
@@ -339,19 +418,23 @@ namespace GeneGenie.Gedcom
             return added;
         }
 
+        /// <summary>
+        /// Adds the new child.
+        /// </summary>
+        /// <returns>TODO: Doc</returns>
         public GedcomIndividualRecord AddNewChild()
         {
             GedcomIndividualRecord husband = null;
             GedcomIndividualRecord wife = null;
 
-            if (!string.IsNullOrEmpty(_Husband))
+            if (!string.IsNullOrEmpty(this.husband))
             {
-                husband = _database[_Husband] as GedcomIndividualRecord;
+                husband = Database[this.husband] as GedcomIndividualRecord;
             }
 
-            if (!string.IsNullOrEmpty(_Wife))
+            if (!string.IsNullOrEmpty(this.wife))
             {
-                wife = _database[_Wife] as GedcomIndividualRecord;
+                wife = Database[this.wife] as GedcomIndividualRecord;
             }
 
             string surname = "unknown";
@@ -373,7 +456,7 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            GedcomIndividualRecord indi = new GedcomIndividualRecord(_database, surname);
+            GedcomIndividualRecord indi = new GedcomIndividualRecord(Database, surname);
 
             // don't care about failure here, won't happen as indi isn't null
             // and they aren't already in the family
@@ -382,6 +465,10 @@ namespace GeneGenie.Gedcom
             return indi;
         }
 
+        /// <summary>
+        /// Removes the child.
+        /// </summary>
+        /// <param name="child">The child.</param>
         public void RemoveChild(GedcomIndividualRecord child)
         {
             Children.Remove(child.XRefID);
@@ -393,137 +480,149 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Changes the husband.
+        /// </summary>
+        /// <param name="indi">The indi.</param>
         public void ChangeHusband(GedcomIndividualRecord indi)
         {
             GedcomIndividualRecord husband = null;
             GedcomIndividualRecord wife = null;
 
-            if (!string.IsNullOrEmpty(_Husband))
+            if (!string.IsNullOrEmpty(this.husband))
             {
-                husband = _database[_Husband] as GedcomIndividualRecord;
+                husband = Database[this.husband] as GedcomIndividualRecord;
             }
 
-            if (!string.IsNullOrEmpty(_Wife))
+            if (!string.IsNullOrEmpty(this.wife))
             {
-                wife = _database[_Wife] as GedcomIndividualRecord;
+                wife = Database[this.wife] as GedcomIndividualRecord;
             }
 
             if (string.IsNullOrEmpty(XRefID))
             {
-                XRefID = _database.GenerateXref("FAM");
-                _database.Add(XRefID,this);
+                XRefID = Database.GenerateXref("FAM");
+                Database.Add(XRefID, this);
             }
 
             if (husband != null)
             {
                 GedcomFamilyLink link;
-                if (husband.SpouseInFamily(XRefID,out link))
+                if (husband.SpouseInFamily(XRefID, out link))
                 {
                     husband.SpouseIn.Remove(link);
                 }
             }
 
             husband = indi;
-            _Husband = string.Empty;
+            this.husband = string.Empty;
 
             if (husband != null)
             {
-                _Husband = husband.XRefID;
+                this.husband = husband.XRefID;
 
                 if (!husband.SpouseInFamily(XRefID))
                 {
                     GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = _database;
+                    link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = _Husband;
+                    link.Indi = this.husband;
                     husband.SpouseIn.Add(link);
                 }
             }
 
             if (wife != null)
             {
-                _Wife = wife.XRefID;
+                this.wife = wife.XRefID;
 
                 if (!wife.SpouseInFamily(XRefID))
                 {
                     GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = _database;
+                    link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = _Wife;
+                    link.Indi = this.wife;
                     wife.SpouseIn.Add(link);
                 }
             }
         }
 
+        /// <summary>
+        /// Changes the wife.
+        /// </summary>
+        /// <param name="indi">The indi.</param>
         public void ChangeWife(GedcomIndividualRecord indi)
         {
             GedcomIndividualRecord husband = null;
             GedcomIndividualRecord wife = null;
 
-            if (!string.IsNullOrEmpty(_Husband))
+            if (!string.IsNullOrEmpty(this.husband))
             {
-                husband = _database[_Husband] as GedcomIndividualRecord;
+                husband = Database[this.husband] as GedcomIndividualRecord;
             }
 
-            if (!string.IsNullOrEmpty(_Wife))
+            if (!string.IsNullOrEmpty(this.wife))
             {
-                wife = _database[_Wife] as GedcomIndividualRecord;
+                wife = Database[this.wife] as GedcomIndividualRecord;
             }
 
             if (string.IsNullOrEmpty(XRefID))
             {
-                XRefID = _database.GenerateXref("FAM");
-                _database.Add(XRefID,this);
+                XRefID = Database.GenerateXref("FAM");
+                Database.Add(XRefID, this);
             }
 
             if (wife != null)
             {
                 GedcomFamilyLink link;
-                if (wife.SpouseInFamily(XRefID,out link))
+                if (wife.SpouseInFamily(XRefID, out link))
                 {
                     wife.SpouseIn.Remove(link);
                 }
             }
 
             wife = indi;
-            _Wife = string.Empty;
+            this.wife = string.Empty;
 
             if (husband != null)
             {
-                _Husband = husband.XRefID;
+                this.husband = husband.XRefID;
 
                 if (!husband.SpouseInFamily(XRefID))
                 {
                     GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = _database;
+                    link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = _Husband;
+                    link.Indi = this.husband;
                     husband.SpouseIn.Add(link);
                 }
             }
 
             if (wife != null)
             {
-                _Wife = wife.XRefID;
+                this.wife = wife.XRefID;
 
                 if (!wife.SpouseInFamily(XRefID))
                 {
                     GedcomFamilyLink link = new GedcomFamilyLink();
-                    link.Database = _database;
+                    link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = _Wife;
+                    link.Indi = this.wife;
                     wife.SpouseIn.Add(link);
                 }
             }
         }
 
+        /// <summary>
+        /// Removes the husband.
+        /// </summary>
+        /// <param name="indi">The indi.</param>
         public void RemoveHusband(GedcomIndividualRecord indi)
         {
             GedcomFamilyLink link;
 
-            if (_Husband == indi.XRefID)
+            if (husband == indi.XRefID)
             {
-                _Husband = string.Empty;
+                husband = string.Empty;
             }
 
             if (indi.SpouseInFamily(XRefID, out link))
@@ -532,13 +631,17 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Removes the wife.
+        /// </summary>
+        /// <param name="indi">The indi.</param>
         public void RemoveWife(GedcomIndividualRecord indi)
         {
             GedcomFamilyLink link;
 
-            if (_Wife == indi.XRefID)
+            if (wife == indi.XRefID)
             {
-                _Wife = string.Empty;
+                wife = string.Empty;
             }
 
             if (indi.SpouseInFamily(XRefID, out link))
@@ -547,32 +650,46 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Clears the linkage types.
+        /// </summary>
         public void ClearLinkageTypes()
         {
-            if (_linkageTypes != null)
+            if (linkageTypes != null)
             {
-                _linkageTypes.Clear();
-                _linkageTypes = null;
+                linkageTypes.Clear();
+                linkageTypes = null;
             }
 
-            if (_husbLinkageTypes != null)
+            if (husbLinkageTypes != null)
             {
-                _husbLinkageTypes.Clear();
-                _husbLinkageTypes = null;
+                husbLinkageTypes.Clear();
+                husbLinkageTypes = null;
             }
 
-            if (_wifeLinkageTypes != null)
+            if (wifeLinkageTypes != null)
             {
-                _wifeLinkageTypes.Clear();
-                _wifeLinkageTypes = null;
+                wifeLinkageTypes.Clear();
+                wifeLinkageTypes = null;
             }
         }
 
+        /// <summary>
+        /// Sets the type of the linkage.
+        /// </summary>
+        /// <param name="childXrefID">The child xref identifier.</param>
+        /// <param name="type">The type.</param>
         public void SetLinkageType(string childXrefID, Gedcom.PedegreeLinkageType type)
         {
             SetLinkageType(childXrefID, type, Gedcom.GedcomAdoptionType.HusbandAndWife);
         }
 
+        /// <summary>
+        /// Sets the type of the linkage.
+        /// </summary>
+        /// <param name="childXrefID">The child xref identifier.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="to">To.</param>
         public void SetLinkageType(string childXrefID, Gedcom.PedegreeLinkageType type, Gedcom.GedcomAdoptionType to)
         {
             Dictionary<string, PedegreeLinkageType> dict;
@@ -580,29 +697,29 @@ namespace GeneGenie.Gedcom
             switch (to)
             {
                 case Gedcom.GedcomAdoptionType.Husband:
-                    if (_husbLinkageTypes == null)
+                    if (husbLinkageTypes == null)
                     {
-                        _husbLinkageTypes = new Dictionary<string,PedegreeLinkageType>();
+                        husbLinkageTypes = new Dictionary<string, PedegreeLinkageType>();
                     }
 
-                    dict = _husbLinkageTypes;
+                    dict = husbLinkageTypes;
                     break;
                 case Gedcom.GedcomAdoptionType.Wife:
-                    if (_wifeLinkageTypes == null)
+                    if (wifeLinkageTypes == null)
                     {
-                        _wifeLinkageTypes = new Dictionary<string,PedegreeLinkageType>();
+                        wifeLinkageTypes = new Dictionary<string, PedegreeLinkageType>();
                     }
 
-                    dict = _wifeLinkageTypes;
+                    dict = wifeLinkageTypes;
                     break;
                 case Gedcom.GedcomAdoptionType.HusbandAndWife:
                 default:
-                    if (_linkageTypes == null)
+                    if (linkageTypes == null)
                     {
-                        _linkageTypes = new Dictionary<string,PedegreeLinkageType>();
+                        linkageTypes = new Dictionary<string, PedegreeLinkageType>();
                     }
 
-                    dict = _linkageTypes;
+                    dict = linkageTypes;
                     break;
             }
 
@@ -616,108 +733,127 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets the type of the husband linkage.
+        /// </summary>
+        /// <param name="childXrefID">The child xref identifier.</param>
+        /// <returns>TODO: Doc</returns>
         public Gedcom.PedegreeLinkageType GetHusbandLinkageType(string childXrefID)
         {
             Gedcom.PedegreeLinkageType ret = Gedcom.PedegreeLinkageType.Unknown;
 
-            if (_husbLinkageTypes != null && _husbLinkageTypes.ContainsKey(childXrefID))
+            if (husbLinkageTypes != null && husbLinkageTypes.ContainsKey(childXrefID))
             {
-                ret = _husbLinkageTypes[childXrefID];
+                ret = husbLinkageTypes[childXrefID];
             }
             else
             {
-                GedcomIndividualRecord child = (GedcomIndividualRecord)_database[childXrefID];
+                GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childXrefID];
                 if (child != null)
                 {
                     GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(_XrefID, out link))
+                    if (child.ChildInFamily(XrefId, out link))
                     {
                         ret = link.FatherPedigree;
                     }
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("Child " + childXrefID + " is not in family " +
-                                                           _XrefID + " in GetLinkageType");
+                                                           XrefId + " in GetLinkageType");
                     }
                 }
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Attempt to GetLinkageType of unknown child " +
-                                                       childXrefID + " in " + _XrefID);
+                                                       childXrefID + " in " + XrefId);
                 }
             }
 
             return ret;
         }
 
+        /// <summary>
+        /// Gets the type of the wife linkage.
+        /// </summary>
+        /// <param name="childXrefID">The child xref identifier.</param>
+        /// <returns>TODO: Doc</returns>
         public Gedcom.PedegreeLinkageType GetWifeLinkageType(string childXrefID)
         {
             Gedcom.PedegreeLinkageType ret = Gedcom.PedegreeLinkageType.Unknown;
 
-            if (_wifeLinkageTypes != null && _wifeLinkageTypes.ContainsKey(childXrefID))
+            if (wifeLinkageTypes != null && wifeLinkageTypes.ContainsKey(childXrefID))
             {
-                ret = _wifeLinkageTypes[childXrefID];
+                ret = wifeLinkageTypes[childXrefID];
             }
             else
             {
-                GedcomIndividualRecord child = (GedcomIndividualRecord)_database[childXrefID];
+                GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childXrefID];
                 if (child != null)
                 {
                     GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(_XrefID, out link))
+                    if (child.ChildInFamily(XrefId, out link))
                     {
                         ret = link.MotherPedigree;
                     }
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("Child " + childXrefID + " is not in family " +
-                                                           _XrefID + " in GetLinkageType");
+                                                           XrefId + " in GetLinkageType");
                     }
                 }
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Attempt to GetLinkageType of unknown child " +
-                                                       childXrefID + " in " + _XrefID);
+                                                       childXrefID + " in " + XrefId);
                 }
             }
 
             return ret;
         }
 
+        /// <summary>
+        /// Gets the type of the linkage.
+        /// </summary>
+        /// <param name="childXrefID">The child xref identifier.</param>
+        /// <returns>TODO: Doc</returns>
         public Gedcom.PedegreeLinkageType GetLinkageType(string childXrefID)
         {
             Gedcom.PedegreeLinkageType ret = Gedcom.PedegreeLinkageType.Unknown;
 
-            if (_linkageTypes != null && _linkageTypes.ContainsKey(childXrefID))
+            if (linkageTypes != null && linkageTypes.ContainsKey(childXrefID))
             {
-                ret = _linkageTypes[childXrefID];
+                ret = linkageTypes[childXrefID];
             }
             else
             {
-                GedcomIndividualRecord child = (GedcomIndividualRecord)_database[childXrefID];
+                GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childXrefID];
                 if (child != null)
                 {
                     GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(_XrefID, out link))
+                    if (child.ChildInFamily(XrefId, out link))
                     {
                         ret = link.Pedigree;
                     }
                     else
                     {
                         System.Diagnostics.Debug.WriteLine("Child " + childXrefID + " is not in family " +
-                                                           _XrefID + " in GetLinkageType");
+                                                           XrefId + " in GetLinkageType");
                     }
                 }
                 else
                 {
                     System.Diagnostics.Debug.WriteLine("Attempt to GetLinkageType of unknown child " +
-                                                       childXrefID + " in " + _XrefID);
+                                                       childXrefID + " in " + XrefId);
                 }
             }
 
             return ret;
         }
 
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -732,7 +868,7 @@ namespace GeneGenie.Gedcom
 
             if (!string.IsNullOrEmpty(Husband))
             {
-                GedcomIndividualRecord husb = _database[Husband] as GedcomIndividualRecord;
+                GedcomIndividualRecord husb = Database[Husband] as GedcomIndividualRecord;
                 if (husb != null)
                 {
                     node = doc.CreateElement("HusbFath");
@@ -759,7 +895,7 @@ namespace GeneGenie.Gedcom
 
             if (!string.IsNullOrEmpty(Wife))
             {
-                GedcomIndividualRecord wife = _database[Wife] as GedcomIndividualRecord;
+                GedcomIndividualRecord wife = Database[Wife] as GedcomIndividualRecord;
                 if (wife != null)
                 {
                     node = doc.CreateElement("WifeMoth");
@@ -786,7 +922,7 @@ namespace GeneGenie.Gedcom
 
             foreach (string child in Children)
             {
-                GedcomIndividualRecord indi = _database[child] as GedcomIndividualRecord;
+                GedcomIndividualRecord indi = Database[child] as GedcomIndividualRecord;
                 if (indi != null)
                 {
                     node = doc.CreateElement("Child");
@@ -803,7 +939,7 @@ namespace GeneGenie.Gedcom
 
                     node.AppendChild(linkNode);
 
-                    // FIXME: add in <ChildNbr>
+                    // TODO: add in <ChildNbr>
                     GedcomFamilyLink link = null;
 
                     if (indi.ChildInFamily(XRefID, out link))
@@ -895,6 +1031,10 @@ namespace GeneGenie.Gedcom
             root.AppendChild(famNode);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);
@@ -909,33 +1049,33 @@ namespace GeneGenie.Gedcom
                 sw.Write(RestrictionNotice.ToString().ToLower());
             }
 
-            foreach (GedcomFamilyEvent familyEvent in _Events)
+            foreach (GedcomFamilyEvent familyEvent in events)
             {
                 familyEvent.Output(sw);
             }
 
-            if (!string.IsNullOrEmpty(_Husband))
+            if (!string.IsNullOrEmpty(husband))
             {
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" HUSB ");
                 sw.Write("@");
-                sw.Write(_Husband);
+                sw.Write(husband);
                 sw.Write("@");
             }
 
-            if (!string.IsNullOrEmpty(_Wife))
+            if (!string.IsNullOrEmpty(wife))
             {
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" WIFE ");
                 sw.Write("@");
-                sw.Write(_Wife);
+                sw.Write(wife);
                 sw.Write("@");
             }
 
             string levelPlusTwo = Util.IntToString(Level + 2);
-            foreach (string childID in _Children)
+            foreach (string childID in children)
             {
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
@@ -944,13 +1084,13 @@ namespace GeneGenie.Gedcom
                 sw.Write(childID);
                 sw.Write("@");
 
-                GedcomIndividualRecord child = (GedcomIndividualRecord)_database[childID];
+                GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childID];
                 if (child != null)
                 {
                     // only output _FREL / _MREL value here,
                     // real PEDI goes on the FAMC on the INDI tag
                     GedcomFamilyLink link = null;
-                    if (child.ChildInFamily(_XrefID, out link))
+                    if (child.ChildInFamily(XrefId, out link))
                     {
                         switch (link.Pedigree)
                         {
@@ -968,26 +1108,26 @@ namespace GeneGenie.Gedcom
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Missing child linkage for " + childID + " to family " + _XrefID);
+                        System.Diagnostics.Debug.WriteLine("Missing child linkage for " + childID + " to family " + XrefId);
                     }
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Missing child " + childID + " when outputting family " + _XrefID);
+                    System.Diagnostics.Debug.WriteLine("Missing child " + childID + " when outputting family " + XrefId);
                 }
             }
 
-            if (_NumberOfChildren != 0)
+            if (numberOfChildren != 0)
             {
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" NCHI ");
                 sw.Write("@");
-                sw.Write(Util.IntToString(_NumberOfChildren));
+                sw.Write(Util.IntToString(numberOfChildren));
                 sw.Write("@");
             }
 
-            if (_SubmitterRecords != null)
+            if (submitterRecords != null)
             {
                 foreach (string submitter in SubmitterRecords)
                 {

@@ -51,7 +51,7 @@ namespace Utility
 				}
 				else
 				{
-					// FIXME: arbitrary delta
+					// TODO: arbitrary delta
 					const int delta = 5;
 					
 					if (a.Year >= b.Year - delta && a.Year <= b.Year + delta)
@@ -70,7 +70,7 @@ namespace Utility
 				}
 				else
 				{
-					// FIXME: what delta should we check for?
+					// TODO: what delta should we check for?
 				}
 				
 				if (a.Day == b.Day)
@@ -79,7 +79,7 @@ namespace Utility
 				}
 				else
 				{
-					// FIXME: what delta should we check for?
+					// TODO: what delta should we check for?
 				}
 				
 				// date formats may differ

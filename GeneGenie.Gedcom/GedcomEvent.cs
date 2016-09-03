@@ -27,35 +27,10 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Defines a generic event or fact
     /// </summary>
-    public class GedcomEvent : GedcomRecord,  IComparable
+    public class GedcomEvent : GedcomRecord, IComparable
     {
-        /// <summary>
-        /// TODO: Doc
-        /// </summary>
-        protected GedcomEventType eventType;
-
-        protected string eventName;
-
-        protected string _Classification;
-
-        protected GedcomDate _Date;
-
-        protected GedcomPlace _Place;
-        protected GedcomAddress _Address;
-
-        protected string _ResponsibleAgency;
-        protected string _ReligiousAffiliation;
-        protected string _Cause;
-
-        protected GedcomCertainty _Certainty = GedcomCertainty.Unknown;
-
-        protected GedcomRecord _Record;
-
-        // used for Gedcom 6 XML output
-        protected string _EventXRefID;
-
         private static string[] typeStrings = new string[]
-        {
+      {
             "EVEN",
 
             // Family Events
@@ -113,7 +88,7 @@ namespace GeneGenie.Gedcom
 
             // GEDCOM allows custom records, beginging with _
             "_UNKN"
-        };
+      };
 
         private static List<string> typeDescriptions = new List<string>()
         {
@@ -156,7 +131,7 @@ namespace GeneGenie.Gedcom
             "Physical Description",
             "Education",
             "Identification Number",
-            "Nationaility",
+            "Nationality",
             "Number of Children",
             "Number of Marriages",
             "Occupation",
@@ -168,22 +143,103 @@ namespace GeneGenie.Gedcom
             "Custom"
         };
 
+        /// <summary>
+        /// TODO: Doc
+        /// </summary>
+        private GedcomEventType eventType;
+
+        /// <summary>
+        /// The classification
+        /// </summary>
+        private string classification;
+
+        /// <summary>
+        /// The certainty
+        /// </summary>
+        private GedcomCertainty certainty = GedcomCertainty.Unknown;
+
+        /// <summary>
+        /// The record
+        /// </summary>
+        private GedcomRecord record;
+
+        /// <summary>
+        /// Used for Gedcom 6 XML output
+        /// </summary>
+        private string eventXRefID;
+
+        /// <summary>
+        /// The event name
+        /// </summary>
+        private string eventName;
+
+        /// <summary>
+        /// The date
+        /// </summary>
+        private GedcomDate date;
+
+        /// <summary>
+        /// The place
+        /// </summary>
+        private GedcomPlace place;
+
+        /// <summary>
+        /// The address
+        /// </summary>
+        private GedcomAddress address;
+
+        /// <summary>
+        /// The responsible agency
+        /// </summary>
+        private string responsibleAgency;
+
+        /// <summary>
+        /// The religious affiliation
+        /// </summary>
+        private string religiousAffiliation;
+
+        /// <summary>
+        /// The cause
+        /// </summary>
+        private string cause;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomEvent"/> class.
+        /// </summary>
         public GedcomEvent()
         {
             // default event type is generic, need to set event name
             // or it will not be set if the record actually is a generic event
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Event; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return GedcomEvent.TypeToTag(EventType); }
         }
 
+        /// <summary>
+        /// Gets or sets the type of the event.
+        /// </summary>
+        /// <value>
+        /// The type of the event.
+        /// </value>
         public GedcomEventType EventType
         {
             get
@@ -201,6 +257,12 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the event.
+        /// </summary>
+        /// <value>
+        /// The name of the event.
+        /// </value>
         public string EventName
         {
             get
@@ -218,176 +280,242 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the classification.
+        /// </summary>
+        /// <value>
+        /// The classification.
+        /// </value>
         public string Classification
         {
             get
             {
-                return _Classification;
+                return classification;
             }
 
             set
             {
-                if (value != _Classification)
+                if (value != classification)
                 {
-                    _Classification = value;
+                    classification = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the date.
+        /// </summary>
+        /// <value>
+        /// The date.
+        /// </value>
         public GedcomDate Date
         {
             get
             {
-                return _Date;
+                return date;
             }
 
             set
             {
-                if (value != _Date)
+                if (value != date)
                 {
-                    _Date = value;
+                    date = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the place.
+        /// </summary>
+        /// <value>
+        /// The place.
+        /// </value>
         public GedcomPlace Place
         {
             get
             {
-                return _Place;
+                return place;
             }
 
             set
             {
-                if (value != _Place)
+                if (value != place)
                 {
-                    _Place = value;
+                    place = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
         public GedcomAddress Address
         {
             get
             {
-                return _Address;
+                return address;
             }
 
             set
             {
-                if (value != _Address)
+                if (value != address)
                 {
-                    _Address = value;
+                    address = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the responsible agency.
+        /// </summary>
+        /// <value>
+        /// The responsible agency.
+        /// </value>
         public string ResponsibleAgency
         {
             get
             {
-                return _ResponsibleAgency;
+                return responsibleAgency;
             }
 
             set
             {
-                if (value != _ResponsibleAgency)
+                if (value != responsibleAgency)
                 {
-                    _ResponsibleAgency = value;
+                    responsibleAgency = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the religious affiliation.
+        /// </summary>
+        /// <value>
+        /// The religious affiliation.
+        /// </value>
         public string ReligiousAffiliation
         {
             get
             {
-                return _ReligiousAffiliation;
+                return religiousAffiliation;
             }
 
             set
             {
-                if (value != _ReligiousAffiliation)
+                if (value != religiousAffiliation)
                 {
-                    _ReligiousAffiliation = value;
+                    religiousAffiliation = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the cause.
+        /// </summary>
+        /// <value>
+        /// The cause.
+        /// </value>
         public string Cause
         {
             get
             {
-                return _Cause;
+                return cause;
             }
 
             set
             {
-                if (value != _Cause)
+                if (value != cause)
                 {
-                    _Cause = value;
+                    cause = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the certainty.
+        /// </summary>
+        /// <value>
+        /// The certainty.
+        /// </value>
         public GedcomCertainty Certainty
         {
             get
             {
-                return _Certainty;
+                return certainty;
             }
 
             set
             {
-                if (value != _Certainty)
+                if (value != certainty)
                 {
-                    _Certainty = value;
+                    certainty = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the event x reference identifier.
+        /// </summary>
+        /// <value>
+        /// The event x reference identifier.
+        /// </value>
         public string EventXRefID
         {
             get
             {
-                return _EventXRefID;
+                return eventXRefID;
             }
 
             set
             {
-                if (value != _EventXRefID)
+                if (value != eventXRefID)
                 {
-                    _EventXRefID = value;
+                    eventXRefID = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the record.
+        /// </summary>
+        /// <value>
+        /// The record.
+        /// </value>
         public GedcomRecord Record
         {
             get
             {
-                return _Record;
+                return record;
             }
 
             set
             {
-                if (value != _Record)
+                if (value != record)
                 {
-                    _Record = value;
+                    record = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -436,28 +564,31 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// 
+        /// Types to readable.
         /// </summary>
-        public override void Delete()
+        /// <param name="eventType">Type of the event.</param>
+        /// <returns>TODO: Doc</returns>
+        public static string TypeToReadable(GedcomEventType eventType)
         {
-            base.Delete();
-
-            if (_Date != null)
-            {
-                _Date.Delete();
-            }
-
-            if (_Place != null)
-            {
-                _Place.Delete();
-            }
+            return typeDescriptions[(int)eventType];
         }
 
-        public int CompareTo(object eventB)
+        /// <summary>
+        /// Types to tag.
+        /// </summary>
+        /// <param name="eventType">Type of the event.</param>
+        /// <returns>TODO: Doc</returns>
+        public static string TypeToTag(GedcomEventType eventType)
         {
-            return GedcomEvent.CompareByDate(this, (GedcomEvent)eventB);
+            return typeStrings[(int)eventType];
         }
 
+        /// <summary>
+        /// Compares the by date.
+        /// </summary>
+        /// <param name="eventA">The event a.</param>
+        /// <param name="eventB">The event b.</param>
+        /// <returns>TODO: Doc</returns>
         public static int CompareByDate(GedcomEvent eventA, GedcomEvent eventB)
         {
             int ret = -1;
@@ -495,22 +626,15 @@ namespace GeneGenie.Gedcom
             return ret;
         }
 
-        public static string TypeToTag(GedcomEventType eventType)
-        {
-            return typeStrings[(int)eventType];
-        }
-
-        public static string TypeToReadable(GedcomEventType eventType)
-        {
-            return typeDescriptions[(int)eventType];
-        }
-
         /// <summary>
         /// Attempts to determine a standard event type from a textual
         /// description.  Always returns GenericEvent if one can't be found
         /// even though where the string came from maybe a FACT
-        /// <param name="readable" />
         /// </summary>
+        /// <param name="readable">The type name as a string.</param>
+        /// <returns>
+        /// TODO: Doc
+        /// </returns>
         public static GedcomEventType ReadableToType(string readable)
         {
             GedcomEventType ret = GedcomEventType.GenericEvent;
@@ -524,6 +648,39 @@ namespace GeneGenie.Gedcom
             return ret;
         }
 
+        /// <summary>
+        /// Deletes this instance.
+        /// </summary>
+        public override void Delete()
+        {
+            base.Delete();
+
+            if (date != null)
+            {
+                date.Delete();
+            }
+
+            if (place != null)
+            {
+                place.Delete();
+            }
+        }
+
+        /// <summary>
+        /// Compares to.
+        /// </summary>
+        /// <param name="eventB">The event b.</param>
+        /// <returns>TODO: Doc</returns>
+        public int CompareTo(object eventB)
+        {
+            return GedcomEvent.CompareByDate(this, (GedcomEvent)eventB);
+        }
+
+        /// <summary>
+        /// Determines whether the specified ev is match.
+        /// </summary>
+        /// <param name="ev">The ev.</param>
+        /// <returns>TODO: Doc</returns>
         public float IsMatch(GedcomEvent ev)
         {
             float match = 0F;
@@ -561,6 +718,10 @@ namespace GeneGenie.Gedcom
             return match;
         }
 
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -577,7 +738,7 @@ namespace GeneGenie.Gedcom
             attr.Value = GedcomEvent.TypeToReadable(EventType);
             eventNode.Attributes.Append(attr);
 
-            // FIXME: VitalType attribute
+            // TODO: VitalType attribute
             // (marriage | befmarriage | aftmarriage |
             // birth | befbirth | aftbirth |
             // death | befdeath | aftdeath)
@@ -586,14 +747,14 @@ namespace GeneGenie.Gedcom
                 GedcomFamilyEvent famEvent = this as GedcomFamilyEvent;
                 GedcomFamilyRecord family = famEvent.FamRecord;
 
-                // FIXME: <Participant>s
+                // TODO: <Participant>s
                 // probably not right, but always stick husband/wife in as
                 // participants
                 bool added = false;
 
                 if (!string.IsNullOrEmpty(family.Husband))
                 {
-                    GedcomIndividualRecord husb = _database[family.Husband] as GedcomIndividualRecord;
+                    GedcomIndividualRecord husb = Database[family.Husband] as GedcomIndividualRecord;
                     if (husb != null)
                     {
                         node = doc.CreateElement("Participant");
@@ -621,7 +782,7 @@ namespace GeneGenie.Gedcom
 
                 if (!string.IsNullOrEmpty(family.Wife))
                 {
-                    GedcomIndividualRecord wife = _database[family.Wife] as GedcomIndividualRecord;
+                    GedcomIndividualRecord wife = Database[family.Wife] as GedcomIndividualRecord;
                     if (wife != null)
                     {
                         node = doc.CreateElement("Participant");
@@ -649,7 +810,7 @@ namespace GeneGenie.Gedcom
 
                 if (!added)
                 {
-                    // FIXME: no husband or wife now what?  XML will be invalid
+                    // TODO: no husband or wife now what?  XML will be invalid
                     // without a participant
                 }
             }
@@ -709,6 +870,10 @@ namespace GeneGenie.Gedcom
             root.AppendChild(eventNode);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
@@ -727,7 +892,7 @@ namespace GeneGenie.Gedcom
 
             string levelPlusOne = null;
 
-            if (!string.IsNullOrEmpty(_Classification))
+            if (!string.IsNullOrEmpty(classification))
             {
                 if (levelPlusOne == null)
                 {
@@ -737,25 +902,25 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" TYPE ");
-                sw.Write(_Classification);
+                sw.Write(classification);
             }
 
-            if (_Date != null)
+            if (date != null)
             {
-                _Date.Output(sw);
+                date.Output(sw);
             }
 
-            if (_Place != null)
+            if (place != null)
             {
-                _Place.Output(sw);
+                place.Output(sw);
             }
 
-            if (_Address != null)
+            if (address != null)
             {
-                _Address.Output(sw, Level + 1);
+                address.Output(sw, Level + 1);
             }
 
-            if (!string.IsNullOrEmpty(_ResponsibleAgency))
+            if (!string.IsNullOrEmpty(responsibleAgency))
             {
                 if (levelPlusOne == null)
                 {
@@ -765,11 +930,11 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" AGNC ");
-                string line = _ResponsibleAgency.Replace("@", "@@");
+                string line = responsibleAgency.Replace("@", "@@");
                 sw.Write(line);
             }
 
-            if (!string.IsNullOrEmpty(_ReligiousAffiliation))
+            if (!string.IsNullOrEmpty(religiousAffiliation))
             {
                 if (levelPlusOne == null)
                 {
@@ -779,11 +944,11 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" RELI ");
-                string line = _ReligiousAffiliation.Replace("@", "@@");
+                string line = religiousAffiliation.Replace("@", "@@");
                 sw.Write(line);
             }
 
-            if (!string.IsNullOrEmpty(_Cause))
+            if (!string.IsNullOrEmpty(cause))
             {
                 if (levelPlusOne == null)
                 {
@@ -793,11 +958,11 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" CAUS ");
-                string line = _Cause.Replace("@", "@@");
+                string line = cause.Replace("@", "@@");
                 sw.Write(line);
             }
 
-            if (_RestrictionNotice != GedcomRestrictionNotice.None)
+            if (RestrictionNotice != GedcomRestrictionNotice.None)
             {
                 if (levelPlusOne == null)
                 {
@@ -807,7 +972,7 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" RESN ");
-                sw.Write(_RestrictionNotice.ToString());
+                sw.Write(RestrictionNotice.ToString());
             }
 
             // Quality of data should only be on source citations according to

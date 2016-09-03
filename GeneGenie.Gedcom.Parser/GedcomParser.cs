@@ -401,7 +401,7 @@ namespace GeneGenie.Gedcom.Parser
 
         private static bool IsAlpha(char c)
         {
-            return (Char.IsLetter(c) || c == '_');
+            return (char.IsLetter(c) || c == '_');
         }
 
         private static bool IsDelim(char c)
@@ -411,7 +411,7 @@ namespace GeneGenie.Gedcom.Parser
 
         private static bool IsDigit(char c)
         {
-            return (Char.IsDigit(c));
+            return (char.IsDigit(c));
         }
 
         private static bool IsAlphaNum(char c)
@@ -557,7 +557,7 @@ namespace GeneGenie.Gedcom.Parser
                         }
                         i++;
                     }
-                    // FIXME: strictly speaking this is an error if
+                    // TODO: strictly speaking this is an error if
                     // this condition isn't met
                     if (i < data.Length && data[i] == '@')
                     {
@@ -908,7 +908,7 @@ namespace GeneGenie.Gedcom.Parser
                                     }
                                     i = temp;
                                 }
-                                // FIXME: no line value, but have hit the terminator
+                                // TODO: no line value, but have hit the terminator
                                 // what should this be allowed for?
                                 // Family Tree Maker outputs emtpy CONT (and CONC?)
                                 else if (_Tag == "CONT" || _Tag == "CONC")

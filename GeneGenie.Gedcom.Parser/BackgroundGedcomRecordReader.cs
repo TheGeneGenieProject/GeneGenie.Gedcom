@@ -112,14 +112,14 @@ namespace GeneGenie.Gedcom.Parser
 		{
 			_worker.RunWorkerAsync();
 		}
-		
-		/// <summary>
-		/// Start reading the given GEDCOM file
-		/// </summary>
-		/// <param name="gedcomFile">
-		/// A <see cref="System.String"/>
-		/// </param>
-		public new void ReadGedcom(string gedcomFile)
+
+        /// <summary>
+        /// Start reading the given GEDCOM file
+        /// </summary>
+        /// <param name="gedcomFile">
+        /// A <see cref="string"/>
+        /// </param>
+        public new void ReadGedcom(string gedcomFile)
 		{
 			_worker.RunWorkerAsync(gedcomFile);
 		}

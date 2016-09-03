@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomIndividualEvent.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomIndividualEvent.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -30,92 +28,127 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomIndividualEvent : GedcomEvent
     {
-        private GedcomAge _Age;
-        private string _Famc;
+        private GedcomAge age;
+        private string famc;
 
-        private GedcomAdoptionType _AdoptedBy;
+        private GedcomAdoptionType adoptedBy;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomIndividualEvent"/> class.
+        /// </summary>
         public GedcomIndividualEvent()
         {
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.IndividualEvent; }
         }
 
+        /// <summary>
+        /// Gets or sets the age.
+        /// </summary>
+        /// <value>
+        /// The age.
+        /// </value>
         public GedcomAge Age
         {
             get
             {
-                return _Age;
+                return age;
             }
 
             set
             {
-                if (value != _Age)
+                if (value != age)
                 {
-                    _Age = value;
+                    age = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the famc.
+        /// </summary>
+        /// <value>
+        /// The famc.
+        /// </value>
         public string Famc
         {
             get
             {
-                return _Famc;
+                return famc;
             }
 
             set
             {
-                if (value != _Famc)
+                if (value != famc)
                 {
-                    _Famc = value;
+                    famc = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the adopted by.
+        /// </summary>
+        /// <value>
+        /// The adopted by.
+        /// </value>
         public GedcomAdoptionType AdoptedBy
         {
             get
             {
-                return _AdoptedBy;
+                return adoptedBy;
             }
 
             set
             {
-                if (value != _AdoptedBy)
+                if (value != adoptedBy)
                 {
-                    _AdoptedBy = value;
+                    adoptedBy = value;
                     Changed();
                 }
             }
         }
 
         // util backpointer to the individual for this event
+
+        /// <summary>
+        /// Gets or sets the indi record.
+        /// </summary>
+        /// <value>
+        /// The indi record.
+        /// </value>
+        /// <exception cref="Exception">Must set a GedcomIndividualRecord on a GedcomIndividualEvent</exception>
         public GedcomIndividualRecord IndiRecord
         {
             get
             {
-                return (GedcomIndividualRecord)_Record;
+                return (GedcomIndividualRecord)Record;
             }
 
             set
             {
-                if (value != _Record)
+                if (value != Record)
                 {
-                    _Record = value;
-                    if (_Record != null)
+                    Record = value;
+                    if (Record != null)
                     {
-                        if (_Record.RecordType != GedcomRecordType.Individual)
+                        if (Record.RecordType != GedcomRecordType.Individual)
                         {
                             throw new Exception("Must set a GedcomIndividualRecord on a GedcomIndividualEvent");
                         }
 
-                        Database = _Record.Database;
+                        Database = Record.Database;
                     }
                     else
                     {
@@ -127,15 +160,21 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (_Age != null)
+                if (age != null)
                 {
-                    childChangeDate = _Age.ChangeDate;
+                    childChangeDate = age.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
@@ -156,6 +195,10 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Generates the pers information XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
         public void GeneratePersInfoXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -174,16 +217,16 @@ namespace GeneGenie.Gedcom
             }
             else
             {
-                type = TypeToReadable(eventType);
+                type = TypeToReadable(EventType);
             }
 
             attr.Value = type;
             persInfoNode.Attributes.Append(attr);
 
-            if (!string.IsNullOrEmpty(_Classification))
+            if (!string.IsNullOrEmpty(Classification))
             {
                 node = doc.CreateElement("Information");
-                node.AppendChild(doc.CreateTextNode(_Classification));
+                node.AppendChild(doc.CreateTextNode(Classification));
                 persInfoNode.AppendChild(node);
             }
 
@@ -204,6 +247,10 @@ namespace GeneGenie.Gedcom
             root.AppendChild(persInfoNode);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

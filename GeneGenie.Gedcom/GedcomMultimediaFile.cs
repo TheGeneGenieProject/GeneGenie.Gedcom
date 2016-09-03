@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomMultimediaFile.cs 183 2008-06-08 15:31:15Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomMultimediaFile.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -28,105 +26,140 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomMultimediaFile
     {
-        private GedcomDatabase _database;
+        private GedcomDatabase database;
 
-        private string _Filename;
-        private string _Format;
-        private string _SourceMediaType;
+        private string filename;
+        private string format;
+        private string sourceMediaType;
 
-        private GedcomChangeDate _ChangeDate;
+        private GedcomChangeDate changeDate;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomMultimediaFile"/> class.
+        /// </summary>
         public GedcomMultimediaFile()
         {
         }
 
+        /// <summary>
+        /// Gets or sets the database.
+        /// </summary>
+        /// <value>
+        /// The database.
+        /// </value>
         public GedcomDatabase Database
         {
-            get { return _database; }
-            set { _database = value; }
+            get { return database; }
+            set { database = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the filename.
+        /// </summary>
+        /// <value>
+        /// The filename.
+        /// </value>
         public string Filename
         {
             get
             {
-                return _Filename;
+                return filename;
             }
 
             set
             {
-                if (value != _Filename)
+                if (value != filename)
                 {
-                    _Filename = value;
+                    filename = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the format.
+        /// </summary>
+        /// <value>
+        /// The format.
+        /// </value>
         public string Format
         {
             get
             {
-                return _Format;
+                return format;
             }
 
             set
             {
-                if (value != _Format)
+                if (value != format)
                 {
-                    _Format = value;
+                    format = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the type of the source media.
+        /// </summary>
+        /// <value>
+        /// The type of the source media.
+        /// </value>
         public string SourceMediaType
         {
             get
             {
-                return _SourceMediaType;
+                return sourceMediaType;
             }
 
             set
             {
-                if (value != _SourceMediaType)
+                if (value != sourceMediaType)
                 {
-                    _SourceMediaType = value;
+                    sourceMediaType = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public GedcomChangeDate ChangeDate
         {
-            get { return _ChangeDate; }
-            set { _ChangeDate = value; }
+            get { return changeDate; }
+            set { changeDate = value; }
         }
 
+        /// <summary>
+        /// Changeds this instance.
+        /// </summary>
         protected virtual void Changed()
         {
-            if (_database == null)
+            if (database == null)
             {
-//              System.Console.WriteLine("Changed() called on record with no database set");
-//
-//              System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
-//              foreach (System.Diagnostics.StackFrame f in trace.GetFrames())
-//              {
-//                  System.Console.WriteLine(f);
-//              }
+                // System.Console.WriteLine("Changed() called on record with no database set");
+                //
+                // System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+                // foreach (System.Diagnostics.StackFrame f in trace.GetFrames())
+                // {
+                //     System.Console.WriteLine(f);
+                // }
             }
-            else if (!_database.Loading)
+            else if (!database.Loading)
             {
-                if (_ChangeDate == null)
+                if (changeDate == null)
                 {
-                    _ChangeDate = new GedcomChangeDate(_database);
-                    // FIXME: what level?
+                    changeDate = new GedcomChangeDate(database); // TODO: what level?
                 }
 
                 DateTime now = DateTime.Now;
 
-                _ChangeDate.Date1 = now.ToString("dd MMM yyyy");
-                _ChangeDate.Time = now.ToString("hh:mm:ss");
+                changeDate.Date1 = now.ToString("dd MMM yyyy");
+                changeDate.Time = now.ToString("hh:mm:ss");
             }
         }
     }

@@ -118,20 +118,20 @@ namespace GeneGenie.Gedcom.Parser
 		{
 			get { return _Database; }	
 		}
-		
-		
-		
-				
-		/// <summary>
-		/// Obtain the name of the parent GEDCOM tag
-		/// </summary>
-		/// <param name="level">
-		/// A <see cref="System.Int32"/>.  The level of the current tag
-		/// </param>
-		/// <returns>
-		/// A <see cref="System.String"/>.  The name of the parent GEDCOM tag.
-		/// </returns>
-		public string ParentTag(int level)
+
+
+
+
+        /// <summary>
+        /// Obtain the name of the parent GEDCOM tag
+        /// </summary>
+        /// <param name="level">
+        /// A <see cref="System.Int32"/>.  The level of the current tag
+        /// </param>
+        /// <returns>
+        /// A <see cref="string"/>.  The name of the parent GEDCOM tag.
+        /// </returns>
+        public string ParentTag(int level)
 		{
 			string ret = string.Empty;
 			

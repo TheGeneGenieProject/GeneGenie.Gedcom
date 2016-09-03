@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomSourceRecord.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomSourceRecord.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -26,27 +24,62 @@ namespace GeneGenie.Gedcom
     using System.Text;
     using System.Xml;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
+    /// <seealso cref="System.IComparable" />
     public class GedcomSourceRecord : GedcomRecord, IComparable
     {
-        private GedcomRecordList<GedcomRecordedEvent> _EventsRecorded;
+        /// <summary>
+        /// The events recorded
+        /// </summary>
+        private GedcomRecordList<GedcomRecordedEvent> eventsRecorded;
 
-        private string _Agency;
-        private GedcomRecordList<string> _DataNotes;
-        private string _Originator;
-        private string _Title;
-        private string _FiledBy;
-        private string _PublicationFacts;
-        private string _Text;
+        /// <summary>
+        /// The agency
+        /// </summary>
+        private string agency;
 
-        private GedcomRecordList<GedcomRepositoryCitation> _RepositoryCitations;
+        /// <summary>
+        /// The data notes
+        /// </summary>
+        private GedcomRecordList<string> dataNotes;
 
-        private GedcomRecordList<GedcomSourceCitation> _Citations;
+        /// <summary>
+        /// The originator
+        /// </summary>
+        private string originator;
 
-        // hacks
-        public StringBuilder OriginatorText;
-        public StringBuilder TitleText;
-        public StringBuilder PublicationText;
-        public StringBuilder TextText;
+        /// <summary>
+        /// The title
+        /// </summary>
+        private string title;
+
+        /// <summary>
+        /// The filed by
+        /// </summary>
+        private string filedBy;
+
+        /// <summary>
+        /// The publication facts
+        /// </summary>
+        private string publicationFacts;
+
+        /// <summary>
+        /// The text
+        /// </summary>
+        private string text;
+
+        /// <summary>
+        /// The repository citations
+        /// </summary>
+        private GedcomRecordList<GedcomRepositoryCitation> repositoryCitations;
+
+        /// <summary>
+        /// The citations
+        /// </summary>
+        private GedcomRecordList<GedcomSourceCitation> citations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSourceRecord"/> class.
@@ -58,7 +91,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomSourceRecord"/> class.
         /// </summary>
-        /// <param name="database"></param>
+        /// <param name="database">The database to associate with this record.</param>
         public GedcomSourceRecord(GedcomDatabase database)
             : this()
         {
@@ -82,174 +115,272 @@ namespace GeneGenie.Gedcom
             database.Add(XRefID, this);
         }
 
+        /// <summary>
+        /// Gets or sets the originator text. HACK
+        /// </summary>
+        public StringBuilder OriginatorText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title text.
+        /// </summary>
+        public StringBuilder TitleText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the publication text.
+        /// </summary>
+        public StringBuilder PublicationText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the text text. TODO: What?
+        /// </summary>
+        public StringBuilder TextText { get; set; }
+
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Source; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "SOUR"; }
         }
 
+        /// <summary>
+        /// Gets the events recorded.
+        /// </summary>
+        /// <value>
+        /// The events recorded.
+        /// </value>
         public GedcomRecordList<GedcomRecordedEvent> EventsRecorded
         {
             get
             {
-                if (_EventsRecorded == null)
+                if (eventsRecorded == null)
                 {
-                    _EventsRecorded = new GedcomRecordList<GedcomRecordedEvent>();
-                    _EventsRecorded.Changed += ListChanged;
+                    eventsRecorded = new GedcomRecordList<GedcomRecordedEvent>();
+                    eventsRecorded.Changed += ListChanged;
                 }
 
-                return _EventsRecorded;
+                return eventsRecorded;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the agency.
+        /// </summary>
+        /// <value>
+        /// The agency.
+        /// </value>
         public string Agency
         {
             get
             {
-                return _Agency;
+                return agency;
             }
 
             set
             {
-                if (value != _Agency)
+                if (value != agency)
                 {
-                    _Agency = value;
+                    agency = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the data notes.
+        /// </summary>
+        /// <value>
+        /// The data notes.
+        /// </value>
         public GedcomRecordList<string> DataNotes
         {
             get
             {
-                if (_DataNotes == null)
+                if (dataNotes == null)
                 {
-                    _DataNotes = new GedcomRecordList<string>();
-                    _DataNotes.Changed += ListChanged;
+                    dataNotes = new GedcomRecordList<string>();
+                    dataNotes.Changed += ListChanged;
                 }
 
-                return _DataNotes;
+                return dataNotes;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the originator.
+        /// </summary>
+        /// <value>
+        /// The originator.
+        /// </value>
         public string Originator
         {
             get
             {
-                return _Originator;
+                return originator;
             }
 
             set
             {
-                if (value != _Originator)
+                if (value != originator)
                 {
-                    _Originator = value;
+                    originator = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
         public string Title
         {
             get
             {
-                return _Title;
+                return title;
             }
 
             set
             {
-                if (value != _Title)
+                if (value != title)
                 {
-                    _Title = value;
+                    title = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the filed by.
+        /// </summary>
+        /// <value>
+        /// The filed by.
+        /// </value>
         public string FiledBy
         {
             get
             {
-                return _FiledBy;
+                return filedBy;
             }
 
             set
             {
-                if (value != _FiledBy)
+                if (value != filedBy)
                 {
-                    _FiledBy = value;
+                    filedBy = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the publication facts.
+        /// </summary>
+        /// <value>
+        /// The publication facts.
+        /// </value>
         public string PublicationFacts
         {
             get
             {
-                return _PublicationFacts;
+                return publicationFacts;
             }
 
             set
             {
-                if (value != _PublicationFacts)
+                if (value != publicationFacts)
                 {
-                    _PublicationFacts = value;
+                    publicationFacts = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
         public string Text
         {
             get
             {
-                return _Text;
+                return text;
             }
 
             set
             {
-                if (value != _Text)
+                if (value != text)
                 {
-                    _Text = value;
+                    text = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the repository citations.
+        /// </summary>
+        /// <value>
+        /// The repository citations.
+        /// </value>
         public GedcomRecordList<GedcomRepositoryCitation> RepositoryCitations
         {
             get
             {
-                if (_RepositoryCitations == null)
+                if (repositoryCitations == null)
                 {
-                    _RepositoryCitations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    _RepositoryCitations.Changed += ListChanged;
+                    repositoryCitations = new GedcomRecordList<GedcomRepositoryCitation>();
+                    repositoryCitations.Changed += ListChanged;
                 }
 
-                return _RepositoryCitations;
+                return repositoryCitations;
             }
         }
 
+        /// <summary>
+        /// Gets the citations.
+        /// </summary>
+        /// <value>
+        /// The citations.
+        /// </value>
         public GedcomRecordList<GedcomSourceCitation> Citations
         {
             get
             {
-                if (_Citations == null)
+                if (citations == null)
                 {
-                    _Citations = new GedcomRecordList<GedcomSourceCitation>();
-                    _Citations.Changed += ListChanged;
+                    citations = new GedcomRecordList<GedcomSourceCitation>();
+                    citations.Changed += ListChanged;
                 }
 
-                return _Citations;
+                return citations;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
@@ -274,9 +405,9 @@ namespace GeneGenie.Gedcom
                     }
                 }
 
-                if (_EventsRecorded != null)
+                if (EventsRecorded != null)
                 {
-                    foreach (GedcomRecordedEvent recEvent in _EventsRecorded)
+                    foreach (GedcomRecordedEvent recEvent in EventsRecorded)
                     {
                         childChangeDate = recEvent.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -300,31 +431,49 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Compares two source records.
+        /// </summary>
+        /// <param name="sourceA">The source a.</param>
+        /// <param name="sourceB">The source b.</param>
+        /// <returns>TODO: Doc</returns>
+        public static int CompareByTitle(GedcomSourceRecord sourceA, GedcomSourceRecord sourceB)
+        {
+            return string.Compare(sourceA.Title, sourceB.Title);
+        }
+
+        /// <summary>
+        /// Compares this instance of a source record against the passed one.
+        /// </summary>
+        /// <param name="sourceB">The source b.</param>
+        /// <returns>TODO: Doc</returns>
         public int CompareTo(object sourceB)
         {
             return GedcomSourceRecord.CompareByTitle(this, (GedcomSourceRecord)sourceB);
         }
 
+        /// <summary>
+        /// Deletes this instance.
+        /// </summary>
         public override void Delete()
         {
             // deleting a source should be done by first deleting any citations
             // which reference it
             base.Delete();
 
-            if (_RepositoryCitations != null && _refCount == 0)
+            if (RepositoryCitations != null && RefCount == 0)
             {
-                foreach (GedcomRepositoryCitation citation in _RepositoryCitations)
+                foreach (GedcomRepositoryCitation citation in RepositoryCitations)
                 {
                     citation.Delete();
                 }
             }
         }
 
-        public static int CompareByTitle(GedcomSourceRecord sourceA, GedcomSourceRecord sourceB)
-        {
-            return string.Compare(sourceA.Title, sourceB.Title);
-        }
-
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -335,14 +484,14 @@ namespace GeneGenie.Gedcom
             attr = doc.CreateAttribute("Id");
             attr.Value = XRefID;
 
-            // FIXME: Type attribute, GEDCOM 6 mapping problem, Type
+            // TODO: Type attribute, GEDCOM 6 mapping problem, Type
             // appears to be a media type, but that is held in the repo citations
             // even worse is that there can be multiple media types per citation
             node.Attributes.Append(attr);
 
-            if (_RepositoryCitations != null)
+            if (RepositoryCitations != null)
             {
-                foreach (GedcomRepositoryCitation citation in _RepositoryCitations)
+                foreach (GedcomRepositoryCitation citation in RepositoryCitations)
                 {
                     // GEDCOM 6 doesn't map well, <Repository> only allows
                     // a single CallNo, but GEDCOM 5.5 can have multiple per citation,
@@ -355,31 +504,31 @@ namespace GeneGenie.Gedcom
             }
 
             XmlNode titleNode = doc.CreateElement("Title");
-            if (!string.IsNullOrEmpty(_Title))
+            if (!string.IsNullOrEmpty(Title))
             {
-                titleNode.AppendChild(doc.CreateTextNode(_Title));
+                titleNode.AppendChild(doc.CreateTextNode(Title));
             }
 
             node.AppendChild(titleNode);
 
-            if (!string.IsNullOrEmpty(_Text))
+            if (!string.IsNullOrEmpty(Text))
             {
                 XmlNode articleNode = doc.CreateElement("Article");
-                articleNode.AppendChild(doc.CreateTextNode(_Text));
+                articleNode.AppendChild(doc.CreateTextNode(Text));
                 node.AppendChild(articleNode);
             }
 
-            if (!string.IsNullOrEmpty(_Originator))
+            if (!string.IsNullOrEmpty(Originator))
             {
                 XmlNode authorNode = doc.CreateElement("Author");
-                authorNode.AppendChild(doc.CreateTextNode(_Originator));
+                authorNode.AppendChild(doc.CreateTextNode(Originator));
                 node.AppendChild(authorNode);
             }
 
-            if (!string.IsNullOrEmpty(_PublicationFacts))
+            if (!string.IsNullOrEmpty(PublicationFacts))
             {
                 XmlNode publishingNode = doc.CreateElement("Publishing");
-                publishingNode.AppendChild(doc.CreateTextNode(_PublicationFacts));
+                publishingNode.AppendChild(doc.CreateTextNode(PublicationFacts));
                 node.AppendChild(publishingNode);
             }
 
@@ -389,6 +538,10 @@ namespace GeneGenie.Gedcom
             root.AppendChild(node);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);
@@ -397,7 +550,7 @@ namespace GeneGenie.Gedcom
             string levelPlusTwo = null;
 
             if (!string.IsNullOrEmpty(Agency) ||
-                (_DataNotes != null && DataNotes.Count > 0) ||
+                (DataNotes != null && DataNotes.Count > 0) ||
                 EventsRecorded.Count > 0)
             {
                 if (levelPlusOne == null)
@@ -423,7 +576,7 @@ namespace GeneGenie.Gedcom
                     sw.Write(line);
                 }
 
-                if (_DataNotes != null)
+                if (DataNotes != null)
                 {
                     if (levelPlusTwo == null)
                     {
@@ -441,7 +594,7 @@ namespace GeneGenie.Gedcom
                     }
                 }
 
-                if (_EventsRecorded != null && EventsRecorded.Count > 0)
+                if (EventsRecorded != null && EventsRecorded.Count > 0)
                 {
                     if (levelPlusTwo == null)
                     {
@@ -479,7 +632,7 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            if (!string.IsNullOrEmpty(_Originator))
+            if (!string.IsNullOrEmpty(Originator))
             {
                 if (levelPlusOne == null)
                 {
@@ -489,10 +642,10 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" AUTH ");
-                Util.SplitLineText(sw, _Originator, Level + 1, 248);
+                Util.SplitLineText(sw, Originator, Level + 1, 248);
             }
 
-            if (!string.IsNullOrEmpty(_Title))
+            if (!string.IsNullOrEmpty(Title))
             {
                 if (levelPlusOne == null)
                 {
@@ -502,10 +655,10 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" TITL ");
-                Util.SplitLineText(sw, _Title, Level + 1, 248);
+                Util.SplitLineText(sw, Title, Level + 1, 248);
             }
 
-            if (!string.IsNullOrEmpty(_FiledBy))
+            if (!string.IsNullOrEmpty(FiledBy))
             {
                 if (levelPlusOne == null)
                 {
@@ -515,10 +668,10 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" ABBR ");
-                Util.SplitLineText(sw, _FiledBy, Level + 1, 60, 1, true);
+                Util.SplitLineText(sw, FiledBy, Level + 1, 60, 1, true);
             }
 
-            if (!string.IsNullOrEmpty(_PublicationFacts))
+            if (!string.IsNullOrEmpty(PublicationFacts))
             {
                 if (levelPlusOne == null)
                 {
@@ -528,10 +681,10 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" PUBL ");
-                Util.SplitLineText(sw, _PublicationFacts, Level + 1, 248);
+                Util.SplitLineText(sw, PublicationFacts, Level + 1, 248);
             }
 
-            if (!string.IsNullOrEmpty(_Text))
+            if (!string.IsNullOrEmpty(Text))
             {
                 if (levelPlusOne == null)
                 {
@@ -541,10 +694,10 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" TEXT ");
-                Util.SplitLineText(sw, _Text, Level + 1, 248);
+                Util.SplitLineText(sw, Text, Level + 1, 248);
             }
 
-            if (_RepositoryCitations != null)
+            if (RepositoryCitations != null)
             {
                 foreach (GedcomRepositoryCitation citation in RepositoryCitations)
                 {

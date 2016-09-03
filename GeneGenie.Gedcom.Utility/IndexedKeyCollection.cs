@@ -110,7 +110,7 @@ namespace Utility
 			int j = _strings.Count - 1;
 
 			// trim leading white space
-			while (length > 0 && (Char.IsWhiteSpace(str[startIndex])))
+			while (length > 0 && (char.IsWhiteSpace(str[startIndex])))
 			{
 				startIndex ++;
 				length --;
@@ -137,7 +137,7 @@ namespace Utility
 							bool whiteSpace = true;
 							while(k < length)
 							{
-								if (!Char.IsWhiteSpace(str[startIndex + k]))
+								if (!char.IsWhiteSpace(str[startIndex + k]))
 								{
 									whiteSpace = false;
 									break;

@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomRepositoryCitation.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomRepositoryCitation.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -25,102 +23,154 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Xml;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
     public class GedcomRepositoryCitation : GedcomRecord
     {
-        private string _Repository;
+        private string repository;
 
-        private GedcomRecordList<string> _CallNumbers;
-        private GedcomRecordList<SourceMediaType> _MediaTypes;
+        private GedcomRecordList<string> callNumbers;
+        private GedcomRecordList<SourceMediaType> mediaTypes;
 
         // This is a hack for broken GEDCOM files that misuse MEDI
-        private GedcomRecordList<string> _OtherMediaTypes;
+        private GedcomRecordList<string> otherMediaTypes;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomRepositoryCitation"/> class.
+        /// </summary>
         public GedcomRepositoryCitation()
         {
-            _CallNumbers = new GedcomRecordList<string>();
-            _CallNumbers.Changed += ListChanged;
+            callNumbers = new GedcomRecordList<string>();
+            callNumbers.Changed += ListChanged;
 
-            _MediaTypes = new GedcomRecordList<SourceMediaType>();
-            _MediaTypes.Changed += ListChanged;
+            mediaTypes = new GedcomRecordList<SourceMediaType>();
+            mediaTypes.Changed += ListChanged;
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.RepositoryCitation; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "REPO"; }
         }
 
+        /// <summary>
+        /// Gets or sets the repository.
+        /// </summary>
+        /// <value>
+        /// The repository.
+        /// </value>
         public string Repository
         {
             get
             {
-                return _Repository;
+                return repository;
             }
 
             set
             {
-                if (value != _Repository)
+                if (value != repository)
                 {
-                    _Repository = value;
+                    repository = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the call numbers.
+        /// </summary>
+        /// <value>
+        /// The call numbers.
+        /// </value>
         public GedcomRecordList<string> CallNumbers
         {
-            get { return _CallNumbers; }
+            get { return CallNumbers; }
         }
 
+        /// <summary>
+        /// Gets the media types.
+        /// </summary>
+        /// <value>
+        /// The media types.
+        /// </value>
         public GedcomRecordList<SourceMediaType> MediaTypes
         {
-            get { return _MediaTypes; }
+            get { return MediaTypes; }
         }
 
+        /// <summary>
+        /// Gets or sets the other media types.
+        /// </summary>
+        /// <value>
+        /// The other media types.
+        /// </value>
         public GedcomRecordList<string> OtherMediaTypes
         {
             get
             {
-                if (_OtherMediaTypes == null)
+                if (otherMediaTypes == null)
                 {
-                    _OtherMediaTypes = new GedcomRecordList<string>();
-                    _OtherMediaTypes.Changed += ListChanged;
+                    otherMediaTypes = new GedcomRecordList<string>();
+                    otherMediaTypes.Changed += ListChanged;
                 }
 
-                return _OtherMediaTypes;
+                return otherMediaTypes;
             }
+
             set
             {
-                if (value != _OtherMediaTypes)
+                if (value != OtherMediaTypes)
                 {
-                    _OtherMediaTypes = value;
+                    OtherMediaTypes = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Deletes this instance.
+        /// </summary>
         public override void Delete()
         {
             base.Delete();
 
-            GedcomRepositoryRecord repo = (GedcomRepositoryRecord)_database[_Repository];
+            GedcomRepositoryRecord repo = (GedcomRepositoryRecord)Database[Repository];
 
             repo.Citations.Remove(this);
 
             repo.Delete();
         }
 
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
+        /// <param name="num">The number.</param>
         public void GenerateXML(XmlNode root, int num)
         {
             XmlDocument doc = root.OwnerDocument;
 
             XmlNode node = doc.CreateElement("Repository");
 
-            if (!string.IsNullOrEmpty(_Repository))
+            if (!string.IsNullOrEmpty(Repository))
             {
                 XmlNode repoLink = doc.CreateElement("Link");
 
@@ -129,7 +179,7 @@ namespace GeneGenie.Gedcom
                 repoLink.Attributes.Append(attr);
 
                 attr = doc.CreateAttribute("Ref");
-                attr.Value = _Repository;
+                attr.Value = Repository;
                 repoLink.Attributes.Append(attr);
 
                 node.AppendChild(repoLink);
@@ -138,7 +188,7 @@ namespace GeneGenie.Gedcom
             // GEDCOM 6 doesn't map to GEDCOM 5.5 very well,
             // have to do some work in GedcomSourceRec to output one SourceRec
             // per call number in each citation
-            string callNumber = _CallNumbers[num];
+            string callNumber = CallNumbers[num];
 
             XmlNode callNo = doc.CreateElement("CallNbr");
             callNo.AppendChild(doc.CreateTextNode(callNumber));
@@ -148,6 +198,10 @@ namespace GeneGenie.Gedcom
             root.AppendChild(node);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
@@ -197,7 +251,7 @@ namespace GeneGenie.Gedcom
                         }
                         else
                         {
-                            sw.Write(_OtherMediaTypes[otherIndex++]);
+                            sw.Write(OtherMediaTypes[otherIndex++]);
                         }
                     }
 

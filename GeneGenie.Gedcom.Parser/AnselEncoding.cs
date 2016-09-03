@@ -39,7 +39,7 @@ namespace GeneGenie.Gedcom.Parser
 	public class AnselEncoding : Encoding
 	{
 		// Magic number used by Windows for "ANSEL" is ?
-		internal const int ANSEL_CODE_PAGE = 20127; // FIXME: this is ASCII not ANSEL
+		internal const int ANSEL_CODE_PAGE = 20127; // TODO: this is ASCII not ANSEL
 		
 		static readonly int[] marc8 = new int[]
 		{

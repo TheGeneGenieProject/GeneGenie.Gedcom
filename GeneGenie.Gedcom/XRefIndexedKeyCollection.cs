@@ -1,54 +1,81 @@
-/*
- *  $Id: XRefIndexedKeyCollection.cs 183 2008-06-08 15:31:15Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="XRefIndexedKeyCollection.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
     using System.Collections.Generic;
     using Utility;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="Utility.IndexedKeyCollection" />
     public class XRefIndexedKeyCollection : IndexedKeyCollection
     {
-        private GedcomDatabase _database;
+        private GedcomDatabase database;
 
-        private List<string> _replacementXRefs;
+        private List<string> replacementXRefs;
 
-        private bool _replaceXrefs;
+        private bool replaceXrefs;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="XRefIndexedKeyCollection"/> class.
+        /// </summary>
         public XRefIndexedKeyCollection()
         {
-            _replacementXRefs = new List<string>();
+            replacementXRefs = new List<string>();
         }
 
+        /// <summary>
+        /// Gets or sets the database.
+        /// </summary>
+        /// <value>
+        /// The database.
+        /// </value>
         public GedcomDatabase Database
         {
-            get { return _database; }
-            set { _database = value; }
+            get { return database; }
+            set { database = value; }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [replace x refs].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [replace x refs]; otherwise, <c>false</c>.
+        /// </value>
         public bool ReplaceXRefs
         {
-            get { return _replaceXrefs; }
-            set { _replaceXrefs = value; }
+            get { return replaceXrefs; }
+            set { replaceXrefs = value; }
         }
 
+        /// <summary>
+        /// Gets the TODO: Doc
+        /// </summary>
+        /// <value>
+        /// The <see cref="string"/>.
+        /// </value>
+        /// <param name="str">The string.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>TODO: Doc</returns>
         public override string this[string str, int startIndex, int length]
         {
             get
@@ -61,7 +88,7 @@ namespace GeneGenie.Gedcom
                 if (!found)
                 {
                     _strings.Insert(pos, str.Substring(startIndex, length).Trim());
-                    if (_replaceXrefs)
+                    if (replaceXrefs)
                     {
                         int prefixLen = 0;
                         while (char.IsLetter(str[prefixLen]))
@@ -79,13 +106,13 @@ namespace GeneGenie.Gedcom
                             prefix = "XREF";
                         }
 
-                        _replacementXRefs.Insert(pos, _database.GenerateXref(prefix));
+                        replacementXRefs.Insert(pos, database.GenerateXref(prefix));
                     }
                 }
 
-                if (_replaceXrefs)
+                if (replaceXrefs)
                 {
-                    ret = _replacementXRefs[pos];
+                    ret = replacementXRefs[pos];
                 }
                 else
                 {

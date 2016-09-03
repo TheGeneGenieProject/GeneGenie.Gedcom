@@ -1032,7 +1032,7 @@ namespace GeneGenie.Gedcom
                 {
                     ChangeDate = new GedcomChangeDate(database);
 
-                    // FIXME: what level?
+                    // TODO: what level?
                 }
 
                 DateTime now = DateTime.Now;

@@ -1,159 +1,218 @@
-/*
- *  $Id: GedcomPlace.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomPlace.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
     public class GedcomPlace : GedcomRecord
     {
-        private string _Name;
-        private string _Form;
+        private string name;
+        private string form;
 
-        private GedcomRecordList<GedcomVariation> _PhoneticVariations;
-        private GedcomRecordList<GedcomVariation> _RomanizedVariations;
+        private GedcomRecordList<GedcomVariation> phoneticVariations;
+        private GedcomRecordList<GedcomVariation> romanizedVariations;
 
-        private string _Latitude;
-        private string _Longitude;
+        private string latitude;
+        private string longitude;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomPlace"/> class.
+        /// </summary>
         public GedcomPlace()
         {
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Place; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "PLAC"; }
         }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name
         {
             get
             {
-                return _Name;
+                return name;
             }
 
             set
             {
-                if (value != _Name)
+                if (value != name)
                 {
-                    _Name = value;
+                    name = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the form.
+        /// </summary>
+        /// <value>
+        /// The form.
+        /// </value>
         public string Form
         {
             get
             {
-                return _Form;
+                return form;
             }
 
             set
             {
-                if (value != _Form)
+                if (value != form)
                 {
-                    _Form = value;
+                    form = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the phonetic variations.
+        /// </summary>
+        /// <value>
+        /// The phonetic variations.
+        /// </value>
         public GedcomRecordList<GedcomVariation> PhoneticVariations
         {
             get
             {
-                if (_PhoneticVariations == null)
+                if (phoneticVariations == null)
                 {
-                    _PhoneticVariations = new GedcomRecordList<GedcomVariation>();
-                    _PhoneticVariations.Changed += ListChanged;
+                    phoneticVariations = new GedcomRecordList<GedcomVariation>();
+                    phoneticVariations.Changed += ListChanged;
                 }
 
-                return _PhoneticVariations;
+                return phoneticVariations;
             }
         }
 
+        /// <summary>
+        /// Gets the romanized variations.
+        /// </summary>
+        /// <value>
+        /// The romanized variations.
+        /// </value>
         public GedcomRecordList<GedcomVariation> RomanizedVariations
         {
             get
             {
-                if (_RomanizedVariations == null)
+                if (romanizedVariations == null)
                 {
-                    _RomanizedVariations = new GedcomRecordList<GedcomVariation>();
-                    _RomanizedVariations.Changed += ListChanged;
+                    romanizedVariations = new GedcomRecordList<GedcomVariation>();
+                    romanizedVariations.Changed += ListChanged;
                 }
 
-                return _RomanizedVariations;
+                return romanizedVariations;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the latitude.
+        /// </summary>
+        /// <value>
+        /// The latitude.
+        /// </value>
         public string Latitude
         {
             get
             {
-                return _Latitude;
+                return latitude;
             }
 
             set
             {
-                if (value != _Latitude)
+                if (value != latitude)
                 {
-                    _Latitude = value;
+                    latitude = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the longitude.
+        /// </summary>
+        /// <value>
+        /// The longitude.
+        /// </value>
         public string Longitude
         {
             get
             {
-                return _Longitude;
+                return longitude;
             }
 
             set
             {
-                if (value != _Longitude)
+                if (value != longitude)
                 {
-                    _Longitude = value;
+                    longitude = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (_PhoneticVariations != null)
+                if (phoneticVariations != null)
                 {
-                    foreach (GedcomVariation variation in _PhoneticVariations)
+                    foreach (GedcomVariation variation in phoneticVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -163,9 +222,9 @@ namespace GeneGenie.Gedcom
                     }
                 }
 
-                if (_RomanizedVariations != null)
+                if (romanizedVariations != null)
                 {
-                    foreach (GedcomVariation variation in _RomanizedVariations)
+                    foreach (GedcomVariation variation in romanizedVariations)
                     {
                         childChangeDate = variation.ChangeDate;
                         if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
@@ -189,6 +248,10 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
@@ -220,7 +283,7 @@ namespace GeneGenie.Gedcom
                 sw.Write(line);
             }
 
-            if (_PhoneticVariations != null)
+            if (phoneticVariations != null)
             {
                 if (levelPlusOne == null)
                 {
@@ -250,7 +313,7 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            if (_RomanizedVariations != null)
+            if (romanizedVariations != null)
             {
                 if (levelPlusOne == null)
                 {

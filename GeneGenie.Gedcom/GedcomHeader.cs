@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomHeader.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomHeader.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -29,35 +27,45 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomHeader : GedcomRecord
     {
-        private GedcomNoteRecord _ContentDescription;
+        private GedcomNoteRecord contentDescription;
 
-        private string _submitterXRefID;
+        private string submitterXRefID;
 
-        private GedcomDate _transmissionDate;
+        private GedcomDate transmissionDate;
 
-        private string _copyright;
+        private string copyright;
 
-        private string _language;
+        private string language;
 
-        private string _filename;
+        private string filename;
 
-        private bool _test;
+        private bool test;
 
-        private string _applicationName = string.Empty;
-        private string _applicationVersion = string.Empty;
-        private string _applicationSystemID = "Gedcom.NET";
-        private string _corporation = string.Empty;
+        private string applicationName = string.Empty;
+        private string applicationVersion = string.Empty;
+        private string applicationSystemID = "GeneGenie.Gedcom";
+        private string corporation = string.Empty;
 
-        private GedcomAddress _corporationAddress;
+        private GedcomAddress corporationAddress;
 
-        private string _sourceName = string.Empty;
-        private GedcomDate _sourceDate;
-        private string _sourceCopyright;
+        private string sourceName = string.Empty;
+        private GedcomDate sourceDate;
+        private string sourceCopyright;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomHeader"/> class.
+        /// </summary>
         public GedcomHeader()
         {
         }
 
+        /// <summary>
+        /// Gets or sets the database.
+        /// </summary>
+        /// <value>
+        /// The database.
+        /// </value>
+        /// <exception cref="Exception">Database can only have one header</exception>
         public override GedcomDatabase Database
         {
             get
@@ -80,81 +88,135 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="GedcomHeader"/> is test.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if test; otherwise, <c>false</c>.
+        /// </value>
         public bool Test
         {
-            get { return _test; }
-            set { _test = value; }
+            get { return test; }
+            set { test = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the application.
+        /// </summary>
+        /// <value>
+        /// The name of the application.
+        /// </value>
         public string ApplicationName
         {
-            get { return _applicationName; }
-            set { _applicationName = value; }
+            get { return applicationName; }
+            set { applicationName = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the application version.
+        /// </summary>
+        /// <value>
+        /// The application version.
+        /// </value>
         public string ApplicationVersion
         {
-            get { return _applicationVersion; }
-            set { _applicationVersion = value; }
+            get { return applicationVersion; }
+            set { applicationVersion = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the application system identifier.
+        /// </summary>
+        /// <value>
+        /// The application system identifier.
+        /// </value>
         public string ApplicationSystemID
         {
-            get { return _applicationSystemID; }
-            set { _applicationSystemID = value; }
+            get { return applicationSystemID; }
+            set { applicationSystemID = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the corporation.
+        /// </summary>
+        /// <value>
+        /// The corporation.
+        /// </value>
         public string Corporation
         {
-            get { return _corporation; }
-            set { _corporation = value; }
+            get { return corporation; }
+            set { corporation = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the corporation address.
+        /// </summary>
+        /// <value>
+        /// The corporation address.
+        /// </value>
         public GedcomAddress CorporationAddress
         {
-            get { return _corporationAddress; }
-            set { _corporationAddress = value; }
+            get { return corporationAddress; }
+            set { corporationAddress = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the content description.
+        /// </summary>
+        /// <value>
+        /// The content description.
+        /// </value>
         public GedcomNoteRecord ContentDescription
         {
             get
             {
-                return _ContentDescription;
+                return contentDescription;
             }
 
             set
             {
-                if (value != _ContentDescription)
+                if (value != contentDescription)
                 {
-                    _ContentDescription = value;
+                    contentDescription = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the submitter x reference identifier.
+        /// </summary>
+        /// <value>
+        /// The submitter x reference identifier.
+        /// </value>
         public string SubmitterXRefID
         {
             get
             {
-                return _submitterXRefID;
+                return submitterXRefID;
             }
 
             set
             {
-                if (_submitterXRefID != value)
+                if (submitterXRefID != value)
                 {
-                    if (!string.IsNullOrEmpty(_submitterXRefID))
+                    if (!string.IsNullOrEmpty(submitterXRefID))
                     {
                         Submitter.Delete();
                     }
 
-                    _submitterXRefID = value;
+                    submitterXRefID = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the submitter.
+        /// </summary>
+        /// <value>
+        /// The submitter.
+        /// </value>
         public GedcomSubmitterRecord Submitter
         {
             get
@@ -175,119 +237,171 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the transmission date.
+        /// </summary>
+        /// <value>
+        /// The transmission date.
+        /// </value>
         public GedcomDate TransmissionDate
         {
             get
             {
-                return _transmissionDate;
+                return transmissionDate;
             }
 
             set
             {
-                if (_transmissionDate != value)
+                if (transmissionDate != value)
                 {
-                    _transmissionDate = value;
+                    transmissionDate = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the copyright.
+        /// </summary>
+        /// <value>
+        /// The copyright.
+        /// </value>
         public string Copyright
         {
             get
             {
-                return _copyright;
+                return copyright;
             }
 
             set
             {
-                if (_copyright != value)
+                if (copyright != value)
                 {
-                    _copyright = value;
+                    copyright = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the language.
+        /// </summary>
+        /// <value>
+        /// The language.
+        /// </value>
         public string Language
         {
             get
             {
-                return _language;
+                return language;
             }
 
             set
             {
-                if (_language != value)
+                if (language != value)
                 {
-                    _language = value;
+                    language = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the filename.
+        /// </summary>
+        /// <value>
+        /// The filename.
+        /// </value>
         public string Filename
         {
-            get { return _filename; }
-            set { _filename = value; }
+            get { return filename; }
+            set { filename = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the name of the source.
+        /// </summary>
+        /// <value>
+        /// The name of the source.
+        /// </value>
         public string SourceName
         {
             get
             {
-                return _sourceName;
+                return sourceName;
             }
 
             set
             {
-                if (_sourceName != value)
+                if (sourceName != value)
                 {
-                    _sourceName = value;
+                    sourceName = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the source date.
+        /// </summary>
+        /// <value>
+        /// The source date.
+        /// </value>
         public GedcomDate SourceDate
         {
             get
             {
-                return _sourceDate;
+                return sourceDate;
             }
 
             set
             {
-                if (_sourceDate != value)
+                if (sourceDate != value)
                 {
-                    _sourceDate = value;
+                    sourceDate = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the source copyright.
+        /// </summary>
+        /// <value>
+        /// The source copyright.
+        /// </value>
         public string SourceCopyright
         {
             get
             {
-                return _sourceCopyright;
+                return sourceCopyright;
             }
 
             set
             {
-                if (_sourceCopyright != value)
+                if (sourceCopyright != value)
                 {
-                    _sourceCopyright = value;
+                    sourceCopyright = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Header; }
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write("0 HEAD");
@@ -319,9 +433,9 @@ namespace GeneGenie.Gedcom
             }
 
             DateTime date = DateTime.Today;
-            if (_test)
+            if (test)
             {
-                date = new DateTime(2007,1,1);
+                date = new DateTime(2007, 1, 1);
             }
 
             if (!string.IsNullOrEmpty(SourceName) ||
@@ -352,13 +466,13 @@ namespace GeneGenie.Gedcom
             sw.Write(Environment.NewLine);
             sw.Write("1 DATE {0:dd MMM yyyy}", date);
 
-            bool hasSubmitter = !string.IsNullOrEmpty(_submitterXRefID);
+            bool hasSubmitter = !string.IsNullOrEmpty(submitterXRefID);
 
             if (hasSubmitter)
             {
                 sw.Write(Environment.NewLine);
                 sw.Write("1 SUBM ");
-                sw.Write(_submitterXRefID);
+                sw.Write(submitterXRefID);
             }
 
             if (ContentDescription != null)

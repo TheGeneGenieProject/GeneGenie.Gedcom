@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomFamilyEvent.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomFamilyEvent.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -29,47 +27,68 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomFamilyEvent : GedcomEvent
     {
-        private GedcomAge _HusbandAge;
-        private GedcomAge _WifeAge;
+        private GedcomAge husbandAge;
+        private GedcomAge wifeAge;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomFamilyEvent"/> class.
+        /// </summary>
         public GedcomFamilyEvent()
         {
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.FamilyEvent; }
         }
 
+        /// <summary>
+        /// Gets or sets the husband age.
+        /// </summary>
+        /// <value>
+        /// The husband age.
+        /// </value>
         public GedcomAge HusbandAge
         {
             get
             {
-                return _HusbandAge;
+                return husbandAge;
             }
 
             set
             {
-                if (value != _HusbandAge)
+                if (value != husbandAge)
                 {
-                    _HusbandAge = value;
+                    husbandAge = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the wife age.
+        /// </summary>
+        /// <value>
+        /// The wife age.
+        /// </value>
         public GedcomAge WifeAge
         {
             get
             {
-                return _WifeAge;
+                return wifeAge;
             }
 
             set
             {
-                if (value != _WifeAge)
+                if (value != wifeAge)
                 {
-                    _WifeAge = value;
+                    wifeAge = value;
                     Changed();
                 }
             }
@@ -77,26 +96,34 @@ namespace GeneGenie.Gedcom
 
         // util backpointer to the family record
         // this event belongs in
+
+        /// <summary>
+        /// Gets or sets the fam record.
+        /// </summary>
+        /// <value>
+        /// The fam record.
+        /// </value>
+        /// <exception cref="Exception">Must set a GedcomFamilyRecord on a GedcomFamilyEvent</exception>
         public GedcomFamilyRecord FamRecord
         {
             get
             {
-                return (GedcomFamilyRecord)_Record;
+                return (GedcomFamilyRecord)Record;
             }
 
             set
             {
-                if (value != _Record)
+                if (value != Record)
                 {
-                    _Record = value;
-                    if (_Record != null)
+                    Record = value;
+                    if (Record != null)
                     {
-                        if (_Record.RecordType != GedcomRecordType.Family)
+                        if (Record.RecordType != GedcomRecordType.Family)
                         {
                             throw new Exception("Must set a GedcomFamilyRecord on a GedcomFamilyEvent");
                         }
 
-                        Database = _Record.Database;
+                        Database = Record.Database;
                     }
                     else
                     {
@@ -108,24 +135,30 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the change date.
+        /// </summary>
+        /// <value>
+        /// The change date.
+        /// </value>
         public override GedcomChangeDate ChangeDate
         {
             get
             {
                 GedcomChangeDate realChangeDate = base.ChangeDate;
                 GedcomChangeDate childChangeDate;
-                if (_HusbandAge != null)
+                if (husbandAge != null)
                 {
-                    childChangeDate = _HusbandAge.ChangeDate;
+                    childChangeDate = husbandAge.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
                     }
                 }
 
-                if (_WifeAge != null)
+                if (wifeAge != null)
                 {
-                    childChangeDate = _WifeAge.ChangeDate;
+                    childChangeDate = wifeAge.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
                         realChangeDate = childChangeDate;
@@ -146,6 +179,10 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

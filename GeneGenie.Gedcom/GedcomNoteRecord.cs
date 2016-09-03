@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomNoteRecord.cs 200 2008-11-30 14:34:07Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomNoteRecord.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -26,12 +24,13 @@ namespace GeneGenie.Gedcom
     using System.Text;
     using System.Xml;
 
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
     public class GedcomNoteRecord : GedcomRecord
     {
-        private string _Text;
-
-        // hack
-        public StringBuilder ParsedText;
+        private string text;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomNoteRecord"/> class.
@@ -44,7 +43,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomNoteRecord"/> class.
         /// </summary>
-        /// <param name="database"></param>
+        /// <param name="database">The database to associate with this record.</param>
         public GedcomNoteRecord(GedcomDatabase database)
             : this()
         {
@@ -56,33 +55,60 @@ namespace GeneGenie.Gedcom
             database.Add(XRefID, this);
         }
 
+        /// <summary>
+        /// Gets or sets the parsed text. HACK.
+        /// </summary>
+        public StringBuilder ParsedText { get; set; }
+
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Note; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "NOTE"; }
         }
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
         public string Text
         {
             get
             {
-                return _Text;
+                return text;
             }
 
             set
             {
-                if (value != _Text)
+                if (value != text)
                 {
-                    _Text = value;
+                    text = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <param name="root">The root.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -95,16 +121,20 @@ namespace GeneGenie.Gedcom
             root.AppendChild(node);
         }
 
+        /// <summary>
+        /// Outputs the specified sw.
+        /// </summary>
+        /// <param name="sw">The sw.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
             sw.Write(Util.IntToString(Level));
             sw.Write(" ");
 
-            if (!string.IsNullOrEmpty(_XrefID))
+            if (!string.IsNullOrEmpty(XrefId))
             {
                 sw.Write("@");
-                sw.Write(_XrefID);
+                sw.Write(XrefId);
                 sw.Write("@ ");
             }
 

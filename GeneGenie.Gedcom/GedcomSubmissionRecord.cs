@@ -1,152 +1,227 @@
-/*
- *  $Id: GedcomSubmissionRecord.cs 191 2008-10-25 18:43:33Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomSubmissionRecord.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <seealso cref="GedcomRecord" />
     public class GedcomSubmissionRecord : GedcomRecord
     {
-        private string _Submitter;
+        /// <summary>
+        /// The submitter
+        /// </summary>
+        private string submitter;
 
-        private string _FamilyFile;
-        private string _TempleCode;
-        private int _GenerationsOfAncestors;
-        private int _GenerationsOfDecendants;
-        private bool _OrdinanceProcessFlag;
+        /// <summary>
+        /// The family file
+        /// </summary>
+        private string familyFile;
 
+        /// <summary>
+        /// The temple code
+        /// </summary>
+        private string templeCode;
+
+        /// <summary>
+        /// The generations of ancestors
+        /// </summary>
+        private int generationsOfAncestors;
+
+        /// <summary>
+        /// The generations of decendants
+        /// </summary>
+        private int generationsOfDecendants;
+
+        /// <summary>
+        /// The ordinance process flag
+        /// </summary>
+        private bool ordinanceProcessFlag;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomSubmissionRecord"/> class.
+        /// </summary>
         public GedcomSubmissionRecord()
         {
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Submission; }
         }
 
+        /// <summary>
+        /// Gets the gedcom tag.
+        /// </summary>
+        /// <value>
+        /// The gedcom tag.
+        /// </value>
         public override string GedcomTag
         {
             get { return "SUBN"; }
         }
 
+        /// <summary>
+        /// Gets or sets the submitter.
+        /// </summary>
+        /// <value>
+        /// The submitter.
+        /// </value>
         public string Submitter
         {
             get
             {
-                return _Submitter;
+                return submitter;
             }
 
             set
             {
-                if (value != _Submitter)
+                if (value != submitter)
                 {
-                    _Submitter = value;
+                    submitter = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the family file.
+        /// </summary>
+        /// <value>
+        /// The family file.
+        /// </value>
         public string FamilyFile
         {
             get
             {
-                return _FamilyFile;
+                return familyFile;
             }
 
             set
             {
-                if (value != _FamilyFile)
+                if (value != familyFile)
                 {
-                    _FamilyFile = value;
+                    familyFile = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the temple code.
+        /// </summary>
+        /// <value>
+        /// The temple code.
+        /// </value>
         public string TempleCode
         {
             get
             {
-                return _TempleCode;
+                return templeCode;
             }
 
             set
             {
-                if (value != _TempleCode)
+                if (value != templeCode)
                 {
-                    _TempleCode = value;
+                    templeCode = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the generations of ancestors.
+        /// </summary>
+        /// <value>
+        /// The generations of ancestors.
+        /// </value>
         public int GenerationsOfAncestors
         {
             get
             {
-                return _GenerationsOfAncestors;
+                return generationsOfAncestors;
             }
 
             set
             {
-                if (value != _GenerationsOfAncestors)
+                if (value != generationsOfAncestors)
                 {
-                    _GenerationsOfAncestors = value;
+                    generationsOfAncestors = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the generations of decendants.
+        /// </summary>
+        /// <value>
+        /// The generations of decendants.
+        /// </value>
         public int GenerationsOfDecendants
         {
             get
             {
-                return _GenerationsOfDecendants;
+                return generationsOfDecendants;
             }
 
             set
             {
-                if (value != _GenerationsOfDecendants)
+                if (value != generationsOfDecendants)
                 {
-                    _GenerationsOfDecendants = value;
+                    generationsOfDecendants = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [ordinance process flag].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [ordinance process flag]; otherwise, <c>false</c>.
+        /// </value>
         public bool OrdinanceProcessFlag
         {
             get
             {
-                return _OrdinanceProcessFlag;
+                return ordinanceProcessFlag;
             }
 
             set
             {
-                if (value != _OrdinanceProcessFlag)
+                if (value != ordinanceProcessFlag)
                 {
-                    _OrdinanceProcessFlag = value;
+                    ordinanceProcessFlag = value;
                     Changed();
                 }
             }
         }
 
-        // FIXME: add output method
+        // TODO: add output method
     }
 }

@@ -157,7 +157,7 @@ namespace GeneGenie.Gedcom
         public GedcomDate(GedcomDatabase database)
             : this()
         {
-            _database = database;
+            this.Database = database;
         }
 
         /// <summary>
@@ -402,7 +402,7 @@ namespace GeneGenie.Gedcom
                             period = string.Format("BEF {0}", date1);
                             break;
                         case GedcomDatePeriod.Between:
-                            // FIXME: this is a hack as we don't parse _Date2 in
+                            // TODO: this is a hack as we don't parse _Date2 in
                             // properly yet and just end up with it all in _Date1
                             if (string.IsNullOrEmpty(date2))
                             {
@@ -427,7 +427,7 @@ namespace GeneGenie.Gedcom
                             period = string.Format("INT {0}", date1);
                             break;
                         case GedcomDatePeriod.Range:
-                            // FIXME: this is a hack as we don't parse _Date2 in
+                            // TODO: this is a hack as we don't parse _Date2 in
                             // properly yet and just end up with it all in _Date1
                             if (string.IsNullOrEmpty(date2))
                             {
@@ -816,7 +816,7 @@ namespace GeneGenie.Gedcom
             switch (DateType)
             {
                 case GedcomDateType.French:
-                    // FIXME: no FrenCalendar!
+                    // TODO: no FrenCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
                     break;
@@ -849,13 +849,13 @@ namespace GeneGenie.Gedcom
                     Date1 = dataString;
                     break;
                 case GedcomDateType.Roman:
-                    // FIXME: no RomanCalendar!
+                    // TODO: no RomanCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
                     break;
             }
 
-            // FIXME: the split here accounts for large(ish) amounts of memory allocation
+            // TODO: the split here accounts for large(ish) amounts of memory allocation
             // Need to do this better, ideally without any splitting.
             string[] dateSplit = dataString.Split(new char[] { ' ', '-' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -944,7 +944,7 @@ namespace GeneGenie.Gedcom
                 // as 12 NOV 1994 when it is meant as 11 DEC 1994, we don't
                 // throw away the original data at all or use these dates
                 // when writing the data back out
-                // FIXME: format provider instead of null?
+                // TODO: format provider instead of null?
                 DateTime date;
                 if (DateTime.TryParseExact(dataString, new string[] { "d-M-yyyy", "M-d-yyyy", "yyyy-M-d", "d.M.yyyy", "M.d.yyyy", "yyyy.M.d" }, null, DateTimeStyles.None, out date))
                 {
@@ -1022,7 +1022,7 @@ namespace GeneGenie.Gedcom
             string year = string.Empty;
             string month = string.Empty;
             string day = string.Empty;
-            bool bc = false;
+            //// bool bc = false;
 
             DateTime? ret = null;
 
@@ -1035,10 +1035,10 @@ namespace GeneGenie.Gedcom
                 {
                     // year only
                     year = dateSplit[start];
-                    bc = false;
+                    //// bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        bc = true;
+                        //// bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }
@@ -1049,10 +1049,10 @@ namespace GeneGenie.Gedcom
 
                     // year
                     year = dateSplit[start + 1];
-                    bc = false;
+                    //// bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        bc = true;
+                        //// bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }
@@ -1066,10 +1066,10 @@ namespace GeneGenie.Gedcom
 
                     // year
                     year = dateSplit[start + 2];
-                    bc = false;
+                    //// bc = false;
                     if (year.EndsWith("B.C.", true, culture))
                     {
-                        bc = true;
+                        // bc = true;
                         year = year.Substring(0, year.Length - "B.C.".Length);
                     }
                 }

@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomFamilyLink.cs 194 2008-11-10 20:39:37Z davek $
- *
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomFamilyLink.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
@@ -26,73 +24,100 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomFamilyLink : GedcomRecord
     {
-        private string _Family;
-        private string _Indi;
+        private string family;
+        private string indi;
 
-        private PedegreeLinkageType _Pedigree;
-        private ChildLinkageStatus _Status;
+        private PedegreeLinkageType pedigree;
+        private ChildLinkageStatus status;
 
-        private PedegreeLinkageType _FatherPedigree;
-        private PedegreeLinkageType _MotherPedigree;
+        private PedegreeLinkageType fatherPedigree;
+        private PedegreeLinkageType motherPedigree;
 
-        private bool _preferedSpouse;
+        private bool preferedSpouse;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomFamilyLink"/> class.
+        /// </summary>
         public GedcomFamilyLink()
         {
-            _Pedigree = PedegreeLinkageType.Unknown;
+            pedigree = PedegreeLinkageType.Unknown;
         }
 
+        /// <summary>
+        /// Gets the type of the record.
+        /// </summary>
+        /// <value>
+        /// The type of the record.
+        /// </value>
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.FamilyLink; }
         }
 
+        /// <summary>
+        /// Gets or sets the family.
+        /// </summary>
+        /// <value>
+        /// The family.
+        /// </value>
         public string Family
         {
             get
             {
-                return _Family;
+                return family;
             }
 
             set
             {
-                if (value != _Family)
+                if (value != family)
                 {
-                    _Family = value;
+                    family = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the indi.
+        /// </summary>
+        /// <value>
+        /// The indi.
+        /// </value>
         public string Indi
         {
             get
             {
-                return _Indi;
+                return indi;
             }
 
             set
             {
-                if (value != _Indi)
+                if (value != indi)
                 {
-                    _Indi = value;
+                    indi = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the pedigree.
+        /// </summary>
+        /// <value>
+        /// The pedigree.
+        /// </value>
         public PedegreeLinkageType Pedigree
         {
             get
             {
-                return _Pedigree;
+                return pedigree;
             }
 
             set
             {
-                if (value != _Pedigree)
+                if (value != pedigree)
                 {
-                    _Pedigree = value;
+                    pedigree = value;
                     FatherPedigree = value;
                     MotherPedigree = value;
                     Changed();
@@ -100,61 +125,85 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Gets or sets the father pedigree.
+        /// </summary>
+        /// <value>
+        /// The father pedigree.
+        /// </value>
         public PedegreeLinkageType FatherPedigree
         {
             get
             {
-                return _FatherPedigree;
+                return fatherPedigree;
             }
 
             set
             {
-                if (value != _FatherPedigree)
+                if (value != fatherPedigree)
                 {
-                    _FatherPedigree = value;
+                    fatherPedigree = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the mother pedigree.
+        /// </summary>
+        /// <value>
+        /// The mother pedigree.
+        /// </value>
         public PedegreeLinkageType MotherPedigree
         {
             get
             {
-                return _MotherPedigree;
+                return motherPedigree;
             }
 
             set
             {
-                if (value != _MotherPedigree)
+                if (value != motherPedigree)
                 {
-                    _MotherPedigree= value;
+                    motherPedigree = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
         public ChildLinkageStatus Status
         {
             get
             {
-                return _Status;
+                return status;
             }
 
             set
             {
-                if (value != _Status)
+                if (value != status)
                 {
-                    _Status = value;
+                    status = value;
                     Changed();
                 }
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [prefered spouse].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [prefered spouse]; otherwise, <c>false</c>.
+        /// </value>
         public bool PreferedSpouse
         {
-            get { return _preferedSpouse; }
-            set { _preferedSpouse = value; }
+            get { return preferedSpouse; }
+            set { preferedSpouse = value; }
         }
     }
 }
