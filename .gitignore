@@ -243,3 +243,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/GeneGenie.Gedcom.Benchmarks/Data
+*.GED
+*.ncrunchproject

@@ -1,0 +1,94 @@
+
+<!-- saved from url=(0044)http://heiner-eichmann.de/gedcom/charset.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+   <meta name="keywords" content="GEDCOM 5.5 Unicode Samples">
+   <meta name="description" content="H. Eichmann&#39;s GEDCOM 5.5 Unicode Samples">
+   <meta name="author" content="Heiner Eichmman">
+<title>
+H. Eichmann's GEDCOM 5.5 Sample Page: Different Character Sets
+</title></head>
+<body><bopy>
+<h1>
+<center>
+Heiner Eichmann's GEDCOM 5.5 Sample Page: Different Character Sets
+</center>
+<br>
+</h1>
+
+<h3>Note: All unicode files on this page have been updated on 13 may 1999!</h3>
+
+If you are familiar with ANSEL please visit my 
+<a href="http://heiner-eichmann.de/gedcom/ansquest.htm">open questions</a> page!<br><br>
+
+Characters (letters) with a value between 20 and 7F (hexadecimal values) are no problem in GEDCOM files.
+They are defined in the ASCII code and are available worldwide.
+Other characters not defined in ASCII are a big problem. Windows (and DOS)
+defines code pages which contain some important special characters of a 
+part of the world (example: code page 1252 in Windows and 850 in DOS define most
+of the characters of Western Europe). The disadvantage of using code pages
+is obvious: the meaning of a byte depends on the operating system and
+on the country where it is read. Example: character D0 (hex) is a capital D with
+a horizontal line (Eth) on code page 1252 (Windows, Western Europe), but it
+is a small eth on code page 850 (DOS, Western Europe), a capital Pi on code
+page 1253 (Windows, Greek), a capital Russian R on code page 1251
+(Windows, Cyrillic) and so on. This is therefore NOT usefull for the
+transmission of data.<br><br>
+
+The GEDCOM standard allows only three character sets for the transmission
+of genealogical data: ASCII, ANSEL and UNICODE. ASCII is very easy to
+implement but contains no special characters. UNICODE is clearly the
+future but right now not supported very much. It uses two bytes for
+each character, allowing 65535 different characters. Therefore UNICODE
+contains most of the characters of most of the languages worldwide.<br><br>
+
+ANSEL (ANSI Z39.47-1985) is somewhere in between. All standard ASCII 
+characters have the same value in ASCII and ANSEL. Therefore ANSEL and ASCII
+transmissions can not be distinguished, if just ASCII characters are used.
+Non-ASCII characters can have one or two bytes in size, which makes ANSEL
+decoders very complicated and unpopular. But nevertheless in true GEDCOM
+transmissions only one of these three character sets is allowed. <br><br>
+
+This page contains 2 GEDCOM files: one in ANSEL and another in UNICODE.
+The structure is the same: a family consisting of two parents and
+several children. Only the NAME, BIRT.PLAC and DEAT.PLAC tags are used.
+Every GEDCOM reader should be able to read them. The ANSEL version contains
+all special and all non-spacing characters defined in ANSEL. Every combination
+of a non-spacing and a latin character is made independent of the existence
+of such a character in the world. The UNICODE version contains only those
+character combinations, which exist as UNICODE code points and which can
+(in principle) converted to ANSEL. Furthermore the UNICODE file contains
+some Greek and Cyrillic letters.<br><br>
+This ANSEL version was created using my
+<a href="http://heiner-eichmann.de/gedcom/charintr.htm"> ANSEL to Unicode </a>
+conversion table. I did not find the true
+ANSEL specification in the web. The encoding scheme in this file can be wrong!
+<br><br>
+<a href="http://heiner-eichmann.de/gedcom/ansel.zip">ANSEL encoded GEDCOM file</a><br>
+<br><br>
+
+The UNICODE file was created using the UNICODE homepage:
+<a href="http://www.unicode.org/">www.unicode.org</a>. 
+It exsists in several versions:<br>
+<li> the byte order can be Lo-Hi and Hi-Lo,<br>
+</li><li> a special byte order mark (BOM) at the beginning can indicate the byte order,<br>
+</li><li> the line terminator can be CR, LF, CR+LF and LF+CR<br><br>
+
+<a href="http://heiner-eichmann.de/gedcom/ulhcl.zip">Byte order: Lo-Hi, no BOM, Line terminator: CR+LF</a><br>
+<a href="http://heiner-eichmann.de/gedcom/uhlcl.zip">Byte order: Hi-LO, no BOM, Line terminator: CR+LF</a><br>
+<a href="http://heiner-eichmann.de/gedcom/ulhbomcl.zip">Byte order: Lo-Hi, BOM, Line terminator: CR+LF</a><br>
+<a href="http://heiner-eichmann.de/gedcom/uhlbomcl.zip">Byte order: Hi-Lo, BOM, Line terminator: CR+LF</a><br>
+<a href="http://heiner-eichmann.de/gedcom/ulhl.zip">Byte order: Lo-Hi, no BOM, Line terminator: LF</a><br>
+<a href="http://heiner-eichmann.de/gedcom/ulhc.zip">Byte order: Lo-Hi, no BOM, Line terminator: CR</a><br>
+<a href="http://heiner-eichmann.de/gedcom/ulhlc.zip">Byte order: Lo-Hi, no BOM, Line terminator: LF+CR</a><br>
+
+<br><br>
+
+<hr>
+Last modification: 1999-05-13<br>
+<a href="http://heiner-eichmann.de/gedcom/gedcom.htm">Back</a> <br><br>
+<!---
+<img src="http://212.76.147.174/cgi-bin/cgi.exe?charset.htm">
+-->
+
+
+</li></bopy></body></html>
