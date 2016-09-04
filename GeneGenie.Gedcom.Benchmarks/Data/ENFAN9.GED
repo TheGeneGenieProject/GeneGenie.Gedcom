@@ -1,0 +1,3863 @@
+﻿0 HEAD
+1 SOUR GEDFAN
+2 NAME The GEDCOM Fan Creator
+2 VERS 0.4.0.0
+2 CORP Tamura Jones
+3 ADDR
+4 ADR1 Modern Software Experience
+3 WWW http://www.tamurajones.net
+1 DEST GEDFAN
+1 DATE 21 Aug 2016
+2 TIME 19:15:22
+1 SUBM @U@
+1 FILE ENFAN9.GED
+1 COPR Copyright (c) 2011-2015 Tamura Jones
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+1 LANG English
+1 _STS
+2 INDI 511
+2 FAM 255
+2 REPO 0
+2 SOUR 0
+2 NOTE 0
+2 SUBM 1
+2 OBJE 0
+2 _LOC 0
+0 @U@ SUBM
+1 NAME The Gedcom Fan Creator 0.4.0.0
+1 ADDR
+2 ADR1 GedFan
+1 WWW http://www.tamurajones.net/GedFan.xhtml
+0 @I1@ INDI
+1 NAME /one/
+2 SURN one
+1 SEX U
+1 FAMC @F1@
+0 @I2@ INDI
+1 NAME /two/
+2 SURN two
+1 SEX M
+1 FAMS @F1@
+1 FAMC @F2@
+0 @I3@ INDI
+1 NAME /three/
+2 SURN three
+1 SEX F
+1 FAMS @F1@
+1 FAMC @F3@
+0 @I4@ INDI
+1 NAME /four/
+2 SURN four
+1 SEX M
+1 FAMS @F2@
+1 FAMC @F4@
+0 @I5@ INDI
+1 NAME /five/
+2 SURN five
+1 SEX F
+1 FAMS @F2@
+1 FAMC @F5@
+0 @I6@ INDI
+1 NAME /six/
+2 SURN six
+1 SEX M
+1 FAMS @F3@
+1 FAMC @F6@
+0 @I7@ INDI
+1 NAME /seven/
+2 SURN seven
+1 SEX F
+1 FAMS @F3@
+1 FAMC @F7@
+0 @I8@ INDI
+1 NAME /eight/
+2 SURN eight
+1 SEX M
+1 FAMS @F4@
+1 FAMC @F8@
+0 @I9@ INDI
+1 NAME /nine/
+2 SURN nine
+1 SEX F
+1 FAMS @F4@
+1 FAMC @F9@
+0 @I10@ INDI
+1 NAME /ten/
+2 SURN ten
+1 SEX M
+1 FAMS @F5@
+1 FAMC @F10@
+0 @I11@ INDI
+1 NAME /eleven/
+2 SURN eleven
+1 SEX F
+1 FAMS @F5@
+1 FAMC @F11@
+0 @I12@ INDI
+1 NAME /twelve/
+2 SURN twelve
+1 SEX M
+1 FAMS @F6@
+1 FAMC @F12@
+0 @I13@ INDI
+1 NAME /thirteen/
+2 SURN thirteen
+1 SEX F
+1 FAMS @F6@
+1 FAMC @F13@
+0 @I14@ INDI
+1 NAME /fourteen/
+2 SURN fourteen
+1 SEX M
+1 FAMS @F7@
+1 FAMC @F14@
+0 @I15@ INDI
+1 NAME /fifteen/
+2 SURN fifteen
+1 SEX F
+1 FAMS @F7@
+1 FAMC @F15@
+0 @I16@ INDI
+1 NAME /sixteen/
+2 SURN sixteen
+1 SEX M
+1 FAMS @F8@
+1 FAMC @F16@
+0 @I17@ INDI
+1 NAME /seventeen/
+2 SURN seventeen
+1 SEX F
+1 FAMS @F8@
+1 FAMC @F17@
+0 @I18@ INDI
+1 NAME /eighteen/
+2 SURN eighteen
+1 SEX M
+1 FAMS @F9@
+1 FAMC @F18@
+0 @I19@ INDI
+1 NAME /nineteen/
+2 SURN nineteen
+1 SEX F
+1 FAMS @F9@
+1 FAMC @F19@
+0 @I20@ INDI
+1 NAME /twenty/
+2 SURN twenty
+1 SEX M
+1 FAMS @F10@
+1 FAMC @F20@
+0 @I21@ INDI
+1 NAME /twenty-one/
+2 SURN twenty-one
+1 SEX F
+1 FAMS @F10@
+1 FAMC @F21@
+0 @I22@ INDI
+1 NAME /twenty-two/
+2 SURN twenty-two
+1 SEX M
+1 FAMS @F11@
+1 FAMC @F22@
+0 @I23@ INDI
+1 NAME /twenty-three/
+2 SURN twenty-three
+1 SEX F
+1 FAMS @F11@
+1 FAMC @F23@
+0 @I24@ INDI
+1 NAME /twenty-four/
+2 SURN twenty-four
+1 SEX M
+1 FAMS @F12@
+1 FAMC @F24@
+0 @I25@ INDI
+1 NAME /twenty-five/
+2 SURN twenty-five
+1 SEX F
+1 FAMS @F12@
+1 FAMC @F25@
+0 @I26@ INDI
+1 NAME /twenty-six/
+2 SURN twenty-six
+1 SEX M
+1 FAMS @F13@
+1 FAMC @F26@
+0 @I27@ INDI
+1 NAME /twenty-seven/
+2 SURN twenty-seven
+1 SEX F
+1 FAMS @F13@
+1 FAMC @F27@
+0 @I28@ INDI
+1 NAME /twenty-eight/
+2 SURN twenty-eight
+1 SEX M
+1 FAMS @F14@
+1 FAMC @F28@
+0 @I29@ INDI
+1 NAME /twenty-nine/
+2 SURN twenty-nine
+1 SEX F
+1 FAMS @F14@
+1 FAMC @F29@
+0 @I30@ INDI
+1 NAME /thirty/
+2 SURN thirty
+1 SEX M
+1 FAMS @F15@
+1 FAMC @F30@
+0 @I31@ INDI
+1 NAME /thirty-one/
+2 SURN thirty-one
+1 SEX F
+1 FAMS @F15@
+1 FAMC @F31@
+0 @I32@ INDI
+1 NAME /thirty-two/
+2 SURN thirty-two
+1 SEX M
+1 FAMS @F16@
+1 FAMC @F32@
+0 @I33@ INDI
+1 NAME /thirty-three/
+2 SURN thirty-three
+1 SEX F
+1 FAMS @F16@
+1 FAMC @F33@
+0 @I34@ INDI
+1 NAME /thirty-four/
+2 SURN thirty-four
+1 SEX M
+1 FAMS @F17@
+1 FAMC @F34@
+0 @I35@ INDI
+1 NAME /thirty-five/
+2 SURN thirty-five
+1 SEX F
+1 FAMS @F17@
+1 FAMC @F35@
+0 @I36@ INDI
+1 NAME /thirty-six/
+2 SURN thirty-six
+1 SEX M
+1 FAMS @F18@
+1 FAMC @F36@
+0 @I37@ INDI
+1 NAME /thirty-seven/
+2 SURN thirty-seven
+1 SEX F
+1 FAMS @F18@
+1 FAMC @F37@
+0 @I38@ INDI
+1 NAME /thirty-eight/
+2 SURN thirty-eight
+1 SEX M
+1 FAMS @F19@
+1 FAMC @F38@
+0 @I39@ INDI
+1 NAME /thirty-nine/
+2 SURN thirty-nine
+1 SEX F
+1 FAMS @F19@
+1 FAMC @F39@
+0 @I40@ INDI
+1 NAME /forty/
+2 SURN forty
+1 SEX M
+1 FAMS @F20@
+1 FAMC @F40@
+0 @I41@ INDI
+1 NAME /forty-one/
+2 SURN forty-one
+1 SEX F
+1 FAMS @F20@
+1 FAMC @F41@
+0 @I42@ INDI
+1 NAME /forty-two/
+2 SURN forty-two
+1 SEX M
+1 FAMS @F21@
+1 FAMC @F42@
+0 @I43@ INDI
+1 NAME /forty-three/
+2 SURN forty-three
+1 SEX F
+1 FAMS @F21@
+1 FAMC @F43@
+0 @I44@ INDI
+1 NAME /forty-four/
+2 SURN forty-four
+1 SEX M
+1 FAMS @F22@
+1 FAMC @F44@
+0 @I45@ INDI
+1 NAME /forty-five/
+2 SURN forty-five
+1 SEX F
+1 FAMS @F22@
+1 FAMC @F45@
+0 @I46@ INDI
+1 NAME /forty-six/
+2 SURN forty-six
+1 SEX M
+1 FAMS @F23@
+1 FAMC @F46@
+0 @I47@ INDI
+1 NAME /forty-seven/
+2 SURN forty-seven
+1 SEX F
+1 FAMS @F23@
+1 FAMC @F47@
+0 @I48@ INDI
+1 NAME /forty-eight/
+2 SURN forty-eight
+1 SEX M
+1 FAMS @F24@
+1 FAMC @F48@
+0 @I49@ INDI
+1 NAME /forty-nine/
+2 SURN forty-nine
+1 SEX F
+1 FAMS @F24@
+1 FAMC @F49@
+0 @I50@ INDI
+1 NAME /fifty/
+2 SURN fifty
+1 SEX M
+1 FAMS @F25@
+1 FAMC @F50@
+0 @I51@ INDI
+1 NAME /fifty-one/
+2 SURN fifty-one
+1 SEX F
+1 FAMS @F25@
+1 FAMC @F51@
+0 @I52@ INDI
+1 NAME /fifty-two/
+2 SURN fifty-two
+1 SEX M
+1 FAMS @F26@
+1 FAMC @F52@
+0 @I53@ INDI
+1 NAME /fifty-three/
+2 SURN fifty-three
+1 SEX F
+1 FAMS @F26@
+1 FAMC @F53@
+0 @I54@ INDI
+1 NAME /fifty-four/
+2 SURN fifty-four
+1 SEX M
+1 FAMS @F27@
+1 FAMC @F54@
+0 @I55@ INDI
+1 NAME /fifty-five/
+2 SURN fifty-five
+1 SEX F
+1 FAMS @F27@
+1 FAMC @F55@
+0 @I56@ INDI
+1 NAME /fifty-six/
+2 SURN fifty-six
+1 SEX M
+1 FAMS @F28@
+1 FAMC @F56@
+0 @I57@ INDI
+1 NAME /fifty-seven/
+2 SURN fifty-seven
+1 SEX F
+1 FAMS @F28@
+1 FAMC @F57@
+0 @I58@ INDI
+1 NAME /fifty-eight/
+2 SURN fifty-eight
+1 SEX M
+1 FAMS @F29@
+1 FAMC @F58@
+0 @I59@ INDI
+1 NAME /fifty-nine/
+2 SURN fifty-nine
+1 SEX F
+1 FAMS @F29@
+1 FAMC @F59@
+0 @I60@ INDI
+1 NAME /sixty/
+2 SURN sixty
+1 SEX M
+1 FAMS @F30@
+1 FAMC @F60@
+0 @I61@ INDI
+1 NAME /sixty-one/
+2 SURN sixty-one
+1 SEX F
+1 FAMS @F30@
+1 FAMC @F61@
+0 @I62@ INDI
+1 NAME /sixty-two/
+2 SURN sixty-two
+1 SEX M
+1 FAMS @F31@
+1 FAMC @F62@
+0 @I63@ INDI
+1 NAME /sixty-three/
+2 SURN sixty-three
+1 SEX F
+1 FAMS @F31@
+1 FAMC @F63@
+0 @I64@ INDI
+1 NAME /sixty-four/
+2 SURN sixty-four
+1 SEX M
+1 FAMS @F32@
+1 FAMC @F64@
+0 @I65@ INDI
+1 NAME /sixty-five/
+2 SURN sixty-five
+1 SEX F
+1 FAMS @F32@
+1 FAMC @F65@
+0 @I66@ INDI
+1 NAME /sixty-six/
+2 SURN sixty-six
+1 SEX M
+1 FAMS @F33@
+1 FAMC @F66@
+0 @I67@ INDI
+1 NAME /sixty-seven/
+2 SURN sixty-seven
+1 SEX F
+1 FAMS @F33@
+1 FAMC @F67@
+0 @I68@ INDI
+1 NAME /sixty-eight/
+2 SURN sixty-eight
+1 SEX M
+1 FAMS @F34@
+1 FAMC @F68@
+0 @I69@ INDI
+1 NAME /sixty-nine/
+2 SURN sixty-nine
+1 SEX F
+1 FAMS @F34@
+1 FAMC @F69@
+0 @I70@ INDI
+1 NAME /seventy/
+2 SURN seventy
+1 SEX M
+1 FAMS @F35@
+1 FAMC @F70@
+0 @I71@ INDI
+1 NAME /seventy-one/
+2 SURN seventy-one
+1 SEX F
+1 FAMS @F35@
+1 FAMC @F71@
+0 @I72@ INDI
+1 NAME /seventy-two/
+2 SURN seventy-two
+1 SEX M
+1 FAMS @F36@
+1 FAMC @F72@
+0 @I73@ INDI
+1 NAME /seventy-three/
+2 SURN seventy-three
+1 SEX F
+1 FAMS @F36@
+1 FAMC @F73@
+0 @I74@ INDI
+1 NAME /seventy-four/
+2 SURN seventy-four
+1 SEX M
+1 FAMS @F37@
+1 FAMC @F74@
+0 @I75@ INDI
+1 NAME /seventy-five/
+2 SURN seventy-five
+1 SEX F
+1 FAMS @F37@
+1 FAMC @F75@
+0 @I76@ INDI
+1 NAME /seventy-six/
+2 SURN seventy-six
+1 SEX M
+1 FAMS @F38@
+1 FAMC @F76@
+0 @I77@ INDI
+1 NAME /seventy-seven/
+2 SURN seventy-seven
+1 SEX F
+1 FAMS @F38@
+1 FAMC @F77@
+0 @I78@ INDI
+1 NAME /seventy-eight/
+2 SURN seventy-eight
+1 SEX M
+1 FAMS @F39@
+1 FAMC @F78@
+0 @I79@ INDI
+1 NAME /seventy-nine/
+2 SURN seventy-nine
+1 SEX F
+1 FAMS @F39@
+1 FAMC @F79@
+0 @I80@ INDI
+1 NAME /eighty/
+2 SURN eighty
+1 SEX M
+1 FAMS @F40@
+1 FAMC @F80@
+0 @I81@ INDI
+1 NAME /eighty-one/
+2 SURN eighty-one
+1 SEX F
+1 FAMS @F40@
+1 FAMC @F81@
+0 @I82@ INDI
+1 NAME /eighty-two/
+2 SURN eighty-two
+1 SEX M
+1 FAMS @F41@
+1 FAMC @F82@
+0 @I83@ INDI
+1 NAME /eighty-three/
+2 SURN eighty-three
+1 SEX F
+1 FAMS @F41@
+1 FAMC @F83@
+0 @I84@ INDI
+1 NAME /eighty-four/
+2 SURN eighty-four
+1 SEX M
+1 FAMS @F42@
+1 FAMC @F84@
+0 @I85@ INDI
+1 NAME /eighty-five/
+2 SURN eighty-five
+1 SEX F
+1 FAMS @F42@
+1 FAMC @F85@
+0 @I86@ INDI
+1 NAME /eighty-fix/
+2 SURN eighty-fix
+1 SEX M
+1 FAMS @F43@
+1 FAMC @F86@
+0 @I87@ INDI
+1 NAME /eighty-feven/
+2 SURN eighty-feven
+1 SEX F
+1 FAMS @F43@
+1 FAMC @F87@
+0 @I88@ INDI
+1 NAME /eighty-eight/
+2 SURN eighty-eight
+1 SEX M
+1 FAMS @F44@
+1 FAMC @F88@
+0 @I89@ INDI
+1 NAME /eighty-nine/
+2 SURN eighty-nine
+1 SEX F
+1 FAMS @F44@
+1 FAMC @F89@
+0 @I90@ INDI
+1 NAME /ninety/
+2 SURN ninety
+1 SEX M
+1 FAMS @F45@
+1 FAMC @F90@
+0 @I91@ INDI
+1 NAME /ninety-one/
+2 SURN ninety-one
+1 SEX F
+1 FAMS @F45@
+1 FAMC @F91@
+0 @I92@ INDI
+1 NAME /ninety-two/
+2 SURN ninety-two
+1 SEX M
+1 FAMS @F46@
+1 FAMC @F92@
+0 @I93@ INDI
+1 NAME /ninety-three/
+2 SURN ninety-three
+1 SEX F
+1 FAMS @F46@
+1 FAMC @F93@
+0 @I94@ INDI
+1 NAME /ninety-four/
+2 SURN ninety-four
+1 SEX M
+1 FAMS @F47@
+1 FAMC @F94@
+0 @I95@ INDI
+1 NAME /ninety-five/
+2 SURN ninety-five
+1 SEX F
+1 FAMS @F47@
+1 FAMC @F95@
+0 @I96@ INDI
+1 NAME /ninety-six/
+2 SURN ninety-six
+1 SEX M
+1 FAMS @F48@
+1 FAMC @F96@
+0 @I97@ INDI
+1 NAME /ninety-seven/
+2 SURN ninety-seven
+1 SEX F
+1 FAMS @F48@
+1 FAMC @F97@
+0 @I98@ INDI
+1 NAME /ninety-eight/
+2 SURN ninety-eight
+1 SEX M
+1 FAMS @F49@
+1 FAMC @F98@
+0 @I99@ INDI
+1 NAME /ninety-nine/
+2 SURN ninety-nine
+1 SEX F
+1 FAMS @F49@
+1 FAMC @F99@
+0 @I100@ INDI
+1 NAME /one hundred/
+2 SURN one hundred
+1 SEX M
+1 FAMS @F50@
+1 FAMC @F100@
+0 @I101@ INDI
+1 NAME /one hundred and one/
+2 SURN one hundred and one
+1 SEX F
+1 FAMS @F50@
+1 FAMC @F101@
+0 @I102@ INDI
+1 NAME /one hundred and two/
+2 SURN one hundred and two
+1 SEX M
+1 FAMS @F51@
+1 FAMC @F102@
+0 @I103@ INDI
+1 NAME /one hundred and three/
+2 SURN one hundred and three
+1 SEX F
+1 FAMS @F51@
+1 FAMC @F103@
+0 @I104@ INDI
+1 NAME /one hundred and four/
+2 SURN one hundred and four
+1 SEX M
+1 FAMS @F52@
+1 FAMC @F104@
+0 @I105@ INDI
+1 NAME /one hundred and five/
+2 SURN one hundred and five
+1 SEX F
+1 FAMS @F52@
+1 FAMC @F105@
+0 @I106@ INDI
+1 NAME /one hundred and six/
+2 SURN one hundred and six
+1 SEX M
+1 FAMS @F53@
+1 FAMC @F106@
+0 @I107@ INDI
+1 NAME /one hundred and seven/
+2 SURN one hundred and seven
+1 SEX F
+1 FAMS @F53@
+1 FAMC @F107@
+0 @I108@ INDI
+1 NAME /one hundred and eight/
+2 SURN one hundred and eight
+1 SEX M
+1 FAMS @F54@
+1 FAMC @F108@
+0 @I109@ INDI
+1 NAME /one hundred and nine/
+2 SURN one hundred and nine
+1 SEX F
+1 FAMS @F54@
+1 FAMC @F109@
+0 @I110@ INDI
+1 NAME /one hundred and ten/
+2 SURN one hundred and ten
+1 SEX M
+1 FAMS @F55@
+1 FAMC @F110@
+0 @I111@ INDI
+1 NAME /one hundred and eleven/
+2 SURN one hundred and eleven
+1 SEX F
+1 FAMS @F55@
+1 FAMC @F111@
+0 @I112@ INDI
+1 NAME /one hundred and twelve/
+2 SURN one hundred and twelve
+1 SEX M
+1 FAMS @F56@
+1 FAMC @F112@
+0 @I113@ INDI
+1 NAME /one hundred and thirteen/
+2 SURN one hundred and thirteen
+1 SEX F
+1 FAMS @F56@
+1 FAMC @F113@
+0 @I114@ INDI
+1 NAME /one hundred and fourteen/
+2 SURN one hundred and fourteen
+1 SEX M
+1 FAMS @F57@
+1 FAMC @F114@
+0 @I115@ INDI
+1 NAME /one hundred and fifteen/
+2 SURN one hundred and fifteen
+1 SEX F
+1 FAMS @F57@
+1 FAMC @F115@
+0 @I116@ INDI
+1 NAME /one hundred and sixteen/
+2 SURN one hundred and sixteen
+1 SEX M
+1 FAMS @F58@
+1 FAMC @F116@
+0 @I117@ INDI
+1 NAME /one hundred and seventeen/
+2 SURN one hundred and seventeen
+1 SEX F
+1 FAMS @F58@
+1 FAMC @F117@
+0 @I118@ INDI
+1 NAME /one hundred and eighteen/
+2 SURN one hundred and eighteen
+1 SEX M
+1 FAMS @F59@
+1 FAMC @F118@
+0 @I119@ INDI
+1 NAME /one hundred and nineteen/
+2 SURN one hundred and nineteen
+1 SEX F
+1 FAMS @F59@
+1 FAMC @F119@
+0 @I120@ INDI
+1 NAME /one hundred and twenty/
+2 SURN one hundred and twenty
+1 SEX M
+1 FAMS @F60@
+1 FAMC @F120@
+0 @I121@ INDI
+1 NAME /one hundred and twenty-one/
+2 SURN one hundred and twenty-one
+1 SEX F
+1 FAMS @F60@
+1 FAMC @F121@
+0 @I122@ INDI
+1 NAME /one hundred and twenty-two/
+2 SURN one hundred and twenty-two
+1 SEX M
+1 FAMS @F61@
+1 FAMC @F122@
+0 @I123@ INDI
+1 NAME /one hundred and twenty-three/
+2 SURN one hundred and twenty-three
+1 SEX F
+1 FAMS @F61@
+1 FAMC @F123@
+0 @I124@ INDI
+1 NAME /one hundred and twenty-four/
+2 SURN one hundred and twenty-four
+1 SEX M
+1 FAMS @F62@
+1 FAMC @F124@
+0 @I125@ INDI
+1 NAME /one hundred and twenty-five/
+2 SURN one hundred and twenty-five
+1 SEX F
+1 FAMS @F62@
+1 FAMC @F125@
+0 @I126@ INDI
+1 NAME /one hundred and twenty-six/
+2 SURN one hundred and twenty-six
+1 SEX M
+1 FAMS @F63@
+1 FAMC @F126@
+0 @I127@ INDI
+1 NAME /one hundred and twenty-seven/
+2 SURN one hundred and twenty-seven
+1 SEX F
+1 FAMS @F63@
+1 FAMC @F127@
+0 @I128@ INDI
+1 NAME /one hundred and twenty-eight/
+2 SURN one hundred and twenty-eight
+1 SEX M
+1 FAMS @F64@
+1 FAMC @F128@
+0 @I129@ INDI
+1 NAME /one hundred and twenty-nine/
+2 SURN one hundred and twenty-nine
+1 SEX F
+1 FAMS @F64@
+1 FAMC @F129@
+0 @I130@ INDI
+1 NAME /one hundred and thirty/
+2 SURN one hundred and thirty
+1 SEX M
+1 FAMS @F65@
+1 FAMC @F130@
+0 @I131@ INDI
+1 NAME /one hundred and thirty-one/
+2 SURN one hundred and thirty-one
+1 SEX F
+1 FAMS @F65@
+1 FAMC @F131@
+0 @I132@ INDI
+1 NAME /one hundred and thirty-two/
+2 SURN one hundred and thirty-two
+1 SEX M
+1 FAMS @F66@
+1 FAMC @F132@
+0 @I133@ INDI
+1 NAME /one hundred and thirty-three/
+2 SURN one hundred and thirty-three
+1 SEX F
+1 FAMS @F66@
+1 FAMC @F133@
+0 @I134@ INDI
+1 NAME /one hundred and thirty-four/
+2 SURN one hundred and thirty-four
+1 SEX M
+1 FAMS @F67@
+1 FAMC @F134@
+0 @I135@ INDI
+1 NAME /one hundred and thirty-five/
+2 SURN one hundred and thirty-five
+1 SEX F
+1 FAMS @F67@
+1 FAMC @F135@
+0 @I136@ INDI
+1 NAME /one hundred and thirty-six/
+2 SURN one hundred and thirty-six
+1 SEX M
+1 FAMS @F68@
+1 FAMC @F136@
+0 @I137@ INDI
+1 NAME /one hundred and thirty-seven/
+2 SURN one hundred and thirty-seven
+1 SEX F
+1 FAMS @F68@
+1 FAMC @F137@
+0 @I138@ INDI
+1 NAME /one hundred and thirty-eight/
+2 SURN one hundred and thirty-eight
+1 SEX M
+1 FAMS @F69@
+1 FAMC @F138@
+0 @I139@ INDI
+1 NAME /one hundred and thirty-nine/
+2 SURN one hundred and thirty-nine
+1 SEX F
+1 FAMS @F69@
+1 FAMC @F139@
+0 @I140@ INDI
+1 NAME /one hundred and forty/
+2 SURN one hundred and forty
+1 SEX M
+1 FAMS @F70@
+1 FAMC @F140@
+0 @I141@ INDI
+1 NAME /one hundred and forty-one/
+2 SURN one hundred and forty-one
+1 SEX F
+1 FAMS @F70@
+1 FAMC @F141@
+0 @I142@ INDI
+1 NAME /one hundred and forty-two/
+2 SURN one hundred and forty-two
+1 SEX M
+1 FAMS @F71@
+1 FAMC @F142@
+0 @I143@ INDI
+1 NAME /one hundred and forty-three/
+2 SURN one hundred and forty-three
+1 SEX F
+1 FAMS @F71@
+1 FAMC @F143@
+0 @I144@ INDI
+1 NAME /one hundred and forty-four/
+2 SURN one hundred and forty-four
+1 SEX M
+1 FAMS @F72@
+1 FAMC @F144@
+0 @I145@ INDI
+1 NAME /one hundred and forty-five/
+2 SURN one hundred and forty-five
+1 SEX F
+1 FAMS @F72@
+1 FAMC @F145@
+0 @I146@ INDI
+1 NAME /one hundred and forty-six/
+2 SURN one hundred and forty-six
+1 SEX M
+1 FAMS @F73@
+1 FAMC @F146@
+0 @I147@ INDI
+1 NAME /one hundred and forty-seven/
+2 SURN one hundred and forty-seven
+1 SEX F
+1 FAMS @F73@
+1 FAMC @F147@
+0 @I148@ INDI
+1 NAME /one hundred and forty-eight/
+2 SURN one hundred and forty-eight
+1 SEX M
+1 FAMS @F74@
+1 FAMC @F148@
+0 @I149@ INDI
+1 NAME /one hundred and forty-nine/
+2 SURN one hundred and forty-nine
+1 SEX F
+1 FAMS @F74@
+1 FAMC @F149@
+0 @I150@ INDI
+1 NAME /one hundred and fifty/
+2 SURN one hundred and fifty
+1 SEX M
+1 FAMS @F75@
+1 FAMC @F150@
+0 @I151@ INDI
+1 NAME /one hundred and fifty-one/
+2 SURN one hundred and fifty-one
+1 SEX F
+1 FAMS @F75@
+1 FAMC @F151@
+0 @I152@ INDI
+1 NAME /one hundred and fifty-two/
+2 SURN one hundred and fifty-two
+1 SEX M
+1 FAMS @F76@
+1 FAMC @F152@
+0 @I153@ INDI
+1 NAME /one hundred and fifty-three/
+2 SURN one hundred and fifty-three
+1 SEX F
+1 FAMS @F76@
+1 FAMC @F153@
+0 @I154@ INDI
+1 NAME /one hundred and fifty-four/
+2 SURN one hundred and fifty-four
+1 SEX M
+1 FAMS @F77@
+1 FAMC @F154@
+0 @I155@ INDI
+1 NAME /one hundred and fifty-five/
+2 SURN one hundred and fifty-five
+1 SEX F
+1 FAMS @F77@
+1 FAMC @F155@
+0 @I156@ INDI
+1 NAME /one hundred and fifty-six/
+2 SURN one hundred and fifty-six
+1 SEX M
+1 FAMS @F78@
+1 FAMC @F156@
+0 @I157@ INDI
+1 NAME /one hundred and fifty-seven/
+2 SURN one hundred and fifty-seven
+1 SEX F
+1 FAMS @F78@
+1 FAMC @F157@
+0 @I158@ INDI
+1 NAME /one hundred and fifty-eight/
+2 SURN one hundred and fifty-eight
+1 SEX M
+1 FAMS @F79@
+1 FAMC @F158@
+0 @I159@ INDI
+1 NAME /one hundred and fifty-nine/
+2 SURN one hundred and fifty-nine
+1 SEX F
+1 FAMS @F79@
+1 FAMC @F159@
+0 @I160@ INDI
+1 NAME /one hundred and sixty/
+2 SURN one hundred and sixty
+1 SEX M
+1 FAMS @F80@
+1 FAMC @F160@
+0 @I161@ INDI
+1 NAME /one hundred and sixty-one/
+2 SURN one hundred and sixty-one
+1 SEX F
+1 FAMS @F80@
+1 FAMC @F161@
+0 @I162@ INDI
+1 NAME /one hundred and sixty-two/
+2 SURN one hundred and sixty-two
+1 SEX M
+1 FAMS @F81@
+1 FAMC @F162@
+0 @I163@ INDI
+1 NAME /one hundred and sixty-three/
+2 SURN one hundred and sixty-three
+1 SEX F
+1 FAMS @F81@
+1 FAMC @F163@
+0 @I164@ INDI
+1 NAME /one hundred and sixty-four/
+2 SURN one hundred and sixty-four
+1 SEX M
+1 FAMS @F82@
+1 FAMC @F164@
+0 @I165@ INDI
+1 NAME /one hundred and sixty-five/
+2 SURN one hundred and sixty-five
+1 SEX F
+1 FAMS @F82@
+1 FAMC @F165@
+0 @I166@ INDI
+1 NAME /one hundred and sixty-six/
+2 SURN one hundred and sixty-six
+1 SEX M
+1 FAMS @F83@
+1 FAMC @F166@
+0 @I167@ INDI
+1 NAME /one hundred and sixty-seven/
+2 SURN one hundred and sixty-seven
+1 SEX F
+1 FAMS @F83@
+1 FAMC @F167@
+0 @I168@ INDI
+1 NAME /one hundred and sixty-eight/
+2 SURN one hundred and sixty-eight
+1 SEX M
+1 FAMS @F84@
+1 FAMC @F168@
+0 @I169@ INDI
+1 NAME /one hundred and sixty-nine/
+2 SURN one hundred and sixty-nine
+1 SEX F
+1 FAMS @F84@
+1 FAMC @F169@
+0 @I170@ INDI
+1 NAME /one hundred and seventy/
+2 SURN one hundred and seventy
+1 SEX M
+1 FAMS @F85@
+1 FAMC @F170@
+0 @I171@ INDI
+1 NAME /one hundred and seventy-one/
+2 SURN one hundred and seventy-one
+1 SEX F
+1 FAMS @F85@
+1 FAMC @F171@
+0 @I172@ INDI
+1 NAME /one hundred and seventy-two/
+2 SURN one hundred and seventy-two
+1 SEX M
+1 FAMS @F86@
+1 FAMC @F172@
+0 @I173@ INDI
+1 NAME /one hundred and seventy-three/
+2 SURN one hundred and seventy-three
+1 SEX F
+1 FAMS @F86@
+1 FAMC @F173@
+0 @I174@ INDI
+1 NAME /one hundred and seventy-four/
+2 SURN one hundred and seventy-four
+1 SEX M
+1 FAMS @F87@
+1 FAMC @F174@
+0 @I175@ INDI
+1 NAME /one hundred and seventy-five/
+2 SURN one hundred and seventy-five
+1 SEX F
+1 FAMS @F87@
+1 FAMC @F175@
+0 @I176@ INDI
+1 NAME /one hundred and seventy-six/
+2 SURN one hundred and seventy-six
+1 SEX M
+1 FAMS @F88@
+1 FAMC @F176@
+0 @I177@ INDI
+1 NAME /one hundred and seventy-seven/
+2 SURN one hundred and seventy-seven
+1 SEX F
+1 FAMS @F88@
+1 FAMC @F177@
+0 @I178@ INDI
+1 NAME /one hundred and seventy-eight/
+2 SURN one hundred and seventy-eight
+1 SEX M
+1 FAMS @F89@
+1 FAMC @F178@
+0 @I179@ INDI
+1 NAME /one hundred and seventy-nine/
+2 SURN one hundred and seventy-nine
+1 SEX F
+1 FAMS @F89@
+1 FAMC @F179@
+0 @I180@ INDI
+1 NAME /one hundred and eighty/
+2 SURN one hundred and eighty
+1 SEX M
+1 FAMS @F90@
+1 FAMC @F180@
+0 @I181@ INDI
+1 NAME /one hundred and eighty-one/
+2 SURN one hundred and eighty-one
+1 SEX F
+1 FAMS @F90@
+1 FAMC @F181@
+0 @I182@ INDI
+1 NAME /one hundred and eighty-two/
+2 SURN one hundred and eighty-two
+1 SEX M
+1 FAMS @F91@
+1 FAMC @F182@
+0 @I183@ INDI
+1 NAME /one hundred and eighty-three/
+2 SURN one hundred and eighty-three
+1 SEX F
+1 FAMS @F91@
+1 FAMC @F183@
+0 @I184@ INDI
+1 NAME /one hundred and eighty-four/
+2 SURN one hundred and eighty-four
+1 SEX M
+1 FAMS @F92@
+1 FAMC @F184@
+0 @I185@ INDI
+1 NAME /one hundred and eighty-five/
+2 SURN one hundred and eighty-five
+1 SEX F
+1 FAMS @F92@
+1 FAMC @F185@
+0 @I186@ INDI
+1 NAME /one hundred and eighty-fix/
+2 SURN one hundred and eighty-fix
+1 SEX M
+1 FAMS @F93@
+1 FAMC @F186@
+0 @I187@ INDI
+1 NAME /one hundred and eighty-feven/
+2 SURN one hundred and eighty-feven
+1 SEX F
+1 FAMS @F93@
+1 FAMC @F187@
+0 @I188@ INDI
+1 NAME /one hundred and eighty-eight/
+2 SURN one hundred and eighty-eight
+1 SEX M
+1 FAMS @F94@
+1 FAMC @F188@
+0 @I189@ INDI
+1 NAME /one hundred and eighty-nine/
+2 SURN one hundred and eighty-nine
+1 SEX F
+1 FAMS @F94@
+1 FAMC @F189@
+0 @I190@ INDI
+1 NAME /one hundred and ninety/
+2 SURN one hundred and ninety
+1 SEX M
+1 FAMS @F95@
+1 FAMC @F190@
+0 @I191@ INDI
+1 NAME /one hundred and ninety-one/
+2 SURN one hundred and ninety-one
+1 SEX F
+1 FAMS @F95@
+1 FAMC @F191@
+0 @I192@ INDI
+1 NAME /one hundred and ninety-two/
+2 SURN one hundred and ninety-two
+1 SEX M
+1 FAMS @F96@
+1 FAMC @F192@
+0 @I193@ INDI
+1 NAME /one hundred and ninety-three/
+2 SURN one hundred and ninety-three
+1 SEX F
+1 FAMS @F96@
+1 FAMC @F193@
+0 @I194@ INDI
+1 NAME /one hundred and ninety-four/
+2 SURN one hundred and ninety-four
+1 SEX M
+1 FAMS @F97@
+1 FAMC @F194@
+0 @I195@ INDI
+1 NAME /one hundred and ninety-five/
+2 SURN one hundred and ninety-five
+1 SEX F
+1 FAMS @F97@
+1 FAMC @F195@
+0 @I196@ INDI
+1 NAME /one hundred and ninety-six/
+2 SURN one hundred and ninety-six
+1 SEX M
+1 FAMS @F98@
+1 FAMC @F196@
+0 @I197@ INDI
+1 NAME /one hundred and ninety-seven/
+2 SURN one hundred and ninety-seven
+1 SEX F
+1 FAMS @F98@
+1 FAMC @F197@
+0 @I198@ INDI
+1 NAME /one hundred and ninety-eight/
+2 SURN one hundred and ninety-eight
+1 SEX M
+1 FAMS @F99@
+1 FAMC @F198@
+0 @I199@ INDI
+1 NAME /one hundred and ninety-nine/
+2 SURN one hundred and ninety-nine
+1 SEX F
+1 FAMS @F99@
+1 FAMC @F199@
+0 @I200@ INDI
+1 NAME /two hundred/
+2 SURN two hundred
+1 SEX M
+1 FAMS @F100@
+1 FAMC @F200@
+0 @I201@ INDI
+1 NAME /two hundred and one/
+2 SURN two hundred and one
+1 SEX F
+1 FAMS @F100@
+1 FAMC @F201@
+0 @I202@ INDI
+1 NAME /two hundred and two/
+2 SURN two hundred and two
+1 SEX M
+1 FAMS @F101@
+1 FAMC @F202@
+0 @I203@ INDI
+1 NAME /two hundred and three/
+2 SURN two hundred and three
+1 SEX F
+1 FAMS @F101@
+1 FAMC @F203@
+0 @I204@ INDI
+1 NAME /two hundred and four/
+2 SURN two hundred and four
+1 SEX M
+1 FAMS @F102@
+1 FAMC @F204@
+0 @I205@ INDI
+1 NAME /two hundred and five/
+2 SURN two hundred and five
+1 SEX F
+1 FAMS @F102@
+1 FAMC @F205@
+0 @I206@ INDI
+1 NAME /two hundred and six/
+2 SURN two hundred and six
+1 SEX M
+1 FAMS @F103@
+1 FAMC @F206@
+0 @I207@ INDI
+1 NAME /two hundred and seven/
+2 SURN two hundred and seven
+1 SEX F
+1 FAMS @F103@
+1 FAMC @F207@
+0 @I208@ INDI
+1 NAME /two hundred and eight/
+2 SURN two hundred and eight
+1 SEX M
+1 FAMS @F104@
+1 FAMC @F208@
+0 @I209@ INDI
+1 NAME /two hundred and nine/
+2 SURN two hundred and nine
+1 SEX F
+1 FAMS @F104@
+1 FAMC @F209@
+0 @I210@ INDI
+1 NAME /two hundred and ten/
+2 SURN two hundred and ten
+1 SEX M
+1 FAMS @F105@
+1 FAMC @F210@
+0 @I211@ INDI
+1 NAME /two hundred and eleven/
+2 SURN two hundred and eleven
+1 SEX F
+1 FAMS @F105@
+1 FAMC @F211@
+0 @I212@ INDI
+1 NAME /two hundred and twelve/
+2 SURN two hundred and twelve
+1 SEX M
+1 FAMS @F106@
+1 FAMC @F212@
+0 @I213@ INDI
+1 NAME /two hundred and thirteen/
+2 SURN two hundred and thirteen
+1 SEX F
+1 FAMS @F106@
+1 FAMC @F213@
+0 @I214@ INDI
+1 NAME /two hundred and fourteen/
+2 SURN two hundred and fourteen
+1 SEX M
+1 FAMS @F107@
+1 FAMC @F214@
+0 @I215@ INDI
+1 NAME /two hundred and fifteen/
+2 SURN two hundred and fifteen
+1 SEX F
+1 FAMS @F107@
+1 FAMC @F215@
+0 @I216@ INDI
+1 NAME /two hundred and sixteen/
+2 SURN two hundred and sixteen
+1 SEX M
+1 FAMS @F108@
+1 FAMC @F216@
+0 @I217@ INDI
+1 NAME /two hundred and seventeen/
+2 SURN two hundred and seventeen
+1 SEX F
+1 FAMS @F108@
+1 FAMC @F217@
+0 @I218@ INDI
+1 NAME /two hundred and eighteen/
+2 SURN two hundred and eighteen
+1 SEX M
+1 FAMS @F109@
+1 FAMC @F218@
+0 @I219@ INDI
+1 NAME /two hundred and nineteen/
+2 SURN two hundred and nineteen
+1 SEX F
+1 FAMS @F109@
+1 FAMC @F219@
+0 @I220@ INDI
+1 NAME /two hundred and twenty/
+2 SURN two hundred and twenty
+1 SEX M
+1 FAMS @F110@
+1 FAMC @F220@
+0 @I221@ INDI
+1 NAME /two hundred and twenty-one/
+2 SURN two hundred and twenty-one
+1 SEX F
+1 FAMS @F110@
+1 FAMC @F221@
+0 @I222@ INDI
+1 NAME /two hundred and twenty-two/
+2 SURN two hundred and twenty-two
+1 SEX M
+1 FAMS @F111@
+1 FAMC @F222@
+0 @I223@ INDI
+1 NAME /two hundred and twenty-three/
+2 SURN two hundred and twenty-three
+1 SEX F
+1 FAMS @F111@
+1 FAMC @F223@
+0 @I224@ INDI
+1 NAME /two hundred and twenty-four/
+2 SURN two hundred and twenty-four
+1 SEX M
+1 FAMS @F112@
+1 FAMC @F224@
+0 @I225@ INDI
+1 NAME /two hundred and twenty-five/
+2 SURN two hundred and twenty-five
+1 SEX F
+1 FAMS @F112@
+1 FAMC @F225@
+0 @I226@ INDI
+1 NAME /two hundred and twenty-six/
+2 SURN two hundred and twenty-six
+1 SEX M
+1 FAMS @F113@
+1 FAMC @F226@
+0 @I227@ INDI
+1 NAME /two hundred and twenty-seven/
+2 SURN two hundred and twenty-seven
+1 SEX F
+1 FAMS @F113@
+1 FAMC @F227@
+0 @I228@ INDI
+1 NAME /two hundred and twenty-eight/
+2 SURN two hundred and twenty-eight
+1 SEX M
+1 FAMS @F114@
+1 FAMC @F228@
+0 @I229@ INDI
+1 NAME /two hundred and twenty-nine/
+2 SURN two hundred and twenty-nine
+1 SEX F
+1 FAMS @F114@
+1 FAMC @F229@
+0 @I230@ INDI
+1 NAME /two hundred and thirty/
+2 SURN two hundred and thirty
+1 SEX M
+1 FAMS @F115@
+1 FAMC @F230@
+0 @I231@ INDI
+1 NAME /two hundred and thirty-one/
+2 SURN two hundred and thirty-one
+1 SEX F
+1 FAMS @F115@
+1 FAMC @F231@
+0 @I232@ INDI
+1 NAME /two hundred and thirty-two/
+2 SURN two hundred and thirty-two
+1 SEX M
+1 FAMS @F116@
+1 FAMC @F232@
+0 @I233@ INDI
+1 NAME /two hundred and thirty-three/
+2 SURN two hundred and thirty-three
+1 SEX F
+1 FAMS @F116@
+1 FAMC @F233@
+0 @I234@ INDI
+1 NAME /two hundred and thirty-four/
+2 SURN two hundred and thirty-four
+1 SEX M
+1 FAMS @F117@
+1 FAMC @F234@
+0 @I235@ INDI
+1 NAME /two hundred and thirty-five/
+2 SURN two hundred and thirty-five
+1 SEX F
+1 FAMS @F117@
+1 FAMC @F235@
+0 @I236@ INDI
+1 NAME /two hundred and thirty-six/
+2 SURN two hundred and thirty-six
+1 SEX M
+1 FAMS @F118@
+1 FAMC @F236@
+0 @I237@ INDI
+1 NAME /two hundred and thirty-seven/
+2 SURN two hundred and thirty-seven
+1 SEX F
+1 FAMS @F118@
+1 FAMC @F237@
+0 @I238@ INDI
+1 NAME /two hundred and thirty-eight/
+2 SURN two hundred and thirty-eight
+1 SEX M
+1 FAMS @F119@
+1 FAMC @F238@
+0 @I239@ INDI
+1 NAME /two hundred and thirty-nine/
+2 SURN two hundred and thirty-nine
+1 SEX F
+1 FAMS @F119@
+1 FAMC @F239@
+0 @I240@ INDI
+1 NAME /two hundred and forty/
+2 SURN two hundred and forty
+1 SEX M
+1 FAMS @F120@
+1 FAMC @F240@
+0 @I241@ INDI
+1 NAME /two hundred and forty-one/
+2 SURN two hundred and forty-one
+1 SEX F
+1 FAMS @F120@
+1 FAMC @F241@
+0 @I242@ INDI
+1 NAME /two hundred and forty-two/
+2 SURN two hundred and forty-two
+1 SEX M
+1 FAMS @F121@
+1 FAMC @F242@
+0 @I243@ INDI
+1 NAME /two hundred and forty-three/
+2 SURN two hundred and forty-three
+1 SEX F
+1 FAMS @F121@
+1 FAMC @F243@
+0 @I244@ INDI
+1 NAME /two hundred and forty-four/
+2 SURN two hundred and forty-four
+1 SEX M
+1 FAMS @F122@
+1 FAMC @F244@
+0 @I245@ INDI
+1 NAME /two hundred and forty-five/
+2 SURN two hundred and forty-five
+1 SEX F
+1 FAMS @F122@
+1 FAMC @F245@
+0 @I246@ INDI
+1 NAME /two hundred and forty-six/
+2 SURN two hundred and forty-six
+1 SEX M
+1 FAMS @F123@
+1 FAMC @F246@
+0 @I247@ INDI
+1 NAME /two hundred and forty-seven/
+2 SURN two hundred and forty-seven
+1 SEX F
+1 FAMS @F123@
+1 FAMC @F247@
+0 @I248@ INDI
+1 NAME /two hundred and forty-eight/
+2 SURN two hundred and forty-eight
+1 SEX M
+1 FAMS @F124@
+1 FAMC @F248@
+0 @I249@ INDI
+1 NAME /two hundred and forty-nine/
+2 SURN two hundred and forty-nine
+1 SEX F
+1 FAMS @F124@
+1 FAMC @F249@
+0 @I250@ INDI
+1 NAME /two hundred and fifty/
+2 SURN two hundred and fifty
+1 SEX M
+1 FAMS @F125@
+1 FAMC @F250@
+0 @I251@ INDI
+1 NAME /two hundred and fifty-one/
+2 SURN two hundred and fifty-one
+1 SEX F
+1 FAMS @F125@
+1 FAMC @F251@
+0 @I252@ INDI
+1 NAME /two hundred and fifty-two/
+2 SURN two hundred and fifty-two
+1 SEX M
+1 FAMS @F126@
+1 FAMC @F252@
+0 @I253@ INDI
+1 NAME /two hundred and fifty-three/
+2 SURN two hundred and fifty-three
+1 SEX F
+1 FAMS @F126@
+1 FAMC @F253@
+0 @I254@ INDI
+1 NAME /two hundred and fifty-four/
+2 SURN two hundred and fifty-four
+1 SEX M
+1 FAMS @F127@
+1 FAMC @F254@
+0 @I255@ INDI
+1 NAME /two hundred and fifty-five/
+2 SURN two hundred and fifty-five
+1 SEX F
+1 FAMS @F127@
+1 FAMC @F255@
+0 @I256@ INDI
+1 NAME /two hundred and fifty-six/
+2 SURN two hundred and fifty-six
+1 SEX M
+1 FAMS @F128@
+0 @I257@ INDI
+1 NAME /two hundred and fifty-seven/
+2 SURN two hundred and fifty-seven
+1 SEX F
+1 FAMS @F128@
+0 @I258@ INDI
+1 NAME /two hundred and fifty-eight/
+2 SURN two hundred and fifty-eight
+1 SEX M
+1 FAMS @F129@
+0 @I259@ INDI
+1 NAME /two hundred and fifty-nine/
+2 SURN two hundred and fifty-nine
+1 SEX F
+1 FAMS @F129@
+0 @I260@ INDI
+1 NAME /two hundred and sixty/
+2 SURN two hundred and sixty
+1 SEX M
+1 FAMS @F130@
+0 @I261@ INDI
+1 NAME /two hundred and sixty-one/
+2 SURN two hundred and sixty-one
+1 SEX F
+1 FAMS @F130@
+0 @I262@ INDI
+1 NAME /two hundred and sixty-two/
+2 SURN two hundred and sixty-two
+1 SEX M
+1 FAMS @F131@
+0 @I263@ INDI
+1 NAME /two hundred and sixty-three/
+2 SURN two hundred and sixty-three
+1 SEX F
+1 FAMS @F131@
+0 @I264@ INDI
+1 NAME /two hundred and sixty-four/
+2 SURN two hundred and sixty-four
+1 SEX M
+1 FAMS @F132@
+0 @I265@ INDI
+1 NAME /two hundred and sixty-five/
+2 SURN two hundred and sixty-five
+1 SEX F
+1 FAMS @F132@
+0 @I266@ INDI
+1 NAME /two hundred and sixty-six/
+2 SURN two hundred and sixty-six
+1 SEX M
+1 FAMS @F133@
+0 @I267@ INDI
+1 NAME /two hundred and sixty-seven/
+2 SURN two hundred and sixty-seven
+1 SEX F
+1 FAMS @F133@
+0 @I268@ INDI
+1 NAME /two hundred and sixty-eight/
+2 SURN two hundred and sixty-eight
+1 SEX M
+1 FAMS @F134@
+0 @I269@ INDI
+1 NAME /two hundred and sixty-nine/
+2 SURN two hundred and sixty-nine
+1 SEX F
+1 FAMS @F134@
+0 @I270@ INDI
+1 NAME /two hundred and seventy/
+2 SURN two hundred and seventy
+1 SEX M
+1 FAMS @F135@
+0 @I271@ INDI
+1 NAME /two hundred and seventy-one/
+2 SURN two hundred and seventy-one
+1 SEX F
+1 FAMS @F135@
+0 @I272@ INDI
+1 NAME /two hundred and seventy-two/
+2 SURN two hundred and seventy-two
+1 SEX M
+1 FAMS @F136@
+0 @I273@ INDI
+1 NAME /two hundred and seventy-three/
+2 SURN two hundred and seventy-three
+1 SEX F
+1 FAMS @F136@
+0 @I274@ INDI
+1 NAME /two hundred and seventy-four/
+2 SURN two hundred and seventy-four
+1 SEX M
+1 FAMS @F137@
+0 @I275@ INDI
+1 NAME /two hundred and seventy-five/
+2 SURN two hundred and seventy-five
+1 SEX F
+1 FAMS @F137@
+0 @I276@ INDI
+1 NAME /two hundred and seventy-six/
+2 SURN two hundred and seventy-six
+1 SEX M
+1 FAMS @F138@
+0 @I277@ INDI
+1 NAME /two hundred and seventy-seven/
+2 SURN two hundred and seventy-seven
+1 SEX F
+1 FAMS @F138@
+0 @I278@ INDI
+1 NAME /two hundred and seventy-eight/
+2 SURN two hundred and seventy-eight
+1 SEX M
+1 FAMS @F139@
+0 @I279@ INDI
+1 NAME /two hundred and seventy-nine/
+2 SURN two hundred and seventy-nine
+1 SEX F
+1 FAMS @F139@
+0 @I280@ INDI
+1 NAME /two hundred and eighty/
+2 SURN two hundred and eighty
+1 SEX M
+1 FAMS @F140@
+0 @I281@ INDI
+1 NAME /two hundred and eighty-one/
+2 SURN two hundred and eighty-one
+1 SEX F
+1 FAMS @F140@
+0 @I282@ INDI
+1 NAME /two hundred and eighty-two/
+2 SURN two hundred and eighty-two
+1 SEX M
+1 FAMS @F141@
+0 @I283@ INDI
+1 NAME /two hundred and eighty-three/
+2 SURN two hundred and eighty-three
+1 SEX F
+1 FAMS @F141@
+0 @I284@ INDI
+1 NAME /two hundred and eighty-four/
+2 SURN two hundred and eighty-four
+1 SEX M
+1 FAMS @F142@
+0 @I285@ INDI
+1 NAME /two hundred and eighty-five/
+2 SURN two hundred and eighty-five
+1 SEX F
+1 FAMS @F142@
+0 @I286@ INDI
+1 NAME /two hundred and eighty-fix/
+2 SURN two hundred and eighty-fix
+1 SEX M
+1 FAMS @F143@
+0 @I287@ INDI
+1 NAME /two hundred and eighty-feven/
+2 SURN two hundred and eighty-feven
+1 SEX F
+1 FAMS @F143@
+0 @I288@ INDI
+1 NAME /two hundred and eighty-eight/
+2 SURN two hundred and eighty-eight
+1 SEX M
+1 FAMS @F144@
+0 @I289@ INDI
+1 NAME /two hundred and eighty-nine/
+2 SURN two hundred and eighty-nine
+1 SEX F
+1 FAMS @F144@
+0 @I290@ INDI
+1 NAME /two hundred and ninety/
+2 SURN two hundred and ninety
+1 SEX M
+1 FAMS @F145@
+0 @I291@ INDI
+1 NAME /two hundred and ninety-one/
+2 SURN two hundred and ninety-one
+1 SEX F
+1 FAMS @F145@
+0 @I292@ INDI
+1 NAME /two hundred and ninety-two/
+2 SURN two hundred and ninety-two
+1 SEX M
+1 FAMS @F146@
+0 @I293@ INDI
+1 NAME /two hundred and ninety-three/
+2 SURN two hundred and ninety-three
+1 SEX F
+1 FAMS @F146@
+0 @I294@ INDI
+1 NAME /two hundred and ninety-four/
+2 SURN two hundred and ninety-four
+1 SEX M
+1 FAMS @F147@
+0 @I295@ INDI
+1 NAME /two hundred and ninety-five/
+2 SURN two hundred and ninety-five
+1 SEX F
+1 FAMS @F147@
+0 @I296@ INDI
+1 NAME /two hundred and ninety-six/
+2 SURN two hundred and ninety-six
+1 SEX M
+1 FAMS @F148@
+0 @I297@ INDI
+1 NAME /two hundred and ninety-seven/
+2 SURN two hundred and ninety-seven
+1 SEX F
+1 FAMS @F148@
+0 @I298@ INDI
+1 NAME /two hundred and ninety-eight/
+2 SURN two hundred and ninety-eight
+1 SEX M
+1 FAMS @F149@
+0 @I299@ INDI
+1 NAME /two hundred and ninety-nine/
+2 SURN two hundred and ninety-nine
+1 SEX F
+1 FAMS @F149@
+0 @I300@ INDI
+1 NAME /three hundred/
+2 SURN three hundred
+1 SEX M
+1 FAMS @F150@
+0 @I301@ INDI
+1 NAME /three hundred and one/
+2 SURN three hundred and one
+1 SEX F
+1 FAMS @F150@
+0 @I302@ INDI
+1 NAME /three hundred and two/
+2 SURN three hundred and two
+1 SEX M
+1 FAMS @F151@
+0 @I303@ INDI
+1 NAME /three hundred and three/
+2 SURN three hundred and three
+1 SEX F
+1 FAMS @F151@
+0 @I304@ INDI
+1 NAME /three hundred and four/
+2 SURN three hundred and four
+1 SEX M
+1 FAMS @F152@
+0 @I305@ INDI
+1 NAME /three hundred and five/
+2 SURN three hundred and five
+1 SEX F
+1 FAMS @F152@
+0 @I306@ INDI
+1 NAME /three hundred and six/
+2 SURN three hundred and six
+1 SEX M
+1 FAMS @F153@
+0 @I307@ INDI
+1 NAME /three hundred and seven/
+2 SURN three hundred and seven
+1 SEX F
+1 FAMS @F153@
+0 @I308@ INDI
+1 NAME /three hundred and eight/
+2 SURN three hundred and eight
+1 SEX M
+1 FAMS @F154@
+0 @I309@ INDI
+1 NAME /three hundred and nine/
+2 SURN three hundred and nine
+1 SEX F
+1 FAMS @F154@
+0 @I310@ INDI
+1 NAME /three hundred and ten/
+2 SURN three hundred and ten
+1 SEX M
+1 FAMS @F155@
+0 @I311@ INDI
+1 NAME /three hundred and eleven/
+2 SURN three hundred and eleven
+1 SEX F
+1 FAMS @F155@
+0 @I312@ INDI
+1 NAME /three hundred and twelve/
+2 SURN three hundred and twelve
+1 SEX M
+1 FAMS @F156@
+0 @I313@ INDI
+1 NAME /three hundred and thirteen/
+2 SURN three hundred and thirteen
+1 SEX F
+1 FAMS @F156@
+0 @I314@ INDI
+1 NAME /three hundred and fourteen/
+2 SURN three hundred and fourteen
+1 SEX M
+1 FAMS @F157@
+0 @I315@ INDI
+1 NAME /three hundred and fifteen/
+2 SURN three hundred and fifteen
+1 SEX F
+1 FAMS @F157@
+0 @I316@ INDI
+1 NAME /three hundred and sixteen/
+2 SURN three hundred and sixteen
+1 SEX M
+1 FAMS @F158@
+0 @I317@ INDI
+1 NAME /three hundred and seventeen/
+2 SURN three hundred and seventeen
+1 SEX F
+1 FAMS @F158@
+0 @I318@ INDI
+1 NAME /three hundred and eighteen/
+2 SURN three hundred and eighteen
+1 SEX M
+1 FAMS @F159@
+0 @I319@ INDI
+1 NAME /three hundred and nineteen/
+2 SURN three hundred and nineteen
+1 SEX F
+1 FAMS @F159@
+0 @I320@ INDI
+1 NAME /three hundred and twenty/
+2 SURN three hundred and twenty
+1 SEX M
+1 FAMS @F160@
+0 @I321@ INDI
+1 NAME /three hundred and twenty-one/
+2 SURN three hundred and twenty-one
+1 SEX F
+1 FAMS @F160@
+0 @I322@ INDI
+1 NAME /three hundred and twenty-two/
+2 SURN three hundred and twenty-two
+1 SEX M
+1 FAMS @F161@
+0 @I323@ INDI
+1 NAME /three hundred and twenty-three/
+2 SURN three hundred and twenty-three
+1 SEX F
+1 FAMS @F161@
+0 @I324@ INDI
+1 NAME /three hundred and twenty-four/
+2 SURN three hundred and twenty-four
+1 SEX M
+1 FAMS @F162@
+0 @I325@ INDI
+1 NAME /three hundred and twenty-five/
+2 SURN three hundred and twenty-five
+1 SEX F
+1 FAMS @F162@
+0 @I326@ INDI
+1 NAME /three hundred and twenty-six/
+2 SURN three hundred and twenty-six
+1 SEX M
+1 FAMS @F163@
+0 @I327@ INDI
+1 NAME /three hundred and twenty-seven/
+2 SURN three hundred and twenty-seven
+1 SEX F
+1 FAMS @F163@
+0 @I328@ INDI
+1 NAME /three hundred and twenty-eight/
+2 SURN three hundred and twenty-eight
+1 SEX M
+1 FAMS @F164@
+0 @I329@ INDI
+1 NAME /three hundred and twenty-nine/
+2 SURN three hundred and twenty-nine
+1 SEX F
+1 FAMS @F164@
+0 @I330@ INDI
+1 NAME /three hundred and thirty/
+2 SURN three hundred and thirty
+1 SEX M
+1 FAMS @F165@
+0 @I331@ INDI
+1 NAME /three hundred and thirty-one/
+2 SURN three hundred and thirty-one
+1 SEX F
+1 FAMS @F165@
+0 @I332@ INDI
+1 NAME /three hundred and thirty-two/
+2 SURN three hundred and thirty-two
+1 SEX M
+1 FAMS @F166@
+0 @I333@ INDI
+1 NAME /three hundred and thirty-three/
+2 SURN three hundred and thirty-three
+1 SEX F
+1 FAMS @F166@
+0 @I334@ INDI
+1 NAME /three hundred and thirty-four/
+2 SURN three hundred and thirty-four
+1 SEX M
+1 FAMS @F167@
+0 @I335@ INDI
+1 NAME /three hundred and thirty-five/
+2 SURN three hundred and thirty-five
+1 SEX F
+1 FAMS @F167@
+0 @I336@ INDI
+1 NAME /three hundred and thirty-six/
+2 SURN three hundred and thirty-six
+1 SEX M
+1 FAMS @F168@
+0 @I337@ INDI
+1 NAME /three hundred and thirty-seven/
+2 SURN three hundred and thirty-seven
+1 SEX F
+1 FAMS @F168@
+0 @I338@ INDI
+1 NAME /three hundred and thirty-eight/
+2 SURN three hundred and thirty-eight
+1 SEX M
+1 FAMS @F169@
+0 @I339@ INDI
+1 NAME /three hundred and thirty-nine/
+2 SURN three hundred and thirty-nine
+1 SEX F
+1 FAMS @F169@
+0 @I340@ INDI
+1 NAME /three hundred and forty/
+2 SURN three hundred and forty
+1 SEX M
+1 FAMS @F170@
+0 @I341@ INDI
+1 NAME /three hundred and forty-one/
+2 SURN three hundred and forty-one
+1 SEX F
+1 FAMS @F170@
+0 @I342@ INDI
+1 NAME /three hundred and forty-two/
+2 SURN three hundred and forty-two
+1 SEX M
+1 FAMS @F171@
+0 @I343@ INDI
+1 NAME /three hundred and forty-three/
+2 SURN three hundred and forty-three
+1 SEX F
+1 FAMS @F171@
+0 @I344@ INDI
+1 NAME /three hundred and forty-four/
+2 SURN three hundred and forty-four
+1 SEX M
+1 FAMS @F172@
+0 @I345@ INDI
+1 NAME /three hundred and forty-five/
+2 SURN three hundred and forty-five
+1 SEX F
+1 FAMS @F172@
+0 @I346@ INDI
+1 NAME /three hundred and forty-six/
+2 SURN three hundred and forty-six
+1 SEX M
+1 FAMS @F173@
+0 @I347@ INDI
+1 NAME /three hundred and forty-seven/
+2 SURN three hundred and forty-seven
+1 SEX F
+1 FAMS @F173@
+0 @I348@ INDI
+1 NAME /three hundred and forty-eight/
+2 SURN three hundred and forty-eight
+1 SEX M
+1 FAMS @F174@
+0 @I349@ INDI
+1 NAME /three hundred and forty-nine/
+2 SURN three hundred and forty-nine
+1 SEX F
+1 FAMS @F174@
+0 @I350@ INDI
+1 NAME /three hundred and fifty/
+2 SURN three hundred and fifty
+1 SEX M
+1 FAMS @F175@
+0 @I351@ INDI
+1 NAME /three hundred and fifty-one/
+2 SURN three hundred and fifty-one
+1 SEX F
+1 FAMS @F175@
+0 @I352@ INDI
+1 NAME /three hundred and fifty-two/
+2 SURN three hundred and fifty-two
+1 SEX M
+1 FAMS @F176@
+0 @I353@ INDI
+1 NAME /three hundred and fifty-three/
+2 SURN three hundred and fifty-three
+1 SEX F
+1 FAMS @F176@
+0 @I354@ INDI
+1 NAME /three hundred and fifty-four/
+2 SURN three hundred and fifty-four
+1 SEX M
+1 FAMS @F177@
+0 @I355@ INDI
+1 NAME /three hundred and fifty-five/
+2 SURN three hundred and fifty-five
+1 SEX F
+1 FAMS @F177@
+0 @I356@ INDI
+1 NAME /three hundred and fifty-six/
+2 SURN three hundred and fifty-six
+1 SEX M
+1 FAMS @F178@
+0 @I357@ INDI
+1 NAME /three hundred and fifty-seven/
+2 SURN three hundred and fifty-seven
+1 SEX F
+1 FAMS @F178@
+0 @I358@ INDI
+1 NAME /three hundred and fifty-eight/
+2 SURN three hundred and fifty-eight
+1 SEX M
+1 FAMS @F179@
+0 @I359@ INDI
+1 NAME /three hundred and fifty-nine/
+2 SURN three hundred and fifty-nine
+1 SEX F
+1 FAMS @F179@
+0 @I360@ INDI
+1 NAME /three hundred and sixty/
+2 SURN three hundred and sixty
+1 SEX M
+1 FAMS @F180@
+0 @I361@ INDI
+1 NAME /three hundred and sixty-one/
+2 SURN three hundred and sixty-one
+1 SEX F
+1 FAMS @F180@
+0 @I362@ INDI
+1 NAME /three hundred and sixty-two/
+2 SURN three hundred and sixty-two
+1 SEX M
+1 FAMS @F181@
+0 @I363@ INDI
+1 NAME /three hundred and sixty-three/
+2 SURN three hundred and sixty-three
+1 SEX F
+1 FAMS @F181@
+0 @I364@ INDI
+1 NAME /three hundred and sixty-four/
+2 SURN three hundred and sixty-four
+1 SEX M
+1 FAMS @F182@
+0 @I365@ INDI
+1 NAME /three hundred and sixty-five/
+2 SURN three hundred and sixty-five
+1 SEX F
+1 FAMS @F182@
+0 @I366@ INDI
+1 NAME /three hundred and sixty-six/
+2 SURN three hundred and sixty-six
+1 SEX M
+1 FAMS @F183@
+0 @I367@ INDI
+1 NAME /three hundred and sixty-seven/
+2 SURN three hundred and sixty-seven
+1 SEX F
+1 FAMS @F183@
+0 @I368@ INDI
+1 NAME /three hundred and sixty-eight/
+2 SURN three hundred and sixty-eight
+1 SEX M
+1 FAMS @F184@
+0 @I369@ INDI
+1 NAME /three hundred and sixty-nine/
+2 SURN three hundred and sixty-nine
+1 SEX F
+1 FAMS @F184@
+0 @I370@ INDI
+1 NAME /three hundred and seventy/
+2 SURN three hundred and seventy
+1 SEX M
+1 FAMS @F185@
+0 @I371@ INDI
+1 NAME /three hundred and seventy-one/
+2 SURN three hundred and seventy-one
+1 SEX F
+1 FAMS @F185@
+0 @I372@ INDI
+1 NAME /three hundred and seventy-two/
+2 SURN three hundred and seventy-two
+1 SEX M
+1 FAMS @F186@
+0 @I373@ INDI
+1 NAME /three hundred and seventy-three/
+2 SURN three hundred and seventy-three
+1 SEX F
+1 FAMS @F186@
+0 @I374@ INDI
+1 NAME /three hundred and seventy-four/
+2 SURN three hundred and seventy-four
+1 SEX M
+1 FAMS @F187@
+0 @I375@ INDI
+1 NAME /three hundred and seventy-five/
+2 SURN three hundred and seventy-five
+1 SEX F
+1 FAMS @F187@
+0 @I376@ INDI
+1 NAME /three hundred and seventy-six/
+2 SURN three hundred and seventy-six
+1 SEX M
+1 FAMS @F188@
+0 @I377@ INDI
+1 NAME /three hundred and seventy-seven/
+2 SURN three hundred and seventy-seven
+1 SEX F
+1 FAMS @F188@
+0 @I378@ INDI
+1 NAME /three hundred and seventy-eight/
+2 SURN three hundred and seventy-eight
+1 SEX M
+1 FAMS @F189@
+0 @I379@ INDI
+1 NAME /three hundred and seventy-nine/
+2 SURN three hundred and seventy-nine
+1 SEX F
+1 FAMS @F189@
+0 @I380@ INDI
+1 NAME /three hundred and eighty/
+2 SURN three hundred and eighty
+1 SEX M
+1 FAMS @F190@
+0 @I381@ INDI
+1 NAME /three hundred and eighty-one/
+2 SURN three hundred and eighty-one
+1 SEX F
+1 FAMS @F190@
+0 @I382@ INDI
+1 NAME /three hundred and eighty-two/
+2 SURN three hundred and eighty-two
+1 SEX M
+1 FAMS @F191@
+0 @I383@ INDI
+1 NAME /three hundred and eighty-three/
+2 SURN three hundred and eighty-three
+1 SEX F
+1 FAMS @F191@
+0 @I384@ INDI
+1 NAME /three hundred and eighty-four/
+2 SURN three hundred and eighty-four
+1 SEX M
+1 FAMS @F192@
+0 @I385@ INDI
+1 NAME /three hundred and eighty-five/
+2 SURN three hundred and eighty-five
+1 SEX F
+1 FAMS @F192@
+0 @I386@ INDI
+1 NAME /three hundred and eighty-fix/
+2 SURN three hundred and eighty-fix
+1 SEX M
+1 FAMS @F193@
+0 @I387@ INDI
+1 NAME /three hundred and eighty-feven/
+2 SURN three hundred and eighty-feven
+1 SEX F
+1 FAMS @F193@
+0 @I388@ INDI
+1 NAME /three hundred and eighty-eight/
+2 SURN three hundred and eighty-eight
+1 SEX M
+1 FAMS @F194@
+0 @I389@ INDI
+1 NAME /three hundred and eighty-nine/
+2 SURN three hundred and eighty-nine
+1 SEX F
+1 FAMS @F194@
+0 @I390@ INDI
+1 NAME /three hundred and ninety/
+2 SURN three hundred and ninety
+1 SEX M
+1 FAMS @F195@
+0 @I391@ INDI
+1 NAME /three hundred and ninety-one/
+2 SURN three hundred and ninety-one
+1 SEX F
+1 FAMS @F195@
+0 @I392@ INDI
+1 NAME /three hundred and ninety-two/
+2 SURN three hundred and ninety-two
+1 SEX M
+1 FAMS @F196@
+0 @I393@ INDI
+1 NAME /three hundred and ninety-three/
+2 SURN three hundred and ninety-three
+1 SEX F
+1 FAMS @F196@
+0 @I394@ INDI
+1 NAME /three hundred and ninety-four/
+2 SURN three hundred and ninety-four
+1 SEX M
+1 FAMS @F197@
+0 @I395@ INDI
+1 NAME /three hundred and ninety-five/
+2 SURN three hundred and ninety-five
+1 SEX F
+1 FAMS @F197@
+0 @I396@ INDI
+1 NAME /three hundred and ninety-six/
+2 SURN three hundred and ninety-six
+1 SEX M
+1 FAMS @F198@
+0 @I397@ INDI
+1 NAME /three hundred and ninety-seven/
+2 SURN three hundred and ninety-seven
+1 SEX F
+1 FAMS @F198@
+0 @I398@ INDI
+1 NAME /three hundred and ninety-eight/
+2 SURN three hundred and ninety-eight
+1 SEX M
+1 FAMS @F199@
+0 @I399@ INDI
+1 NAME /three hundred and ninety-nine/
+2 SURN three hundred and ninety-nine
+1 SEX F
+1 FAMS @F199@
+0 @I400@ INDI
+1 NAME /four hundred/
+2 SURN four hundred
+1 SEX M
+1 FAMS @F200@
+0 @I401@ INDI
+1 NAME /four hundred and one/
+2 SURN four hundred and one
+1 SEX F
+1 FAMS @F200@
+0 @I402@ INDI
+1 NAME /four hundred and two/
+2 SURN four hundred and two
+1 SEX M
+1 FAMS @F201@
+0 @I403@ INDI
+1 NAME /four hundred and three/
+2 SURN four hundred and three
+1 SEX F
+1 FAMS @F201@
+0 @I404@ INDI
+1 NAME /four hundred and four/
+2 SURN four hundred and four
+1 SEX M
+1 FAMS @F202@
+0 @I405@ INDI
+1 NAME /four hundred and five/
+2 SURN four hundred and five
+1 SEX F
+1 FAMS @F202@
+0 @I406@ INDI
+1 NAME /four hundred and six/
+2 SURN four hundred and six
+1 SEX M
+1 FAMS @F203@
+0 @I407@ INDI
+1 NAME /four hundred and seven/
+2 SURN four hundred and seven
+1 SEX F
+1 FAMS @F203@
+0 @I408@ INDI
+1 NAME /four hundred and eight/
+2 SURN four hundred and eight
+1 SEX M
+1 FAMS @F204@
+0 @I409@ INDI
+1 NAME /four hundred and nine/
+2 SURN four hundred and nine
+1 SEX F
+1 FAMS @F204@
+0 @I410@ INDI
+1 NAME /four hundred and ten/
+2 SURN four hundred and ten
+1 SEX M
+1 FAMS @F205@
+0 @I411@ INDI
+1 NAME /four hundred and eleven/
+2 SURN four hundred and eleven
+1 SEX F
+1 FAMS @F205@
+0 @I412@ INDI
+1 NAME /four hundred and twelve/
+2 SURN four hundred and twelve
+1 SEX M
+1 FAMS @F206@
+0 @I413@ INDI
+1 NAME /four hundred and thirteen/
+2 SURN four hundred and thirteen
+1 SEX F
+1 FAMS @F206@
+0 @I414@ INDI
+1 NAME /four hundred and fourteen/
+2 SURN four hundred and fourteen
+1 SEX M
+1 FAMS @F207@
+0 @I415@ INDI
+1 NAME /four hundred and fifteen/
+2 SURN four hundred and fifteen
+1 SEX F
+1 FAMS @F207@
+0 @I416@ INDI
+1 NAME /four hundred and sixteen/
+2 SURN four hundred and sixteen
+1 SEX M
+1 FAMS @F208@
+0 @I417@ INDI
+1 NAME /four hundred and seventeen/
+2 SURN four hundred and seventeen
+1 SEX F
+1 FAMS @F208@
+0 @I418@ INDI
+1 NAME /four hundred and eighteen/
+2 SURN four hundred and eighteen
+1 SEX M
+1 FAMS @F209@
+0 @I419@ INDI
+1 NAME /four hundred and nineteen/
+2 SURN four hundred and nineteen
+1 SEX F
+1 FAMS @F209@
+0 @I420@ INDI
+1 NAME /four hundred and twenty/
+2 SURN four hundred and twenty
+1 SEX M
+1 FAMS @F210@
+0 @I421@ INDI
+1 NAME /four hundred and twenty-one/
+2 SURN four hundred and twenty-one
+1 SEX F
+1 FAMS @F210@
+0 @I422@ INDI
+1 NAME /four hundred and twenty-two/
+2 SURN four hundred and twenty-two
+1 SEX M
+1 FAMS @F211@
+0 @I423@ INDI
+1 NAME /four hundred and twenty-three/
+2 SURN four hundred and twenty-three
+1 SEX F
+1 FAMS @F211@
+0 @I424@ INDI
+1 NAME /four hundred and twenty-four/
+2 SURN four hundred and twenty-four
+1 SEX M
+1 FAMS @F212@
+0 @I425@ INDI
+1 NAME /four hundred and twenty-five/
+2 SURN four hundred and twenty-five
+1 SEX F
+1 FAMS @F212@
+0 @I426@ INDI
+1 NAME /four hundred and twenty-six/
+2 SURN four hundred and twenty-six
+1 SEX M
+1 FAMS @F213@
+0 @I427@ INDI
+1 NAME /four hundred and twenty-seven/
+2 SURN four hundred and twenty-seven
+1 SEX F
+1 FAMS @F213@
+0 @I428@ INDI
+1 NAME /four hundred and twenty-eight/
+2 SURN four hundred and twenty-eight
+1 SEX M
+1 FAMS @F214@
+0 @I429@ INDI
+1 NAME /four hundred and twenty-nine/
+2 SURN four hundred and twenty-nine
+1 SEX F
+1 FAMS @F214@
+0 @I430@ INDI
+1 NAME /four hundred and thirty/
+2 SURN four hundred and thirty
+1 SEX M
+1 FAMS @F215@
+0 @I431@ INDI
+1 NAME /four hundred and thirty-one/
+2 SURN four hundred and thirty-one
+1 SEX F
+1 FAMS @F215@
+0 @I432@ INDI
+1 NAME /four hundred and thirty-two/
+2 SURN four hundred and thirty-two
+1 SEX M
+1 FAMS @F216@
+0 @I433@ INDI
+1 NAME /four hundred and thirty-three/
+2 SURN four hundred and thirty-three
+1 SEX F
+1 FAMS @F216@
+0 @I434@ INDI
+1 NAME /four hundred and thirty-four/
+2 SURN four hundred and thirty-four
+1 SEX M
+1 FAMS @F217@
+0 @I435@ INDI
+1 NAME /four hundred and thirty-five/
+2 SURN four hundred and thirty-five
+1 SEX F
+1 FAMS @F217@
+0 @I436@ INDI
+1 NAME /four hundred and thirty-six/
+2 SURN four hundred and thirty-six
+1 SEX M
+1 FAMS @F218@
+0 @I437@ INDI
+1 NAME /four hundred and thirty-seven/
+2 SURN four hundred and thirty-seven
+1 SEX F
+1 FAMS @F218@
+0 @I438@ INDI
+1 NAME /four hundred and thirty-eight/
+2 SURN four hundred and thirty-eight
+1 SEX M
+1 FAMS @F219@
+0 @I439@ INDI
+1 NAME /four hundred and thirty-nine/
+2 SURN four hundred and thirty-nine
+1 SEX F
+1 FAMS @F219@
+0 @I440@ INDI
+1 NAME /four hundred and forty/
+2 SURN four hundred and forty
+1 SEX M
+1 FAMS @F220@
+0 @I441@ INDI
+1 NAME /four hundred and forty-one/
+2 SURN four hundred and forty-one
+1 SEX F
+1 FAMS @F220@
+0 @I442@ INDI
+1 NAME /four hundred and forty-two/
+2 SURN four hundred and forty-two
+1 SEX M
+1 FAMS @F221@
+0 @I443@ INDI
+1 NAME /four hundred and forty-three/
+2 SURN four hundred and forty-three
+1 SEX F
+1 FAMS @F221@
+0 @I444@ INDI
+1 NAME /four hundred and forty-four/
+2 SURN four hundred and forty-four
+1 SEX M
+1 FAMS @F222@
+0 @I445@ INDI
+1 NAME /four hundred and forty-five/
+2 SURN four hundred and forty-five
+1 SEX F
+1 FAMS @F222@
+0 @I446@ INDI
+1 NAME /four hundred and forty-six/
+2 SURN four hundred and forty-six
+1 SEX M
+1 FAMS @F223@
+0 @I447@ INDI
+1 NAME /four hundred and forty-seven/
+2 SURN four hundred and forty-seven
+1 SEX F
+1 FAMS @F223@
+0 @I448@ INDI
+1 NAME /four hundred and forty-eight/
+2 SURN four hundred and forty-eight
+1 SEX M
+1 FAMS @F224@
+0 @I449@ INDI
+1 NAME /four hundred and forty-nine/
+2 SURN four hundred and forty-nine
+1 SEX F
+1 FAMS @F224@
+0 @I450@ INDI
+1 NAME /four hundred and fifty/
+2 SURN four hundred and fifty
+1 SEX M
+1 FAMS @F225@
+0 @I451@ INDI
+1 NAME /four hundred and fifty-one/
+2 SURN four hundred and fifty-one
+1 SEX F
+1 FAMS @F225@
+0 @I452@ INDI
+1 NAME /four hundred and fifty-two/
+2 SURN four hundred and fifty-two
+1 SEX M
+1 FAMS @F226@
+0 @I453@ INDI
+1 NAME /four hundred and fifty-three/
+2 SURN four hundred and fifty-three
+1 SEX F
+1 FAMS @F226@
+0 @I454@ INDI
+1 NAME /four hundred and fifty-four/
+2 SURN four hundred and fifty-four
+1 SEX M
+1 FAMS @F227@
+0 @I455@ INDI
+1 NAME /four hundred and fifty-five/
+2 SURN four hundred and fifty-five
+1 SEX F
+1 FAMS @F227@
+0 @I456@ INDI
+1 NAME /four hundred and fifty-six/
+2 SURN four hundred and fifty-six
+1 SEX M
+1 FAMS @F228@
+0 @I457@ INDI
+1 NAME /four hundred and fifty-seven/
+2 SURN four hundred and fifty-seven
+1 SEX F
+1 FAMS @F228@
+0 @I458@ INDI
+1 NAME /four hundred and fifty-eight/
+2 SURN four hundred and fifty-eight
+1 SEX M
+1 FAMS @F229@
+0 @I459@ INDI
+1 NAME /four hundred and fifty-nine/
+2 SURN four hundred and fifty-nine
+1 SEX F
+1 FAMS @F229@
+0 @I460@ INDI
+1 NAME /four hundred and sixty/
+2 SURN four hundred and sixty
+1 SEX M
+1 FAMS @F230@
+0 @I461@ INDI
+1 NAME /four hundred and sixty-one/
+2 SURN four hundred and sixty-one
+1 SEX F
+1 FAMS @F230@
+0 @I462@ INDI
+1 NAME /four hundred and sixty-two/
+2 SURN four hundred and sixty-two
+1 SEX M
+1 FAMS @F231@
+0 @I463@ INDI
+1 NAME /four hundred and sixty-three/
+2 SURN four hundred and sixty-three
+1 SEX F
+1 FAMS @F231@
+0 @I464@ INDI
+1 NAME /four hundred and sixty-four/
+2 SURN four hundred and sixty-four
+1 SEX M
+1 FAMS @F232@
+0 @I465@ INDI
+1 NAME /four hundred and sixty-five/
+2 SURN four hundred and sixty-five
+1 SEX F
+1 FAMS @F232@
+0 @I466@ INDI
+1 NAME /four hundred and sixty-six/
+2 SURN four hundred and sixty-six
+1 SEX M
+1 FAMS @F233@
+0 @I467@ INDI
+1 NAME /four hundred and sixty-seven/
+2 SURN four hundred and sixty-seven
+1 SEX F
+1 FAMS @F233@
+0 @I468@ INDI
+1 NAME /four hundred and sixty-eight/
+2 SURN four hundred and sixty-eight
+1 SEX M
+1 FAMS @F234@
+0 @I469@ INDI
+1 NAME /four hundred and sixty-nine/
+2 SURN four hundred and sixty-nine
+1 SEX F
+1 FAMS @F234@
+0 @I470@ INDI
+1 NAME /four hundred and seventy/
+2 SURN four hundred and seventy
+1 SEX M
+1 FAMS @F235@
+0 @I471@ INDI
+1 NAME /four hundred and seventy-one/
+2 SURN four hundred and seventy-one
+1 SEX F
+1 FAMS @F235@
+0 @I472@ INDI
+1 NAME /four hundred and seventy-two/
+2 SURN four hundred and seventy-two
+1 SEX M
+1 FAMS @F236@
+0 @I473@ INDI
+1 NAME /four hundred and seventy-three/
+2 SURN four hundred and seventy-three
+1 SEX F
+1 FAMS @F236@
+0 @I474@ INDI
+1 NAME /four hundred and seventy-four/
+2 SURN four hundred and seventy-four
+1 SEX M
+1 FAMS @F237@
+0 @I475@ INDI
+1 NAME /four hundred and seventy-five/
+2 SURN four hundred and seventy-five
+1 SEX F
+1 FAMS @F237@
+0 @I476@ INDI
+1 NAME /four hundred and seventy-six/
+2 SURN four hundred and seventy-six
+1 SEX M
+1 FAMS @F238@
+0 @I477@ INDI
+1 NAME /four hundred and seventy-seven/
+2 SURN four hundred and seventy-seven
+1 SEX F
+1 FAMS @F238@
+0 @I478@ INDI
+1 NAME /four hundred and seventy-eight/
+2 SURN four hundred and seventy-eight
+1 SEX M
+1 FAMS @F239@
+0 @I479@ INDI
+1 NAME /four hundred and seventy-nine/
+2 SURN four hundred and seventy-nine
+1 SEX F
+1 FAMS @F239@
+0 @I480@ INDI
+1 NAME /four hundred and eighty/
+2 SURN four hundred and eighty
+1 SEX M
+1 FAMS @F240@
+0 @I481@ INDI
+1 NAME /four hundred and eighty-one/
+2 SURN four hundred and eighty-one
+1 SEX F
+1 FAMS @F240@
+0 @I482@ INDI
+1 NAME /four hundred and eighty-two/
+2 SURN four hundred and eighty-two
+1 SEX M
+1 FAMS @F241@
+0 @I483@ INDI
+1 NAME /four hundred and eighty-three/
+2 SURN four hundred and eighty-three
+1 SEX F
+1 FAMS @F241@
+0 @I484@ INDI
+1 NAME /four hundred and eighty-four/
+2 SURN four hundred and eighty-four
+1 SEX M
+1 FAMS @F242@
+0 @I485@ INDI
+1 NAME /four hundred and eighty-five/
+2 SURN four hundred and eighty-five
+1 SEX F
+1 FAMS @F242@
+0 @I486@ INDI
+1 NAME /four hundred and eighty-fix/
+2 SURN four hundred and eighty-fix
+1 SEX M
+1 FAMS @F243@
+0 @I487@ INDI
+1 NAME /four hundred and eighty-feven/
+2 SURN four hundred and eighty-feven
+1 SEX F
+1 FAMS @F243@
+0 @I488@ INDI
+1 NAME /four hundred and eighty-eight/
+2 SURN four hundred and eighty-eight
+1 SEX M
+1 FAMS @F244@
+0 @I489@ INDI
+1 NAME /four hundred and eighty-nine/
+2 SURN four hundred and eighty-nine
+1 SEX F
+1 FAMS @F244@
+0 @I490@ INDI
+1 NAME /four hundred and ninety/
+2 SURN four hundred and ninety
+1 SEX M
+1 FAMS @F245@
+0 @I491@ INDI
+1 NAME /four hundred and ninety-one/
+2 SURN four hundred and ninety-one
+1 SEX F
+1 FAMS @F245@
+0 @I492@ INDI
+1 NAME /four hundred and ninety-two/
+2 SURN four hundred and ninety-two
+1 SEX M
+1 FAMS @F246@
+0 @I493@ INDI
+1 NAME /four hundred and ninety-three/
+2 SURN four hundred and ninety-three
+1 SEX F
+1 FAMS @F246@
+0 @I494@ INDI
+1 NAME /four hundred and ninety-four/
+2 SURN four hundred and ninety-four
+1 SEX M
+1 FAMS @F247@
+0 @I495@ INDI
+1 NAME /four hundred and ninety-five/
+2 SURN four hundred and ninety-five
+1 SEX F
+1 FAMS @F247@
+0 @I496@ INDI
+1 NAME /four hundred and ninety-six/
+2 SURN four hundred and ninety-six
+1 SEX M
+1 FAMS @F248@
+0 @I497@ INDI
+1 NAME /four hundred and ninety-seven/
+2 SURN four hundred and ninety-seven
+1 SEX F
+1 FAMS @F248@
+0 @I498@ INDI
+1 NAME /four hundred and ninety-eight/
+2 SURN four hundred and ninety-eight
+1 SEX M
+1 FAMS @F249@
+0 @I499@ INDI
+1 NAME /four hundred and ninety-nine/
+2 SURN four hundred and ninety-nine
+1 SEX F
+1 FAMS @F249@
+0 @I500@ INDI
+1 NAME /five hundred/
+2 SURN five hundred
+1 SEX M
+1 FAMS @F250@
+0 @I501@ INDI
+1 NAME /five hundred and one/
+2 SURN five hundred and one
+1 SEX F
+1 FAMS @F250@
+0 @I502@ INDI
+1 NAME /five hundred and two/
+2 SURN five hundred and two
+1 SEX M
+1 FAMS @F251@
+0 @I503@ INDI
+1 NAME /five hundred and three/
+2 SURN five hundred and three
+1 SEX F
+1 FAMS @F251@
+0 @I504@ INDI
+1 NAME /five hundred and four/
+2 SURN five hundred and four
+1 SEX M
+1 FAMS @F252@
+0 @I505@ INDI
+1 NAME /five hundred and five/
+2 SURN five hundred and five
+1 SEX F
+1 FAMS @F252@
+0 @I506@ INDI
+1 NAME /five hundred and six/
+2 SURN five hundred and six
+1 SEX M
+1 FAMS @F253@
+0 @I507@ INDI
+1 NAME /five hundred and seven/
+2 SURN five hundred and seven
+1 SEX F
+1 FAMS @F253@
+0 @I508@ INDI
+1 NAME /five hundred and eight/
+2 SURN five hundred and eight
+1 SEX M
+1 FAMS @F254@
+0 @I509@ INDI
+1 NAME /five hundred and nine/
+2 SURN five hundred and nine
+1 SEX F
+1 FAMS @F254@
+0 @I510@ INDI
+1 NAME /five hundred and ten/
+2 SURN five hundred and ten
+1 SEX M
+1 FAMS @F255@
+0 @I511@ INDI
+1 NAME /five hundred and eleven/
+2 SURN five hundred and eleven
+1 SEX F
+1 FAMS @F255@
+0 @F1@ FAM
+1 HUSB @I2@
+1 WIFE @I3@
+1 CHIL @I1@
+0 @F2@ FAM
+1 HUSB @I4@
+1 WIFE @I5@
+1 CHIL @I2@
+0 @F3@ FAM
+1 HUSB @I6@
+1 WIFE @I7@
+1 CHIL @I3@
+0 @F4@ FAM
+1 HUSB @I8@
+1 WIFE @I9@
+1 CHIL @I4@
+0 @F5@ FAM
+1 HUSB @I10@
+1 WIFE @I11@
+1 CHIL @I5@
+0 @F6@ FAM
+1 HUSB @I12@
+1 WIFE @I13@
+1 CHIL @I6@
+0 @F7@ FAM
+1 HUSB @I14@
+1 WIFE @I15@
+1 CHIL @I7@
+0 @F8@ FAM
+1 HUSB @I16@
+1 WIFE @I17@
+1 CHIL @I8@
+0 @F9@ FAM
+1 HUSB @I18@
+1 WIFE @I19@
+1 CHIL @I9@
+0 @F10@ FAM
+1 HUSB @I20@
+1 WIFE @I21@
+1 CHIL @I10@
+0 @F11@ FAM
+1 HUSB @I22@
+1 WIFE @I23@
+1 CHIL @I11@
+0 @F12@ FAM
+1 HUSB @I24@
+1 WIFE @I25@
+1 CHIL @I12@
+0 @F13@ FAM
+1 HUSB @I26@
+1 WIFE @I27@
+1 CHIL @I13@
+0 @F14@ FAM
+1 HUSB @I28@
+1 WIFE @I29@
+1 CHIL @I14@
+0 @F15@ FAM
+1 HUSB @I30@
+1 WIFE @I31@
+1 CHIL @I15@
+0 @F16@ FAM
+1 HUSB @I32@
+1 WIFE @I33@
+1 CHIL @I16@
+0 @F17@ FAM
+1 HUSB @I34@
+1 WIFE @I35@
+1 CHIL @I17@
+0 @F18@ FAM
+1 HUSB @I36@
+1 WIFE @I37@
+1 CHIL @I18@
+0 @F19@ FAM
+1 HUSB @I38@
+1 WIFE @I39@
+1 CHIL @I19@
+0 @F20@ FAM
+1 HUSB @I40@
+1 WIFE @I41@
+1 CHIL @I20@
+0 @F21@ FAM
+1 HUSB @I42@
+1 WIFE @I43@
+1 CHIL @I21@
+0 @F22@ FAM
+1 HUSB @I44@
+1 WIFE @I45@
+1 CHIL @I22@
+0 @F23@ FAM
+1 HUSB @I46@
+1 WIFE @I47@
+1 CHIL @I23@
+0 @F24@ FAM
+1 HUSB @I48@
+1 WIFE @I49@
+1 CHIL @I24@
+0 @F25@ FAM
+1 HUSB @I50@
+1 WIFE @I51@
+1 CHIL @I25@
+0 @F26@ FAM
+1 HUSB @I52@
+1 WIFE @I53@
+1 CHIL @I26@
+0 @F27@ FAM
+1 HUSB @I54@
+1 WIFE @I55@
+1 CHIL @I27@
+0 @F28@ FAM
+1 HUSB @I56@
+1 WIFE @I57@
+1 CHIL @I28@
+0 @F29@ FAM
+1 HUSB @I58@
+1 WIFE @I59@
+1 CHIL @I29@
+0 @F30@ FAM
+1 HUSB @I60@
+1 WIFE @I61@
+1 CHIL @I30@
+0 @F31@ FAM
+1 HUSB @I62@
+1 WIFE @I63@
+1 CHIL @I31@
+0 @F32@ FAM
+1 HUSB @I64@
+1 WIFE @I65@
+1 CHIL @I32@
+0 @F33@ FAM
+1 HUSB @I66@
+1 WIFE @I67@
+1 CHIL @I33@
+0 @F34@ FAM
+1 HUSB @I68@
+1 WIFE @I69@
+1 CHIL @I34@
+0 @F35@ FAM
+1 HUSB @I70@
+1 WIFE @I71@
+1 CHIL @I35@
+0 @F36@ FAM
+1 HUSB @I72@
+1 WIFE @I73@
+1 CHIL @I36@
+0 @F37@ FAM
+1 HUSB @I74@
+1 WIFE @I75@
+1 CHIL @I37@
+0 @F38@ FAM
+1 HUSB @I76@
+1 WIFE @I77@
+1 CHIL @I38@
+0 @F39@ FAM
+1 HUSB @I78@
+1 WIFE @I79@
+1 CHIL @I39@
+0 @F40@ FAM
+1 HUSB @I80@
+1 WIFE @I81@
+1 CHIL @I40@
+0 @F41@ FAM
+1 HUSB @I82@
+1 WIFE @I83@
+1 CHIL @I41@
+0 @F42@ FAM
+1 HUSB @I84@
+1 WIFE @I85@
+1 CHIL @I42@
+0 @F43@ FAM
+1 HUSB @I86@
+1 WIFE @I87@
+1 CHIL @I43@
+0 @F44@ FAM
+1 HUSB @I88@
+1 WIFE @I89@
+1 CHIL @I44@
+0 @F45@ FAM
+1 HUSB @I90@
+1 WIFE @I91@
+1 CHIL @I45@
+0 @F46@ FAM
+1 HUSB @I92@
+1 WIFE @I93@
+1 CHIL @I46@
+0 @F47@ FAM
+1 HUSB @I94@
+1 WIFE @I95@
+1 CHIL @I47@
+0 @F48@ FAM
+1 HUSB @I96@
+1 WIFE @I97@
+1 CHIL @I48@
+0 @F49@ FAM
+1 HUSB @I98@
+1 WIFE @I99@
+1 CHIL @I49@
+0 @F50@ FAM
+1 HUSB @I100@
+1 WIFE @I101@
+1 CHIL @I50@
+0 @F51@ FAM
+1 HUSB @I102@
+1 WIFE @I103@
+1 CHIL @I51@
+0 @F52@ FAM
+1 HUSB @I104@
+1 WIFE @I105@
+1 CHIL @I52@
+0 @F53@ FAM
+1 HUSB @I106@
+1 WIFE @I107@
+1 CHIL @I53@
+0 @F54@ FAM
+1 HUSB @I108@
+1 WIFE @I109@
+1 CHIL @I54@
+0 @F55@ FAM
+1 HUSB @I110@
+1 WIFE @I111@
+1 CHIL @I55@
+0 @F56@ FAM
+1 HUSB @I112@
+1 WIFE @I113@
+1 CHIL @I56@
+0 @F57@ FAM
+1 HUSB @I114@
+1 WIFE @I115@
+1 CHIL @I57@
+0 @F58@ FAM
+1 HUSB @I116@
+1 WIFE @I117@
+1 CHIL @I58@
+0 @F59@ FAM
+1 HUSB @I118@
+1 WIFE @I119@
+1 CHIL @I59@
+0 @F60@ FAM
+1 HUSB @I120@
+1 WIFE @I121@
+1 CHIL @I60@
+0 @F61@ FAM
+1 HUSB @I122@
+1 WIFE @I123@
+1 CHIL @I61@
+0 @F62@ FAM
+1 HUSB @I124@
+1 WIFE @I125@
+1 CHIL @I62@
+0 @F63@ FAM
+1 HUSB @I126@
+1 WIFE @I127@
+1 CHIL @I63@
+0 @F64@ FAM
+1 HUSB @I128@
+1 WIFE @I129@
+1 CHIL @I64@
+0 @F65@ FAM
+1 HUSB @I130@
+1 WIFE @I131@
+1 CHIL @I65@
+0 @F66@ FAM
+1 HUSB @I132@
+1 WIFE @I133@
+1 CHIL @I66@
+0 @F67@ FAM
+1 HUSB @I134@
+1 WIFE @I135@
+1 CHIL @I67@
+0 @F68@ FAM
+1 HUSB @I136@
+1 WIFE @I137@
+1 CHIL @I68@
+0 @F69@ FAM
+1 HUSB @I138@
+1 WIFE @I139@
+1 CHIL @I69@
+0 @F70@ FAM
+1 HUSB @I140@
+1 WIFE @I141@
+1 CHIL @I70@
+0 @F71@ FAM
+1 HUSB @I142@
+1 WIFE @I143@
+1 CHIL @I71@
+0 @F72@ FAM
+1 HUSB @I144@
+1 WIFE @I145@
+1 CHIL @I72@
+0 @F73@ FAM
+1 HUSB @I146@
+1 WIFE @I147@
+1 CHIL @I73@
+0 @F74@ FAM
+1 HUSB @I148@
+1 WIFE @I149@
+1 CHIL @I74@
+0 @F75@ FAM
+1 HUSB @I150@
+1 WIFE @I151@
+1 CHIL @I75@
+0 @F76@ FAM
+1 HUSB @I152@
+1 WIFE @I153@
+1 CHIL @I76@
+0 @F77@ FAM
+1 HUSB @I154@
+1 WIFE @I155@
+1 CHIL @I77@
+0 @F78@ FAM
+1 HUSB @I156@
+1 WIFE @I157@
+1 CHIL @I78@
+0 @F79@ FAM
+1 HUSB @I158@
+1 WIFE @I159@
+1 CHIL @I79@
+0 @F80@ FAM
+1 HUSB @I160@
+1 WIFE @I161@
+1 CHIL @I80@
+0 @F81@ FAM
+1 HUSB @I162@
+1 WIFE @I163@
+1 CHIL @I81@
+0 @F82@ FAM
+1 HUSB @I164@
+1 WIFE @I165@
+1 CHIL @I82@
+0 @F83@ FAM
+1 HUSB @I166@
+1 WIFE @I167@
+1 CHIL @I83@
+0 @F84@ FAM
+1 HUSB @I168@
+1 WIFE @I169@
+1 CHIL @I84@
+0 @F85@ FAM
+1 HUSB @I170@
+1 WIFE @I171@
+1 CHIL @I85@
+0 @F86@ FAM
+1 HUSB @I172@
+1 WIFE @I173@
+1 CHIL @I86@
+0 @F87@ FAM
+1 HUSB @I174@
+1 WIFE @I175@
+1 CHIL @I87@
+0 @F88@ FAM
+1 HUSB @I176@
+1 WIFE @I177@
+1 CHIL @I88@
+0 @F89@ FAM
+1 HUSB @I178@
+1 WIFE @I179@
+1 CHIL @I89@
+0 @F90@ FAM
+1 HUSB @I180@
+1 WIFE @I181@
+1 CHIL @I90@
+0 @F91@ FAM
+1 HUSB @I182@
+1 WIFE @I183@
+1 CHIL @I91@
+0 @F92@ FAM
+1 HUSB @I184@
+1 WIFE @I185@
+1 CHIL @I92@
+0 @F93@ FAM
+1 HUSB @I186@
+1 WIFE @I187@
+1 CHIL @I93@
+0 @F94@ FAM
+1 HUSB @I188@
+1 WIFE @I189@
+1 CHIL @I94@
+0 @F95@ FAM
+1 HUSB @I190@
+1 WIFE @I191@
+1 CHIL @I95@
+0 @F96@ FAM
+1 HUSB @I192@
+1 WIFE @I193@
+1 CHIL @I96@
+0 @F97@ FAM
+1 HUSB @I194@
+1 WIFE @I195@
+1 CHIL @I97@
+0 @F98@ FAM
+1 HUSB @I196@
+1 WIFE @I197@
+1 CHIL @I98@
+0 @F99@ FAM
+1 HUSB @I198@
+1 WIFE @I199@
+1 CHIL @I99@
+0 @F100@ FAM
+1 HUSB @I200@
+1 WIFE @I201@
+1 CHIL @I100@
+0 @F101@ FAM
+1 HUSB @I202@
+1 WIFE @I203@
+1 CHIL @I101@
+0 @F102@ FAM
+1 HUSB @I204@
+1 WIFE @I205@
+1 CHIL @I102@
+0 @F103@ FAM
+1 HUSB @I206@
+1 WIFE @I207@
+1 CHIL @I103@
+0 @F104@ FAM
+1 HUSB @I208@
+1 WIFE @I209@
+1 CHIL @I104@
+0 @F105@ FAM
+1 HUSB @I210@
+1 WIFE @I211@
+1 CHIL @I105@
+0 @F106@ FAM
+1 HUSB @I212@
+1 WIFE @I213@
+1 CHIL @I106@
+0 @F107@ FAM
+1 HUSB @I214@
+1 WIFE @I215@
+1 CHIL @I107@
+0 @F108@ FAM
+1 HUSB @I216@
+1 WIFE @I217@
+1 CHIL @I108@
+0 @F109@ FAM
+1 HUSB @I218@
+1 WIFE @I219@
+1 CHIL @I109@
+0 @F110@ FAM
+1 HUSB @I220@
+1 WIFE @I221@
+1 CHIL @I110@
+0 @F111@ FAM
+1 HUSB @I222@
+1 WIFE @I223@
+1 CHIL @I111@
+0 @F112@ FAM
+1 HUSB @I224@
+1 WIFE @I225@
+1 CHIL @I112@
+0 @F113@ FAM
+1 HUSB @I226@
+1 WIFE @I227@
+1 CHIL @I113@
+0 @F114@ FAM
+1 HUSB @I228@
+1 WIFE @I229@
+1 CHIL @I114@
+0 @F115@ FAM
+1 HUSB @I230@
+1 WIFE @I231@
+1 CHIL @I115@
+0 @F116@ FAM
+1 HUSB @I232@
+1 WIFE @I233@
+1 CHIL @I116@
+0 @F117@ FAM
+1 HUSB @I234@
+1 WIFE @I235@
+1 CHIL @I117@
+0 @F118@ FAM
+1 HUSB @I236@
+1 WIFE @I237@
+1 CHIL @I118@
+0 @F119@ FAM
+1 HUSB @I238@
+1 WIFE @I239@
+1 CHIL @I119@
+0 @F120@ FAM
+1 HUSB @I240@
+1 WIFE @I241@
+1 CHIL @I120@
+0 @F121@ FAM
+1 HUSB @I242@
+1 WIFE @I243@
+1 CHIL @I121@
+0 @F122@ FAM
+1 HUSB @I244@
+1 WIFE @I245@
+1 CHIL @I122@
+0 @F123@ FAM
+1 HUSB @I246@
+1 WIFE @I247@
+1 CHIL @I123@
+0 @F124@ FAM
+1 HUSB @I248@
+1 WIFE @I249@
+1 CHIL @I124@
+0 @F125@ FAM
+1 HUSB @I250@
+1 WIFE @I251@
+1 CHIL @I125@
+0 @F126@ FAM
+1 HUSB @I252@
+1 WIFE @I253@
+1 CHIL @I126@
+0 @F127@ FAM
+1 HUSB @I254@
+1 WIFE @I255@
+1 CHIL @I127@
+0 @F128@ FAM
+1 HUSB @I256@
+1 WIFE @I257@
+1 CHIL @I128@
+0 @F129@ FAM
+1 HUSB @I258@
+1 WIFE @I259@
+1 CHIL @I129@
+0 @F130@ FAM
+1 HUSB @I260@
+1 WIFE @I261@
+1 CHIL @I130@
+0 @F131@ FAM
+1 HUSB @I262@
+1 WIFE @I263@
+1 CHIL @I131@
+0 @F132@ FAM
+1 HUSB @I264@
+1 WIFE @I265@
+1 CHIL @I132@
+0 @F133@ FAM
+1 HUSB @I266@
+1 WIFE @I267@
+1 CHIL @I133@
+0 @F134@ FAM
+1 HUSB @I268@
+1 WIFE @I269@
+1 CHIL @I134@
+0 @F135@ FAM
+1 HUSB @I270@
+1 WIFE @I271@
+1 CHIL @I135@
+0 @F136@ FAM
+1 HUSB @I272@
+1 WIFE @I273@
+1 CHIL @I136@
+0 @F137@ FAM
+1 HUSB @I274@
+1 WIFE @I275@
+1 CHIL @I137@
+0 @F138@ FAM
+1 HUSB @I276@
+1 WIFE @I277@
+1 CHIL @I138@
+0 @F139@ FAM
+1 HUSB @I278@
+1 WIFE @I279@
+1 CHIL @I139@
+0 @F140@ FAM
+1 HUSB @I280@
+1 WIFE @I281@
+1 CHIL @I140@
+0 @F141@ FAM
+1 HUSB @I282@
+1 WIFE @I283@
+1 CHIL @I141@
+0 @F142@ FAM
+1 HUSB @I284@
+1 WIFE @I285@
+1 CHIL @I142@
+0 @F143@ FAM
+1 HUSB @I286@
+1 WIFE @I287@
+1 CHIL @I143@
+0 @F144@ FAM
+1 HUSB @I288@
+1 WIFE @I289@
+1 CHIL @I144@
+0 @F145@ FAM
+1 HUSB @I290@
+1 WIFE @I291@
+1 CHIL @I145@
+0 @F146@ FAM
+1 HUSB @I292@
+1 WIFE @I293@
+1 CHIL @I146@
+0 @F147@ FAM
+1 HUSB @I294@
+1 WIFE @I295@
+1 CHIL @I147@
+0 @F148@ FAM
+1 HUSB @I296@
+1 WIFE @I297@
+1 CHIL @I148@
+0 @F149@ FAM
+1 HUSB @I298@
+1 WIFE @I299@
+1 CHIL @I149@
+0 @F150@ FAM
+1 HUSB @I300@
+1 WIFE @I301@
+1 CHIL @I150@
+0 @F151@ FAM
+1 HUSB @I302@
+1 WIFE @I303@
+1 CHIL @I151@
+0 @F152@ FAM
+1 HUSB @I304@
+1 WIFE @I305@
+1 CHIL @I152@
+0 @F153@ FAM
+1 HUSB @I306@
+1 WIFE @I307@
+1 CHIL @I153@
+0 @F154@ FAM
+1 HUSB @I308@
+1 WIFE @I309@
+1 CHIL @I154@
+0 @F155@ FAM
+1 HUSB @I310@
+1 WIFE @I311@
+1 CHIL @I155@
+0 @F156@ FAM
+1 HUSB @I312@
+1 WIFE @I313@
+1 CHIL @I156@
+0 @F157@ FAM
+1 HUSB @I314@
+1 WIFE @I315@
+1 CHIL @I157@
+0 @F158@ FAM
+1 HUSB @I316@
+1 WIFE @I317@
+1 CHIL @I158@
+0 @F159@ FAM
+1 HUSB @I318@
+1 WIFE @I319@
+1 CHIL @I159@
+0 @F160@ FAM
+1 HUSB @I320@
+1 WIFE @I321@
+1 CHIL @I160@
+0 @F161@ FAM
+1 HUSB @I322@
+1 WIFE @I323@
+1 CHIL @I161@
+0 @F162@ FAM
+1 HUSB @I324@
+1 WIFE @I325@
+1 CHIL @I162@
+0 @F163@ FAM
+1 HUSB @I326@
+1 WIFE @I327@
+1 CHIL @I163@
+0 @F164@ FAM
+1 HUSB @I328@
+1 WIFE @I329@
+1 CHIL @I164@
+0 @F165@ FAM
+1 HUSB @I330@
+1 WIFE @I331@
+1 CHIL @I165@
+0 @F166@ FAM
+1 HUSB @I332@
+1 WIFE @I333@
+1 CHIL @I166@
+0 @F167@ FAM
+1 HUSB @I334@
+1 WIFE @I335@
+1 CHIL @I167@
+0 @F168@ FAM
+1 HUSB @I336@
+1 WIFE @I337@
+1 CHIL @I168@
+0 @F169@ FAM
+1 HUSB @I338@
+1 WIFE @I339@
+1 CHIL @I169@
+0 @F170@ FAM
+1 HUSB @I340@
+1 WIFE @I341@
+1 CHIL @I170@
+0 @F171@ FAM
+1 HUSB @I342@
+1 WIFE @I343@
+1 CHIL @I171@
+0 @F172@ FAM
+1 HUSB @I344@
+1 WIFE @I345@
+1 CHIL @I172@
+0 @F173@ FAM
+1 HUSB @I346@
+1 WIFE @I347@
+1 CHIL @I173@
+0 @F174@ FAM
+1 HUSB @I348@
+1 WIFE @I349@
+1 CHIL @I174@
+0 @F175@ FAM
+1 HUSB @I350@
+1 WIFE @I351@
+1 CHIL @I175@
+0 @F176@ FAM
+1 HUSB @I352@
+1 WIFE @I353@
+1 CHIL @I176@
+0 @F177@ FAM
+1 HUSB @I354@
+1 WIFE @I355@
+1 CHIL @I177@
+0 @F178@ FAM
+1 HUSB @I356@
+1 WIFE @I357@
+1 CHIL @I178@
+0 @F179@ FAM
+1 HUSB @I358@
+1 WIFE @I359@
+1 CHIL @I179@
+0 @F180@ FAM
+1 HUSB @I360@
+1 WIFE @I361@
+1 CHIL @I180@
+0 @F181@ FAM
+1 HUSB @I362@
+1 WIFE @I363@
+1 CHIL @I181@
+0 @F182@ FAM
+1 HUSB @I364@
+1 WIFE @I365@
+1 CHIL @I182@
+0 @F183@ FAM
+1 HUSB @I366@
+1 WIFE @I367@
+1 CHIL @I183@
+0 @F184@ FAM
+1 HUSB @I368@
+1 WIFE @I369@
+1 CHIL @I184@
+0 @F185@ FAM
+1 HUSB @I370@
+1 WIFE @I371@
+1 CHIL @I185@
+0 @F186@ FAM
+1 HUSB @I372@
+1 WIFE @I373@
+1 CHIL @I186@
+0 @F187@ FAM
+1 HUSB @I374@
+1 WIFE @I375@
+1 CHIL @I187@
+0 @F188@ FAM
+1 HUSB @I376@
+1 WIFE @I377@
+1 CHIL @I188@
+0 @F189@ FAM
+1 HUSB @I378@
+1 WIFE @I379@
+1 CHIL @I189@
+0 @F190@ FAM
+1 HUSB @I380@
+1 WIFE @I381@
+1 CHIL @I190@
+0 @F191@ FAM
+1 HUSB @I382@
+1 WIFE @I383@
+1 CHIL @I191@
+0 @F192@ FAM
+1 HUSB @I384@
+1 WIFE @I385@
+1 CHIL @I192@
+0 @F193@ FAM
+1 HUSB @I386@
+1 WIFE @I387@
+1 CHIL @I193@
+0 @F194@ FAM
+1 HUSB @I388@
+1 WIFE @I389@
+1 CHIL @I194@
+0 @F195@ FAM
+1 HUSB @I390@
+1 WIFE @I391@
+1 CHIL @I195@
+0 @F196@ FAM
+1 HUSB @I392@
+1 WIFE @I393@
+1 CHIL @I196@
+0 @F197@ FAM
+1 HUSB @I394@
+1 WIFE @I395@
+1 CHIL @I197@
+0 @F198@ FAM
+1 HUSB @I396@
+1 WIFE @I397@
+1 CHIL @I198@
+0 @F199@ FAM
+1 HUSB @I398@
+1 WIFE @I399@
+1 CHIL @I199@
+0 @F200@ FAM
+1 HUSB @I400@
+1 WIFE @I401@
+1 CHIL @I200@
+0 @F201@ FAM
+1 HUSB @I402@
+1 WIFE @I403@
+1 CHIL @I201@
+0 @F202@ FAM
+1 HUSB @I404@
+1 WIFE @I405@
+1 CHIL @I202@
+0 @F203@ FAM
+1 HUSB @I406@
+1 WIFE @I407@
+1 CHIL @I203@
+0 @F204@ FAM
+1 HUSB @I408@
+1 WIFE @I409@
+1 CHIL @I204@
+0 @F205@ FAM
+1 HUSB @I410@
+1 WIFE @I411@
+1 CHIL @I205@
+0 @F206@ FAM
+1 HUSB @I412@
+1 WIFE @I413@
+1 CHIL @I206@
+0 @F207@ FAM
+1 HUSB @I414@
+1 WIFE @I415@
+1 CHIL @I207@
+0 @F208@ FAM
+1 HUSB @I416@
+1 WIFE @I417@
+1 CHIL @I208@
+0 @F209@ FAM
+1 HUSB @I418@
+1 WIFE @I419@
+1 CHIL @I209@
+0 @F210@ FAM
+1 HUSB @I420@
+1 WIFE @I421@
+1 CHIL @I210@
+0 @F211@ FAM
+1 HUSB @I422@
+1 WIFE @I423@
+1 CHIL @I211@
+0 @F212@ FAM
+1 HUSB @I424@
+1 WIFE @I425@
+1 CHIL @I212@
+0 @F213@ FAM
+1 HUSB @I426@
+1 WIFE @I427@
+1 CHIL @I213@
+0 @F214@ FAM
+1 HUSB @I428@
+1 WIFE @I429@
+1 CHIL @I214@
+0 @F215@ FAM
+1 HUSB @I430@
+1 WIFE @I431@
+1 CHIL @I215@
+0 @F216@ FAM
+1 HUSB @I432@
+1 WIFE @I433@
+1 CHIL @I216@
+0 @F217@ FAM
+1 HUSB @I434@
+1 WIFE @I435@
+1 CHIL @I217@
+0 @F218@ FAM
+1 HUSB @I436@
+1 WIFE @I437@
+1 CHIL @I218@
+0 @F219@ FAM
+1 HUSB @I438@
+1 WIFE @I439@
+1 CHIL @I219@
+0 @F220@ FAM
+1 HUSB @I440@
+1 WIFE @I441@
+1 CHIL @I220@
+0 @F221@ FAM
+1 HUSB @I442@
+1 WIFE @I443@
+1 CHIL @I221@
+0 @F222@ FAM
+1 HUSB @I444@
+1 WIFE @I445@
+1 CHIL @I222@
+0 @F223@ FAM
+1 HUSB @I446@
+1 WIFE @I447@
+1 CHIL @I223@
+0 @F224@ FAM
+1 HUSB @I448@
+1 WIFE @I449@
+1 CHIL @I224@
+0 @F225@ FAM
+1 HUSB @I450@
+1 WIFE @I451@
+1 CHIL @I225@
+0 @F226@ FAM
+1 HUSB @I452@
+1 WIFE @I453@
+1 CHIL @I226@
+0 @F227@ FAM
+1 HUSB @I454@
+1 WIFE @I455@
+1 CHIL @I227@
+0 @F228@ FAM
+1 HUSB @I456@
+1 WIFE @I457@
+1 CHIL @I228@
+0 @F229@ FAM
+1 HUSB @I458@
+1 WIFE @I459@
+1 CHIL @I229@
+0 @F230@ FAM
+1 HUSB @I460@
+1 WIFE @I461@
+1 CHIL @I230@
+0 @F231@ FAM
+1 HUSB @I462@
+1 WIFE @I463@
+1 CHIL @I231@
+0 @F232@ FAM
+1 HUSB @I464@
+1 WIFE @I465@
+1 CHIL @I232@
+0 @F233@ FAM
+1 HUSB @I466@
+1 WIFE @I467@
+1 CHIL @I233@
+0 @F234@ FAM
+1 HUSB @I468@
+1 WIFE @I469@
+1 CHIL @I234@
+0 @F235@ FAM
+1 HUSB @I470@
+1 WIFE @I471@
+1 CHIL @I235@
+0 @F236@ FAM
+1 HUSB @I472@
+1 WIFE @I473@
+1 CHIL @I236@
+0 @F237@ FAM
+1 HUSB @I474@
+1 WIFE @I475@
+1 CHIL @I237@
+0 @F238@ FAM
+1 HUSB @I476@
+1 WIFE @I477@
+1 CHIL @I238@
+0 @F239@ FAM
+1 HUSB @I478@
+1 WIFE @I479@
+1 CHIL @I239@
+0 @F240@ FAM
+1 HUSB @I480@
+1 WIFE @I481@
+1 CHIL @I240@
+0 @F241@ FAM
+1 HUSB @I482@
+1 WIFE @I483@
+1 CHIL @I241@
+0 @F242@ FAM
+1 HUSB @I484@
+1 WIFE @I485@
+1 CHIL @I242@
+0 @F243@ FAM
+1 HUSB @I486@
+1 WIFE @I487@
+1 CHIL @I243@
+0 @F244@ FAM
+1 HUSB @I488@
+1 WIFE @I489@
+1 CHIL @I244@
+0 @F245@ FAM
+1 HUSB @I490@
+1 WIFE @I491@
+1 CHIL @I245@
+0 @F246@ FAM
+1 HUSB @I492@
+1 WIFE @I493@
+1 CHIL @I246@
+0 @F247@ FAM
+1 HUSB @I494@
+1 WIFE @I495@
+1 CHIL @I247@
+0 @F248@ FAM
+1 HUSB @I496@
+1 WIFE @I497@
+1 CHIL @I248@
+0 @F249@ FAM
+1 HUSB @I498@
+1 WIFE @I499@
+1 CHIL @I249@
+0 @F250@ FAM
+1 HUSB @I500@
+1 WIFE @I501@
+1 CHIL @I250@
+0 @F251@ FAM
+1 HUSB @I502@
+1 WIFE @I503@
+1 CHIL @I251@
+0 @F252@ FAM
+1 HUSB @I504@
+1 WIFE @I505@
+1 CHIL @I252@
+0 @F253@ FAM
+1 HUSB @I506@
+1 WIFE @I507@
+1 CHIL @I253@
+0 @F254@ FAM
+1 HUSB @I508@
+1 WIFE @I509@
+1 CHIL @I254@
+0 @F255@ FAM
+1 HUSB @I510@
+1 WIFE @I511@
+1 CHIL @I255@
+0 TRLR
