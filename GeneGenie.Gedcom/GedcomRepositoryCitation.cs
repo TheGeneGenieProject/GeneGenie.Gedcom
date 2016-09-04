@@ -22,6 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.IO;
     using System.Xml;
+    using Enums;
 
     /// <summary>
     /// TODO: Doc

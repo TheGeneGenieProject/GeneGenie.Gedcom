@@ -23,6 +23,7 @@ namespace GeneGenie.Gedcom
     using System.Globalization;
     using System.IO;
     using System.Xml;
+    using Enums;
 
     /// <summary>
     /// Details about a given individual
@@ -1382,22 +1383,22 @@ namespace GeneGenie.Gedcom
 
                 switch (link.Pedigree)
                 {
-                    case PedegreeLinkageType.Adopted:
+                    case PedigreeLinkageType.Adopted:
                         sw.Write(Environment.NewLine);
                         sw.Write(Util.IntToString(Level + 2));
                         sw.Write(" PEDI adopted");
                         break;
-                    case PedegreeLinkageType.Birth:
+                    case PedigreeLinkageType.Birth:
                         sw.Write(Environment.NewLine);
                         sw.Write(Util.IntToString(Level + 2));
                         sw.Write(" PEDI birth");
                         break;
-                    case PedegreeLinkageType.Foster:
+                    case PedigreeLinkageType.Foster:
                         sw.Write(Environment.NewLine);
                         sw.Write(Util.IntToString(Level + 2));
                         sw.Write(" PEDI foster");
                         break;
-                    case PedegreeLinkageType.Sealing:
+                    case PedigreeLinkageType.Sealing:
                         sw.Write(Environment.NewLine);
                         sw.Write(Util.IntToString(Level + 2));
                         sw.Write(" PEDI sealing");

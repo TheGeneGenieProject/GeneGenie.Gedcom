@@ -19,6 +19,8 @@
 
 namespace GeneGenie.Gedcom
 {
+    using GeneGenie.Gedcom.Enums;
+
     /// <summary>
     /// How an individal is linked to a family
     /// </summary>
@@ -27,11 +29,11 @@ namespace GeneGenie.Gedcom
         private string family;
         private string indi;
 
-        private PedegreeLinkageType pedigree;
+        private PedigreeLinkageType pedigree;
         private ChildLinkageStatus status;
 
-        private PedegreeLinkageType fatherPedigree;
-        private PedegreeLinkageType motherPedigree;
+        private PedigreeLinkageType fatherPedigree;
+        private PedigreeLinkageType motherPedigree;
 
         private bool preferedSpouse;
 
@@ -40,7 +42,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         public GedcomFamilyLink()
         {
-            pedigree = PedegreeLinkageType.Unknown;
+            pedigree = PedigreeLinkageType.Unknown;
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The pedigree.
         /// </value>
-        public PedegreeLinkageType Pedigree
+        public PedigreeLinkageType Pedigree
         {
             get
             {
@@ -131,7 +133,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The father pedigree.
         /// </value>
-        public PedegreeLinkageType FatherPedigree
+        public PedigreeLinkageType FatherPedigree
         {
             get
             {
@@ -154,7 +156,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The mother pedigree.
         /// </value>
-        public PedegreeLinkageType MotherPedigree
+        public PedigreeLinkageType MotherPedigree
         {
             get
             {

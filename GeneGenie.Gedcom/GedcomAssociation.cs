@@ -21,6 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
+    using Enums;
 
     /// <summary>
     /// How the given individual is associated to another.

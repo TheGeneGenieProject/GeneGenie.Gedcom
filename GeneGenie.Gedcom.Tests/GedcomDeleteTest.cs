@@ -26,6 +26,7 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using Xunit;
     using GeneGenie.Gedcom.Parser;
+    using Enums;
 
     public class GedcomDeleteTest
     {

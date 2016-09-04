@@ -21,6 +21,7 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
+    using Gedcom.Enums;
     using System;
     using System.Collections;
     using System.IO;

@@ -25,6 +25,7 @@ namespace GeneGenie.Gedcom.Parser
     using System.IO;
     using System.Text;
     using Enums;
+    using Gedcom.Enums;
     using Utility;
 
     /// <summary>
@@ -381,22 +382,22 @@ namespace GeneGenie.Gedcom.Parser
                                         case GedcomEventType.BIRT:
                                             // BIRT records do not state father/mother birth,
                                             // all we can say is both are natural
-                                            famLink.Pedigree = PedegreeLinkageType.Birth;
+                                            famLink.Pedigree = PedigreeLinkageType.Birth;
                                             break;
                                         case GedcomEventType.ADOP:
                                             switch (indiEv.AdoptedBy)
                                             {
-                                                case Gedcom.GedcomAdoptionType.Husband:
-                                                    famLink.FatherPedigree = PedegreeLinkageType.Adopted;
+                                                case GedcomAdoptionType.Husband:
+                                                    famLink.FatherPedigree = PedigreeLinkageType.Adopted;
                                                     break;
-                                                case Gedcom.GedcomAdoptionType.Wife:
-                                                    famLink.MotherPedigree = PedegreeLinkageType.Adopted;
+                                                case GedcomAdoptionType.Wife:
+                                                    famLink.MotherPedigree = PedigreeLinkageType.Adopted;
                                                     break;
-                                                case Gedcom.GedcomAdoptionType.HusbandAndWife:
+                                                case GedcomAdoptionType.HusbandAndWife:
                                                 default:
                                                     // default is both as well, has to be adopted by someone if
                                                     // there is an event on the family.
-                                                    famLink.Pedigree = PedegreeLinkageType.Adopted;
+                                                    famLink.Pedigree = PedigreeLinkageType.Adopted;
                                                     break;
                                             }
 
@@ -1360,21 +1361,21 @@ namespace GeneGenie.Gedcom.Parser
                             level == parseState.PreviousLevel + 1)
                         {
                             string childID = familyRecord.Children[familyRecord.Children.Count - 1];
-                            Gedcom.PedegreeLinkageType currentType = familyRecord.GetLinkageType(childID);
+                            PedigreeLinkageType currentType = familyRecord.GetLinkageType(childID);
 
-                            Gedcom.GedcomAdoptionType linkTo = Gedcom.GedcomAdoptionType.Husband;
+                            GedcomAdoptionType linkTo = GedcomAdoptionType.Husband;
                             if (tag == "_MREL")
                             {
-                                linkTo = Gedcom.GedcomAdoptionType.Wife;
+                                linkTo = GedcomAdoptionType.Wife;
                             }
 
                             switch (lineValue)
                             {
                                 case "Natural":
-                                    familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Birth, linkTo);
+                                    familyRecord.SetLinkageType(childID, PedigreeLinkageType.Birth, linkTo);
                                     break;
                                 case "Adopted":
-                                    familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Adopted, linkTo);
+                                    familyRecord.SetLinkageType(childID, PedigreeLinkageType.Adopted, linkTo);
                                     break;
                                 default:
                                     System.Diagnostics.Debug.WriteLine("Unsupported value for " + tag + ": " + lineValue);
@@ -1632,14 +1633,14 @@ namespace GeneGenie.Gedcom.Parser
                         switch (lineValue)
                         {
                             case "HUSB":
-                                familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Adopted, Gedcom.GedcomAdoptionType.Husband);
+                                familyRecord.SetLinkageType(childID, PedigreeLinkageType.Adopted, GedcomAdoptionType.Husband);
                                 break;
                             case "WIFE":
-                                familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Adopted, Gedcom.GedcomAdoptionType.Wife);
+                                familyRecord.SetLinkageType(childID, PedigreeLinkageType.Adopted, GedcomAdoptionType.Wife);
                                 break;
                             case "BOTH":
                             default:
-                                familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Adopted);
+                                familyRecord.SetLinkageType(childID, PedigreeLinkageType.Adopted);
                                 break;
                         }
 
@@ -1648,14 +1649,14 @@ namespace GeneGenie.Gedcom.Parser
                         switch (lineValue)
                         {
                             case "HUSB":
-                                familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Foster, Gedcom.GedcomAdoptionType.Husband);
+                                familyRecord.SetLinkageType(childID, PedigreeLinkageType.Foster, GedcomAdoptionType.Husband);
                                 break;
                             case "WIFE":
-                                familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Foster, Gedcom.GedcomAdoptionType.Wife);
+                                familyRecord.SetLinkageType(childID, PedigreeLinkageType.Foster, GedcomAdoptionType.Wife);
                                 break;
                             case "BOTH":
                             default:
-                                familyRecord.SetLinkageType(childID, Gedcom.PedegreeLinkageType.Foster);
+                                familyRecord.SetLinkageType(childID, PedigreeLinkageType.Foster);
                                 break;
                         }
 
@@ -4406,13 +4407,13 @@ namespace GeneGenie.Gedcom.Parser
                         {
                             try
                             {
-                                childOf.Pedigree = EnumHelper.Parse<PedegreeLinkageType>(lineValue, true);
+                                childOf.Pedigree = EnumHelper.Parse<PedigreeLinkageType>(lineValue, true);
                             }
                             catch
                             {
                                 Debug.WriteLine("Invalid pedegree linkage type: " + lineValue);
 
-                                childOf.Pedigree = PedegreeLinkageType.Unknown;
+                                childOf.Pedigree = PedigreeLinkageType.Unknown;
                             }
                         }
 

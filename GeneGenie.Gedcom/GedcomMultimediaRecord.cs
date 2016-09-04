@@ -22,6 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.IO;
     using System.Text;
+    using Enums;
 
     /// <summary>
     /// A multimedia record, this can consist of any number of files

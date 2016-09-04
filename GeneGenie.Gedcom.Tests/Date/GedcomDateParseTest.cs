@@ -21,6 +21,7 @@
 
 namespace GeneGenie.Gedcom.Date.Tests
 {
+    using Enums;
     using GeneGenie.Gedcom.Parser;
     using System.Collections;
     using System.IO;

@@ -86,6 +86,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Enums\GedcomDateType.cs" />
+    <Compile Include="Enums\GedcomDatePeriod.cs" />
+    <Compile Include="Enums\GedcomRestrictionNotice.cs" />
+    <Compile Include="Enums\GedcomAdoptionType.cs" />
+    <Compile Include="Enums\GedcomCertainty.cs" />
+    <Compile Include="Enums\MarriageStartStatus.cs" />
+    <Compile Include="Enums\SourceMediaType.cs" />
+    <Compile Include="Enums\PedigreeLinkageType.cs" />
+    <Compile Include="Enums\GedcomSex.cs" />
+    <Compile Include="Enums\GedcomRecordType.cs" />
+    <Compile Include="Enums\ChildLinkageStatus.cs" />
     <Compile Include="GedcomAddress.cs" />
     <Compile Include="GedcomAge.cs" />
     <Compile Include="GedcomAssociation.cs" />
@@ -94,7 +105,7 @@
     <Compile Include="GedcomDatabase.cs" />
     <Compile Include="GedcomDate.cs" />
     <Compile Include="GedcomEvent.cs" />
-    <Compile Include="GedcomEventType.cs" />
+    <Compile Include="Enums\GedcomEventType.cs" />
     <Compile Include="GedcomFamilyEvent.cs" />
     <Compile Include="GedcomFamilyLink.cs" />
     <Compile Include="GedcomFamilyRecord.cs" />

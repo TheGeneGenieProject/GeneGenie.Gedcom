@@ -22,6 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.Globalization;
     using System.IO;
+    using Enums;
 
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.
@@ -154,63 +155,6 @@ namespace GeneGenie.Gedcom
             : this()
         {
             this.Database = database;
-        }
-
-        /// <summary>
-        /// Calendars recognised in GEDCOM format.
-        /// </summary>
-        public enum GedcomDateType
-        {
-            /// <summary>Gregorian calendar.</summary>
-            Gregorian,
-
-            /// <summary>Julian calendar.</summary>
-            Julian,
-
-            /// <summary>Hebrew calendar.</summary>
-            Hebrew,
-
-            /// <summary>French calendar.</summary>
-            French,
-
-            /// <summary>Roman calendar.</summary>
-            Roman,
-
-            /// <summary>Unknown calendar.</summary>
-            Unknown // TODO: Shouldn't this be first, as in 0 for the default int value?
-        }
-
-        /// <summary>
-        /// How accurate is the date and what range does it span?
-        /// </summary>
-        public enum GedcomDatePeriod
-        {
-            /// <summary>A single point in time.</summary>
-            Exact,
-
-            /// <summary>Any point in time after.</summary>
-            After,
-
-            /// <summary>Any point in time before.</summary>
-            Before,
-
-            /// <summary>Any point in time between.</summary>
-            Between,
-
-            /// <summary>Roughly near the date.</summary>
-            About,
-
-            /// <summary>Calculated / reverse engineered from another piece of data.</summary>
-            Calculated,
-
-            /// <summary>An estimated date, likely to be slightly wrong.</summary>
-            Estimate,
-
-            /// <summary>What someone thinks the date looks like based on reading old documents.</summary>
-            Interpretation,
-
-            /// <summary>A date range.</summary>
-            Range
         }
 
         /// <inheritdoc/>

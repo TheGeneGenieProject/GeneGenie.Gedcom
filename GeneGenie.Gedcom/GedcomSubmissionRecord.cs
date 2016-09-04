@@ -19,6 +19,8 @@
 
 namespace GeneGenie.Gedcom
 {
+    using GeneGenie.Gedcom.Enums;
+
     /// <summary>
     /// TODO: Doc
     /// </summary>

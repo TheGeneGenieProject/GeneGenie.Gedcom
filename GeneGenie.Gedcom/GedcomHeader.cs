@@ -21,6 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
+    using Enums;
 
     /// <summary>
     /// The header from / for a GEDCOM file.

@@ -28,6 +28,7 @@ namespace GeneGenie.Gedcom.Reports
     using System.Xml.Xsl;
     using System.Xml.XPath;
     using System.Reflection;
+    using Enums;
 
     public class GedcomIndividualReport : GedcomXMLGeneratorBase
     {

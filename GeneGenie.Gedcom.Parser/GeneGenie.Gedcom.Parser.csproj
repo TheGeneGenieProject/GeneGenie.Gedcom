@@ -92,6 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Enums\GedcomState.cs" />
+    <Compile Include="Enums\GedcomErrorState.cs" />
+    <Compile Include="Enums\GedcomLineValueType.cs" />
     <Compile Include="Enums\GedcomCharset.cs" />
     <Compile Include="GedcomLoader.cs" />
     <Compile Include="GedcomParser.cs" />

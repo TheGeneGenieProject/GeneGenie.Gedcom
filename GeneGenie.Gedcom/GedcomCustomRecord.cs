@@ -20,6 +20,7 @@
 namespace GeneGenie.Gedcom
 {
     using System.IO;
+    using Enums;
 
     /// <summary>
     /// GEDCOM allows for custom tags to be added by applications.

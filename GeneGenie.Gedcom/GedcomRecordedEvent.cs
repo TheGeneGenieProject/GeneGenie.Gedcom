@@ -20,6 +20,7 @@
 namespace GeneGenie.Gedcom
 {
     using System;
+    using Enums;
 
     /// <summary>
     /// TODO: Doc

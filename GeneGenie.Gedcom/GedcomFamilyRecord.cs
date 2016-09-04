@@ -23,6 +23,7 @@ namespace GeneGenie.Gedcom
     using System.Collections.Generic;
     using System.IO;
     using System.Xml;
+    using Enums;
 
     /// <summary>
     /// Defines a family, consisting of husband/wife and children, and
@@ -48,9 +49,9 @@ namespace GeneGenie.Gedcom
         private MarriageStartStatus startStatus;
 
         // only used during parsing
-        private Dictionary<string, Gedcom.PedegreeLinkageType> linkageTypes;
-        private Dictionary<string, Gedcom.PedegreeLinkageType> husbLinkageTypes;
-        private Dictionary<string, Gedcom.PedegreeLinkageType> wifeLinkageTypes;
+        private Dictionary<string, PedigreeLinkageType> linkageTypes;
+        private Dictionary<string, PedigreeLinkageType> husbLinkageTypes;
+        private Dictionary<string, PedigreeLinkageType> wifeLinkageTypes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomFamilyRecord"/> class.
@@ -679,9 +680,9 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
         /// <param name="type">The type.</param>
-        public void SetLinkageType(string childXrefID, Gedcom.PedegreeLinkageType type)
+        public void SetLinkageType(string childXrefID, PedigreeLinkageType type)
         {
-            SetLinkageType(childXrefID, type, Gedcom.GedcomAdoptionType.HusbandAndWife);
+            SetLinkageType(childXrefID, type, GedcomAdoptionType.HusbandAndWife);
         }
 
         /// <summary>
@@ -690,33 +691,33 @@ namespace GeneGenie.Gedcom
         /// <param name="childXrefID">The child xref identifier.</param>
         /// <param name="type">The type.</param>
         /// <param name="to">To.</param>
-        public void SetLinkageType(string childXrefID, Gedcom.PedegreeLinkageType type, Gedcom.GedcomAdoptionType to)
+        public void SetLinkageType(string childXrefID, PedigreeLinkageType type, GedcomAdoptionType to)
         {
-            Dictionary<string, PedegreeLinkageType> dict;
+            Dictionary<string, PedigreeLinkageType> dict;
 
             switch (to)
             {
-                case Gedcom.GedcomAdoptionType.Husband:
+                case GedcomAdoptionType.Husband:
                     if (husbLinkageTypes == null)
                     {
-                        husbLinkageTypes = new Dictionary<string, PedegreeLinkageType>();
+                        husbLinkageTypes = new Dictionary<string, PedigreeLinkageType>();
                     }
 
                     dict = husbLinkageTypes;
                     break;
-                case Gedcom.GedcomAdoptionType.Wife:
+                case GedcomAdoptionType.Wife:
                     if (wifeLinkageTypes == null)
                     {
-                        wifeLinkageTypes = new Dictionary<string, PedegreeLinkageType>();
+                        wifeLinkageTypes = new Dictionary<string, PedigreeLinkageType>();
                     }
 
                     dict = wifeLinkageTypes;
                     break;
-                case Gedcom.GedcomAdoptionType.HusbandAndWife:
+                case GedcomAdoptionType.HusbandAndWife:
                 default:
                     if (linkageTypes == null)
                     {
-                        linkageTypes = new Dictionary<string, PedegreeLinkageType>();
+                        linkageTypes = new Dictionary<string, PedigreeLinkageType>();
                     }
 
                     dict = linkageTypes;
@@ -738,9 +739,9 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
         /// <returns>TODO: Doc</returns>
-        public Gedcom.PedegreeLinkageType GetHusbandLinkageType(string childXrefID)
+        public PedigreeLinkageType GetHusbandLinkageType(string childXrefID)
         {
-            Gedcom.PedegreeLinkageType ret = Gedcom.PedegreeLinkageType.Unknown;
+            PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
 
             if (husbLinkageTypes != null && husbLinkageTypes.ContainsKey(childXrefID))
             {
@@ -777,9 +778,9 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
         /// <returns>TODO: Doc</returns>
-        public Gedcom.PedegreeLinkageType GetWifeLinkageType(string childXrefID)
+        public PedigreeLinkageType GetWifeLinkageType(string childXrefID)
         {
-            Gedcom.PedegreeLinkageType ret = Gedcom.PedegreeLinkageType.Unknown;
+            PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
 
             if (wifeLinkageTypes != null && wifeLinkageTypes.ContainsKey(childXrefID))
             {
@@ -816,9 +817,9 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
         /// <returns>TODO: Doc</returns>
-        public Gedcom.PedegreeLinkageType GetLinkageType(string childXrefID)
+        public PedigreeLinkageType GetLinkageType(string childXrefID)
         {
-            Gedcom.PedegreeLinkageType ret = Gedcom.PedegreeLinkageType.Unknown;
+            PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
 
             if (linkageTypes != null && linkageTypes.ContainsKey(childXrefID))
             {
@@ -948,16 +949,16 @@ namespace GeneGenie.Gedcom
                         string relType = string.Empty;
                         switch (link.FatherPedigree)
                         {
-                            case Gedcom.PedegreeLinkageType.Adopted:
+                            case PedigreeLinkageType.Adopted:
                                 relType = "adopted";
                                 break;
-                            case Gedcom.PedegreeLinkageType.Birth:
+                            case PedigreeLinkageType.Birth:
                                 relType = "birth";
                                 break;
-                            case Gedcom.PedegreeLinkageType.Foster:
+                            case PedigreeLinkageType.Foster:
                                 relType = "foster";
                                 break;
-                            case Gedcom.PedegreeLinkageType.Sealing:
+                            case PedigreeLinkageType.Sealing:
                                 relType = "sealing";
                                 break;
                             default:
@@ -971,16 +972,16 @@ namespace GeneGenie.Gedcom
                         relType = string.Empty;
                         switch (link.MotherPedigree)
                         {
-                            case Gedcom.PedegreeLinkageType.Adopted:
+                            case PedigreeLinkageType.Adopted:
                                 relType = "adopted";
                                 break;
-                            case Gedcom.PedegreeLinkageType.Birth:
+                            case PedigreeLinkageType.Birth:
                                 relType = "birth";
                                 break;
-                            case Gedcom.PedegreeLinkageType.Foster:
+                            case PedigreeLinkageType.Foster:
                                 relType = "foster";
                                 break;
-                            case Gedcom.PedegreeLinkageType.Sealing:
+                            case PedigreeLinkageType.Sealing:
                                 relType = "sealing";
                                 break;
                             default:
@@ -1094,12 +1095,12 @@ namespace GeneGenie.Gedcom
                     {
                         switch (link.Pedigree)
                         {
-                            case Gedcom.PedegreeLinkageType.FatherAdopted:
+                            case PedigreeLinkageType.FatherAdopted:
                                 sw.Write(Environment.NewLine);
                                 sw.Write(levelPlusTwo);
                                 sw.Write("_FREL Adopted");
                                 break;
-                            case Gedcom.PedegreeLinkageType.MotherAdopted:
+                            case PedigreeLinkageType.MotherAdopted:
                                 sw.Write(Environment.NewLine);
                                 sw.Write(levelPlusTwo);
                                 sw.Write("_MREL Adopted");

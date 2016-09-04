@@ -17,7 +17,7 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
     /// TODO: All of these need documenting properly.

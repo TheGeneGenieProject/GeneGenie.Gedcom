@@ -22,6 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.IO;
     using System.Text;
+    using Enums;
 
     /// <summary>
     /// A name for a given individual, allowing different variations to be

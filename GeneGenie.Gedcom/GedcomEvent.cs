@@ -23,6 +23,7 @@ namespace GeneGenie.Gedcom
     using System.Collections.Generic;
     using System.IO;
     using System.Xml;
+    using Enums;
 
     /// <summary>
     /// Defines a generic event or fact
