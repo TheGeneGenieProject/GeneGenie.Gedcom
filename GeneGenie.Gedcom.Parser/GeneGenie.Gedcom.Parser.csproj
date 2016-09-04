@@ -45,6 +45,8 @@
     <GenerateDocumentation>true</GenerateDocumentation>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\GeneGenie.Gedcom.Parser.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Parser.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,6 +58,8 @@
     <GenerateDocumentation>true</GenerateDocumentation>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\GeneGenie.Gedcom.Parser.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Parser.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,9 +91,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnselEncoding.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="BackgroundGedcomRecordReader.cs" />
     <Compile Include="GedcomLoader.cs" />
     <Compile Include="GedcomParser.cs" />
     <Compile Include="GedcomParseState.cs" />
@@ -115,6 +117,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="GeneGenie.Gedcom.Parser.ruleset">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
@@ -178,6 +192,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Parser.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release - VS|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -189,5 +204,6 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Parser.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>

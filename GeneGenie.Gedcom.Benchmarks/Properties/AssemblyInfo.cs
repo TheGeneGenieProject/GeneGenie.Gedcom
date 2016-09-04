@@ -17,7 +17,6 @@
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("GeneGenie.Gedcom.Benchmarks")]
 [assembly: AssemblyDescription("")]
@@ -28,4 +27,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.0.0")]

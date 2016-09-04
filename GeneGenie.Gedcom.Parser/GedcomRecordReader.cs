@@ -1032,10 +1032,13 @@ namespace GeneGenie.Gedcom.Parser
                             GedcomCharset charset = GedcomCharset.UnSupported;
                             switch (_lineValue)
                             {
-                                case "ANSEL":
-                                    charset = GedcomCharset.Ansel;
-                                    enc = new AnselEncoding();
-                                    break;
+                                // TODO: Encoder removed as we need a full GPL 3 version, see https://github.com/rbirkby/ansel-encoding/tree/master/src for an option.
+                                // TODO: Also see http://www.heiner-eichmann.de/gedcom/charintr.htm and the work GRAMPS has done with Ansel.
+                                // TODO: Reimplement ANSEL encoding if used by many users, UTF-8 may be a decent alternative that most people can use.
+                                //case "ANSEL":
+                                //    charset = GedcomCharset.Ansel;
+                                //    enc = new AnselEncoding();
+                                //    break;
                                 case "ANSI":
                                     charset = GedcomCharset.Ansi;
                                     // default to windows codepage, wrong but best guess

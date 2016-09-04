@@ -30,8 +30,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneGenie.Gedcom.Tests", "G
 		{1CACB4ED-A0AC-49B0-BFCF-3EBA26DF558C} = {1CACB4ED-A0AC-49B0-BFCF-3EBA26DF558C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneGenie.Gedcom.Fetcher", "GeneGenie.Gedcom.Fetcher\GeneGenie.Gedcom.Fetcher.csproj", "{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneGenie.Gedcom.Benchmarks", "GeneGenie.Gedcom.Benchmarks\GeneGenie.Gedcom.Benchmarks.csproj", "{133A8AB0-A066-436E-9E2A-D7F6F2144F2E}"
 EndProject
 Global
@@ -81,14 +79,6 @@ Global
 		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release - VS|Any CPU.ActiveCfg = Release - VS|Any CPU
 		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Debug - VS|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Debug - VS|Any CPU.Build.0 = Debug|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Release - VS|Any CPU.ActiveCfg = Release|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Release - VS|Any CPU.Build.0 = Release|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E567797-F15F-4EAF-93CD-AF4A90FF3CA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{133A8AB0-A066-436E-9E2A-D7F6F2144F2E}.Debug - VS|Any CPU.ActiveCfg = Debug|Any CPU
 		{133A8AB0-A066-436E-9E2A-D7F6F2144F2E}.Debug - VS|Any CPU.Build.0 = Debug|Any CPU
 		{133A8AB0-A066-436E-9E2A-D7F6F2144F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
