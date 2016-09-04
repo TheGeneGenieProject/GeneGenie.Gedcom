@@ -112,7 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="GedcomDateParseTest.cs" />
+    <Compile Include="Date\GedcomDateCompareTest.cs" />
+    <Compile Include="Date\GedcomDateNullEqualTest.cs" />
+    <Compile Include="Date\GedcomDateParseTest.cs" />
     <Compile Include="GedcomDeleteTest.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
     <Compile Include="GedcomFileParseTest.cs" />
@@ -152,6 +154,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

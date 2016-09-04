@@ -42,8 +42,8 @@ namespace GeneGenie.Gedcom.Reports
             string xslFile = ".\\Data\\Xsl\\Surnames.xsl";
 			
 			XPathDocument doc = new XPathDocument(xmlFile);
-				
-			XslTransform transform = new XslTransform();
+
+            var transform = new XslCompiledTransform();
 			transform.Load(xslFile);
 									
 			transform.Transform(doc, null, System.Console.Out);

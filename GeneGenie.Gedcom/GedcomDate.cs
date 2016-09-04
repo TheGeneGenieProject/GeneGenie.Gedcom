@@ -124,10 +124,6 @@ namespace GeneGenie.Gedcom
             LongHebrMonths
         };
 
-        private static Calendar gregorian = null;
-        private static Calendar julian = null;
-        private static Calendar hebrew = null;
-
         private GedcomDateType dateType;
         private GedcomDatePeriod datePeriod;
 
@@ -536,6 +532,35 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return this == (GedcomDate)obj;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            // Overflow is fine, just wrap.
+            unchecked
+            {
+                int hash = 17;
+
+                hash *= 23 + DateTime1.GetHashCode();
+                hash *= 23 + DateTime2.GetHashCode();
+                hash *= 23 + Date1.GetHashCode();
+                hash *= 23 + Date2.GetHashCode();
+
+                return hash;
+            }
+        }
+
+        /// <summary>
         /// TODO: Doc
         /// </summary>
         /// <param name="date">TODO: Doc 2</param>
@@ -821,31 +846,15 @@ namespace GeneGenie.Gedcom
                     throw new NotImplementedException();
                     break;
                 case GedcomDateType.Gregorian:
-                    if (gregorian == null)
-                    {
-                        gregorian = new GregorianCalendar();
-                    }
-
-                    calendar = gregorian;
+                    calendar = new GregorianCalendar();
                     Date1 = dataString;
                     break;
                 case GedcomDateType.Hebrew:
-                    if (hebrew == null)
-                    {
-                        hebrew
-                            = new HebrewCalendar();
-                    }
-
-                    calendar = hebrew;
+                    calendar = new HebrewCalendar();
                     Date1 = dataString;
                     break;
                 case GedcomDateType.Julian:
-                    if (julian == null)
-                    {
-                        julian = new JulianCalendar();
-                    }
-
-                    calendar = julian;
+                    calendar = new JulianCalendar();
                     Date1 = dataString;
                     break;
                 case GedcomDateType.Roman:
@@ -996,25 +1005,25 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="dateaDate">First date to compare.</param>
         /// <param name="datebDate">Second date to compare.</param>
-        /// <returns>-1, 0 or 1: TODO: Doc</returns>
+        /// <returns>0 if dates match, -1 if dateaDate is less than datebDate, otherwise 1.</returns>
         private static int CompareNullableDateTime(DateTime? dateaDate, DateTime? datebDate)
         {
-            int ret = 0;
+            if (dateaDate == null && datebDate == null)
+            {
+                return 0;
+            }
 
             if (dateaDate.HasValue && datebDate.HasValue)
             {
-                ret = DateTime.Compare(dateaDate.Value, datebDate.Value);
-            }
-            else if (!dateaDate.HasValue)
-            {
-                ret = -1;
-            }
-            else
-            {
-                ret = 1;
+                return DateTime.Compare(dateaDate.Value, datebDate.Value);
             }
 
-            return ret;
+            if (!dateaDate.HasValue)
+            {
+                return -1;
+            }
+
+            return 1;
         }
 
         private static DateTime? GetDateInfo(string[] dateSplit, int start, int num, Calendar calendar)
@@ -1163,6 +1172,7 @@ namespace GeneGenie.Gedcom
                     }
                     catch
                     {
+                        // TODO: Don't swallow exceptions, need some way to feedback to user.
                         // if we fail to parse not much we can do,
                         // just don't provide a datetime
                     }

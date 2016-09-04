@@ -19,7 +19,7 @@
  *
  */
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom.Date.Tests
 {
     using GeneGenie.Gedcom.Parser;
     using System.Collections;
