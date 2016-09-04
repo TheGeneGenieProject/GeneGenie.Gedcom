@@ -46,6 +46,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>GeneGenie.Gedcom.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\GeneGenie.Gedcom.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

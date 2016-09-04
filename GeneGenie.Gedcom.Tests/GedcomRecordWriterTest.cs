@@ -55,7 +55,7 @@ namespace GeneGenie.Gedcom.Parser
             _writer.GedcomFile = Path.Combine(outputDir, file);
 
             _writer.ApplicationName = "Gedcom.NET";
-            _writer.ApplicationSystemID = "Gedcom.NET";
+            _writer.ApplicationSystemId = "Gedcom.NET";
             _writer.ApplicationVersion = "Test Suite";
             _writer.Corporation = "David A Knight";
 

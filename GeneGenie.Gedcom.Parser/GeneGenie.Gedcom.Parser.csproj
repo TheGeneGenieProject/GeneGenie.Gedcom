@@ -92,11 +92,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Enums\GedcomCharset.cs" />
     <Compile Include="GedcomLoader.cs" />
     <Compile Include="GedcomParser.cs" />
     <Compile Include="GedcomParseState.cs" />
     <Compile Include="GedcomRecordReader.cs" />
     <Compile Include="GedcomRecordWriter.cs" />
+    <Compile Include="StaticData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeneGenie.Gedcom\GeneGenie.Gedcom.csproj">
@@ -130,6 +132,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

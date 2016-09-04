@@ -22,8 +22,16 @@ namespace GeneGenie.Gedcom.Parser
     using System.IO;
     using System.Text;
 
+    /// <summary>
+    /// Used by unit tests to load and parse GEDCOM files, should probably be in the tests assembly.
+    /// </summary>
     public class GedcomLoader
     {
+        /// <summary>
+        /// Loads the GEDCOM file and parses it.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>The last error during parsing.</returns>
         public static GedcomErrorState LoadAndParse(string file)
         {
             var encoder = new ASCIIEncoding();
@@ -47,8 +55,11 @@ namespace GeneGenie.Gedcom.Parser
                     string input = encoder.GetString(buffer, 0, read).Trim();
                     var error = parser.GedcomParse(input);
                     if (error != GedcomErrorState.NoError)
+                    {
                         return error;
+                    }
                 }
+
                 return GedcomErrorState.NoError;
             }
         }
