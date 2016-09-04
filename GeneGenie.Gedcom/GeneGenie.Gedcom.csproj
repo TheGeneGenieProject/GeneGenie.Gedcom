@@ -57,6 +57,7 @@
     <GenerateDocumentation>true</GenerateDocumentation>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>GeneGenie.Gedcom.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\GeneGenie.Gedcom.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -132,9 +133,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </None>
     <None Include="GeneGenie.Gedcom.ruleset" />
     <None Include="packages.config" />
-    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />

@@ -32,7 +32,7 @@ namespace GeneGenie.Gedcom.Parser
         [Fact]
         public void Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses()
         {
-            var result = GedcomLoader.LoadAndParseOriginal("allged.ged");
+            var result = GedcomLoader.LoadAndParse("allged.ged");
 
             Assert.Equal(GedcomErrorState.NoError, result);
         }

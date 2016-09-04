@@ -1,4 +1,4 @@
-// <copyright file="AssemblyInfo.cs" company="GeneGenie.com">
+ï»¿// <copyright file="AllTagsBenchmark.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -16,18 +16,23 @@
 // </copyright>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
+namespace GeneGenie.Gedcom.Benchmarks
+{
+    using BenchmarkDotNet.Attributes;
+    using Parser;
 
-[assembly: AssemblyTitle("GeneGenie.Gedcom")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GeneGenie.Gedcom")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-[assembly: InternalsVisibleTo("GeneGenie.Gedcom.Parser")]
+    /// <summary>
+    /// Uses the standard file provided by H. Eichmann to benchmark loading all known GEDCOM tags.
+    /// </summary>
+    public class AllTagsBenchmark
+    {
+        /// <summary>
+        /// Benchmarks the loading of all known gedcom tags.
+        /// </summary>
+        [Benchmark(Baseline = true)]
+        public void Load_all_known_gedcom_tags()
+        {
+            GedcomLoader.LoadAndParse("allged.ged");
+        }
+    }
+}
