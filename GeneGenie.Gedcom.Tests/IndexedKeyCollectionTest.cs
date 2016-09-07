@@ -1,34 +1,32 @@
-/*
- *  $Id: IndexedKeyCollectionTest.cs 199 2008-11-15 15:20:44Z davek $
- * 
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="IndexedKeyCollectionTest.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom.Tests
 {
+    using GeneGenui.Gedcom.Utility;
     using Utility;
     using Xunit;
 
     public class IndexedKeyCollectionTest
     {
-
         [Fact]
-        public void Test1()
+        private void Test1()
         {
             var col = new IndexedKeyCollection();
 
@@ -51,11 +49,11 @@ namespace GeneGenie.Gedcom.Tests
             Assert.True(found, "NOT FOUND!");
 
             string msg = "expected 3\tgot " + pos;
-            Assert.True((pos == 3), msg);
+            Assert.True(pos == 3, msg);
         }
 
         [Fact]
-        public void Test2()
+        private void Test2()
         {
             IndexedKeyCollection col = new IndexedKeyCollection();
 
@@ -90,12 +88,13 @@ namespace GeneGenie.Gedcom.Tests
         }
 
         [Fact]
-        public void Test3()
+        private void Test3()
         {
             IndexedKeyCollection col = new IndexedKeyCollection();
 
-            string[] names = new string[] {
-                "Abiathar","Alice Blanch","Almedia J","Anna M","Annie","Anthony Desmond","Anthony James","Barber","Barton William","Board","Bone","Burchell","Caswell","Collins","Corrinna","Cullister Anne","Day","Deborah","Dennis","Duckett","Edward","Edwin","Elizabeth","Eric Gwyn","Farrington","Fiona M","Forrester","Frances C","Geoffrey","George","George F","German","Gillian","Grinning","Groves","Hannah","Harry","Hatfield","Helen Elizabeth","Henry James","Horton","Horwood","Hughes","Hyde","Ira Walter","Irene Winifred","Iris Mary","Ivor Harding","Jane Rosemary","Jean M A","Jean Maud","Jennifer Nancy","Jenny","Jeremy D J","Joanne","John","John Werrett","Kate A","Kathleen Rose Lucy","Keziah","Knight","Locke","Margaret Mary","Mary Jane","Mavis Jean","Michael Bruce","Neville","Paul V","Pete","Peter Bryan","Phillipa","Prewett","Raymond Holloway","Richard G","Sarah F","Slim","Susan","Suzanne Alison","Sybil Beatrice","Sydney Mary","Tewkesbury","Thomas","Timothy","Timothy J","Toby","Tomlinson","Tracy Jane","Valerie C","Vince","Walker","Wallace","Wayne Oakleigh","Wendy","Werrett","Whereatt","Wherrett","Wherritt","White","Wilbur","William","William John","Yendell","Young"
+            string[] names = new string[]
+            {
+                "Abiathar", "Alice Blanch", "Almedia J", "Anna M", "Annie", "Anthony Desmond", "Anthony James", "Barber", "Barton William", "Board", "Bone", "Burchell", "Caswell", "Collins", "Corrinna", "Cullister Anne", "Day", "Deborah", "Dennis", "Duckett", "Edward", "Edwin", "Elizabeth", "Eric Gwyn", "Farrington", "Fiona M", "Forrester", "Frances C", "Geoffrey", "George", "George F", "German", "Gillian", "Grinning", "Groves", "Hannah", "Harry", "Hatfield", "Helen Elizabeth", "Henry James", "Horton", "Horwood", "Hughes", "Hyde", "Ira Walter", "Irene Winifred", "Iris Mary", "Ivor Harding", "Jane Rosemary", "Jean M A", "Jean Maud", "Jennifer Nancy", "Jenny", "Jeremy D J", "Joanne", "John", "John Werrett", "Kate A", "Kathleen Rose Lucy", "Keziah", "Knight", "Locke", "Margaret Mary", "Mary Jane", "Mavis Jean", "Michael Bruce", "Neville", "Paul V", "Pete", "Peter Bryan", "Phillipa", "Prewett", "Raymond Holloway", "Richard G", "Sarah F", "Slim", "Susan", "Suzanne Alison", "Sybil Beatrice", "Sydney Mary", "Tewkesbury", "Thomas", "Timothy", "Timothy J", "Toby", "Tomlinson", "Tracy Jane", "Valerie C", "Vince", "Walker", "Wallace", "Wayne Oakleigh", "Wendy", "Werrett", "Whereatt", "Wherrett", "Wherritt", "White", "Wilbur", "William", "William John", "Yendell", "Young"
             };
 
             foreach (string s in names)
@@ -113,12 +112,13 @@ namespace GeneGenie.Gedcom.Tests
         }
 
         [Fact]
-        public void Test4()
+        private void Test4()
         {
             IndexedKeyCollection col = new IndexedKeyCollection();
 
-            string[] names = new string[] {
-                "Grinning", "Sydney Mary ", "Day", "Susan ","Vince","Wayne Oakleigh ","Bone","Anna M ", "Annie"
+            string[] names = new string[]
+            {
+                "Grinning", "Sydney Mary ", "Day", "Susan ", "Vince", "Wayne Oakleigh ", "Bone", "Anna M ", "Annie"
             };
 
             foreach (string s in names)

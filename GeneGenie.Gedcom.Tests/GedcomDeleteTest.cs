@@ -1,32 +1,30 @@
-/*
- *  $Id: GedcomDeleteTest.cs 199 2008-11-15 15:20:44Z davek $
- * 
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomDeleteTest.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {
     using System;
     using System.Collections;
     using System.IO;
-    using Xunit;
-    using GeneGenie.Gedcom.Parser;
     using Enums;
+    using GeneGenie.Gedcom.Parser;
+    using Xunit;
 
     public class GedcomDeleteTest
     {
@@ -66,14 +64,13 @@ namespace GeneGenie.Gedcom
             }
         }
 
-
         [Fact]
-        public void Test1()
+        private void Test1()
         {
             Read("test1.ged");
 
-            Assert.True(90 == _individuals, "Not read all individuals");
-            Assert.True(15 == _families, "Not read all families");
+            Assert.True(_individuals == 90, "Not read all individuals");
+            Assert.True(_families == 15, "Not read all families");
 
             string id = _reader.Parser.XrefCollection["I0145"];
             string sourceID = _reader.Parser.XrefCollection["S01668"];
@@ -86,8 +83,8 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-            Assert.True(89 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(15 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 89, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 15, "Incorrectly erased family");
 
             Assert.True(_reader.Database[sourceID2] != null, "Source incorrectly deleted when deleting individual");
 
@@ -97,12 +94,12 @@ namespace GeneGenie.Gedcom
         }
 
         [Fact]
-        public void Test2()
+        private void Test2()
         {
             Read("test2.ged");
 
-            Assert.True(4 == _individuals, "Not read all individuals");
-            Assert.True(2 == _families, "Not read all families");
+            Assert.True(_individuals == 4, "Not read all individuals");
+            Assert.True(_families == 2, "Not read all families");
 
             string id = _reader.Parser.XrefCollection["I04"];
 
@@ -110,9 +107,8 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-
-            Assert.True(3 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(2 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 3, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 2, "Incorrectly erased family");
 
             id = _reader.Parser.XrefCollection["I01"];
 
@@ -120,8 +116,8 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-            Assert.True(2 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(1 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 2, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
 
             id = _reader.Parser.XrefCollection["I02"];
 
@@ -129,8 +125,8 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-            Assert.True(1 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(1 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 1, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
 
             GedcomFamilyRecord famRec = _reader.Database.Families[0];
             string noteID = famRec.Notes[0];
@@ -143,19 +139,19 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-            Assert.True(0 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(0 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 0, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 0, "Incorrectly erased family");
 
-            Assert.True(null != _reader.Database[noteID], "Incorrectly erased note from family");
+            Assert.True(_reader.Database[noteID] != null, "Incorrectly erased note from family");
         }
 
         [Fact]
-        public void Test3()
+        private void Test3()
         {
             Read("test3.ged");
 
-            Assert.True(4 == _individuals, "Not read all individuals");
-            Assert.True(2 == _families, "Not read all families");
+            Assert.True(_individuals == 4, "Not read all individuals");
+            Assert.True(_families == 2, "Not read all families");
 
             string id = _reader.Parser.XrefCollection["I04"];
 
@@ -163,9 +159,8 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-
-            Assert.True(3 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(2 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 3, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 2, "Incorrectly erased family");
 
             id = _reader.Parser.XrefCollection["I01"];
 
@@ -173,8 +168,8 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-            Assert.True(2 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(1 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 2, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
 
             id = _reader.Parser.XrefCollection["I02"];
 
@@ -182,8 +177,8 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-            Assert.True(1 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(1 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 1, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
 
             GedcomFamilyRecord famRec = _reader.Database.Families[0];
             string noteID = famRec.Notes[0];
@@ -196,10 +191,10 @@ namespace GeneGenie.Gedcom
 
             indi.Delete();
 
-            Assert.True(0 == _reader.Database.Individuals.Count, "Failed to delete individual");
-            Assert.True(0 == _reader.Database.Families.Count, "Incorrectly erased family");
+            Assert.True(_reader.Database.Individuals.Count == 0, "Failed to delete individual");
+            Assert.True(_reader.Database.Families.Count == 0, "Incorrectly erased family");
 
-            Assert.True(null != _reader.Database[noteID], "Incorrectly erased note linked from family");
+            Assert.True(_reader.Database[noteID] != null, "Incorrectly erased note linked from family");
         }
     }
 }

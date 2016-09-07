@@ -18,16 +18,17 @@
 
 namespace GeneGenie.Gedcom.Date.Tests
 {
-    using System;
     using System.Collections.Generic;
     using Xunit;
-    using Xunit.Abstractions;
 
+    /// <summary>
+    /// Checks that the date comparision works, which is complex as GEDCOM dates can have a lot of prefixes.
+    /// </summary>
     public class GedcomDateCompareTest
     {
         [Theory]
         [MemberData(nameof(GetUnmatchedDates))]
-        public void Dates_should_not_match(string dateAText, string dateBText)
+        private void Dates_should_not_match(string dateAText, string dateBText)
         {
             var dateA = CreateDate(dateAText);
             var dateB = CreateDate(dateBText);
@@ -39,7 +40,7 @@ namespace GeneGenie.Gedcom.Date.Tests
 
         [Theory]
         [MemberData(nameof(GetMatchedDates))]
-        public void Dates_should_match(string dateAText, string dateBText)
+        private void Dates_should_match(string dateAText, string dateBText)
         {
             var dateA = CreateDate(dateAText);
             var dateB = CreateDate(dateBText);
@@ -51,7 +52,7 @@ namespace GeneGenie.Gedcom.Date.Tests
 
         [Theory]
         [MemberData(nameof(GetEarlierDates))]
-        public void First_date_should_be_earlier_due_to_text_sorting(string dateAText, string dateBText)
+        private void First_date_should_be_earlier_due_to_text_sorting(string dateAText, string dateBText)
         {
             var dateA = CreateDate(dateAText);
             var dateB = CreateDate(dateBText);
@@ -61,26 +62,26 @@ namespace GeneGenie.Gedcom.Date.Tests
             Assert.True(lessThan);
         }
 
-        public static IEnumerable<object> GetMatchedDates()
+        private static IEnumerable<object> GetMatchedDates()
         {
-            yield return new object[] { "", "" };
+            yield return new object[] { string.Empty, string.Empty };
             yield return new object[] { "19 APR 1996", "19 APR 1996" };
             yield return new object[] { "Jan", "Jan" };
             yield return new object[] { "Feb", "FEB" };
         }
 
-        public static IEnumerable<object> GetEarlierDates()
+        private static IEnumerable<object> GetEarlierDates()
         {
             yield return new object[] { "01 Jan 1900", "1 Jan 1900" };
         }
 
-        public static IEnumerable<object> GetUnmatchedDates()
+        private static IEnumerable<object> GetUnmatchedDates()
         {
-            yield return new object[] { "Jan 1900", "" };
+            yield return new object[] { "Jan 1900", string.Empty };
             yield return new object[] { "Jan 1900", "1900" };
         }
 
-        public static GedcomDate CreateDate(string dateText)
+        private static GedcomDate CreateDate(string dateText)
         {
             var date = new GedcomDate();
             date.ParseDateString(dateText);

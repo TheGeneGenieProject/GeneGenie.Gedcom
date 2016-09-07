@@ -23,6 +23,7 @@ namespace GeneGenie.Gedcom
     using System.Globalization;
     using System.IO;
     using Enums;
+    using GeneGenui.Gedcom.Utility;
 
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.
@@ -544,7 +545,7 @@ namespace GeneGenie.Gedcom
                     parts++;
 
                     parts += 3;
-                    float date1Match = Utility.DateHelper.MatchDateTimes(DateTime1, dateDate1);
+                    float date1Match = DateHelper.MatchDateTimes(DateTime1, dateDate1);
 
                     // correct for number of date parts parsed
                     date1Match *= partsParsed1 / 3.0F;
@@ -552,7 +553,7 @@ namespace GeneGenie.Gedcom
                     matches += date1Match;
 
                     parts += 3;
-                    float date2Match = Utility.DateHelper.MatchDateTimes(DateTime2, dateDate2);
+                    float date2Match = DateHelper.MatchDateTimes(DateTime2, dateDate2);
 
                     // correct for number of date parts parsed
                     date2Match *= partsParsed2 / 3.0F;

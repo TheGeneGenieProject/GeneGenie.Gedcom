@@ -1,4 +1,4 @@
-// <copyright file="Pair.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomReportFormat.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -17,33 +17,41 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom.Reports.Enums
 {
-    public class Pair<T, T2>
+    /// <summary>
+    /// Output formats for reports.
+    /// </summary>
+    public enum GedcomReportFormat
     {
-        T _first;
-        T2 _second;
+        /// <summary>
+        /// Microsoft Word.
+        /// </summary>
+        Doc,
 
-        public Pair()
-        {
-        }
+        /// <summary>
+        /// HTML.
+        /// </summary>
+        Html,
 
-        public Pair(T first, T2 second)
-        {
-            _first = first;
-            _second = second;
-        }
+        /// <summary>
+        /// PDF.
+        /// </summary>
+        Pdf,
 
-        public T First
-        {
-            get { return _first; }
-            set { _first = value; }
-        }
+        /// <summary>
+        /// SVG.
+        /// </summary>
+        Svg,
 
-        public T2 Second
-        {
-            get { return _second; }
-            set { _second = value; }
-        }
+        /// <summary>
+        /// Plain text.
+        /// </summary>
+        Txt,
+
+        /// <summary>
+        /// Microsoft Excel.
+        /// </summary>
+        Xls
     }
 }

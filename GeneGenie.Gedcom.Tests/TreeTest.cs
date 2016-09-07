@@ -1,42 +1,43 @@
-/*
- *  Copyright  (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *  Amendments (C) 2016 Ryan O'Neill <r@genegenie.com>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="TreeTest.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom.Tests
 {
     using System.Text;
-    using Utility.Collections;
+    using GeneGenui.Gedcom.Utility.Collections;
+    using Utility.Enums;
     using Xunit;
 
     public abstract class TreeTest
     {
-        protected Tree<string> _FullTree;
-        protected Tree<string> _LeftOnlyTree;
-        protected Tree<string> _RightOnlyTree;
-        protected Tree<string> _MissingFinalRightTree;
-        protected Tree<string> _MissingFinalLeftTree;
+        protected Tree<string> fullTree;
+        protected Tree<string> leftOnlyTree;
+        protected Tree<string> rightOnlyTree;
+        protected Tree<string> missingFinalRightTree;
+        protected Tree<string> missingFinalLeftTree;
 
         protected string _FullTreeExpected;
         protected string _LeftOnlyTreeExpected;
         protected string _RightOnlyTreeExpected;
         protected string _MissingFinalRightTreeExpected;
         protected string _MissingFinalLeftTreeExpected;
+        private TraversalType post;
 
         public TreeTest(TraversalType traversalType)
         {
@@ -44,9 +45,9 @@ namespace GeneGenie.Gedcom.Tests
             TreeNode<string> root;
             TreeNode<string> node;
 
-            _FullTree = new Tree<string>();
+            fullTree = new Tree<string>();
 
-            tree = _FullTree;
+            tree = fullTree;
             tree.TraversalOrder = traversalType;
             root = new TreeNode<string>();
             root.Data = "A";
@@ -60,9 +61,9 @@ namespace GeneGenie.Gedcom.Tests
             node.AddLeft("F");
             node.AddRight("G");
 
-            _LeftOnlyTree = new Tree<string>();
+            leftOnlyTree = new Tree<string>();
 
-            tree = _LeftOnlyTree;
+            tree = leftOnlyTree;
             tree.TraversalOrder = traversalType;
             root = new TreeNode<string>();
             root.Data = "A";
@@ -71,9 +72,9 @@ namespace GeneGenie.Gedcom.Tests
             node = root.AddLeft("B");
             node.AddLeft("C");
 
-            _RightOnlyTree = new Tree<string>();
+            rightOnlyTree = new Tree<string>();
 
-            tree = _RightOnlyTree;
+            tree = rightOnlyTree;
             tree.TraversalOrder = traversalType;
             root = new TreeNode<string>();
             root.Data = "A";
@@ -82,10 +83,9 @@ namespace GeneGenie.Gedcom.Tests
             node = root.AddRight("B");
             node.AddRight("C");
 
+            missingFinalRightTree = new Tree<string>();
 
-            _MissingFinalRightTree = new Tree<string>();
-
-            tree = _MissingFinalRightTree;
+            tree = missingFinalRightTree;
             tree.TraversalOrder = traversalType;
             root = new TreeNode<string>();
             root.Data = "A";
@@ -97,10 +97,9 @@ namespace GeneGenie.Gedcom.Tests
             node = root.AddRight("D");
             node.AddLeft("E");
 
+            missingFinalLeftTree = new Tree<string>();
 
-            _MissingFinalLeftTree = new Tree<string>();
-
-            tree = _MissingFinalLeftTree;
+            tree = missingFinalLeftTree;
             tree.TraversalOrder = traversalType;
             root = new TreeNode<string>();
             root.Data = "A";
@@ -115,16 +114,14 @@ namespace GeneGenie.Gedcom.Tests
 
         public void DoTest(Tree<string> tree, string expected)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (TreeNode<string> treeNode in tree)
             {
                 sb.Append(treeNode.Data);
             }
 
             string got = sb.ToString();
-            Assert.Equal(got, expected);
+            Assert.Equal(expected, got);
         }
     }
-
 }
-

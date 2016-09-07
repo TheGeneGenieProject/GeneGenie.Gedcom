@@ -1,4 +1,4 @@
-// <copyright file="Pair.cs" company="GeneGenie.com">
+﻿// <copyright file="GraphType.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -17,33 +17,29 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom.Reports.Enums
 {
-    public class Pair<T, T2>
+    using System;
+
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    [Flags]
+    public enum GraphType
     {
-        T _first;
-        T2 _second;
+        /// <summary>
+        /// Ancestors.
+        /// </summary>
+        Ancestors = 0,
 
-        public Pair()
-        {
-        }
+        /// <summary>
+        /// Decendants.
+        /// </summary>
+        Decendants = 1,
 
-        public Pair(T first, T2 second)
-        {
-            _first = first;
-            _second = second;
-        }
-
-        public T First
-        {
-            get { return _first; }
-            set { _first = value; }
-        }
-
-        public T2 Second
-        {
-            get { return _second; }
-            set { _second = value; }
-        }
+        /// <summary>
+        /// Siblings.
+        /// </summary>
+        Siblings = 2
     }
 }

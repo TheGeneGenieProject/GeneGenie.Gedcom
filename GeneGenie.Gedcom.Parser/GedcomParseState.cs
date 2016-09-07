@@ -19,6 +19,7 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
+    using GeneGenui.Gedcom.Utility;
     using System;
     using System.Collections.Generic;
     using Utility;

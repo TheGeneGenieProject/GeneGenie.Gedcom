@@ -21,6 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System.Collections;
     using System.Collections.Generic;
+    using GeneGenui.Gedcom.Utility;
 
     /// <summary>
     /// The database for all the GEDCOM records.
@@ -42,8 +43,8 @@ namespace GeneGenie.Gedcom
 
         private string name;
 
-        private Utility.IndexedKeyCollection nameCollection;
-        private Utility.IndexedKeyCollection placeNameCollection;
+        private IndexedKeyCollection nameCollection;
+        private IndexedKeyCollection placeNameCollection;
 
         // NOTE: having a collection for date strings saves memory
         // but kills GEDCOM reading time to an extent that it isn't worth it
@@ -63,8 +64,8 @@ namespace GeneGenie.Gedcom
             notes = new List<GedcomNoteRecord>();
             submitters = new List<GedcomSubmitterRecord>();
 
-            nameCollection = new Utility.IndexedKeyCollection();
-            placeNameCollection = new Utility.IndexedKeyCollection();
+            nameCollection = new IndexedKeyCollection();
+            placeNameCollection = new IndexedKeyCollection();
 
             surnames = new Dictionary<string, int>();
         }
@@ -169,7 +170,7 @@ namespace GeneGenie.Gedcom
         /// Gets all the names used in the database, used primarily to save
         /// memory by storing names only once
         /// </summary>
-        public Utility.IndexedKeyCollection NameCollection
+        public IndexedKeyCollection NameCollection
         {
             get { return nameCollection; }
         }
@@ -178,7 +179,7 @@ namespace GeneGenie.Gedcom
         /// Gets all the place names used in the database, used primarily to save
         /// memory by storing names only once
         /// </summary>
-        public Utility.IndexedKeyCollection PlaceNameCollection
+        public IndexedKeyCollection PlaceNameCollection
         {
             get { return placeNameCollection; }
         }

@@ -21,6 +21,7 @@ namespace GeneGenie.Gedcom.Parser
 {
     using System;
     using Enums;
+    using GeneGenui.Gedcom.Utility;
 
     /// <summary>
     /// GedcomParser is responsible for parsing GEDCOM files.
@@ -105,7 +106,7 @@ namespace GeneGenie.Gedcom.Parser
         /// This is used as a cache to lower memory consumption.
         /// If not set one will be created when parsing.
         /// </summary>
-        public Utility.IndexedKeyCollection TagCollection { get; set; }
+        public IndexedKeyCollection TagCollection { get; set; }
 
         /// <summary>
         /// Gets or sets the collection of xrefs used in the gedcom file.
@@ -114,7 +115,7 @@ namespace GeneGenie.Gedcom.Parser
         /// allow on the fly replacement of xrefs.
         /// If not set one will be created when parsing.
         /// </summary>
-        public Utility.IndexedKeyCollection XrefCollection { get; set; }
+        public IndexedKeyCollection XrefCollection { get; set; }
 
         /// <summary>
         /// Gets or sets the character set used to encode the GEDCOM file.
@@ -202,13 +203,13 @@ namespace GeneGenie.Gedcom.Parser
             // use again without having to substring
             if (TagCollection == null)
             {
-                TagCollection = new Utility.IndexedKeyCollection();
+                TagCollection = new IndexedKeyCollection();
             }
 
             // same for Xrefs
             if (XrefCollection == null)
             {
-                XrefCollection = new Utility.IndexedKeyCollection();
+                XrefCollection = new IndexedKeyCollection();
             }
 
             while (i < len)

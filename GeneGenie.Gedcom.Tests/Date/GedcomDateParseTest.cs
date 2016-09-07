@@ -1,30 +1,28 @@
-/*
- *  $Id: GedcomDateParseTest.cs 188 2008-09-27 14:42:14Z davek $
- * 
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomDateParseTest.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom.Date.Tests
 {
-    using Enums;
-    using GeneGenie.Gedcom.Parser;
     using System.Collections;
     using System.IO;
+    using Enums;
+    using GeneGenie.Gedcom.Parser;
     using Xunit;
 
     public class GedcomDateParseTest
@@ -50,6 +48,7 @@ namespace GeneGenie.Gedcom.Date.Tests
                         System.Console.WriteLine("Unparsed: " + date.Date1);
                     }
                 }
+
                 if (!string.IsNullOrEmpty(date.Date2))
                 {
                     if (date.DateTime2 != null && date.DateTime2.HasValue)
@@ -108,80 +107,14 @@ namespace GeneGenie.Gedcom.Date.Tests
 
             System.Console.WriteLine(gedcomFile + ": parsed " + _parsedDates + "\t unparsed " + _notParsedDates);
 
-            Assert.True(0 == _notParsedDates, "Unparsed Dates");
+            Assert.True(_notParsedDates == 0, "Unparsed Dates");
         }
 
-
-        [Fact]
-        public void Test1()
+        [Theory]
+        [InlineData("presidents.ged")]
+        private void Check_file_date_contents_can_be_parsed(string fileName)
         {
-            Read("test1.ged");
-        }
-
-        [Fact]
-        public void Test2()
-        {
-            Read("test2.ged");
-        }
-
-        [Fact]
-        public void Test3()
-        {
-            Read("test3.ged");
-        }
-
-        [Fact]
-        public void Presidents()
-        {
-            Read("presidents.ged");
-        }
-
-        [Fact]
-        public void Werrett()
-        {
-            Read("werrett.ged");
-        }
-
-        [Fact]
-        public void Whereat()
-        {
-            Read("whereat.ged");
-        }
-
-        [Fact]
-        public void Database1()
-        {
-            Read("Database1.ged");
-        }
-
-        [Fact]
-        public void TGC551LF()
-        {
-            Read("TGC551LF.ged");
-        }
-
-        [Fact]
-        public void Durand1()
-        {
-            Read("FAM_DD_4_2noms.ged");
-        }
-
-        [Fact]
-        public void Durand2()
-        {
-            Read("TOUT200801_unicode.ged");
-        }
-
-        [Fact]
-        public void Durand3()
-        {
-            Read("test_gedcom-net.ged");
-        }
-
-        [Fact]
-        public void Kollmann()
-        {
-            Read("Kollmann.ged");
+            Read(fileName);
         }
     }
 }

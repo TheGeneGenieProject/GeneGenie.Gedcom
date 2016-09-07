@@ -1,56 +1,57 @@
-/*
- *  $Id: GedcomXMLGeneratorBase.cs 183 2008-06-08 15:31:15Z davek $
- * 
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomXMLGeneratorBase.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom.Reports
 {
     using System;
     using System.Xml;
 
+    /// <summary>
+    /// TODO Doc
+    /// </summary>
     public abstract class GedcomXMLGeneratorBase
     {
-        protected GedcomDatabase _database;
-
-        protected string _prefix = string.Empty;
-
-
-
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomXMLGeneratorBase"/> class.
+        /// </summary>
         public GedcomXMLGeneratorBase()
         {
         }
 
+        /// <summary>
+        /// Gets or sets the database.
+        /// </summary>
+        /// <value>
+        /// The database.
+        /// </value>
+        public GedcomDatabase Database { get; set; }
 
-
-
-        public GedcomDatabase Database
-        {
-            get { return _database; }
-            set { _database = value; }
-        }
-
-
-
-
+        /// <summary>
+        /// Generates the XML.
+        /// </summary>
+        /// <returns>XML!</returns>
         public abstract XmlDocument GenerateXML();
 
+        /// <summary>
+        /// Appends the header.
+        /// </summary>
+        /// <param name="root">The root.</param>
         protected void AppendHeader(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -95,22 +96,34 @@ namespace GeneGenie.Gedcom.Reports
             root.AppendChild(header);
         }
 
+        /// <summary>
+        /// Appends the family.
+        /// </summary>
+        /// <param name="family">The family.</param>
+        /// <param name="root">The root.</param>
         protected void AppendFamily(GedcomFamilyRecord family, XmlNode root)
         {
             family.GenerateXML(root);
         }
 
+        /// <summary>
+        /// Appends the individual.
+        /// </summary>
+        /// <param name="indi">The indi.</param>
+        /// <param name="root">The root.</param>
         protected void AppendIndividual(GedcomIndividualRecord indi, XmlNode root)
         {
             indi.GenerateXML(root);
         }
 
+        /// <summary>
+        /// Appends the event.
+        /// </summary>
+        /// <param name="ev">The ev.</param>
+        /// <param name="root">The root.</param>
         protected void AppendEvent(GedcomEvent ev, XmlNode root)
         {
             ev.GenerateXML(root);
         }
-
-
-
     }
 }

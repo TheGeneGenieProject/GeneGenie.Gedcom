@@ -1,31 +1,34 @@
-﻿/*
- *  Copyright  (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *  Amendments (C) 2016 Ryan O'Neill <r@genegenie.com>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+﻿// <copyright file="PostOrderTreeTest.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
- namespace GeneGenie.Gedcom.Tests
+namespace GeneGenie.Gedcom.Tests
 {
-    using Utility.Collections;
+    using Utility.Enums;
     using Xunit;
 
     public class PostOrderTreeTest : TreeTest
     {
-        public PostOrderTreeTest() : base(TraversalType.Post)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostOrderTreeTest"/> class.
+        /// </summary>
+        public PostOrderTreeTest()
+            : base(TraversalType.Post)
         {
             _FullTreeExpected = "CDBFGEA";
             _LeftOnlyTreeExpected = "CBA";
@@ -35,35 +38,33 @@
         }
 
         [Fact]
-        public void FullTree()
+        private void FullTree()
         {
-            DoTest(_FullTree, _FullTreeExpected);
+            DoTest(fullTree, _FullTreeExpected);
         }
 
         [Fact]
-        public void LeftOnly()
+        private void LeftOnly()
         {
-            DoTest(_LeftOnlyTree, _LeftOnlyTreeExpected);
+            DoTest(leftOnlyTree, _LeftOnlyTreeExpected);
         }
 
         [Fact]
-        public void RightOnly()
+        private void RightOnly()
         {
-            DoTest(_RightOnlyTree, _RightOnlyTreeExpected);
+            DoTest(rightOnlyTree, _RightOnlyTreeExpected);
         }
 
         [Fact]
-        public void MissingFinalRight()
+        private void MissingFinalRight()
         {
-            DoTest(_MissingFinalRightTree, _MissingFinalRightTreeExpected);
+            DoTest(missingFinalRightTree, _MissingFinalRightTreeExpected);
         }
 
         [Fact]
-        public void MissingFinalLeft()
+        private void MissingFinalLeft()
         {
-            DoTest(_MissingFinalLeftTree, _MissingFinalLeftTreeExpected);
+            DoTest(missingFinalLeftTree, _MissingFinalLeftTreeExpected);
         }
     }
-
-
 }

@@ -1,23 +1,21 @@
-/*
- *  $Id: GedcomFileParseTest.cs 198 2008-11-15 15:18:04Z davek $
- * 
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="GedcomFileParseTest.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom.Parser
 {
@@ -26,7 +24,7 @@ namespace GeneGenie.Gedcom.Parser
     using System.Text;
     using Xunit;
 
-    public class GedcomFileParse
+    public class GedcomFileParseTest
     {
         private void GedcomParser_ParseError(object sender, EventArgs e)
         {
@@ -38,7 +36,6 @@ namespace GeneGenie.Gedcom.Parser
 
         private void GedcomParser_TagFound(object sender, EventArgs e)
         {
-
         }
 
         private void Parse(string file)
@@ -69,7 +66,6 @@ namespace GeneGenie.Gedcom.Parser
             parser.ParserError += GedcomParser_ParseError;
             parser.TagFound += GedcomParser_TagFound;
 
-
             string gedcomFile = Path.Combine(dir, file);
 
             FileStream stream = null;
@@ -99,79 +95,23 @@ namespace GeneGenie.Gedcom.Parser
             }
         }
 
-        [Fact]
-        public void Test1()
+        [Theory]
+        [InlineData("presidents.ged")]
+        private void Check_file_contents_can_be_parsed(string fileName)
         {
-            Parse("test1.ged");
+            Parse(fileName);
         }
 
-        [Fact]
-        public void Test2()
-        {
-            Parse("test2.ged");
-        }
-
-        [Fact]
-        public void Test3()
-        {
-            Parse("test3.ged");
-        }
-
-        [Fact]
-        public void Presidents()
-        {
-            Parse("presidents.ged");
-        }
-
-        [Fact]
-        public void Werrett()
-        {
-            Parse("werrett.ged");
-        }
-
-        [Fact]
-        public void Whereat()
-        {
-            Parse("whereat.ged");
-        }
-
-        [Fact]
-        public void Database1()
-        {
-            Parse("Database1.ged");
-        }
-
-        [Fact]
-        public void Durand1()
-        {
-            Parse("FAM_DD_4_2noms.ged");
-        }
-
-        [Fact]
-        public void Durand2()
+        [Theory]
+        [InlineData("TODO:find_this_file.ged")]
+        private void Underscores_and_tabs_can_be_parsed(string fileName)
         {
             // This test will fail due to tabs in line value content unless
             // we tell the parser to allow them (they are invalid in GEDCOM)
             // will also fail unless - or _ are allowed in tag names
             // due to a custom tag with - in it.
             Encoding enc = Encoding.BigEndianUnicode;
-            Parse("TOUT200801_unicode.ged", enc, true, true);
-        }
-
-        [Fact]
-        public void Durand3()
-        {
-            // This test will fail due to tabs in line value content unless
-            // we tell the parser to allow them (they are invalid in GEDCOM)
-            // will also fail unless - or _ are allowed in tag names
-            // due to a custom tag with - in it.
-            Parse("test_gedcom-net.ged", true, true);
-        }
-
-        [Fact]
-        public void Kollmann()
-        {
-            Parse("Kollmann.ged");
+            Parse(fileName, enc, true, true);
         }
     }
 }

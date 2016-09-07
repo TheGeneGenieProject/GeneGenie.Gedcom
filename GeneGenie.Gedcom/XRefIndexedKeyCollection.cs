@@ -20,12 +20,12 @@
 namespace GeneGenie.Gedcom
 {
     using System.Collections.Generic;
-    using Utility;
+    using GeneGenui.Gedcom.Utility;
 
     /// <summary>
     /// TODO: Doc
     /// </summary>
-    /// <seealso cref="Utility.IndexedKeyCollection" />
+    /// <seealso cref="IndexedKeyCollection" />
     public class XRefIndexedKeyCollection : IndexedKeyCollection
     {
         private GedcomDatabase database;

@@ -1,73 +1,35 @@
-/*
- *  $Id: TreeNode.cs 183 2008-06-08 15:31:15Z davek $
- * 
- *  Copyright (C) 2007 David A Knight <david@ritter.demon.co.uk>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
- */
+// <copyright file="TreeNode.cs" company="GeneGenie.com">
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program. If not, see http:www.gnu.org/licenses/ .
+//
+// </copyright>
+// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
+// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace Utility.Collections
+namespace GeneGenui.Gedcom.Utility.Collections
 {
     using System;
 
     public class TreeNode<T>
     {
+        public TreeNode<T> Parent { get; set; }
 
-        private TreeNode<T> _Parent;
-        private TreeNode<T> _Left;
-        private TreeNode<T> _Right;
+        public TreeNode<T> Left { get; set; }
 
-        private T _Data;
+        public TreeNode<T> Right { get; set; }
 
-
-
-
-        public TreeNode()
-        {
-        }
-
-
-
-
-        public TreeNode<T> Parent
-        {
-            get { return _Parent; }
-            set { _Parent = value; }
-        }
-
-        public TreeNode<T> Left
-        {
-            get { return _Left; }
-            set { _Left = value; }
-        }
-
-        public TreeNode<T> Right
-        {
-            get { return _Right; }
-            set { _Right = value; }
-        }
-
-        public T Data
-        {
-            get { return _Data; }
-            set { _Data = value; }
-        }
-
-
-
+        public T Data { get; set; }
 
         public void AddLeft(TreeNode<T> node)
         {
@@ -75,6 +37,7 @@ namespace Utility.Collections
             {
                 throw new Exception("node already has a parent");
             }
+
             if (Left != null)
             {
                 throw new Exception("Left node already present");
@@ -99,6 +62,7 @@ namespace Utility.Collections
             {
                 throw new Exception("node already has a parent");
             }
+
             if (Right != null)
             {
                 throw new Exception("Right node already present");
@@ -132,9 +96,8 @@ namespace Utility.Collections
             {
                 Parent.Right = null;
             }
+
             Parent = null;
         }
-
-
     }
 }
