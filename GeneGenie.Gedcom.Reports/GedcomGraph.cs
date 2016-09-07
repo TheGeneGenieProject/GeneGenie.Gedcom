@@ -21,7 +21,6 @@ namespace GeneGenie.Gedcom.Reports
 {
     using System.Collections.Generic;
     using Enums;
-    using Utility;
     using GeneGenui.Gedcom.Utility;
 
     /// <summary>

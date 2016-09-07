@@ -129,11 +129,6 @@
     <Compile Include="GedcomXMLGeneratorTest.cs" />
     <Compile Include="GedcomXMLTransformTest.cs" />
     <Compile Include="IndexedKeyCollectionTest.cs" />
-    <Compile Include="InOrderTreeTest.cs" />
-    <Compile Include="LevelOrderTreeTest.cs" />
-    <Compile Include="PostOrderTreeTest.cs" />
-    <Compile Include="PreOrderTreeTest.cs" />
-    <Compile Include="TreeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

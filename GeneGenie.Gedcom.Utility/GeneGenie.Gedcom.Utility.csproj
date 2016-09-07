@@ -90,13 +90,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="DateHelper.cs" />
-    <Compile Include="Enums\TraversalType.cs" />
     <Compile Include="GraphNode.cs" />
     <Compile Include="IndexedKeyCollection.cs" />
     <Compile Include="Pair.cs" />
-    <Compile Include="Tree.cs" />
-    <Compile Include="TreeEnumerator.cs" />
-    <Compile Include="TreeNode.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="EnumHelper.cs" />
   </ItemGroup>
@@ -120,6 +116,9 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

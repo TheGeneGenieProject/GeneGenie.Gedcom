@@ -20,7 +20,6 @@
 namespace GeneGenie.Gedcom.Tests
 {
     using GeneGenui.Gedcom.Utility;
-    using Utility;
     using Xunit;
 
     public class IndexedKeyCollectionTest
