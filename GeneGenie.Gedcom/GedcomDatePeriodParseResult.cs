@@ -1,4 +1,4 @@
-// <copyright file="GraphNode.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomDatePeriodParseResult.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -14,17 +14,19 @@
 // along with this program. If not, see http:www.gnu.org/licenses/ .
 //
 // </copyright>
-// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom
 {
-    using System.Collections.Generic;
+    using GeneGenie.Gedcom.Enums;
 
-    public class GraphNode<T>
+    /// <summary>The result of parsing and extracting a date period from a string.</summary>
+    public class GedcomDatePeriodParseResult
     {
-        public T Data { get; set; }
+        /// <summary>Gets or sets the string that shows the parsed data with the date period extracted.</summary>
+        public string DataAfterExtraction { get; set; }
 
-        public List<GraphNode<T>> Edges { get; set; } = new List<GraphNode<T>>();
+        /// <summary>Gets or sets the date period that has been parsed from the raw text.</summary>
+        public GedcomDatePeriod DatePeriod { get; set; }
     }
 }

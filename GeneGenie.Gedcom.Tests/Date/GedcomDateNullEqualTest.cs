@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom.Date.Tests
     using Xunit;
 
     /// <summary>
-    /// Null comparison tests for dates, ensuring a date never matches a null.
+    /// Null comparison tests for dates, ensuring a real date never matches a null.
     /// </summary>
     public class GedcomDateNullEqualTest
     {

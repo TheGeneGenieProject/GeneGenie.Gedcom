@@ -22,6 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.Globalization;
     using System.IO;
+    using Data;
     using Enums;
     using GeneGenui.Gedcom.Utility;
 
@@ -30,102 +31,6 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomDate : GedcomRecord
     {
-        private static readonly string[] ShortMonths = new string[]
-        {
-            "JAN", "FEB", "MAR", "APR", "MAY",
-            "JUN", "JUL", "AUG", "SEP", "OCT",
-            "NOV", "DEC"
-        };
-
-        private static readonly string[] ShortMonthsPunc = new string[] // non standard
-        {
-            "JAN.", "FEB.", "MAR.", "APR.", "MAY.",
-            "JUN.", "JUL.", "AUG.", "SEP.", "OCT.",
-            "NOV.", "DEC."
-        };
-
-        // non standard
-        private static readonly string[] ShortMonthsExt = new string[]
-        {
-            "JAN", "FEB", "MAR", "APR", "MAY",
-            "JUN", "JUL", "AUG", "SEPT", "OCT",
-            "NOV", "DEC"
-        };
-
-        // non standard
-        private static readonly string[] ShortMonthsExtPunc = new string[]
-        {
-            "JAN.", "FEB.", "MAR.", "APR.", "MAY.",
-            "JUN.", "JUL.", "AUG.", "SEPT.", "OCT.",
-            "NOV.", "DEC."
-        };
-
-        private static readonly string[] LongMonths = new string[]
-        {
-            "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY",
-            "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER",
-            "NOVEMBER", "DECEMBER"
-        };
-
-        private static readonly string[] ShortFrenMonths = new string[]
-        {
-            "VEND", "BRUM", "FRIM", "NIVO", "PLUB",
-            "VENT", "GERM", "FLOR", "PRAI", "MESS",
-            "THER", "FRUC", "COMP"
-        };
-
-        // non standard
-        private static readonly string[] ShortFrenMonthsPunc = new string[]
-        {
-            "VEND.", "BRUM.", "FRIM.", "NIVO.", "PLUB.",
-            "VENT.", "GERM.", "FLOR.", "PRAI.", "MESS.",
-            "THER.", "FRUC.", "COMP."
-        };
-
-        private static readonly string[] LongFrenMonths = new string[]
-        {
-            "VENDEMIAIRE", "BRUMAIRE", "FRIMAIRE", "NIVOSE", "PLUVIOSE",
-            "VENTOSE", "GERMINAL", "FLOREAL", "PRAIRIAL", "MESSIDOR",
-            "THERMIDOR", "FRUCTIDOR", "JOUR_COMPLEMENTAIRS"
-        };
-
-        private static readonly string[] ShortHebrMonths = new string[]
-        {
-            "TSH", "CSH", "KSL", "TVT", "SHV",
-            "ADR", "ADS", "NSN", "IYR", "SVN",
-            "TMZ", "AAV", "ELL"
-        };
-
-        // non standard
-        private static readonly string[] ShortHebrMonthsPunc = new string[]
-        {
-            "TSH.", "CSH.", "KSL.", "TVT.", "SHV.",
-            "ADR.", "ADS.", "NSN.", "IYR.", "SVN.",
-            "TMZ.", "AAV.", "ELL."
-        };
-
-        private static readonly string[] LongHebrMonths = new string[]
-        {
-            "TISHRI", "CHESHCAN", "KISLEV", "TEVAT", "SHEVAT",
-            "ADAR", "ADAR SHENI", "NISAN", "IYAR", "SIVAN",
-            "TAMMUZ", "AV", "ELUL"
-        };
-
-        private static readonly string[][] MonthNames = new string[][]
-        {
-            ShortMonths,
-            ShortMonthsPunc,
-            ShortMonthsExt,
-            ShortMonthsExtPunc,
-            LongMonths,
-            ShortFrenMonths,
-            ShortFrenMonthsPunc,
-            LongFrenMonths,
-            ShortHebrMonths,
-            ShortHebrMonthsPunc,
-            LongHebrMonths
-        };
-
         private GedcomDateType dateType;
         private GedcomDatePeriod datePeriod;
 
@@ -568,6 +473,45 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Extracts the date period from raw text and attempts to guess if the date period is not present.
+        /// </summary>
+        /// <param name="dataString">The data string.</param>
+        /// <returns>A <see cref="GedcomDatePeriodParseResult"/> object with the period and the text removed from the input string.</returns>
+        public GedcomDatePeriodParseResult ExtractDatePeriod(string dataString)
+        {
+            var result = new GedcomDatePeriodParseResult { DatePeriod = GedcomDatePeriod.Exact };
+            int start = 0, len = dataString.Length;
+            var culture = CultureInfo.CurrentCulture;
+
+            foreach (var periodMapping in StaticDateData.PeriodMappings)
+            {
+                if (periodMapping.TextPosition == GedcomDatePeriodPosition.Prefix)
+                {
+                    if (dataString.StartsWith(periodMapping.Text, true, culture))
+                    {
+                        start = periodMapping.Text.Length;
+                        len = dataString.Length - start;
+                        result.DatePeriod = periodMapping.MapsTo;
+                        break;
+                    }
+                }
+                else if (periodMapping.TextPosition == GedcomDatePeriodPosition.Suffix)
+                {
+                    if (dataString.TrimEnd().EndsWith(periodMapping.Text, true, culture))
+                    {
+                        start = 0;
+                        len = dataString.LastIndexOf(periodMapping.Text);
+                        result.DatePeriod = periodMapping.MapsTo;
+                        break;
+                    }
+                }
+            }
+
+            result.DataAfterExtraction = dataString.Substring(start, len).TrimStart(new char[] { ' ', '\t' });
+            return result;
+        }
+
+        /// <summary>
         /// Parse passed date into instance properties.
         /// </summary>
         /// <param name="dataString">The date to parse as a text string.</param>
@@ -581,7 +525,7 @@ namespace GeneGenie.Gedcom
             if (dataString.StartsWith("@#"))
             {
                 dataString = dataString.Substring(2);
-                int i = dataString.IndexOf("@", 2);
+                int i = dataString.IndexOf("@", 2); // TODO: Subtle bug? Should the 2 be there as already trimmed above?
                 if (i != -1)
                 {
                     dateType = dataString.Substring(0, i).ToUpper();
@@ -611,175 +555,10 @@ namespace GeneGenie.Gedcom
                     break;
             }
 
-            // try to determine date period, let the fun begin
-            string period = dataString;
-            int len = 0;
-
-            CultureInfo culture = System.Globalization.CultureInfo.CurrentCulture;
-
-            if (period.StartsWith("BEF ", true, culture))
-            {
-                len = "BEF ".Length;
-                DatePeriod = GedcomDatePeriod.Before;
-            }
-            else if (period.StartsWith("AFT ", true, culture))
-            {
-                len = "AFT ".Length;
-                DatePeriod = GedcomDatePeriod.After;
-            }
-            else if (period.StartsWith("BET ", true, culture))
-            {
-                len = "BET ".Length;
-                DatePeriod = GedcomDatePeriod.Between;
-            }
-            else if (period.StartsWith("FROM ", true, culture))
-            {
-                len = "FROM ".Length;
-                DatePeriod = GedcomDatePeriod.Range;
-            }
-            else if (period.StartsWith("TO ", true, culture))
-            {
-                len = "TO ".Length;
-                DatePeriod = GedcomDatePeriod.Range;
-            }
-            else if (period.StartsWith("ABT ", true, culture) ||
-                        period.StartsWith("EST ", true, culture))
-            {
-                len = "EST ".Length;
-                DatePeriod = GedcomDatePeriod.Estimate;
-            }
-            else if (period.StartsWith("CAL ", true, culture))
-            {
-                len = "CAL ".Length;
-                DatePeriod = GedcomDatePeriod.Calculated;
-            }
-            else if (period.StartsWith("INT ", true, culture))
-            {
-                len = "INT ".Length;
-                DatePeriod = GedcomDatePeriod.Interpretation;
-            }
-
-            // all the rest here are not valid gedcom, but have been seen
-            // in gedcom files
-            else if (period.StartsWith("BEF.", true, culture))
-            {
-                len = "BEF.".Length;
-                DatePeriod = GedcomDatePeriod.Before;
-            }
-            else if (period.StartsWith("AFT.", true, culture))
-            {
-                len = "AFT.".Length;
-                DatePeriod = GedcomDatePeriod.After;
-            }
-            else if (period.StartsWith("BET.", true, culture))
-            {
-                len = "BET.".Length;
-                DatePeriod = GedcomDatePeriod.Between;
-            }
-            else if (period.StartsWith("ABT.", true, culture) ||
-                        period.StartsWith("EST.", true, culture))
-            {
-                len = "EST.".Length;
-                DatePeriod = GedcomDatePeriod.Estimate;
-            }
-            else if (period.StartsWith("CAL. ", true, culture))
-            {
-                len = "CAL.".Length;
-                DatePeriod = GedcomDatePeriod.Calculated;
-            }
-            else if (period.StartsWith("INT. ", true, culture))
-            {
-                len = "INT.".Length;
-                DatePeriod = GedcomDatePeriod.Interpretation;
-            }
-
-            // C or CIRCA isn't valid either
-            // See BROSKEEP comment below, C may be due to the date
-            // being set from a baptism / christening, but if that is the case
-            // estimate is still reasonable to go with
-            else if (period.StartsWith("C.", true, culture))
-            {
-                len = "C.".Length;
-                DatePeriod = GedcomDatePeriod.Estimate;
-            }
-            else if (period.StartsWith("CIRCA ", true, culture))
-            {
-                len = "CIRCA ".Length;
-                DatePeriod = GedcomDatePeriod.Estimate;
-            }
-
-            // BROSKEEP seems to be stupid and doesn't make proper
-            // use of CAL    e.g   BU.9-6-1825  for a death date
-            // means it is really the burial date that has just been
-            // copied to the death date
-            else if (period.StartsWith("BU.", true, culture))
-            {
-                len = "BU.".Length;
-                DatePeriod = GedcomDatePeriod.Calculated;
-            }
-
-            // same with birth / baptism, as it does this is C safe being CIRCA ?
-            else if (period.StartsWith("BAP.", true, culture))
-            {
-                len = "BAP.".Length;
-                DatePeriod = GedcomDatePeriod.Calculated;
-            }
-
-            // Yet another non standard prefix, seen in BROSKEEP
-            else if (period.StartsWith("ABOUT ", true, culture))
-            {
-                len = "ABOUT ".Length;
-                DatePeriod = GedcomDatePeriod.Estimate;
-            }
-
-            // and another
-            else if (period.StartsWith("BEFORE ", true, culture))
-            {
-                len = "BEFORE ".Length;
-                DatePeriod = GedcomDatePeriod.Before;
-            }
-
-            // not seen but expected
-            else if (period.StartsWith("AFTER ", true, culture))
-            {
-                len = "AFTER ".Length;
-                DatePeriod = GedcomDatePeriod.After;
-            }
-
-            // we may also have NOT BEFORE, NOT BEF. NOT BEF
-            // NOT AFTER, NOT AFT. NOT AFT  etc.
-            else if (period.StartsWith("NOT BEF ", true, culture))
-            {
-                len = "NOT BEF ".Length;
-                DatePeriod = GedcomDatePeriod.After;
-            }
-            else if (period.StartsWith("NOT BEF.", true, culture))
-            {
-                len = "NOT BEF.".Length;
-                DatePeriod = GedcomDatePeriod.After;
-            }
-            else if (period.StartsWith("NOT BEFORE ", true, culture))
-            {
-                len = "NOT BEFORE ".Length;
-                DatePeriod = GedcomDatePeriod.After;
-            }
-            else if (period.StartsWith("NOT AFT ", true, culture))
-            {
-                len = "NOT AFT ".Length;
-                DatePeriod = GedcomDatePeriod.Before;
-            }
-            else if (period.StartsWith("NOT AFT.", true, culture))
-            {
-                len = "NOT AFT.".Length;
-                DatePeriod = GedcomDatePeriod.Before;
-            }
-            else if (period.StartsWith("NOT AFTER ", true, culture))
-            {
-                len = "NOT AFTER ".Length;
-                DatePeriod = GedcomDatePeriod.Before;
-            }
-
-            dataString = dataString.Substring(len).TrimStart(new char[] { ' ', '\t' });
+            period = dataString;
+            var periodResult = ExtractDatePeriod(period);
+            dataString = periodResult.DataAfterExtraction;
+            DatePeriod = periodResult.DatePeriod;
 
             Calendar calendar = null;
 
@@ -1035,7 +814,7 @@ namespace GeneGenie.Gedcom
                 if ((!int.TryParse(month, out m)) && month != string.Empty)
                 {
                     // month name, find month number
-                    foreach (string[] names in MonthNames)
+                    foreach (string[] names in StaticDateData.MonthNames)
                     {
                         int i = 1;
                         bool match = false;

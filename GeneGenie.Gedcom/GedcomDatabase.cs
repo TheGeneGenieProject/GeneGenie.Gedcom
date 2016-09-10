@@ -327,7 +327,7 @@ namespace GeneGenie.Gedcom
 
                         if (surnames.ContainsKey(surname))
                         {
-                            int count = (int)surnames[surname];
+                            int count = surnames[surname];
                             count--;
                             if (count > 0)
                             {
@@ -477,7 +477,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    surnames[surname] = 1 + (int)surnames[surname];
+                    surnames[surname] = 1 + surnames[surname];
                 }
             }
         }

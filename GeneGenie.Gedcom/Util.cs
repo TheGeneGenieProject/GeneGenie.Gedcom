@@ -144,10 +144,10 @@ namespace GeneGenie.Gedcom
             {
                 int tmp = i;
                 int digits = 1;
-                while (((int)(tmp / 10)) > 0)
+                while (tmp / 10 > 0)
                 {
                     digits++;
-                    tmp = (int)(tmp / 10);
+                    tmp = tmp / 10;
                 }
 
                 char[] buffer = null;
@@ -163,7 +163,7 @@ namespace GeneGenie.Gedcom
                 {
                     digits--;
                     buffer[digits] = (char)(0x30 + (i % 10));
-                    i = (int)(i / 10);
+                    i = i / 10;
                 }
 
                 if (neg)

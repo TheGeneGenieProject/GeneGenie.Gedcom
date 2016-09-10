@@ -24,6 +24,9 @@ namespace GeneGenie.Gedcom.Enums
     /// </summary>
     public enum GedcomDatePeriod
     {
+        /// <summary>A default for dates so that none slip in without being explicitly checked.</summary>
+        Unknown = 0,
+
         /// <summary>A single point in time.</summary>
         Exact,
 

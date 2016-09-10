@@ -19,9 +19,9 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
-    using GeneGenui.Gedcom.Utility;
     using System;
     using System.Collections.Generic;
+    using GeneGenui.Gedcom.Utility;
 
     /// <summary>
     /// GedcomParseState is used to maintain the current parser status

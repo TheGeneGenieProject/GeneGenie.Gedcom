@@ -37,15 +37,6 @@ namespace GeneGenie.Gedcom
         private int level;
 
         /// <summary>
-        /// When we are removing inline note records etc. the new
-        /// record is set to level 0, this breaks the parsing mechanism,
-        /// so we need to record the level the record used to occur on
-        /// TODO: this is a bit of a hack as it adds parsing related code to non
-        /// parsing data
-        /// </summary>
-        private int parsingLevel;
-
-        /// <summary>
         /// The user reference number
         /// </summary>
         private string userReferenceNumber;
@@ -135,21 +126,19 @@ namespace GeneGenie.Gedcom
             set
             {
                 level = value;
-                parsingLevel = value;
+                ParsingLevel = value;
             }
         }
 
         /// <summary>
         /// Gets or sets the parsing level.
+        /// When we are removing inline note records etc. the new
+        /// record is set to level 0, this breaks the parsing mechanism,
+        /// so we need to record the level the record used to occur on
+        /// TODO: this is a bit of a hack as it adds parsing related code to non
+        /// parsing data
         /// </summary>
-        /// <value>
-        /// The parsing level.
-        /// </value>
-        public int ParsingLevel
-        {
-            get { return parsingLevel; }
-            set { parsingLevel = value; }
-        }
+        public int ParsingLevel { get; set; }
 
         /// <summary>
         /// Gets or sets the x reference identifier.

@@ -87,7 +87,7 @@ namespace GeneGenie.Gedcom
 
                 if (!found)
                 {
-                    _strings.Insert(pos, str.Substring(startIndex, length).Trim());
+                    strings.Insert(pos, str.Substring(startIndex, length).Trim());
                     if (replaceXrefs)
                     {
                         int prefixLen = 0;
@@ -116,7 +116,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    ret = _strings[pos];
+                    ret = strings[pos];
                 }
 
                 return ret;

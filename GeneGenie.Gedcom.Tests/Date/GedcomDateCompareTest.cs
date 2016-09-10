@@ -26,6 +26,32 @@ namespace GeneGenie.Gedcom.Date.Tests
     /// </summary>
     public class GedcomDateCompareTest
     {
+        private static IEnumerable<object> GetMatchedDates()
+        {
+            yield return new object[] { string.Empty, string.Empty };
+            yield return new object[] { "19 APR 1996", "19 APR 1996" };
+            yield return new object[] { "Jan", "Jan" };
+            yield return new object[] { "Feb", "FEB" };
+        }
+
+        private static IEnumerable<object> GetEarlierDates()
+        {
+            yield return new object[] { "01 Jan 1900", "1 Jan 1900" };
+        }
+
+        private static IEnumerable<object> GetUnmatchedDates()
+        {
+            yield return new object[] { "Jan 1900", string.Empty };
+            yield return new object[] { "Jan 1900", "1900" };
+        }
+
+        private static GedcomDate CreateDate(string dateText)
+        {
+            var date = new GedcomDate();
+            date.ParseDateString(dateText);
+            return date;
+        }
+
         [Theory]
         [MemberData(nameof(GetUnmatchedDates))]
         private void Dates_should_not_match(string dateAText, string dateBText)
@@ -60,32 +86,6 @@ namespace GeneGenie.Gedcom.Date.Tests
             var lessThan = dateA < dateB;
 
             Assert.True(lessThan);
-        }
-
-        private static IEnumerable<object> GetMatchedDates()
-        {
-            yield return new object[] { string.Empty, string.Empty };
-            yield return new object[] { "19 APR 1996", "19 APR 1996" };
-            yield return new object[] { "Jan", "Jan" };
-            yield return new object[] { "Feb", "FEB" };
-        }
-
-        private static IEnumerable<object> GetEarlierDates()
-        {
-            yield return new object[] { "01 Jan 1900", "1 Jan 1900" };
-        }
-
-        private static IEnumerable<object> GetUnmatchedDates()
-        {
-            yield return new object[] { "Jan 1900", string.Empty };
-            yield return new object[] { "Jan 1900", "1900" };
-        }
-
-        private static GedcomDate CreateDate(string dateText)
-        {
-            var date = new GedcomDate();
-            date.ParseDateString(dateText);
-            return date;
         }
     }
 }

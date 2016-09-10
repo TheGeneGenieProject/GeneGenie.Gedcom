@@ -25,16 +25,16 @@ namespace GeneGenui.Gedcom.Utility
 
     public class IndexedKeyCollection
     {
-        protected List<string> _strings;
+        protected List<string> strings;
 
         public IndexedKeyCollection()
         {
-            _strings = new List<string>();
+            strings = new List<string>();
         }
 
         public IndexedKeyCollection(int size)
         {
-            _strings = new List<string>(size);
+            strings = new List<string>(size);
         }
 
         public virtual string this[string str]
@@ -60,15 +60,15 @@ namespace GeneGenui.Gedcom.Utility
                     if (!found)
                     {
                         string insert = str.Substring(startIndex, length).Trim();
-                        if (_strings.Contains(insert))
+                        if (strings.Contains(insert))
                         {
                             throw new Exception("ERROR FINDING EXISTING KEY:" + insert);
                         }
 
-                        _strings.Insert(pos, insert);
+                        strings.Insert(pos, insert);
                     }
 
-                    ret = _strings[pos];
+                    ret = strings[pos];
                 }
 
                 return ret;
@@ -78,7 +78,7 @@ namespace GeneGenui.Gedcom.Utility
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("{");
-            foreach (string s in _strings)
+            foreach (string s in strings)
             {
                 if (sb.Length > 1)
                 {
@@ -98,7 +98,7 @@ namespace GeneGenui.Gedcom.Utility
             bool found = false;
 
             int i = 0;
-            int j = _strings.Count - 1;
+            int j = strings.Count - 1;
 
             // trim leading white space
             while (length > 0 && char.IsWhiteSpace(str[startIndex]))
@@ -108,13 +108,13 @@ namespace GeneGenui.Gedcom.Utility
             }
 
             pos = 0;
-            if (_strings.Count > 0)
+            if (strings.Count > 0)
             {
                 while (i <= j)
                 {
                     pos = (i + j) / 2;
 
-                    string s = _strings[pos];
+                    string s = strings[pos];
 
                     bool match = true;
 

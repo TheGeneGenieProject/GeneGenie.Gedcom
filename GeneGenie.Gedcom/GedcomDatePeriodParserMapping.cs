@@ -1,4 +1,4 @@
-// <copyright file="GraphNode.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomDatePeriodParserMapping.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -14,17 +14,24 @@
 // along with this program. If not, see http:www.gnu.org/licenses/ .
 //
 // </copyright>
-// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom
 {
-    using System.Collections.Generic;
+    using GeneGenie.Gedcom.Enums;
 
-    public class GraphNode<T>
+    /// <summary>
+    /// Maps a date / date range indicator from the GEDCOM file to it's enum.
+    /// </summary>
+    public class GedcomDatePeriodParserMapping
     {
-        public T Data { get; set; }
+        /// <summary>Gets or sets the date period that this element maps to.</summary>
+        public GedcomDatePeriod MapsTo { get; set; }
 
-        public List<GraphNode<T>> Edges { get; set; } = new List<GraphNode<T>>();
+        /// <summary>Gets or sets the text that is searched for in the GEDCOM date line.</summary>
+        public string Text { get; set; }
+
+        /// <summary>Gets or sets the position of the text that is searched for.</summary>
+        public GedcomDatePeriodPosition TextPosition { get; set; }
     }
 }

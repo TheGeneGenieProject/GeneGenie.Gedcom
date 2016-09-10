@@ -25,7 +25,7 @@ namespace GeneGenie.Gedcom.Enums
     public enum GedcomEventType
     {
         /// <summary>
-        /// The generic event
+        /// A generic event.
         /// </summary>
         GenericEvent = 0,
 

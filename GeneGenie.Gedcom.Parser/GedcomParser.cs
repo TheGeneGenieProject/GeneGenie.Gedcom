@@ -231,7 +231,7 @@ namespace GeneGenie.Gedcom.Parser
                         {
                             hadLevel = true;
                             lvl *= 10;
-                            lvl += ((int)data[temp++]) - (int)'0';
+                            lvl += data[temp++] - '0';
                         }
 
                         // possible we had data after eating white space

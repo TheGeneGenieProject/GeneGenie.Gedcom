@@ -1,4 +1,4 @@
-// <copyright file="GraphNode.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomDatePeriodPosition.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -14,17 +14,21 @@
 // along with this program. If not, see http:www.gnu.org/licenses/ .
 //
 // </copyright>
-// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom.Enums
 {
-    using System.Collections.Generic;
-
-    public class GraphNode<T>
+    /// <summary>When parsing date formats dates can be prefixed but are sometimes suffixed.
+    /// This defines where to look for specific date period indicators.</summary>
+    public enum GedcomDatePeriodPosition
     {
-        public T Data { get; set; }
+        /// <summary>Error state for uninitialised instances.</summary>
+        NotSet = 0,
 
-        public List<GraphNode<T>> Edges { get; set; } = new List<GraphNode<T>>();
+        /// <summary>The text denoting the date period is before the dates.</summary>
+        Prefix = 1,
+
+        /// <summary>The text denoting the date period is after the dates.</summary>
+        Suffix = 2,
     }
 }

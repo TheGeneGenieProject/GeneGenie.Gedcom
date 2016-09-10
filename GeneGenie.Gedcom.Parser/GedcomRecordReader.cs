@@ -49,6 +49,7 @@ namespace GeneGenie.Gedcom.Parser
 
         private List<string> removedNotes;
 
+        private int lineNumber = 0; // For reporting errors and warnings.
         private int level;
         private string tag;
         private string xrefId;
@@ -225,6 +226,7 @@ namespace GeneGenie.Gedcom.Parser
 
                 while (!stream.EndOfStream)
                 {
+                    lineNumber++;
                     string line = stream.ReadLine();
 
                     if (line != null)
@@ -857,6 +859,7 @@ namespace GeneGenie.Gedcom.Parser
             repoCitations = new List<GedcomRepositoryCitation>();
 
             removedNotes = new List<string>();
+            lineNumber = 0;
 
             Database.Loading = true;
         }
