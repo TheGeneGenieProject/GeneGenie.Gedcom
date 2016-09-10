@@ -23,6 +23,9 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Parser;
     using Xunit;
 
+    /// <summary>
+    /// TODO: Rewrite into smaller focussed tests against smaller files, strings if possible.
+    /// </summary>
     public class GedcomIndividualMatchTest
     {
         private GedcomRecordReader _reader;
@@ -40,7 +43,7 @@ namespace GeneGenie.Gedcom
             Assert.True(_reader.Database.Count > 0, "No records read");
         }
 
-        [Fact]
+        [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
         private void Test1()
         {
             Read("test1.ged");

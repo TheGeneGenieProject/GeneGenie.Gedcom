@@ -96,13 +96,13 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData("presidents.ged")]
+        [InlineData("presidents.ged")] // TODO: Too vague, maybe put in an overall ImportTest class.
         private void Check_file_contents_can_be_parsed(string fileName)
         {
             Parse(fileName);
         }
 
-        [Theory]
+        [Theory(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
         [InlineData("TODO:find_this_file.ged")]
         private void Underscores_and_tabs_can_be_parsed(string fileName)
         {

@@ -42,6 +42,11 @@ namespace GeneGenie.Gedcom.Reports
             XmlDocument doc = gen.GenerateXML();
 
             string xmlOutput = Path.Combine(dir, "XmlOutput");
+            if (!Directory.Exists(xmlOutput))
+            {
+                Directory.CreateDirectory(xmlOutput);
+            }
+
             string xmlFile = Path.Combine(xmlOutput, file + ".xml");
 
             doc.Save(xmlFile);

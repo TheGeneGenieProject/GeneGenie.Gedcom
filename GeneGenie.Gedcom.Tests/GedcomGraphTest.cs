@@ -36,7 +36,7 @@ namespace GeneGenie.Gedcom.Reports
             _reader.ReadGedcom(gedcomFile);
         }
 
-        [Fact]
+        [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
         private void Test1()
         {
             Read("test1.ged");

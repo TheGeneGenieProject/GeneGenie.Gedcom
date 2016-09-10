@@ -26,6 +26,9 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Parser;
     using Xunit;
 
+    /// <summary>
+    /// TODO: These tests needs rewriting as they depend on a file we don't have access to.
+    /// </summary>
     public class GedcomDeleteTest
     {
         private GedcomRecordReader _reader;
@@ -64,7 +67,7 @@ namespace GeneGenie.Gedcom
             }
         }
 
-        [Fact]
+        [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
         private void Test1()
         {
             Read("test1.ged");
@@ -93,7 +96,7 @@ namespace GeneGenie.Gedcom
             Assert.True(_reader.Database[sourceID] != null, "Source incorrectly deleted when only used by the deleted individual");
         }
 
-        [Fact]
+        [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
         private void Test2()
         {
             Read("test2.ged");
@@ -145,7 +148,7 @@ namespace GeneGenie.Gedcom
             Assert.True(_reader.Database[noteID] != null, "Incorrectly erased note from family");
         }
 
-        [Fact]
+        [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
         private void Test3()
         {
             Read("test3.ged");
