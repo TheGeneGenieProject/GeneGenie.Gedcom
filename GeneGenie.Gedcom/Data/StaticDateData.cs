@@ -27,25 +27,18 @@ namespace GeneGenie.Gedcom.Data
     /// </summary>
     public static class StaticDateData
     {
-        static StaticDateData()
-        {
-            MonthNames = new string[][]
-            {
-                ShortMonths,
-                ShortMonthsPunc,
-                ShortMonthsExt,
-                ShortMonthsExtPunc,
-                LongMonths,
-                ShortFrenMonths,
-                ShortFrenMonthsPunc,
-                LongFrenMonths,
-                ShortHebrMonths,
-                ShortHebrMonthsPunc,
-                LongHebrMonths
-            };
-        }
-
+        /// <summary>
+        /// All month names that might come up in GEDCOM date formats, abbreviated, non English as well.
+        /// </summary>
         public static readonly string[][] MonthNames;
+
+        /// <summary>
+        /// Delimiters that are valid for parsing the date parts of a GEDCOM date record.
+        /// </summary>
+        public static readonly char[] GedcomDateParseDelimiters = new char[]
+        {
+            ' ', '-'
+        };
 
         /// <summary>
         /// A list of mappings of text prefixes and suffixes to their GEDCOM types.
@@ -97,12 +90,7 @@ namespace GeneGenie.Gedcom.Data
             { new GedcomDatePeriodParserMapping { Text = "?", MapsTo = GedcomDatePeriod.Estimate, TextPosition = GedcomDatePeriodPosition.Suffix } },
         };
 
-        public static char[] GedcomDateParseDelimiters = new char[]
-        {
-          ' ', '-'
-        };
-
-        private static string[] ShortMonths = new string[]
+        private static readonly string[] ShortMonths = new string[]
             {
             "JAN", "FEB", "MAR", "APR", "MAY",
             "JUN", "JUL", "AUG", "SEP", "OCT",
@@ -182,5 +170,23 @@ namespace GeneGenie.Gedcom.Data
             "ADAR", "ADAR SHENI", "NISAN", "IYAR", "SIVAN",
             "TAMMUZ", "AV", "ELUL"
         };
+
+        static StaticDateData()
+        {
+            MonthNames = new string[][]
+            {
+                ShortMonths,
+                ShortMonthsPunc,
+                ShortMonthsExt,
+                ShortMonthsExtPunc,
+                LongMonths,
+                ShortFrenMonths,
+                ShortFrenMonthsPunc,
+                LongFrenMonths,
+                ShortHebrMonths,
+                ShortHebrMonthsPunc,
+                LongHebrMonths
+            };
+        }
     }
 }

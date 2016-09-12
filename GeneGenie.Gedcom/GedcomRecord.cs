@@ -20,10 +20,10 @@
 namespace GeneGenie.Gedcom
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Xml;
     using Enums;
-    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Doc
@@ -537,12 +537,6 @@ namespace GeneGenie.Gedcom
             }
         }
 
-        protected void AddParserMessage(ParserMessageIds warningId, params object[] additional)
-        {
-            // TODO: Can we figure out what field this issue occurred on? For date, death, burial etc.
-            ParserMessages.Add(new GedcomParserMessage(warningId, additional));
-        }
-
         /// <summary>
         /// Outputs the specified sw.
         /// </summary>
@@ -574,6 +568,17 @@ namespace GeneGenie.Gedcom
         protected static void SplitText(StreamWriter sw, string line, int level)
         {
             Gedcom.Util.SplitText(sw, line, level, 248, int.MaxValue, false);
+        }
+
+        /// <summary>
+        /// Adds a warning, information or error message for the user to review after parsing.
+        /// </summary>
+        /// <param name="warningId">The warning identifier.</param>
+        /// <param name="additional">An array of additional data for context on the error.</param>
+        protected void AddParserMessage(ParserMessageIds warningId, params object[] additional)
+        {
+            // TODO: Can we figure out what field this issue occurred on? For date, death, burial etc.
+            ParserMessages.Add(new GedcomParserMessage(warningId, additional));
         }
 
         /// <summary>

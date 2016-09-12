@@ -121,6 +121,7 @@
     <Compile Include="Date\GedcomDatePeriodTest.cs" />
     <Compile Include="Date\GedcomDateParseTest.cs" />
     <Compile Include="GedcomDeleteTest.cs" />
+    <Compile Include="GedcomToDoTests.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
     <Compile Include="GedcomFileParseTest.cs" />
     <Compile Include="GedcomGraphTest.cs" />

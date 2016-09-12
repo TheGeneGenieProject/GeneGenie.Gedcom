@@ -721,13 +721,6 @@ namespace GeneGenie.Gedcom
             }
         }
 
-        private string[] SplitDateString(string dataString)
-        {
-            // TODO: the split here accounts for large(ish) amounts of memory allocation
-            // Need to do this better, ideally without any splitting.
-            return dataString.Split(StaticDateData.GedcomDateParseDelimiters, StringSplitOptions.RemoveEmptyEntries);
-        }
-
         /// <summary>
         /// Output GEDCOM format for this instance.
         /// </summary>
@@ -782,6 +775,13 @@ namespace GeneGenie.Gedcom
             }
 
             return 1;
+        }
+
+        private string[] SplitDateString(string dataString)
+        {
+            // TODO: the split here accounts for large(ish) amounts of memory allocation
+            // Need to do this better, ideally without any splitting.
+            return dataString.Split(StaticDateData.GedcomDateParseDelimiters, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private DateTime? GetDateInfo(string[] dateSplit, int start, int num, Calendar calendar, string inputDate)
