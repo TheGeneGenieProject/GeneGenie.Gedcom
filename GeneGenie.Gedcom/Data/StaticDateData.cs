@@ -97,12 +97,17 @@ namespace GeneGenie.Gedcom.Data
             { new GedcomDatePeriodParserMapping { Text = "?", MapsTo = GedcomDatePeriod.Estimate, TextPosition = GedcomDatePeriodPosition.Suffix } },
         };
 
-        private static string[] ShortMonths = new string[]
+        public static char[] GedcomDateParseDelimiters = new char[]
         {
+          ' ', '-'
+        };
+
+        private static string[] ShortMonths = new string[]
+            {
             "JAN", "FEB", "MAR", "APR", "MAY",
             "JUN", "JUL", "AUG", "SEP", "OCT",
             "NOV", "DEC"
-        };
+            };
 
         private static readonly string[] ShortMonthsPunc = new string[] // non standard
         {

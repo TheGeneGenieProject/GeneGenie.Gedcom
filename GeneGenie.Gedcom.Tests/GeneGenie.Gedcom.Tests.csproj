@@ -118,6 +118,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Date\GedcomDateCompareTest.cs" />
     <Compile Include="Date\GedcomDateNullEqualTest.cs" />
+    <Compile Include="Date\GedcomDatePeriodTest.cs" />
     <Compile Include="Date\GedcomDateParseTest.cs" />
     <Compile Include="GedcomDeleteTest.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />

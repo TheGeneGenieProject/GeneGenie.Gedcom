@@ -52,7 +52,7 @@ namespace GeneGenie.Gedcom.Date.Tests
             yield return new object[] { "29 Feb 2015", new DateTime(2015, 2, 28), ParserMessageIds.DayOfDateAdjusted };
         }
 
-        private static IEnumerable<object> VagueDatesForExpandingData()
+        private static IEnumerable<object> PartialDatesForExpandingData()
         {
             yield return new object[] { "2015", new DateTime(2015, 1, 1), new DateTime(2015, 12, 31, 23, 59, 59), ParserMessageIds.InterpretedAsYearRange };
             yield return new object[] { "Feb 2015", new DateTime(2015, 2, 1), new DateTime(2015, 2, 28, 23, 59, 59), ParserMessageIds.InterpretedAsMonthRange };
@@ -91,7 +91,7 @@ namespace GeneGenie.Gedcom.Date.Tests
         [InlineData("97 ?", 97)]
         [InlineData("1999 ?", 1999)]
         [InlineData("   1999 ?   ", 1999)]
-        private void Estimate_indicators_cause_yearsto_be_imported_as_estimates(string dateText, int expectedYear)
+        private void Estimate_indicators_cause_years_to_be_imported_as_estimates(string dateText, int expectedYear)
         {
             var date = new GedcomDate();
 
@@ -127,13 +127,14 @@ namespace GeneGenie.Gedcom.Date.Tests
         }
 
         [Theory]
-        [MemberData(nameof(VagueDatesForExpandingData))]
-        private void Vague_dates_are_interpreted_as_ranges(string dateText, DateTime dateFrom, DateTime dateTo, ParserMessageIds expectedMessage)
+        [MemberData(nameof(PartialDatesForExpandingData))]
+        private void Partial_dates_are_interpreted_as_ranges_and_noted_as_changed(string dateText, DateTime dateFrom, DateTime dateTo, ParserMessageIds expectedMessage)
         {
             var date = new GedcomDate();
 
             date.ParseDateString(dateText);
 
+            Assert.Equal(GedcomDatePeriod.Range, date.DatePeriod);
             Assert.Equal(dateFrom, date.DateTime1);
             Assert.Equal(dateTo, date.DateTime2);
             Assert.Equal(expectedMessage, date.ParserMessages.Single().MessageId);

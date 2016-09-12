@@ -480,7 +480,7 @@ namespace GeneGenie.Gedcom
         /// <returns>A <see cref="GedcomDatePeriodParseResult"/> object with the period and the text removed from the input string.</returns>
         public GedcomDatePeriodParseResult ExtractDatePeriod(string dataString)
         {
-            var result = new GedcomDatePeriodParseResult { DatePeriod = GedcomDatePeriod.Exact };
+            var result = new GedcomDatePeriodParseResult { DatePeriod = GedcomDatePeriod.Unknown };
             int start = 0, len = dataString.Length;
             var culture = CultureInfo.CurrentCulture;
 
@@ -509,6 +509,21 @@ namespace GeneGenie.Gedcom
             }
 
             result.DataAfterExtraction = dataString.Substring(start, len).TrimStart(new char[] { ' ', '\t' });
+
+            if (result.DatePeriod == GedcomDatePeriod.Unknown || result.DatePeriod == GedcomDatePeriod.Exact)
+            {
+                // A lot of the time we'll get a partial date that maps to a date range, these should be treated as ranges and not exact dates.
+                string[] dateSplit = SplitDateString(result.DataAfterExtraction);
+                if (dateSplit.Length == 1 || dateSplit.Length == 2)
+                {
+                    result.DatePeriod = GedcomDatePeriod.Range;
+                }
+                else
+                {
+                    result.DatePeriod = GedcomDatePeriod.Exact;
+                }
+            }
+
             return result;
         }
 
@@ -590,9 +605,7 @@ namespace GeneGenie.Gedcom
                     break;
             }
 
-            // TODO: the split here accounts for large(ish) amounts of memory allocation
-            // Need to do this better, ideally without any splitting.
-            string[] dateSplit = dataString.Split(new char[] { ' ', '-' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] dateSplit = SplitDateString(dataString);
 
             dateTime1 = null;
             dateTime2 = null;
@@ -706,6 +719,13 @@ namespace GeneGenie.Gedcom
                 // to lack of any date entered.
                 // accept as unparsable
             }
+        }
+
+        private string[] SplitDateString(string dataString)
+        {
+            // TODO: the split here accounts for large(ish) amounts of memory allocation
+            // Need to do this better, ideally without any splitting.
+            return dataString.Split(StaticDateData.GedcomDateParseDelimiters, StringSplitOptions.RemoveEmptyEntries);
         }
 
         /// <summary>
