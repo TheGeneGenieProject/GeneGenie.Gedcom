@@ -25,6 +25,7 @@ namespace GeneGenie.Gedcom.Date.Tests
     using Enums;
     using GeneGenie.Gedcom.Parser;
     using Xunit;
+    using System.Linq;
 
     public class GedcomDateParseTest
     {
@@ -44,6 +45,22 @@ namespace GeneGenie.Gedcom.Date.Tests
             yield return new object[] { "02 1896", new DateTime(1896, 2, 1) };
             yield return new object[] { "12 1896", new DateTime(1896, 12, 1) };
             yield return new object[] { "Dec 1896", new DateTime(1896, 12, 1) };
+        }
+
+        private static IEnumerable<object> WarningDateData()
+        {
+            yield return new object[] { "29 Feb 2015", new DateTime(2015, 2, 28), ParserMessageIds.DayOfDateAdjusted };
+        }
+
+        private static IEnumerable<object> VagueDatesForExpandingData()
+        {
+            yield return new object[] { "2015", new DateTime(2015, 1, 1), new DateTime(2015, 12, 31, 23, 59, 59), ParserMessageIds.InterpretedAsYearRange };
+            yield return new object[] { "Feb 2015", new DateTime(2015, 2, 1), new DateTime(2015, 2, 28, 23, 59, 59), ParserMessageIds.InterpretedAsMonthRange };
+        }
+
+        private static IEnumerable<object> ErrorDateData()
+        {
+            yield return new object[] { "32 13 2015", ParserMessageIds.DateIsNotValid };
         }
 
         [Theory]
@@ -91,26 +108,49 @@ namespace GeneGenie.Gedcom.Date.Tests
          *  c) invalid should be flagged (month out of range, day out of range, year only 2 digit).
          * We should also record the date format used for each input on full dates so we can see if they switch
          * during the import. If they do, the user needs to be told and asked which date format is OK.
+         * Three types of alert;
+         *  * Info - We did something that was quite safe but they may want to know.
+         *  * Warning - We found an ambiguous piece of data but think we corrected it, it needs reviewing.
+         *  * Error - We found a mistake that we were unable to rectify and the user needs to edit or skip it.
          * */
 
-        /* TODO: Many cases where we potentially guess the date, for example, if 1 or 2 fields of date.
         [Theory]
-        [InlineData("1896/97")]
-        [InlineData("1899/01")]
-        [InlineData("1899/98")]
-        [InlineData("1899/99")]
-        [InlineData("1899/1")]
-        [InlineData("1899/01")]
-        private void Four_digits_followed_by_delimiter_and_two_digits_are_marked_as_corrected(string dateText)
+        [MemberData(nameof(WarningDateData))]
+        private void Dates_are_corrected_and_marked_with_warning_for_user_review(string dateText, DateTime expectedDate, ParserMessageIds expectedMessage)
         {
             var date = new GedcomDate();
 
             date.ParseDateString(dateText);
 
-            Assert.True(date.CorrectionAppliedOnParsing);
+            Assert.Equal(expectedDate, date.DateTime1);
+            Assert.Equal(expectedMessage, date.ParserMessages.Single().MessageId);
         }
 
         [Theory]
+        [MemberData(nameof(VagueDatesForExpandingData))]
+        private void Vague_dates_are_interpreted_as_ranges(string dateText, DateTime dateFrom, DateTime dateTo, ParserMessageIds expectedMessage)
+        {
+            var date = new GedcomDate();
+
+            date.ParseDateString(dateText);
+
+            Assert.Equal(dateFrom, date.DateTime1);
+            Assert.Equal(dateTo, date.DateTime2);
+            Assert.Equal(expectedMessage, date.ParserMessages.Single().MessageId);
+        }
+
+        [Theory]
+        [MemberData(nameof(ErrorDateData))]
+        private void Dates_are_faulty_and_marked_with_error_for_user_review(string dateText, ParserMessageIds expectedMessage)
+        {
+            var date = new GedcomDate();
+
+            date.ParseDateString(dateText);
+
+            Assert.Equal(expectedMessage, date.ParserMessages.Single().MessageId);
+        }
+
+        /* [Theory]
         [InlineData("97")]
         [InlineData("0")]
         [InlineData("")]

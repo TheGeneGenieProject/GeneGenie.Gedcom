@@ -94,11 +94,13 @@
     <Compile Include="Enums\GedcomAdoptionType.cs" />
     <Compile Include="Enums\GedcomCertainty.cs" />
     <Compile Include="Enums\MarriageStartStatus.cs" />
+    <Compile Include="Enums\ParserMessageIdSeverity.cs" />
     <Compile Include="Enums\SourceMediaType.cs" />
     <Compile Include="Enums\PedigreeLinkageType.cs" />
     <Compile Include="Enums\GedcomSex.cs" />
     <Compile Include="Enums\GedcomRecordType.cs" />
     <Compile Include="Enums\ChildLinkageStatus.cs" />
+    <Compile Include="Enums\ParserMessageIds.cs" />
     <Compile Include="GedcomAddress.cs" />
     <Compile Include="GedcomAge.cs" />
     <Compile Include="GedcomAssociation.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="GedcomSubmitterRecord.cs" />
     <Compile Include="GedcomVariation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GedcomParserMessage.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="XRefIndexedKeyCollection.cs" />
   </ItemGroup>

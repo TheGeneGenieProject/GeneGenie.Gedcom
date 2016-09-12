@@ -23,6 +23,7 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Xml;
     using Enums;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Doc
@@ -400,6 +401,11 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Gets the list of informational, warning and error messages generated when parsing this record.
+        /// </summary>
+        public List<GedcomParserMessage> ParserMessages { get; } = new List<GedcomParserMessage>();
+
+        /// <summary>
         /// Deletes this instance.
         /// </summary>
         /// <exception cref="Exception">Ref Count already 0</exception>
@@ -529,6 +535,12 @@ namespace GeneGenie.Gedcom
 
                 ChangeDate.GenerateNoteXML(changeNode);
             }
+        }
+
+        protected void AddParserMessage(ParserMessageIds warningId, params object[] additional)
+        {
+            // TODO: Can we figure out what field this issue occurred on? For date, death, burial etc.
+            ParserMessages.Add(new GedcomParserMessage(warningId, additional));
         }
 
         /// <summary>

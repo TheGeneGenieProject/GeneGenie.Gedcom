@@ -228,8 +228,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        ///
-        /// Gets </summary>
+        /// Gets a text representation of the date period and date.
+        /// TODO: Seems wrongly named, returns original value as well as period.
+        /// </summary>
         public string Period
         {
             get
@@ -306,7 +307,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Compare two dates to see if first is kess than the second.
+        /// Compare two dates to see if first is less than the second.
         /// </summary>
         /// <param name="a">First date to compare.</param>
         /// <param name="b">Second date to compare.</param>
@@ -514,13 +515,14 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Parse passed date into instance properties.
         /// </summary>
-        /// <param name="dataString">The date to parse as a text string.</param>
-        public void ParseDateString(string dataString)
+        /// <param name="inputDate">The date to parse as a text string.</param>
+        public void ParseDateString(string inputDate)
         {
             // clear possible Period cached value;
             this.period = null;
 
             string dateType = string.Empty;
+            var dataString = inputDate; // Preserve inputDate for feedback to the user if it is broken.
 
             if (dataString.StartsWith("@#"))
             {
@@ -602,13 +604,25 @@ namespace GeneGenie.Gedcom
             {
                 partsParsed1 = 1;
                 partsParsed2 = 0;
-                dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar);
+                dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
+                if (dateTime1 != null)
+                {
+                    // We only got a year, so we need to interpret that as a range from the start to the end of the year.
+                    dateTime2 = dateTime1.Value.AddYears(1).AddSeconds(-1);
+                    AddParserMessage(ParserMessageIds.InterpretedAsYearRange, inputDate, dateTime1, dateTime2);
+                }
             }
             else if (dateSplit.Length == 2)
             {
                 partsParsed1 = 2;
                 partsParsed2 = 0;
-                dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar);
+                dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar, inputDate);
+                if (dateTime1 != null)
+                {
+                    // We only got a month and year, so we need to interpret that as a range from the start to the end of the month.
+                    dateTime2 = dateTime1.Value.AddMonths(1).AddSeconds(-1);
+                    AddParserMessage(ParserMessageIds.InterpretedAsMonthRange, inputDate, dateTime1, dateTime2);
+                }
             }
             else if (dateSplit.Length == 3)
             {
@@ -618,15 +632,15 @@ namespace GeneGenie.Gedcom
                 {
                     partsParsed1 = 1;
                     partsParsed2 = 0;
-                    dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar);
+                    dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar, inputDate);
                 }
                 else
                 {
                     partsParsed1 = 1;
                     partsParsed2 = 1;
-                    dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar);
+                    dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
 
-                    dateTime2 = GetDateInfo(dateSplit, 2, 1, calendar);
+                    dateTime2 = GetDateInfo(dateSplit, 2, 1, calendar, inputDate);
                 }
             }
             else if (dateSplit.Length > 4)
@@ -641,24 +655,24 @@ namespace GeneGenie.Gedcom
                     {
                         partsParsed1 = 1;
                         partsParsed2 = 3;
-                        dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar);
-                        dateTime2 = GetDateInfo(dateSplit, 2, 3, calendar);
+                        dateTime1 = GetDateInfo(dateSplit, 0, 1, calendar, inputDate);
+                        dateTime2 = GetDateInfo(dateSplit, 2, 3, calendar, inputDate);
                     }
                     else if (string.Compare(dateSplit[2], "AND", true) == 0 ||
                              string.Compare(dateSplit[2], "TO", true) == 0)
                     {
                         partsParsed1 = 2;
                         partsParsed2 = 3;
-                        dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar);
-                        dateTime2 = GetDateInfo(dateSplit, 3, 3, calendar);
+                        dateTime1 = GetDateInfo(dateSplit, 0, 2, calendar, inputDate);
+                        dateTime2 = GetDateInfo(dateSplit, 3, 3, calendar, inputDate);
                     }
                     else
                     {
                         // lets assume dateSplit[3] is AND / TO
                         partsParsed1 = 3;
                         partsParsed2 = 3;
-                        dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar);
-                        dateTime2 = GetDateInfo(dateSplit, 4, 3, calendar);
+                        dateTime1 = GetDateInfo(dateSplit, 0, 3, calendar, inputDate);
+                        dateTime2 = GetDateInfo(dateSplit, 4, 3, calendar, inputDate);
                     }
                 }
                 else
@@ -750,7 +764,7 @@ namespace GeneGenie.Gedcom
             return 1;
         }
 
-        private static DateTime? GetDateInfo(string[] dateSplit, int start, int num, Calendar calendar)
+        private DateTime? GetDateInfo(string[] dateSplit, int start, int num, Calendar calendar, string inputDate)
         {
             string year = string.Empty;
             string month = string.Empty;
@@ -886,6 +900,7 @@ namespace GeneGenie.Gedcom
                         daysInMonth = calendar.GetDaysInMonth(y, m);
                         if (d > daysInMonth)
                         {
+                            AddParserMessage(ParserMessageIds.DayOfDateAdjusted, inputDate, d, daysInMonth);
                             d = daysInMonth;
                         }
                     }
@@ -896,9 +911,7 @@ namespace GeneGenie.Gedcom
                     }
                     catch
                     {
-                        // TODO: Don't swallow exceptions, need some way to feedback to user.
-                        // if we fail to parse not much we can do,
-                        // just don't provide a datetime
+                        AddParserMessage(ParserMessageIds.DateIsNotValid, inputDate, y, m, d, calendar);
                     }
                 }
             }
