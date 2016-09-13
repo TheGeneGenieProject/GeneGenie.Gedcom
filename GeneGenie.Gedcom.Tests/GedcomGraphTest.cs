@@ -23,17 +23,20 @@ namespace GeneGenie.Gedcom.Reports
     using GeneGenie.Gedcom.Parser;
     using Xunit;
 
+    /// <summary>
+    /// TODO: Graph node tests that need rewriting as we don't have the original files and the tests are too large in scope.
+    /// </summary>
     public class GedcomGraphTest
     {
-        private GedcomRecordReader _reader;
+        private GedcomRecordReader reader;
 
         private void Read(string file)
         {
             string dir = ".\\Data";
             string gedcomFile = Path.Combine(dir, file);
 
-            _reader = new GedcomRecordReader();
-            _reader.ReadGedcom(gedcomFile);
+            reader = new GedcomRecordReader();
+            reader.ReadGedcom(gedcomFile);
         }
 
         [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
@@ -42,11 +45,11 @@ namespace GeneGenie.Gedcom.Reports
             Read("test1.ged");
 
             GedcomGraph graph = new GedcomGraph();
-            graph.Database = _reader.Database;
+            graph.Database = reader.Database;
 
             System.Console.WriteLine("Check 1");
 
-            string id = _reader.Parser.XrefCollection["I0115"];
+            string id = reader.Parser.XrefCollection["I0115"];
 
             graph.Record = graph.Database[id];
             GedcomIndividualRecord relative = graph.Database[id] as GedcomIndividualRecord;
@@ -54,13 +57,13 @@ namespace GeneGenie.Gedcom.Reports
             Assert.True(graph.IsRelated(relative), "Expected Relationship not found");
 
             System.Console.WriteLine("Check 2");
-            id = _reader.Parser.XrefCollection["I0684"];
+            id = reader.Parser.XrefCollection["I0684"];
             graph.Record = graph.Database[id];
 
             Assert.True(!graph.IsRelated(relative), "Unexpected Relationship found");
 
             System.Console.WriteLine("Check 3");
-            id = _reader.Parser.XrefCollection["I0668"];
+            id = reader.Parser.XrefCollection["I0668"];
             graph.Record = graph.Database[id];
 
             Assert.True(graph.IsRelated(relative), "Expected Relationship not found");

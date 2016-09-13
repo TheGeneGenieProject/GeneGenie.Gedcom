@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System.Collections;
     using System.Collections.Generic;
-    using GeneGenui.Gedcom.Utility;
+    using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
     /// The database for all the GEDCOM records.

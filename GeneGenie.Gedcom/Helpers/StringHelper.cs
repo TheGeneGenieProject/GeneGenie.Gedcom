@@ -17,10 +17,22 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom.Helpers
 {
+    /// <summary>
+    /// Unsure of the rationale behind this class, it could have been put in place as a faster
+    /// version of the .Net BCL functions. Before replacing it with the BCL version we should
+    /// benchmark it.
+    /// </summary>
     public static class StringHelper
     {
+        /// <summary>
+        /// Determines whether the string consists solely of whitespace.
+        /// </summary>
+        /// <param name="str">The string to test.</param>
+        /// <returns>
+        ///   <c>true</c> if is completely white space; otherwise, <c>false</c>.
+        /// </returns>
         public static bool IsWhiteSpace(string str)
         {
             bool empty = true;

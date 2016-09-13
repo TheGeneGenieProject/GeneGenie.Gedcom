@@ -20,7 +20,7 @@
 namespace GeneGenie.Gedcom
 {
     using System.Collections.Generic;
-    using GeneGenui.Gedcom.Utility;
+    using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
     /// TODO: Doc
@@ -87,7 +87,7 @@ namespace GeneGenie.Gedcom
 
                 if (!found)
                 {
-                    strings.Insert(pos, str.Substring(startIndex, length).Trim());
+                    Strings.Insert(pos, str.Substring(startIndex, length).Trim());
                     if (replaceXrefs)
                     {
                         int prefixLen = 0;
@@ -116,7 +116,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    ret = strings[pos];
+                    ret = Strings[pos];
                 }
 
                 return ret;

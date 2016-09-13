@@ -1,4 +1,4 @@
-// <copyright file="Pair.cs" company="GeneGenie.com">
+// <copyright file="GraphNode.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -17,33 +17,24 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom.Reports
 {
-    public class Pair<T, T2>
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// TODO: Doc
+    /// </summary>
+    /// <typeparam name="T">TODO: Doc 2</typeparam>
+    internal class GraphNode<T>
     {
-        T _first;
-        T2 _second;
+        /// <summary>
+        /// Gets or sets the data held on this graph node. TODO: Doc
+        /// </summary>
+        public T Data { get; set; }
 
-        public Pair()
-        {
-        }
-
-        public Pair(T first, T2 second)
-        {
-            _first = first;
-            _second = second;
-        }
-
-        public T First
-        {
-            get { return _first; }
-            set { _first = value; }
-        }
-
-        public T2 Second
-        {
-            get { return _second; }
-            set { _second = value; }
-        }
+        /// <summary>
+        /// Gets or sets the edges. Not sure if these are contained within this node or held elsewhere and referenced.
+        /// </summary>
+        public List<GraphNode<T>> Edges { get; set; } = new List<GraphNode<T>>();
     }
 }

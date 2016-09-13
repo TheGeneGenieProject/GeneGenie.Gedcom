@@ -89,12 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="DateHelper.cs" />
-    <Compile Include="GraphNode.cs" />
-    <Compile Include="IndexedKeyCollection.cs" />
-    <Compile Include="Pair.cs" />
-    <Compile Include="StringHelper.cs" />
-    <Compile Include="EnumHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

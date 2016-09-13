@@ -22,6 +22,10 @@ namespace GeneGenie.Gedcom.Parser
     using Enums;
     using Xunit;
 
+    /// <summary>
+    /// Ensures that the parser loads a file that contains all known GEDCOM tags.
+    /// TODO: Could do with validating that it actually understood every tag in that file.
+    /// </summary>
     public class HeinerEichmannAllTagsTest
     {
         /// <summary>

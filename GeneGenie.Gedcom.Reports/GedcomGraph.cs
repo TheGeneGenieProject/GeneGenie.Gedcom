@@ -21,7 +21,6 @@ namespace GeneGenie.Gedcom.Reports
 {
     using System.Collections.Generic;
     using Enums;
-    using GeneGenui.Gedcom.Utility;
 
     /// <summary>
     /// TODO: Doc
@@ -62,7 +61,7 @@ namespace GeneGenie.Gedcom.Reports
         /// <summary>
         /// Gets the root.
         /// </summary>
-        public GraphNode<GedcomIndividualRecord> Root { get; private set; }
+        internal GraphNode<GedcomIndividualRecord> Root { get; private set; }
 
         /// <summary>
         /// Determines whether the passed person is related to this instance.

@@ -28,19 +28,19 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public class GedcomIndividualMatchTest
     {
-        private GedcomRecordReader _reader;
-        private GedcomDatabase _database;
+        private GedcomRecordReader reader;
+        private GedcomDatabase database;
 
         private void Read(string file)
         {
             string dir = ".\\Data";
             string gedcomFile = Path.Combine(dir, file);
 
-            _reader = new GedcomRecordReader();
-            _reader.ReadGedcom(gedcomFile);
-            _database = _reader.Database;
+            reader = new GedcomRecordReader();
+            reader.ReadGedcom(gedcomFile);
+            database = reader.Database;
 
-            Assert.True(_reader.Database.Count > 0, "No records read");
+            Assert.True(reader.Database.Count > 0, "No records read");
         }
 
         [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
@@ -52,12 +52,12 @@ namespace GeneGenie.Gedcom
 
             // Elizabeth Rutherford
             // BIRT 29 Jan 1811
-            string id = _reader.Parser.XrefCollection["I0115"];
+            string id = reader.Parser.XrefCollection["I0115"];
 
             System.Console.WriteLine("I0115 maps to " + id);
 
-            GedcomIndividualRecord indi = (GedcomIndividualRecord)_database[id];
-            GedcomIndividualRecord indi2 = (GedcomIndividualRecord)_database[id];
+            GedcomIndividualRecord indi = (GedcomIndividualRecord)database[id];
+            GedcomIndividualRecord indi2 = (GedcomIndividualRecord)database[id];
 
             float match = indi.IsMatch(indi2);
 
@@ -70,11 +70,11 @@ namespace GeneGenie.Gedcom
             // DEAT 31 Mar 2991
             System.Console.WriteLine("Check 2");
 
-            id = _reader.Parser.XrefCollection["I0684"];
+            id = reader.Parser.XrefCollection["I0684"];
 
             System.Console.WriteLine("I0684 maps to " + id);
 
-            indi2 = (GedcomIndividualRecord)_database[id];
+            indi2 = (GedcomIndividualRecord)database[id];
 
             match = indi.IsMatch(indi2);
 
@@ -82,7 +82,7 @@ namespace GeneGenie.Gedcom
 
             Assert.True(match != 100.0F, "Individual matched another 100%");
 
-            foreach (GedcomIndividualRecord indiRec in _database.Individuals)
+            foreach (GedcomIndividualRecord indiRec in database.Individuals)
             {
                 match = indi.IsMatch(indiRec);
                 if (match > 50)

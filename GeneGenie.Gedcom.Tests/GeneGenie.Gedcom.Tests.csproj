@@ -101,10 +101,6 @@
       <Project>{872AE81C-2178-4D2B-9077-34A8AD1595D9}</Project>
       <Name>GeneGenie.Gedcom</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GeneGenie.Gedcom.Utility\GeneGenie.Gedcom.Utility.csproj">
-      <Project>{C006EBC3-3802-430C-914D-ED54AC81DE98}</Project>
-      <Name>GeneGenie.Gedcom.Utility</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GeneGenie.Gedcom.Parser\GeneGenie.Gedcom.Parser.csproj">
       <Project>{1CACB4ED-A0AC-49B0-BFCF-3EBA26DF558C}</Project>
       <Name>GeneGenie.Gedcom.Parser</Name>
@@ -142,9 +138,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Data\allged.ged">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\ENFAN19.GED">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\presidents.ged">

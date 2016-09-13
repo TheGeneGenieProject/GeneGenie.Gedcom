@@ -39,19 +39,14 @@ namespace GeneGenie.Gedcom.Tests
         }
 
         /*
- * Where input dates are;
- *  a) ambiguous, we should correct and flag.
- *  b) are not 3 part, we should store a range internally for indexing and keep the initial precision.
- *  c) invalid should be flagged (month out of range, day out of range, year only 2 digit).
- * We should also record the date format used for each input on full dates so we can see if they switch
- * during the import. If they do, the user needs to be told and asked which date format is OK.
- * Three types of alert;
- *  * Info - We did something that was quite safe but they may want to know.
- *  * Warning - We found an ambiguous piece of data but think we corrected it, it needs reviewing.
- *  * Error - We found a mistake that we were unable to rectify and the user needs to edit or skip it.
- * */
-
-        /* [Theory]
+         * TODO: Tests required for:
+         *  All encodings.
+         *  Comments from old tests that need recreating:
+         *   'File has 24963 INDI, 1 is in a CONT'
+         *   'File has 91 INDI, 1 is  HEAD/_SCHEMA/INDI though'
+         * The following needs sifting through to see what should fail the date parser,
+         * what should pass and what messages should be logged.
+        [Theory]
         [InlineData("97")]
         [InlineData("0")]
         [InlineData("")]

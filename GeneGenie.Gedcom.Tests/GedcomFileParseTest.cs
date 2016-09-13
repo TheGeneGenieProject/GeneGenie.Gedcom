@@ -24,6 +24,9 @@ namespace GeneGenie.Gedcom.Parser
     using System.Text;
     using Xunit;
 
+    /// <summary>
+    /// General file parsing test. TODO: Could do with merging with the Heiner Eichmann all tags test and the below cleaning up.
+    /// </summary>
     public class GedcomFileParseTest
     {
         private void GedcomParser_ParseError(object sender, EventArgs e)

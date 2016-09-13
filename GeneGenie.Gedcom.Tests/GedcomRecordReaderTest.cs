@@ -25,6 +25,9 @@ namespace GeneGenie.Gedcom.Parser
     using Gedcom.Enums;
     using Xunit;
 
+    /// <summary>
+    /// TODO: Not really record reader tests, more file parsing with family and individual counts. Refactor.
+    /// </summary>
     public class GedcomRecordReaderTest
     {
         private GedcomRecordReader Read(string file)
@@ -84,32 +87,31 @@ namespace GeneGenie.Gedcom.Parser
             Assert.Equal(individualCount, reader.Database.Individuals.Count);
         }
 
-        /*
-         * TODO: Tests for:
-         *  All encodings.
-         *  Comments from old tests that need recreating:
-         *   'File has 24963 INDI, 1 is in a CONT'
-         *   'File has 91 INDI, 1 is  HEAD/_SCHEMA/INDI though'
-
-    [Fact]
-        public void TGC551LF()
+        [Theory]
+        [InlineData("allged.ged", "(C) 1997-2000 by H. Eichmann. You can use and distribute this file freely as long as you do not charge for it")]
+        private void Copyright_can_be_read(string file, string expectedCopyright)
         {
-            var _reader = Read("TGC551LF.ged");
+            var reader = Read(file);
 
-            GedcomHeader header = _reader.Database.Header;
-
-            Assert.False(string.IsNullOrWhiteSpace(header.Copyright), "Missing copyright");
-
-            Assert.True(header.Submitter.Name == "John A. Nairn", "Submitter not correctly read");
-
-            Assert.True(header.ContentDescription != null, "Missing content description");
-
-            Assert.True(header.CorporationAddress != null, "Missing corporation address");
-
-            Assert.True(_individuals == 15, "Not read all individuals");
-            Assert.True(_families == 7, "Not read all families");
+            Assert.Equal(expectedCopyright, reader.Database.Header.Copyright);
         }
 
-         * */
+        [Theory]
+        [InlineData("allged.ged", "/Submitter-Name/")]
+        private void Submitter_name_can_be_read(string file, string expectedName)
+        {
+            var reader = Read(file);
+
+            Assert.Equal(expectedName, reader.Database.Header.Submitter.Name);
+        }
+
+        [Theory]
+        [InlineData("allged.ged", "Corporation address line 1\r\nCorporation address line 2\r\nCorporation address line 3\r\nCorporation address line 4")]
+        private void Corporation_address_can_be_read(string file, string expected)
+        {
+            var reader = Read(file);
+
+            Assert.Equal(expected, reader.Database.Header.CorporationAddress.AddressLine);
+        }
     }
 }

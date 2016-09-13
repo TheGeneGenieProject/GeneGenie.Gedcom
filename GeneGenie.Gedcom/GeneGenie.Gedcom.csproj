@@ -135,14 +135,12 @@
     <Compile Include="GedcomVariation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GedcomParserMessage.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\IndexedKeyCollection.cs" />
+    <Compile Include="GedcomTagLevel.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="XRefIndexedKeyCollection.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GeneGenie.Gedcom.Utility\GeneGenie.Gedcom.Utility.csproj">
-      <Project>{C006EBC3-3802-430C-914D-ED54AC81DE98}</Project>
-      <Name>GeneGenie.Gedcom.Utility</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

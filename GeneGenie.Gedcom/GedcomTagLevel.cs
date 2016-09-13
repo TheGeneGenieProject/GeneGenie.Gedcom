@@ -1,4 +1,4 @@
-// <copyright file="GraphNode.cs" company="GeneGenie.com">
+// <copyright file="GedcomTagLevel.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -17,14 +17,17 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom.Helpers
 {
-    using System.Collections.Generic;
-
-    public class GraphNode<T>
+    /// <summary>
+    /// Used by a stack to store a tag and level for tracking the parsing process.
+    /// </summary>
+    public class GedcomTagLevel
     {
-        public T Data { get; set; }
+        /// <summary>Gets or sets the current tag name.</summary>
+        public string Name { get; set; }
 
-        public List<GraphNode<T>> Edges { get; set; } = new List<GraphNode<T>>();
+        /// <summary>Gets or sets the current tag level.</summary>
+        public int Level { get; set; }
     }
 }

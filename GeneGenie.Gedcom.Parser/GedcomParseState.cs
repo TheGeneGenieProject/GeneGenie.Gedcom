@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom.Parser
 {
     using System;
     using System.Collections.Generic;
-    using GeneGenui.Gedcom.Utility;
+    using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
     /// GedcomParseState is used to maintain the current parser status
@@ -29,7 +29,7 @@ namespace GeneGenie.Gedcom.Parser
     /// </summary>
     public class GedcomParseState
     {
-        private Pair<string, int>[] pairPool;
+        private GedcomTagLevel[] pairPool;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomParseState"/> class.
@@ -40,9 +40,9 @@ namespace GeneGenie.Gedcom.Parser
             Database = new GedcomDatabase();
 
             // max level of 99, pre alloc size of stack
-            PreviousTags = new Stack<Pair<string, int>>(100);
+            PreviousTags = new Stack<GedcomTagLevel>(100);
 
-            pairPool = new Pair<string, int>[100];
+            pairPool = new GedcomTagLevel[100];
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace GeneGenie.Gedcom.Parser
 
                 if (PreviousTags.Count > 0)
                 {
-                    ret = PreviousTags.Peek().First;
+                    ret = PreviousTags.Peek().Name;
                 }
 
                 return ret;
@@ -74,7 +74,7 @@ namespace GeneGenie.Gedcom.Parser
 
                 if (PreviousTags.Count > 0)
                 {
-                    ret = PreviousTags.Peek().Second;
+                    ret = PreviousTags.Peek().Level;
                 }
 
                 return ret;
@@ -84,7 +84,7 @@ namespace GeneGenie.Gedcom.Parser
         /// <summary>
         /// Gets or sets the stack of previous tag names / levels
         /// </summary>
-        public Stack<Pair<string, int>> PreviousTags { get; protected set; }
+        public Stack<GedcomTagLevel> PreviousTags { get; protected set; }
 
         /// <summary>
         /// Gets or sets the parse stack of current records, back to the last level 0 record.
@@ -111,11 +111,11 @@ namespace GeneGenie.Gedcom.Parser
 
             if (PreviousTags.Count > 0)
             {
-                foreach (Pair<string, int> previous in PreviousTags)
+                foreach (GedcomTagLevel previous in PreviousTags)
                 {
-                    if (previous.Second < level)
+                    if (previous.Level < level)
                     {
-                        ret = previous.First;
+                        ret = previous.Name;
                         break;
                     }
                 }
@@ -138,15 +138,15 @@ namespace GeneGenie.Gedcom.Parser
             }
             else
             {
-                Pair<string, int> pair = pairPool[level];
+                GedcomTagLevel pair = pairPool[level];
                 if (pair == null)
                 {
-                    pair = new Pair<string, int>();
+                    pair = new GedcomTagLevel();
                     pairPool[level] = pair;
                 }
 
-                pair.First = name;
-                pair.Second = level;
+                pair.Name = name;
+                pair.Level = level;
 
                 PreviousTags.Push(pair);
             }

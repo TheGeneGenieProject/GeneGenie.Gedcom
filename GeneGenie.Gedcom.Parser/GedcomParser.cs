@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom.Parser
 {
     using System;
     using Enums;
-    using GeneGenui.Gedcom.Utility;
+    using Helpers;
 
     /// <summary>
     /// GedcomParser is responsible for parsing GEDCOM files.

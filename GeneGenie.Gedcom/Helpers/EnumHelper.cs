@@ -17,22 +17,40 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenui.Gedcom.Utility
+namespace GeneGenie.Gedcom.Helpers
 {
     using System;
 
+    /// <summary>
+    /// Enum helper class for parsing an enum.
+    /// </summary>
     public static class EnumHelper
     {
+        /// <summary>Parses the specified value.</summary>
+        /// <typeparam name="T">The enum type to parse.</typeparam>
+        /// <param name="val">The text value to parse.</param>
+        /// <returns>The enum equivalent of the passed text.</returns>
         public static T Parse<T>(string val)
         {
             return Parse<T>(val, false);
         }
 
+        /// <summary>Parses the specified value.</summary>
+        /// <typeparam name="T">The enum type to parse.</typeparam>
+        /// <param name="val">The text value to parse.</param>
+        /// <param name="ignoreCase">if set to <c>true</c> the parsing will not be case sensitive.</param>
+        /// <returns>The enum equivalent of the passed text.</returns>
         public static T Parse<T>(string val, bool ignoreCase)
         {
             return (T)Enum.Parse(typeof(T), val, ignoreCase);
         }
 
+        /// <summary>Parses the specified value.</summary>
+        /// <typeparam name="T">The enum type to parse.</typeparam>
+        /// <param name="val">The text value to parse.</param>
+        /// <param name="ignoreCase">if set to <c>true</c> the parsing will not be case sensitive.</param>
+        /// <param name="defaultValue">The default value if all else fails.</param>
+        /// <returns>The enum equivalent of the passed text.</returns>
         public static T Parse<T>(string val, bool ignoreCase, T defaultValue)
         {
             T ret = defaultValue;

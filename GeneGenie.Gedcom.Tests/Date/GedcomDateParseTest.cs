@@ -25,6 +25,9 @@ namespace GeneGenie.Gedcom.Date.Tests
     using Enums;
     using Xunit;
 
+    /// <summary>
+    /// Unit tests and data for ensuring dates can be parsed from GEDCOM files.
+    /// </summary>
     public class GedcomDateParseTest
     {
         private static IEnumerable<object> SinglePartDateData()

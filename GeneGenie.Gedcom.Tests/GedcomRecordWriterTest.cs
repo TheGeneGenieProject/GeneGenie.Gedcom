@@ -22,13 +22,12 @@ namespace GeneGenie.Gedcom.Parser
     using System.IO;
     using Xunit;
 
+    /// <summary>
+    /// TODO: Tidy and refactor.
+    /// </summary>
     public class GedcomRecordWriterTest
     {
-        private GedcomRecordWriter _writer;
-
-        public GedcomRecordWriterTest()
-        {
-        }
+        private GedcomRecordWriter writer;
 
         private void Write(string file)
         {
@@ -53,25 +52,25 @@ namespace GeneGenie.Gedcom.Parser
 
             Assert.True(reader.Database.Count > 0, "No records read");
 
-            _writer = new GedcomRecordWriter();
-            _writer.Test = true;
-            _writer.Database = reader.Database;
-            _writer.GedcomFile = Path.Combine(outputDir, file);
+            writer = new GedcomRecordWriter();
+            writer.Test = true;
+            writer.Database = reader.Database;
+            writer.GedcomFile = Path.Combine(outputDir, file);
 
-            _writer.ApplicationName = "Gedcom.NET";
-            _writer.ApplicationSystemId = "Gedcom.NET";
-            _writer.ApplicationVersion = "Test Suite";
-            _writer.Corporation = "David A Knight";
+            writer.ApplicationName = "Gedcom.NET";
+            writer.ApplicationSystemId = "Gedcom.NET";
+            writer.ApplicationVersion = "Test Suite";
+            writer.Corporation = "David A Knight";
 
-            _writer.WriteGedcom();
+            writer.WriteGedcom();
 
             string expectedOutput = Path.Combine(expectedDir, file);
             if (!File.Exists(expectedOutput))
             {
-                File.Copy(_writer.GedcomFile, expectedOutput);
+                File.Copy(writer.GedcomFile, expectedOutput);
             }
 
-            string written = File.ReadAllText(_writer.GedcomFile);
+            string written = File.ReadAllText(writer.GedcomFile);
             string expected = File.ReadAllText(expectedOutput);
 
             Assert.True(written == expected, "Output differs from expected");

@@ -19,9 +19,12 @@
 
 namespace GeneGenie.Gedcom.Tests
 {
-    using GeneGenui.Gedcom.Utility;
+    using Helpers;
     using Xunit;
 
+    /// <summary>
+    /// TODO: More tests and simplify / split the tests that are there.
+    /// </summary>
     public class IndexedKeyCollectionTest
     {
         [Fact]
@@ -54,7 +57,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Test2()
         {
-            IndexedKeyCollection col = new IndexedKeyCollection();
+            var col = new IndexedKeyCollection();
 
             string tmp;
 

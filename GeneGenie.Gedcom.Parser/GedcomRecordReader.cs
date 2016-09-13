@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom.Parser
     using System.Text;
     using Enums;
     using Gedcom.Enums;
-    using GeneGenui.Gedcom.Utility;
+    using Helpers;
 
     /// <summary>
     /// GedcomRecordReader will read in a given gedcom file
@@ -733,7 +733,7 @@ namespace GeneGenie.Gedcom.Parser
             }
 
             while ((parseState.PreviousTags.Count > 0) &&
-                   (parseState.PreviousTags.Peek().Second >= level))
+                   (parseState.PreviousTags.Peek().Level >= level))
             {
                 parseState.PreviousTags.Pop();
             }

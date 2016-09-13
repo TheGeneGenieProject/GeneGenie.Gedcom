@@ -95,6 +95,7 @@
     <Compile Include="GedcomIndividualReport.cs" />
     <Compile Include="GedcomXMLGenerator.cs" />
     <Compile Include="GedcomXMLGeneratorBase.cs" />
+    <Compile Include="GraphNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Xslt\Descendants-Html.xslt" />
@@ -105,10 +106,6 @@
     <ProjectReference Include="..\GeneGenie.Gedcom\GeneGenie.Gedcom.csproj">
       <Project>{872AE81C-2178-4D2B-9077-34A8AD1595D9}</Project>
       <Name>GeneGenie.Gedcom</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GeneGenie.Gedcom.Utility\GeneGenie.Gedcom.Utility.csproj">
-      <Project>{C006EBC3-3802-430C-914D-ED54AC81DE98}</Project>
-      <Name>GeneGenie.Gedcom.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

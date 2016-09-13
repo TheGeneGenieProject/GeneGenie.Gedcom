@@ -24,7 +24,7 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using Data;
     using Enums;
-    using GeneGenui.Gedcom.Utility;
+    using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.
@@ -451,7 +451,7 @@ namespace GeneGenie.Gedcom
                     parts++;
 
                     parts += 3;
-                    float date1Match = DateHelper.MatchDateTimes(DateTime1, dateDate1);
+                    float date1Match = MatchDateTimes(DateTime1, dateDate1);
 
                     // correct for number of date parts parsed
                     date1Match *= partsParsed1 / 3.0F;
@@ -459,7 +459,7 @@ namespace GeneGenie.Gedcom
                     matches += date1Match;
 
                     parts += 3;
-                    float date2Match = DateHelper.MatchDateTimes(DateTime2, dateDate2);
+                    float date2Match = MatchDateTimes(DateTime2, dateDate2);
 
                     // correct for number of date parts parsed
                     date2Match *= partsParsed2 / 3.0F;
@@ -775,6 +775,78 @@ namespace GeneGenie.Gedcom
             }
 
             return 1;
+        }
+
+        /// <summary>
+        /// Fuzzy matching of dates. TODO: Unit test coverage, no idea how well this works.
+        /// </summary>
+        /// <param name="dateTimeA">First date to compare.</param>
+        /// <param name="dateTimeB">Second date to compare.</param>
+        /// <returns>Returns a float rather than an int to allow for some fuzziness
+        /// e.g.  10-11-2000 is 10 NOV 2000 or 11 OCT 2000
+        /// </returns>
+        private float MatchDateTimes(DateTime? dateTimeA, DateTime? dateTimeB)
+        {
+            float matches = 0;
+
+            if ((dateTimeA == null && dateTimeB == null) ||
+                ((!dateTimeA.HasValue) && (!dateTimeB.HasValue)))
+            {
+                matches += 3;
+            }
+            else if (dateTimeA != null && dateTimeA.HasValue && dateTimeB != null && dateTimeB.HasValue)
+            {
+                DateTime a = dateTimeA.Value;
+                DateTime b = dateTimeB.Value;
+
+                if (a.Year == b.Year)
+                {
+                    matches++;
+                }
+                else
+                {
+                    // TODO: arbitrary delta
+                    const int delta = 5;
+
+                    if (a.Year >= b.Year - delta && a.Year <= b.Year + delta)
+                    {
+                        matches += 0.25F;
+                    }
+                    else if (b.Year >= a.Year - delta && b.Year <= a.Year + delta)
+                    {
+                        matches += 0.25F;
+                    }
+                }
+
+                if (a.Month == b.Month)
+                {
+                    matches++;
+                }
+                else
+                {
+                    // TODO: what delta should we check for?
+                }
+
+                if (a.Day == b.Day)
+                {
+                    matches++;
+                }
+                else
+                {
+                    // TODO: what delta should we check for?
+                }
+
+                // date formats may differ
+                if (a.Day == b.Month && a.Month == b.Day && a.Month != b.Month && a.Day != b.Day)
+                {
+                    // day + month should be +2, however
+                    // as this is a fudge to handle diff formats don't
+                    // give full weighting
+                    matches += 0.75F;
+                }
+            }
+
+            return matches;
         }
 
         private string[] SplitDateString(string dataString)

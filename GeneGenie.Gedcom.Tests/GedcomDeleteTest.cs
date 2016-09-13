@@ -27,13 +27,13 @@ namespace GeneGenie.Gedcom
     using Xunit;
 
     /// <summary>
-    /// TODO: These tests needs rewriting as they depend on a file we don't have access to.
+    /// TODO: These tests needs rewriting as they depend on files we don't have access to.
     /// </summary>
     public class GedcomDeleteTest
     {
-        private GedcomRecordReader _reader;
-        private int _individuals;
-        private int _families;
+        private GedcomRecordReader reader;
+        private int individuals;
+        private int families;
 
         private void Read(string file)
         {
@@ -41,28 +41,28 @@ namespace GeneGenie.Gedcom
             string gedcomFile = Path.Combine(dir, file);
 
             long start = DateTime.Now.Ticks;
-            _reader = new GedcomRecordReader();
-            bool success = _reader.ReadGedcom(gedcomFile);
+            reader = new GedcomRecordReader();
+            bool success = reader.ReadGedcom(gedcomFile);
             long end = DateTime.Now.Ticks;
 
             Assert.True(success, "Failed to read " + gedcomFile);
 
-            _individuals = 0;
-            _families = 0;
+            individuals = 0;
+            families = 0;
 
-            Assert.True(_reader.Database.Count > 0, "No records read");
+            Assert.True(reader.Database.Count > 0, "No records read");
 
-            foreach (DictionaryEntry entry in _reader.Database)
+            foreach (DictionaryEntry entry in reader.Database)
             {
                 GedcomRecord record = entry.Value as GedcomRecord;
 
                 if (record.RecordType == GedcomRecordType.Individual)
                 {
-                    _individuals++;
+                    individuals++;
                 }
                 else if (record.RecordType == GedcomRecordType.Family)
                 {
-                    _families++;
+                    families++;
                 }
             }
         }
@@ -72,28 +72,28 @@ namespace GeneGenie.Gedcom
         {
             Read("test1.ged");
 
-            Assert.True(_individuals == 90, "Not read all individuals");
-            Assert.True(_families == 15, "Not read all families");
+            Assert.True(individuals == 90, "Not read all individuals");
+            Assert.True(families == 15, "Not read all families");
 
-            string id = _reader.Parser.XrefCollection["I0145"];
-            string sourceID = _reader.Parser.XrefCollection["S01668"];
-            string sourceID2 = _reader.Parser.XrefCollection["S10021"];
+            string id = reader.Parser.XrefCollection["I0145"];
+            string sourceID = reader.Parser.XrefCollection["S01668"];
+            string sourceID2 = reader.Parser.XrefCollection["S10021"];
 
-            GedcomIndividualRecord indi = (GedcomIndividualRecord)_reader.Database[id];
+            GedcomIndividualRecord indi = (GedcomIndividualRecord)reader.Database[id];
 
-            Assert.True(_reader.Database[sourceID] != null, "Unable to find expected source");
-            Assert.True(_reader.Database[sourceID2] != null, "Unable to find expected source 2");
+            Assert.True(reader.Database[sourceID] != null, "Unable to find expected source");
+            Assert.True(reader.Database[sourceID2] != null, "Unable to find expected source 2");
 
             indi.Delete();
 
-            Assert.True(_reader.Database.Individuals.Count == 89, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 15, "Incorrectly erased family");
+            Assert.True(reader.Database.Individuals.Count == 89, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 15, "Incorrectly erased family");
 
-            Assert.True(_reader.Database[sourceID2] != null, "Source incorrectly deleted when deleting individual");
+            Assert.True(reader.Database[sourceID2] != null, "Source incorrectly deleted when deleting individual");
 
             // source should still have a count of 1, the initial ref, we don't want to delete just because all citations
             // have gone, leave the source in the database.
-            Assert.True(_reader.Database[sourceID] != null, "Source incorrectly deleted when only used by the deleted individual");
+            Assert.True(reader.Database[sourceID] != null, "Source incorrectly deleted when only used by the deleted individual");
         }
 
         [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
@@ -101,51 +101,51 @@ namespace GeneGenie.Gedcom
         {
             Read("test2.ged");
 
-            Assert.True(_individuals == 4, "Not read all individuals");
-            Assert.True(_families == 2, "Not read all families");
+            Assert.True(individuals == 4, "Not read all individuals");
+            Assert.True(families == 2, "Not read all families");
 
-            string id = _reader.Parser.XrefCollection["I04"];
+            string id = reader.Parser.XrefCollection["I04"];
 
-            GedcomIndividualRecord indi = (GedcomIndividualRecord)_reader.Database[id];
-
-            indi.Delete();
-
-            Assert.True(_reader.Database.Individuals.Count == 3, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 2, "Incorrectly erased family");
-
-            id = _reader.Parser.XrefCollection["I01"];
-
-            indi = (GedcomIndividualRecord)_reader.Database[id];
+            GedcomIndividualRecord indi = (GedcomIndividualRecord)reader.Database[id];
 
             indi.Delete();
 
-            Assert.True(_reader.Database.Individuals.Count == 2, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
+            Assert.True(reader.Database.Individuals.Count == 3, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 2, "Incorrectly erased family");
 
-            id = _reader.Parser.XrefCollection["I02"];
+            id = reader.Parser.XrefCollection["I01"];
 
-            indi = (GedcomIndividualRecord)_reader.Database[id];
+            indi = (GedcomIndividualRecord)reader.Database[id];
 
             indi.Delete();
 
-            Assert.True(_reader.Database.Individuals.Count == 1, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
+            Assert.True(reader.Database.Individuals.Count == 2, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 1, "Incorrectly erased family");
 
-            GedcomFamilyRecord famRec = _reader.Database.Families[0];
+            id = reader.Parser.XrefCollection["I02"];
+
+            indi = (GedcomIndividualRecord)reader.Database[id];
+
+            indi.Delete();
+
+            Assert.True(reader.Database.Individuals.Count == 1, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 1, "Incorrectly erased family");
+
+            GedcomFamilyRecord famRec = reader.Database.Families[0];
             string noteID = famRec.Notes[0];
 
-            Assert.True(_reader.Database[noteID] != null, "Couldn't find expected note on family");
+            Assert.True(reader.Database[noteID] != null, "Couldn't find expected note on family");
 
-            id = _reader.Parser.XrefCollection["I03"];
+            id = reader.Parser.XrefCollection["I03"];
 
-            indi = (GedcomIndividualRecord)_reader.Database[id];
+            indi = (GedcomIndividualRecord)reader.Database[id];
 
             indi.Delete();
 
-            Assert.True(_reader.Database.Individuals.Count == 0, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 0, "Incorrectly erased family");
+            Assert.True(reader.Database.Individuals.Count == 0, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 0, "Incorrectly erased family");
 
-            Assert.True(_reader.Database[noteID] != null, "Incorrectly erased note from family");
+            Assert.True(reader.Database[noteID] != null, "Incorrectly erased note from family");
         }
 
         [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
@@ -153,51 +153,51 @@ namespace GeneGenie.Gedcom
         {
             Read("test3.ged");
 
-            Assert.True(_individuals == 4, "Not read all individuals");
-            Assert.True(_families == 2, "Not read all families");
+            Assert.True(individuals == 4, "Not read all individuals");
+            Assert.True(families == 2, "Not read all families");
 
-            string id = _reader.Parser.XrefCollection["I04"];
+            string id = reader.Parser.XrefCollection["I04"];
 
-            GedcomIndividualRecord indi = (GedcomIndividualRecord)_reader.Database[id];
-
-            indi.Delete();
-
-            Assert.True(_reader.Database.Individuals.Count == 3, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 2, "Incorrectly erased family");
-
-            id = _reader.Parser.XrefCollection["I01"];
-
-            indi = (GedcomIndividualRecord)_reader.Database[id];
+            GedcomIndividualRecord indi = (GedcomIndividualRecord)reader.Database[id];
 
             indi.Delete();
 
-            Assert.True(_reader.Database.Individuals.Count == 2, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
+            Assert.True(reader.Database.Individuals.Count == 3, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 2, "Incorrectly erased family");
 
-            id = _reader.Parser.XrefCollection["I02"];
+            id = reader.Parser.XrefCollection["I01"];
 
-            indi = (GedcomIndividualRecord)_reader.Database[id];
+            indi = (GedcomIndividualRecord)reader.Database[id];
 
             indi.Delete();
 
-            Assert.True(_reader.Database.Individuals.Count == 1, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 1, "Incorrectly erased family");
+            Assert.True(reader.Database.Individuals.Count == 2, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 1, "Incorrectly erased family");
 
-            GedcomFamilyRecord famRec = _reader.Database.Families[0];
+            id = reader.Parser.XrefCollection["I02"];
+
+            indi = (GedcomIndividualRecord)reader.Database[id];
+
+            indi.Delete();
+
+            Assert.True(reader.Database.Individuals.Count == 1, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 1, "Incorrectly erased family");
+
+            GedcomFamilyRecord famRec = reader.Database.Families[0];
             string noteID = famRec.Notes[0];
 
-            Assert.True(_reader.Database[noteID] != null, "Couldn't find expected note on family");
+            Assert.True(reader.Database[noteID] != null, "Couldn't find expected note on family");
 
-            id = _reader.Parser.XrefCollection["I03"];
+            id = reader.Parser.XrefCollection["I03"];
 
-            indi = (GedcomIndividualRecord)_reader.Database[id];
+            indi = (GedcomIndividualRecord)reader.Database[id];
 
             indi.Delete();
 
-            Assert.True(_reader.Database.Individuals.Count == 0, "Failed to delete individual");
-            Assert.True(_reader.Database.Families.Count == 0, "Incorrectly erased family");
+            Assert.True(reader.Database.Individuals.Count == 0, "Failed to delete individual");
+            Assert.True(reader.Database.Families.Count == 0, "Incorrectly erased family");
 
-            Assert.True(_reader.Database[noteID] != null, "Incorrectly erased note linked from family");
+            Assert.True(reader.Database[noteID] != null, "Incorrectly erased note linked from family");
         }
     }
 }

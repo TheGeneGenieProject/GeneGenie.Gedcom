@@ -24,20 +24,23 @@ namespace GeneGenie.Gedcom.Reports
     using GeneGenie.Gedcom.Parser;
     using Xunit;
 
+    /// <summary>
+    /// TODO: Understand what XML is being output and who consumes it.
+    /// </summary>
     public class GedcomXMLGeneratorTest
     {
-        private GedcomRecordReader _reader;
+        private GedcomRecordReader reader;
 
         private void DumpXML(string file)
         {
             string dir = ".\\Data";
             string gedcomFile = Path.Combine(dir, file);
 
-            _reader = new GedcomRecordReader();
-            _reader.ReadGedcom(gedcomFile);
+            reader = new GedcomRecordReader();
+            reader.ReadGedcom(gedcomFile);
 
             GedcomXMLGenerator gen = new GedcomXMLGenerator();
-            gen.Database = _reader.Database;
+            gen.Database = reader.Database;
 
             XmlDocument doc = gen.GenerateXML();
 
