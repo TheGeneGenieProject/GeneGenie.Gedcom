@@ -246,3 +246,6 @@ ModelManifest.xml
 /GeneGenie.Gedcom.Benchmarks/Data
 *.GED
 *.ncrunchproject
+/GeneGenie.Gedcom.Data
+/GeneGenie.Gedcom.Fetcher
+/GedFan0.4.0.0

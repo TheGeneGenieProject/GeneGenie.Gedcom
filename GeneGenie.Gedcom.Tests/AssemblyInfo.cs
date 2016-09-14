@@ -19,9 +19,9 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("GeneGenie.Gedcom.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Unit tests for the GeneGenie.Gedcom library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("GeneGenie.com")]
 [assembly: AssemblyProduct("GeneGenie.Gedcom.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

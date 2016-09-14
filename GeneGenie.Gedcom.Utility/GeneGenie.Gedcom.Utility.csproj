@@ -3,15 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{872AE81C-2178-4D2B-9077-34A8AD1595D9}</ProjectGuid>
+    <ProjectGuid>{C006EBC3-3802-430C-914D-ED54AC81DE98}</ProjectGuid>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>GeneGenie.Gedcom</AssemblyName>
+    <AssemblyName>GeneGenie.Gedcom.Utility</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>GeneGenie.Gedcom</RootNamespace>
+    <RootNamespace>GeneGenie.Gedcom.Utility</RootNamespace>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -38,15 +38,15 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateDocumentation>true</GenerateDocumentation>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>GeneGenie.Gedcom.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug\GeneGenie.Gedcom.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\GeneGenie.Gedcom.Utility.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Utility.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,9 +56,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateDocumentation>true</GenerateDocumentation>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>GeneGenie.Gedcom.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release\GeneGenie.Gedcom.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\GeneGenie.Gedcom.Utility.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Utility.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,67 +80,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Data\StaticDateData.cs" />
-    <Compile Include="Enums\GedcomDatePeriodPosition.cs" />
-    <Compile Include="Enums\GedcomDateType.cs" />
-    <Compile Include="Enums\GedcomDatePeriod.cs" />
-    <Compile Include="Enums\GedcomRestrictionNotice.cs" />
-    <Compile Include="Enums\GedcomAdoptionType.cs" />
-    <Compile Include="Enums\GedcomCertainty.cs" />
-    <Compile Include="Enums\MarriageStartStatus.cs" />
-    <Compile Include="Enums\ParserMessageIdSeverity.cs" />
-    <Compile Include="Enums\SourceMediaType.cs" />
-    <Compile Include="Enums\PedigreeLinkageType.cs" />
-    <Compile Include="Enums\GedcomSex.cs" />
-    <Compile Include="Enums\GedcomRecordType.cs" />
-    <Compile Include="Enums\ChildLinkageStatus.cs" />
-    <Compile Include="Enums\ParserMessageIds.cs" />
-    <Compile Include="GedcomAddress.cs" />
-    <Compile Include="GedcomAge.cs" />
-    <Compile Include="GedcomAssociation.cs" />
-    <Compile Include="GedcomChangeDate.cs" />
-    <Compile Include="GedcomCustomRecord.cs" />
-    <Compile Include="GedcomDatabase.cs" />
-    <Compile Include="GedcomDate.cs" />
-    <Compile Include="GedcomDatePeriodParserMapping.cs" />
-    <Compile Include="GedcomDatePeriodParseResult.cs" />
-    <Compile Include="GedcomEvent.cs" />
-    <Compile Include="Enums\GedcomEventType.cs" />
-    <Compile Include="GedcomFamilyEvent.cs" />
-    <Compile Include="GedcomFamilyLink.cs" />
-    <Compile Include="GedcomFamilyRecord.cs" />
-    <Compile Include="GedcomHeader.cs" />
-    <Compile Include="GedcomIndividualEvent.cs" />
-    <Compile Include="GedcomIndividualRecord.cs" />
-    <Compile Include="GedcomMultimediaFile.cs" />
-    <Compile Include="GedcomMultimediaRecord.cs" />
-    <Compile Include="GedcomName.cs" />
-    <Compile Include="GedcomNoteRecord.cs" />
-    <Compile Include="GedcomPlace.cs" />
-    <Compile Include="GedcomRecord.cs" />
-    <Compile Include="GedcomRecordedEvent.cs" />
-    <Compile Include="GedcomRecordList.cs" />
-    <Compile Include="GedcomRepositoryCitation.cs" />
-    <Compile Include="GedcomRepositoryRecord.cs" />
-    <Compile Include="GedcomSourceCitation.cs" />
-    <Compile Include="GedcomSourceRecord.cs" />
-    <Compile Include="GedcomSubmissionRecord.cs" />
-    <Compile Include="GedcomSubmitterRecord.cs" />
-    <Compile Include="GedcomVariation.cs" />
-    <Compile Include="GedcomParserMessage.cs" />
-    <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="Helpers\IndexedKeyCollection.cs" />
-    <Compile Include="GedcomTagLevel.cs" />
-    <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="Util.cs" />
-    <Compile Include="XRefIndexedKeyCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -149,24 +98,20 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GeneGenie.Gedcom.Utility.ruleset">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
-    <None Include="Readme.md" />
-    <None Include="ContributorLicenceAgreement.md" />
-    <None Include="GeneGenie.Gedcom.ruleset" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Licence.txt">
-      <Link>Licence.txt</Link>
-    </Content>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
@@ -194,6 +139,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">
@@ -214,6 +160,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">
@@ -227,8 +174,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug - VS\GeneGenie.Gedcom.XML</DocumentationFile>
-    <CodeAnalysisRuleSet>GeneGenie.Gedcom.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Utility.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release - VS|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -237,8 +183,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
-    <CodeAnalysisRuleSet>GeneGenie.Gedcom.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>GeneGenie.Gedcom.Utility.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>

@@ -19,9 +19,9 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("GeneGenie.Gedcom.Parser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("GEDCOM file parsing library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("GeneGenie.com")]
 [assembly: AssemblyProduct("GeneGenie.Gedcom.Parser")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

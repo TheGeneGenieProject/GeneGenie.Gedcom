@@ -19,9 +19,9 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("GeneGenie.Gedcom.Benchmarks")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Benchmarks for the GeneGenie.Gedcom library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("GeneGenie.com")]
 [assembly: AssemblyProduct("GeneGenie.Gedcom.Benchmarks")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>GeneGenie.Gedcom</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/RyanONeill1970/GeneGenie.Gedcom/Licence.txt</licenseUrl>
+    <projectUrl>https://github.com/RyanONeill1970/GeneGenie.Gedcom</projectUrl>
+    <iconUrl>https://github.com/RyanONeill1970/GeneGenie.Gedcom/Logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
+    <copyright>Copyright GeneGenie.com 2016</copyright>
+    <tags>GEDCOM Genealogy GeneGenie GeneGenie.Gedcom</tags>
+  </metadata>
+</package>

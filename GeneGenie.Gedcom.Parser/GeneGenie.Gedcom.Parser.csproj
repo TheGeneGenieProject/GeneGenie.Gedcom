@@ -121,6 +121,7 @@
     <None Include="GeneGenie.Gedcom.Parser.ruleset">
       <SubType>Designer</SubType>
     </None>
+    <None Include="makenuget.bat" />
     <None Include="packages.config" />
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
