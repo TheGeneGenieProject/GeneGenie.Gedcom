@@ -149,11 +149,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\ContributorLicenceAgreement.md">
+      <Link>ContributorLicenceAgreement.md</Link>
+    </None>
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
-    <None Include="Readme.md" />
-    <None Include="ContributorLicenceAgreement.md" />
     <None Include="GeneGenie.Gedcom.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
