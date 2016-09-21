@@ -56,12 +56,12 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Fired if the parser encounters an error
+        /// Fired if the parser encounters an error.
         /// </summary>
         public event EventHandler ParserError;
 
         /// <summary>
-        /// Fired whenever a full GEDCOM line has been parsed
+        /// Fired whenever a full GEDCOM line has been parsed.
         /// </summary>
         public event EventHandler TagFound;
 

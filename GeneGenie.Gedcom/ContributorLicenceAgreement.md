@@ -4,7 +4,7 @@
 
 Thank you for your interest in the GeneGenie.Gedcom open source project being administered by Ryan O'Neill (“Ryan”). The form of license below is a document that clarifies the terms under which You, the person listed below, may contribute software, bug fixes, configuration changes, documentation, or any other materials that you send to us related to the Project (each a “Contribution”) to the project.
 
-We appreciate your participation in our project, and your help in improving the project, so we want you to understand what will be done with the Contributions. This license is for your protection as well as the protection of GeneGenie.com
+We appreciate your participation in our project, and your help in improving the project, so we want you to understand what will be done with the Contributions. This license is for your protection as well as the protection of GeneGenie.com and its licensees; it does not change your rights to use your own Contributions for any other purpose.
 
 If you have questions about these terms, please contact Ryan at r@genegenie.com.
 
@@ -22,4 +22,4 @@ If you are employed as a software engineer, or if your employer is in the busine
 
 4. We determine the code that is in our project. You understand that the decision to include the Contribution in any project or source repository is entirely that of Ryan, and this agreement does not guarantee that the Contributions will be included in any product.
 
-5. No Implied Warranties. Ryan acknowledges that, except as explicitly described in this Agreement, the Contribution is provided on an “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. and his licensees; it does not change your rights to use your own Contributions for any other purpose. Please complete the following information about you and the Contributions and sign electronically by filling out the form below.
+5. No Implied Warranties. Ryan acknowledges that, except as explicitly described in this Agreement, the Contribution is provided on an “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE.
