@@ -6,7 +6,6 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{133A8AB0-A066-436E-9E2A-D7F6F2144F2E}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GeneGenie.Gedcom.Benchmarks</RootNamespace>
     <AssemblyName>GeneGenie.Gedcom.Benchmarks</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -162,7 +161,7 @@
     <Compile Include="GedFanBencharks.cs" />
     <Compile Include="AllTagsBenchmark.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
