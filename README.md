@@ -15,7 +15,10 @@ Nuget notes.
 ### Saving the tree
 
 ## Status
-Current nuget version, current appveyor status
+Current nuget version,
+
+### Current appveyor status
+[![Build status](https://ci.appveyor.com/api/projects/status/5o7cb79h0p7gci61?svg=true)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom)
 
 ## Contributing
 
