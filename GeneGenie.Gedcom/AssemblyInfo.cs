@@ -17,17 +17,9 @@
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("GeneGenie.Gedcom")]
-[assembly: AssemblyDescription("GEDCOM file management library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GeneGenie.com")]
-[assembly: AssemblyProduct("GeneGenie.Gedcom")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
-[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-[assembly: InternalsVisibleTo("GeneGenie.Gedcom.Parser")]
+[assembly: AssemblyDescription("GEDCOM file management library")]
+[assembly: AssemblyProduct("GeneGenie.Gedcom")]
+[assembly: AssemblyTitle("GeneGenie.Gedcom")]

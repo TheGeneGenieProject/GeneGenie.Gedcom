@@ -1,4 +1,4 @@
-// <copyright file="AssemblyInfo.cs" company="GeneGenie.com">
+// <copyright file="SolutionAssemblyInfo.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -18,8 +18,7 @@
 
 using System.Reflection;
 
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCulture("")]
-[assembly: AssemblyDescription("Unit tests for the GeneGenie.Gedcom library")]
-[assembly: AssemblyProduct("GeneGenie.Gedcom.Tests")]
-[assembly: AssemblyTitle("GeneGenie.Gedcom.Tests")]
+[assembly: AssemblyCompany("GeneGenie.com")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyVersion("0.0.1.*")]

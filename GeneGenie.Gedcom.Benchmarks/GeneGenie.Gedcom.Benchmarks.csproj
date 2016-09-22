@@ -158,6 +158,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="GedFanBencharks.cs" />
     <Compile Include="AllTagsBenchmark.cs" />
     <Compile Include="Program.cs" />

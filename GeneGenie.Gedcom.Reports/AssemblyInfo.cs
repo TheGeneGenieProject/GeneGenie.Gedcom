@@ -18,12 +18,8 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("GeneGenie.Gedcom.Reports")]
-[assembly: AssemblyDescription("Reports for the GeneGenie.Gedcom library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GeneGenie.com")]
-[assembly: AssemblyProduct("GeneGenie.Gedcom.Reports")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
-[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyDescription("Reports for the GeneGenie.Gedcom library")]
+[assembly: AssemblyProduct("GeneGenie.Gedcom.Reports")]
+[assembly: AssemblyTitle("GeneGenie.Gedcom.Reports")]
