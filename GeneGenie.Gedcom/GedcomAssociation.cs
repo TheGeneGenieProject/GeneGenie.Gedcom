@@ -132,9 +132,33 @@ namespace GeneGenie.Gedcom
             OutputStandard(tw);
         }
 
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The object to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
         public override bool IsSimilar(object obj)
         {
-            throw new NotImplementedException();
+            var association = obj as GedcomAssociation;
+
+            if (association == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Description, association.Description))
+            {
+                return false;
+            }
+
+            if (!Equals(Individual, association.Individual))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

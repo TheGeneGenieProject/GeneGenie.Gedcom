@@ -24,7 +24,6 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Xml;
     using Enums;
-    using System.Linq;
 
     /// <summary>
     /// TODO: Doc
@@ -564,7 +563,7 @@ namespace GeneGenie.Gedcom
 
         /// <summary>
         /// Must be overriden in derived classes to compare the user entered data for that instance.
-        /// Called from the <see cref="Equals(GedcomRecord)" /> before after it checks common
+        /// Called from the <see cref="Equals(GedcomRecord)" /> before it checks common
         /// data elements (notes, sources etc.).
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>

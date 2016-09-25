@@ -101,7 +101,7 @@ namespace GeneGenie.Gedcom
         {
             Database = database;
             Level = 0;
-            Sex = GedcomSex.Undetermined;
+            Sex = GedcomSex.NotSet;
             XRefID = database.GenerateXref("I");
 
             GedcomName name = new GedcomName();

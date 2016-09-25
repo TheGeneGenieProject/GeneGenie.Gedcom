@@ -225,6 +225,13 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The object to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
         public override bool IsSimilar(object obj)
         {
             var submission = obj as GedcomSubmissionRecord;

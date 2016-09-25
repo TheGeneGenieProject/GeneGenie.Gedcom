@@ -28,10 +28,11 @@ namespace GeneGenie.Gedcom
     {
         /// <summary>
         /// Compares two lists of records to see if they are equal.
+        /// Uses the automated record id from the base class for sorting.
         /// </summary>
         /// <typeparam name="T">A class that inherits from <see cref="GedcomRecord"/> and implements Equals/GetHashCode.</typeparam>
-        /// <param name="list1">The first list of record.</param>
-        /// <param name="list2">The second list of record.</param>
+        /// <param name="list1">The first list of records.</param>
+        /// <param name="list2">The second list of records.</param>
         /// <returns>
         /// True if they match, otherwise false.
         /// </returns>
@@ -56,6 +57,16 @@ namespace GeneGenie.Gedcom
             return true;
         }
 
+        /// <summary>
+        /// Compares two lists to see if they are equal.
+        /// Relies on the sorting of the generic type used.
+        /// </summary>
+        /// <typeparam name="T">Any old object that can be compared.</typeparam>
+        /// <param name="list1">The first list of records.</param>
+        /// <param name="list2">The second list of records.</param>
+        /// <returns>
+        /// True if they match, otherwise false.
+        /// </returns>
         public static bool CompareLists<T>(List<T> list1, List<T> list2)
         {
             if (list1.Count != list2.Count)
