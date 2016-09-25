@@ -1,4 +1,4 @@
-// <copyright file="HeinerEichmannAllTagsTest.cs" company="GeneGenie.com">
+﻿// <copyright file="Constants.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -14,31 +14,28 @@
 // along with this program. If not, see http:www.gnu.org/licenses/ .
 //
 // </copyright>
-// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Parser
+namespace GeneGenie.Gedcom
 {
-    using Enums;
-    using Xunit;
-
     /// <summary>
-    /// Ensures that the parser loads a file that contains all known GEDCOM tags.
-    /// TODO: Could do with validating that it actually understood every tag in that file.
+    /// General GEDCOM related constants.
     /// </summary>
-    public class HeinerEichmannAllTagsTest
+    public class Constants
     {
         /// <summary>
-        /// File sourced from http://heiner-eichmann.de/gedcom/allged.htm
+        /// The default name for an individual when they have not been given one.
         /// </summary>
-        [Fact]
-        private void Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses()
-        {
-            var loader = new GedcomLoader();
+        public const string UnknownName = "unknown /unknown/";
 
-            var result = loader.LoadAndParse("allged.ged");
+        /// <summary>
+        /// The unknown name part
+        /// </summary>
+        public const string UnknownNamePart = "unknown";
 
-            Assert.Equal(GedcomErrorState.NoError, result.ErrorState);
-        }
+        /// <summary>
+        /// The unknown soundex
+        /// </summary>
+        public const string UnknownSoundex = "u525";
     }
 }

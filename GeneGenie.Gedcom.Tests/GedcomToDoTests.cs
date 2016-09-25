@@ -18,7 +18,6 @@
 
 namespace GeneGenie.Gedcom.Tests
 {
-    using System.Text;
     using Xunit;
 
     /// <summary>
@@ -39,6 +38,43 @@ namespace GeneGenie.Gedcom.Tests
         }
 
         /*
+
+        1) Equals implementations;
+             Header
+              Submitters
+              Individuals
+               Individual
+                Names
+                Events (birth and death?)
+                Notes
+            Do we need CompareTo or can we just use equals? This changes ListComparer. See if we can drop CompareTo.
+        2) Tags missed from rewrite tests.
+        3) Proper tests for missing / corrupted tags on all ged files, can we use a memory stream to avoid writing to the file system?
+        4) Plan for iComparable etc on all records, have as a virtual.
+        5) Tabbed files, test above.
+        6) Ansel Encoding - restore, unit tests.
+        7) Name parsing tests according to spec.
+
+        Notes;
+        We should implement icomparable<t>/icomparable on objects and replace duff icomparables.
+ Do on GedcomName, then gedcomIndividual
+Compare does not fail.
+ Suggest compare is;
+  Gedcom compare sums up all;
+   Header record compares.
+   Submitter record compares.
+   Individual record compares.
+Tags missed, name, givn, surname.
+Tags introduced sex.
+Notes should be attached to individual when not xrefs.
+Torture tests http://www.tamurajones.net/ThreeTortureTests.xhtml
+Notes have extra lines added
+Their SUBM xref is @'ed, ours is not.
+Missing VERS from SOUR as well.
+Compare our line count with their line count, should be same ideally.
+
+Individual records need to compare all name elements (Name/surname/given name, notes) plus notes, sources etc for equality.
+
          * TODO: Tests required for:
          *  All encodings.
          *  Comments from old tests that need recreating:
@@ -46,6 +82,8 @@ namespace GeneGenie.Gedcom.Tests
          *   'File has 91 INDI, 1 is  HEAD/_SCHEMA/INDI though'
          * The following needs sifting through to see what should fail the date parser,
          * what should pass and what messages should be logged.
+         * Some date text has just the month or day, which we don't handle. Find an example of this and figure out how to cope with it.
+         * Tests for mixed case months, for example, JuL
         [Theory]
         [InlineData("97")]
         [InlineData("0")]

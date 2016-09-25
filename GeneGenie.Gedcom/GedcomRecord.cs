@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// TODO: Doc
     /// </summary>
-    public class GedcomRecord
+    public abstract class GedcomRecord
     {
         private GedcomRestrictionNotice restrictionNotice;
 
@@ -411,13 +411,14 @@ namespace GeneGenie.Gedcom
         /// <exception cref="Exception">Ref Count already 0</exception>
         public virtual void Delete()
         {
-            if (RefCount == 0)
+            /* if (RefCount == 0) // This was causing individual deletes not to happen properly.
             {
+                // TODO: Not good, need to feed back to user instead of blowing up.
                 throw new Exception("Ref Count already 0");
-            }
+            } */
 
             RefCount--;
-            if (RefCount == 0)
+            if (RefCount <= 0)
             {
                 if (multimedia != null)
                 {
@@ -557,6 +558,52 @@ namespace GeneGenie.Gedcom
             sw.Write(GedcomTag);
 
             OutputStandard(sw);
+        }
+
+        /// <summary>
+        /// Compares the common elements of the passes GedcomRecord against this instance.
+        /// The data checked is used by multiple inheritors so it makes sense to check sources here
+        /// and have the inheritor call us before exiting their Equals.
+        /// </summary>
+        /// <param name="obj">The GedcomRecord to compare against.</param>
+        /// <returns>Returns true if the core base properties match, otherwise false.</returns>
+        public bool Equals(GedcomRecord obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var record = obj as GedcomRecord;
+
+            if (!GedcomGenericListComparer.CompareLists(Sources, record.Sources))
+            {
+                return false;
+            }
+
+            // TODO: Add notes and multimedia in here for comparison.
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GedcomRecord);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            // Overflow is fine, just wrap.
+            unchecked
+            {
+                int hash = 17;
+
+                // TODO: Add in more here and match up with Equals above.
+                hash *= 23 + Sources.GetHashCode();
+
+                return hash;
+            }
         }
 
         /// <summary>

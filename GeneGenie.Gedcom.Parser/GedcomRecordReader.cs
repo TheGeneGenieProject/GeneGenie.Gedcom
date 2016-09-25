@@ -138,6 +138,18 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
+        /// A static helper for reading a gedcom file and returning the reader in one go.
+        /// </summary>
+        /// <param name="gedcomFilePath">The gedcom file path.</param>
+        /// <returns>The reader used to load the file.</returns>
+        public static GedcomRecordReader CreateReader(string gedcomFilePath)
+        {
+            var reader = new GedcomRecordReader();
+            reader.ReadGedcom(gedcomFilePath);
+            return reader;
+        }
+
+        /// <summary>
         /// Starts reading the gedcom file currently set via the GedcomFile property
         /// </summary>
         /// <returns>bool indicating if the file was successfully read</returns>
@@ -147,10 +159,10 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Starts reading the specified gedcom file
+        /// Starts reading the specified gedcom file.
         /// </summary>
         /// <param name="gedcomFile">Filename to read</param>
-        /// <returns>bool indicating if the file was successfully read</returns>
+        /// <returns>bool indicating if the file was successfully read.</returns>
         public bool ReadGedcom(string gedcomFile)
         {
             bool success = false;
@@ -444,7 +456,6 @@ namespace GeneGenie.Gedcom.Parser
                     }
                 }
 
-                System.Console.WriteLine("Removed " + removedNotes.Count + " notes");
                 missingReferences = null;
 
                 // link sources with citations which reference them
@@ -1097,6 +1108,13 @@ namespace GeneGenie.Gedcom.Parser
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
                             headerRecord.Copyright = lineValue;
+                        }
+
+                        break;
+                    case "FILE":
+                        if (lineValueType == GedcomLineValueType.DataType)
+                        {
+                            headerRecord.Filename = lineValue;
                         }
 
                         break;

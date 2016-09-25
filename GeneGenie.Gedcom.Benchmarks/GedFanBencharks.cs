@@ -34,63 +34,72 @@ namespace GeneGenie.Gedcom.Benchmarks
         [Benchmark(Baseline = true)]
         public void One_generation()
         {
-            GedcomLoader.LoadAndParse("ENFAN1.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN1.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 2 generation GEDCOM file.</summary>
         [Benchmark]
         public void Two_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN2.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN2.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 3 generation GEDCOM file.</summary>
         [Benchmark]
         public void Three_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN3.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN3.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 4 generation GEDCOM file.</summary>
         [Benchmark]
         public void Four_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN4.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN4.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 5 generation GEDCOM file.</summary>
         [Benchmark]
         public void Five_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN5.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN5.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 6 generation GEDCOM file.</summary>
         [Benchmark]
         public void Six_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN6.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN6.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 7 generation GEDCOM file.</summary>
         [Benchmark]
         public void Seven_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN7.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN7.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 8 generation GEDCOM file.</summary>
         [Benchmark]
         public void Eight_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN8.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN8.ged");
         }
 
         /// <summary>Benchmark for loading and parsing a 9 generation GEDCOM file.</summary>
         [Benchmark]
         public void Nine_generations()
         {
-            GedcomLoader.LoadAndParse("ENFAN9.ged");
+            var loader = new GedcomLoader();
+            loader.LoadAndParse("ENFAN9.ged");
         }
     }
 }

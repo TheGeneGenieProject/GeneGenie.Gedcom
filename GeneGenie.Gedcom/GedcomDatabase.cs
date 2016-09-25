@@ -21,6 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
@@ -40,8 +41,6 @@ namespace GeneGenie.Gedcom
         private List<GedcomSubmitterRecord> submitters;
 
         private int xrefCounter = 0;
-
-        private string name;
 
         private IndexedKeyCollection nameCollection;
         private IndexedKeyCollection placeNameCollection;
@@ -160,11 +159,7 @@ namespace GeneGenie.Gedcom
         /// of the GEDCOM file the database was read from / saved to,
         /// but could equally be a connection string for a real backend database
         /// </summary>
-        public virtual string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// Gets all the names used in the database, used primarily to save
@@ -188,11 +183,7 @@ namespace GeneGenie.Gedcom
         /// Gets or sets utility property providing all the surnames in the database, along with
         /// a count of how many people have that surname.
         /// </summary>
-        public virtual Dictionary<string, int> Surnames
-        {
-            get { return surnames; }
-            set { surnames = value; }
-        }
+        public virtual Dictionary<string, int> Surnames { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the database is being loaded.
@@ -215,6 +206,49 @@ namespace GeneGenie.Gedcom
             {
                 Remove(key, value);
                 Add(key, value);
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal (in contents, not structure) to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            var gedcomDb = obj as GedcomDatabase;
+
+            if (gedcomDb == null)
+            {
+                return false;
+            }
+
+            if (Header != gedcomDb.Header)
+            {
+                return false;
+            }
+
+            if (!Individuals.OrderBy(i => i.AutomatedRecordID).SequenceEqual(gedcomDb.Individuals.OrderBy(i => i.AutomatedRecordID)))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            // Overflow is fine, just wrap.
+            unchecked
+            {
+                int hash = 17;
+
+                hash *= 23 + Individuals.GetHashCode();
+
+                return hash;
             }
         }
 

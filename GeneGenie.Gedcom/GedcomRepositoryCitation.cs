@@ -103,7 +103,7 @@ namespace GeneGenie.Gedcom
         /// </value>
         public GedcomRecordList<string> CallNumbers
         {
-            get { return CallNumbers; }
+            get { return callNumbers; }
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace GeneGenie.Gedcom
         /// </value>
         public GedcomRecordList<SourceMediaType> MediaTypes
         {
-            get { return MediaTypes; }
+            get { return mediaTypes; }
         }
 
         /// <summary>

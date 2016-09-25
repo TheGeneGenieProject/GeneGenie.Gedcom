@@ -10,6 +10,8 @@ Whilst we are below version 1.0 we won't be releasing a Nuget package. To use th
 
 ## Usage
 
+Check the sample project out for working code, basic operations are...
+
 ### Loading a tree
 ### Querying the tree
 ### Adding a person to the tree

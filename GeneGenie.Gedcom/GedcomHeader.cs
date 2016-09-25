@@ -38,17 +38,6 @@ namespace GeneGenie.Gedcom
 
         private string language;
 
-        private string filename;
-
-        private bool test;
-
-        private string applicationName = string.Empty;
-        private string applicationVersion = string.Empty;
-        private string applicationSystemID = "GeneGenie.Gedcom";
-        private string corporation = string.Empty;
-
-        private GedcomAddress corporationAddress;
-
         private string sourceName = string.Empty;
         private GedcomDate sourceDate;
         private string sourceCopyright;
@@ -90,28 +79,12 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="GedcomHeader"/> is test.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if test; otherwise, <c>false</c>.
-        /// </value>
-        public bool Test
-        {
-            get { return test; }
-            set { test = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the name of the application.
         /// </summary>
         /// <value>
         /// The name of the application.
         /// </value>
-        public string ApplicationName
-        {
-            get { return applicationName; }
-            set { applicationName = value; }
-        }
+        public string ApplicationName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the application version.
@@ -119,11 +92,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The application version.
         /// </value>
-        public string ApplicationVersion
-        {
-            get { return applicationVersion; }
-            set { applicationVersion = value; }
-        }
+        public string ApplicationVersion { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the application system identifier.
@@ -131,11 +100,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The application system identifier.
         /// </value>
-        public string ApplicationSystemID
-        {
-            get { return applicationSystemID; }
-            set { applicationSystemID = value; }
-        }
+        public string ApplicationSystemID { get; set; } = "GeneGenie.Gedcom";
 
         /// <summary>
         /// Gets or sets the corporation.
@@ -143,11 +108,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The corporation.
         /// </value>
-        public string Corporation
-        {
-            get { return corporation; }
-            set { corporation = value; }
-        }
+        public string Corporation { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the corporation address.
@@ -155,11 +116,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The corporation address.
         /// </value>
-        public GedcomAddress CorporationAddress
-        {
-            get { return corporationAddress; }
-            set { corporationAddress = value; }
-        }
+        public GedcomAddress CorporationAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the content description.
@@ -313,11 +270,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The filename.
         /// </value>
-        public string Filename
-        {
-            get { return filename; }
-            set { filename = value; }
-        }
+        public string Filename { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the source.
@@ -410,16 +363,16 @@ namespace GeneGenie.Gedcom
             sw.Write(Environment.NewLine);
             sw.Write("1 SOUR {0}", ApplicationSystemID);
 
-            if (!string.IsNullOrEmpty(ApplicationVersion))
-            {
-                sw.Write(Environment.NewLine);
-                sw.Write("2 VERS {0}", ApplicationVersion);
-            }
-
             if (!string.IsNullOrEmpty(ApplicationName))
             {
                 sw.Write(Environment.NewLine);
                 sw.Write("2 NAME {0}", ApplicationName);
+            }
+
+            if (!string.IsNullOrEmpty(ApplicationVersion))
+            {
+                sw.Write(Environment.NewLine);
+                sw.Write("2 VERS {0}", ApplicationVersion);
             }
 
             if (!string.IsNullOrEmpty(Corporation))
@@ -431,12 +384,6 @@ namespace GeneGenie.Gedcom
             if (CorporationAddress != null)
             {
                 CorporationAddress.Output(sw, 3);
-            }
-
-            DateTime date = DateTime.Today;
-            if (test)
-            {
-                date = new DateTime(2007, 1, 1);
             }
 
             if (!string.IsNullOrEmpty(SourceName) ||
@@ -464,17 +411,13 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            sw.Write(Environment.NewLine);
-            sw.Write("1 DATE {0:dd MMM yyyy}", date);
-
-            bool hasSubmitter = !string.IsNullOrEmpty(submitterXRefID);
-
-            if (hasSubmitter)
+            if (TransmissionDate != null)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write("1 SUBM ");
-                sw.Write(submitterXRefID);
+                TransmissionDate.Output(sw);
             }
+
+            sw.Write(Environment.NewLine);
+            sw.Write("1 FILE {0}", Filename);
 
             if (ContentDescription != null)
             {
@@ -482,19 +425,143 @@ namespace GeneGenie.Gedcom
             }
 
             sw.Write(Environment.NewLine);
-            sw.Write("1 CHAR UTF-8");
-
-            sw.Write(Environment.NewLine);
-            sw.Write("1 FILE {0}", Filename);
-
-            sw.Write(Environment.NewLine);
             sw.Write("1 GEDC");
 
             sw.Write(Environment.NewLine);
-            sw.Write("2 VERS 5.5");
+            sw.Write("2 VERS 5.5.1");
 
             sw.Write(Environment.NewLine);
             sw.Write("2 FORM LINEAGE-LINKED");
+
+            sw.Write(Environment.NewLine);
+            sw.Write("1 CHAR UTF-8");
+
+            sw.Write(Environment.NewLine);
+            if (!string.IsNullOrWhiteSpace(Language))
+            {
+                sw.Write($"1 LANG {Language}");
+            }
+
+            bool hasSubmitter = !string.IsNullOrEmpty(submitterXRefID);
+            if (hasSubmitter)
+            {
+                sw.Write(Environment.NewLine);
+                sw.Write("1 SUBM ");
+                sw.Write(submitterXRefID);
+            }
+        }
+
+        /// <summary>
+        /// Checks if the passed header is equal in terms of user content to the current instance.
+        /// If new fields are added to the header they should also be added in here for comparison.
+        /// </summary>
+        /// <param name="header">The header to compare against this instance.</param>
+        /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
+        public bool Equals(GedcomHeader header)
+        {
+            if (header == null)
+            {
+                return false;
+            }
+
+            if (!Equals(ApplicationName, header.ApplicationName))
+            {
+                return false;
+            }
+
+            if (!Equals(ApplicationSystemID, header.ApplicationSystemID))
+            {
+                return false;
+            }
+
+            if (!Equals(ApplicationVersion, header.ApplicationVersion))
+            {
+                return false;
+            }
+
+            if (!Equals(ContentDescription, header.ContentDescription))
+            {
+                return false;
+            }
+
+            if (!Equals(Copyright, header.Copyright))
+            {
+                return false;
+            }
+
+            if (!Equals(Corporation, header.Corporation))
+            {
+                return false;
+            }
+
+            if (!Equals(CorporationAddress, header.CorporationAddress))
+            {
+                return false;
+            }
+
+            if (!Equals(Filename, header.Filename))
+            {
+                return false;
+            }
+
+            if (!Equals(Language, header.Language))
+            {
+                return false;
+            }
+
+            if (!Equals(SourceCopyright, header.SourceCopyright))
+            {
+                return false;
+            }
+
+            if (!Equals(SourceDate, header.SourceDate))
+            {
+                return false;
+            }
+
+            if (!Equals(SourceName, header.SourceName))
+            {
+                return false;
+            }
+
+            if (!Equals(TransmissionDate, header.TransmissionDate))
+            {
+                return false;
+            }
+
+            return base.Equals(header);
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GedcomHeader);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            // Overflow is fine, just wrap.
+            unchecked
+            {
+                int hash = 17;
+
+                hash *= 23 + ApplicationName.GetHashCode();
+                hash *= 23 + ApplicationSystemID.GetHashCode();
+                hash *= 23 + ApplicationVersion.GetHashCode();
+                hash *= 23 + ContentDescription.GetHashCode();
+                hash *= 23 + Copyright.GetHashCode();
+                hash *= 23 + Corporation.GetHashCode();
+                hash *= 23 + CorporationAddress.GetHashCode();
+                hash *= 23 + Filename.GetHashCode();
+                hash *= 23 + Language.GetHashCode();
+                hash *= 23 + SourceCopyright.GetHashCode();
+                hash *= 23 + SourceDate.GetHashCode();
+                hash *= 23 + SourceName.GetHashCode();
+                hash *= 23 + TransmissionDate.GetHashCode();
+
+                return hash;
+            }
         }
     }
 }

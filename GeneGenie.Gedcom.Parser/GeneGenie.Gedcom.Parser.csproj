@@ -104,6 +104,7 @@
     <Compile Include="GedcomParseState.cs" />
     <Compile Include="GedcomRecordReader.cs" />
     <Compile Include="GedcomRecordWriter.cs" />
+    <Compile Include="GedcomStreamWriter.cs" />
     <Compile Include="StaticData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +130,7 @@
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
+    <None Include="stylecop1.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />

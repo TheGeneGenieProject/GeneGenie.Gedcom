@@ -1,4 +1,4 @@
-// <copyright file="HeinerEichmannAllTagsTest.cs" company="GeneGenie.com">
+// <copyright file="GedcomTortureTest.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -14,31 +14,23 @@
 // along with this program. If not, see http:www.gnu.org/licenses/ .
 //
 // </copyright>
-// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Parser
+namespace GeneGenie.Gedcom
 {
-    using Enums;
+    using Parser;
     using Xunit;
 
     /// <summary>
-    /// Ensures that the parser loads a file that contains all known GEDCOM tags.
-    /// TODO: Could do with validating that it actually understood every tag in that file.
+    /// Loads the torture test files to test every tag can be read at least without falling over.
     /// </summary>
-    public class HeinerEichmannAllTagsTest
+    public class GedcomTortureTest
     {
-        /// <summary>
-        /// File sourced from http://heiner-eichmann.de/gedcom/allged.htm
-        /// </summary>
-        [Fact]
-        private void Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses()
+        [Theory]
+        [InlineData(".\\Data\\TortureTests\\TGC551.ged")]
+        private void Files_can_be_loaded_without_exceptions(string sourceFile)
         {
-            var loader = new GedcomLoader();
-
-            var result = loader.LoadAndParse("allged.ged");
-
-            Assert.Equal(GedcomErrorState.NoError, result.ErrorState);
+            GedcomRecordReader.CreateReader(sourceFile);
         }
     }
 }

@@ -33,11 +33,11 @@ namespace GeneGenie.Gedcom.Parser
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns>The last error during parsing.</returns>
-        public static GedcomErrorState LoadAndParse(string file)
+        public GedcomParser LoadAndParse(string file)
         {
             var encoder = new ASCIIEncoding();
 
-            GedcomParser parser = new GedcomParser();
+            var parser = new GedcomParser();
 
             parser.AllowTabs = false;
             parser.AllowHyphenOrUnderscoreInTag = false;
@@ -57,11 +57,11 @@ namespace GeneGenie.Gedcom.Parser
                     var error = parser.GedcomParse(input);
                     if (error != GedcomErrorState.NoError)
                     {
-                        return error;
+                        return parser;
                     }
                 }
 
-                return GedcomErrorState.NoError;
+                return parser;
             }
         }
     }

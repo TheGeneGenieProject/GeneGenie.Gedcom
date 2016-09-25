@@ -21,7 +21,6 @@ namespace GeneGenie.Gedcom.Parser
 {
     using System;
     using System.Collections;
-    using System.IO;
     using System.Text;
 
     /// <summary>
@@ -46,14 +45,6 @@ namespace GeneGenie.Gedcom.Parser
         /// Gets or sets the database for the file being written.
         /// </summary>
         public GedcomDatabase Database { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to use test mode.
-        /// A flag to indiciate if this is a test output,
-        /// used in test code to ensure the output can match
-        /// against the expected output by making the date the same
-        /// </summary>
-        public bool Test { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the application that created the GEDCOM file.
@@ -108,6 +99,17 @@ namespace GeneGenie.Gedcom.Parser
         public bool AllowTabsSave { get; set; }
 
         /// <summary>
+        /// Helper method to output a standard GEDCOM file without needing to create a write.
+        /// </summary>
+        /// <param name="database">The database to output.</param>
+        /// <param name="file">The file path to output to.</param>
+        public static void OutputGedcom(GedcomDatabase database, string file)
+        {
+            var writer = new GedcomRecordWriter();
+            writer.WriteGedcom(database, file);
+        }
+
+        /// <summary>
         /// Outputs the currently set GedcomDatabase to the currently set file
         /// </summary>
         public void WriteGedcom()
@@ -123,24 +125,13 @@ namespace GeneGenie.Gedcom.Parser
         public void WriteGedcom(GedcomDatabase database, string file)
         {
             Encoding enc = new UTF8Encoding();
-            using (GedcomStreamWriter w = new GedcomStreamWriter(file, false, enc))
+            using (var w = new GedcomStreamWriter(file, false, enc))
             {
                 w.AllowInformationSeparatorOnSave = AllowInformationSeparatorOnSave;
                 w.AllowLineTabsSave = AllowLineTabsSave;
                 w.AllowTabsSave = AllowTabsSave;
 
-                // write header
-                GedcomHeader header = Database.Header;
-                header.Test = Test;
-                header.Filename = file;
-
-                header.ApplicationName = ApplicationName;
-                header.ApplicationSystemID = ApplicationSystemId;
-                header.ApplicationVersion = ApplicationVersion;
-                header.Corporation = Corporation;
-                header.CorporationAddress = CorporationAddress;
-
-                header.Output(w);
+                database.Header.Output(w);
 
                 // write records
                 foreach (DictionaryEntry entry in database)
@@ -154,193 +145,6 @@ namespace GeneGenie.Gedcom.Parser
                 w.Write(Environment.NewLine);
                 w.WriteLine("0 TRLR");
                 w.Write(Environment.NewLine);
-            }
-        }
-
-        private class GedcomStreamWriter : StreamWriter
-        {
-            private int tabSize = 4;
-            private string tab = "    ";
-
-            public GedcomStreamWriter(Stream s)
-                : base(s)
-            {
-            }
-
-            public GedcomStreamWriter(string s)
-                : base(s)
-            {
-            }
-
-            public GedcomStreamWriter(Stream s, Encoding e)
-                : base(s, e)
-            {
-            }
-
-            public GedcomStreamWriter(string s, bool append)
-                : base(s, append)
-            {
-            }
-
-            public GedcomStreamWriter(Stream s, Encoding e, int bufSize)
-                : base(s, e, bufSize)
-            {
-            }
-
-            public GedcomStreamWriter(string s, bool append, Encoding e)
-                : base(s, append, e)
-            {
-            }
-
-            public GedcomStreamWriter(string s, bool append, Encoding e, int bufSize)
-                : base(s, append, e, bufSize)
-            {
-            }
-
-            public bool AllowInformationSeparatorOnSave { get; set; }
-
-            public bool AllowLineTabsSave { get; set; }
-
-            public bool AllowTabsSave { get; set; }
-
-            public int TabSize
-            {
-                get
-                {
-                    return tabSize;
-                }
-
-                set
-                {
-                    tabSize = value;
-                    tab = string.Empty.PadRight(tabSize);
-                }
-            }
-
-            public override void Write(char value)
-            {
-                if (!AllowInformationSeparatorOnSave && value == 0x1f)
-                {
-                    base.Write(" ");
-                }
-                else if ((!AllowLineTabsSave && value == 0x0b) || (!AllowTabsSave && value == 0x09))
-                {
-                    base.Write(tab);
-                }
-                else
-                {
-                    base.Write(value);
-                }
-            }
-
-            public override void Write(char[] buffer, int index, int count)
-            {
-                base.Write(buffer, index, count);
-            }
-
-            public override void Write(object value)
-            {
-                Write(value.ToString());
-            }
-
-            public override void Write(string value)
-            {
-                string tmp = value;
-
-                if (!AllowInformationSeparatorOnSave)
-                {
-                    tmp = tmp.Replace("\x001f", " ");
-                }
-
-                if (!AllowLineTabsSave)
-                {
-                    tmp = tmp.Replace("\x000b", tab);
-                }
-
-                if (!AllowTabsSave)
-                {
-                    tmp = tmp.Replace("\x0009", tab);
-                }
-
-                base.Write(value);
-            }
-
-            public override void Write(string format, object arg0)
-            {
-                Write(string.Format(format, arg0));
-            }
-
-            public override void Write(string format, object arg0, object arg1)
-            {
-                Write(string.Format(format, arg0, arg1));
-            }
-
-            public override void Write(string format, object arg0, object arg1, object arg2)
-            {
-                Write(string.Format(format, arg0, arg1, arg2));
-            }
-
-            public override void WriteLine(char value)
-            {
-                if (!AllowInformationSeparatorOnSave && value == 0x1f)
-                {
-                    base.WriteLine(" ");
-                }
-                else if ((!AllowLineTabsSave && value == 0x0b) || (!AllowTabsSave && value == 0x09))
-                {
-                    base.WriteLine(tab);
-                }
-                else
-                {
-                    base.WriteLine(value);
-                }
-            }
-
-            public override void WriteLine(char[] buffer, int index, int count)
-            {
-                base.WriteLine(buffer, index, count);
-            }
-
-            public override void WriteLine(object value)
-            {
-                WriteLine(value.ToString());
-            }
-
-            public override void WriteLine(string value)
-            {
-                string tmp = value;
-
-                if (!AllowInformationSeparatorOnSave)
-                {
-                    tmp = tmp.Replace("\x001f", " ");
-                }
-
-                if (!AllowLineTabsSave)
-                {
-                    tmp = tmp.Replace("\x000b", tab);
-                }
-
-                if (!AllowTabsSave)
-                {
-                    tmp = tmp.Replace("\x0009", tab);
-                }
-
-                base.WriteLine(tmp);
-            }
-
-            public override void WriteLine(string format, object arg0)
-            {
-                WriteLine(string.Format(format, arg0));
-            }
-
-            public override void WriteLine(string format, object arg0, object arg1)
-            {
-                WriteLine(string.Format(format, arg0, arg1));
-            }
-
-            public override void WriteLine(string format, object arg0, object arg1, object arg2)
-            {
-                WriteLine(string.Format(format, arg0, arg1, arg2));
             }
         }
     }

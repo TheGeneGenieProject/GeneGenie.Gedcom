@@ -89,6 +89,7 @@
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Data\StaticDateData.cs" />
     <Compile Include="Enums\GedcomDatePeriodPosition.cs" />
     <Compile Include="Enums\GedcomDateType.cs" />
@@ -124,6 +125,8 @@
     <Compile Include="GedcomMultimediaFile.cs" />
     <Compile Include="GedcomMultimediaRecord.cs" />
     <Compile Include="GedcomName.cs" />
+    <Compile Include="GedcomGenericListComparer.cs" />
+    <Compile Include="GedcomNameListComparer.cs" />
     <Compile Include="GedcomNoteRecord.cs" />
     <Compile Include="GedcomPlace.cs" />
     <Compile Include="GedcomRecord.cs" />

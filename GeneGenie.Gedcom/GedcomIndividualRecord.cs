@@ -28,23 +28,8 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Details about a given individual
     /// </summary>
-    public class GedcomIndividualRecord : GedcomRecord, IComparable
+    public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<GedcomIndividualRecord>
     {
-        /// <summary>
-        /// The unknown name
-        /// </summary>
-        public const string UnknownName = "unknown /unknown/";
-
-        /// <summary>
-        /// The unknown name part
-        /// </summary>
-        public const string UnknownNamePart = "unknown";
-
-        /// <summary>
-        /// The unknown soundex
-        /// </summary>
-        public const string UnknownSoundex = "u525";
-
         private GedcomRecordList<GedcomName> names;
         private GedcomSex sex;
 
@@ -669,60 +654,66 @@ namespace GeneGenie.Gedcom
             }
         }
 
-        /// <summary>
-        /// Compares the name of the by.
-        /// </summary>
-        /// <param name="indiA">The indi a.</param>
-        /// <param name="indiB">The indi b.</param>
-        /// <returns>TODO: Doc</returns>
-        public static int CompareByName(GedcomIndividualRecord indiA, GedcomIndividualRecord indiB)
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
         {
-            int ret = -1;
+            return CompareTo(obj as GedcomIndividualRecord) == 0;
+        }
 
-            if (indiA != null && indiB != null)
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            // Overflow is fine, just wrap.
+            unchecked
             {
-                string nameA;
-                string nameB;
+                int hash = 17;
 
-                GedcomName aName = indiA.GetName();
-                GedcomName bName = indiB.GetName();
-
-                if (aName != null)
+                var name = GetName();
+                if (name != null)
                 {
-                    nameA = aName.Name;
-                }
-                else
-                {
-                    nameA = UnknownName;
+                    hash *= 23 + name.Name.GetHashCode();
                 }
 
-                if (bName != null)
-                {
-                    nameB = bName.Name;
-                }
-                else
-                {
-                    nameB = UnknownName;
-                }
-
-                ret = string.Compare(nameA, nameB);
+                return hash;
             }
-            else if (indiA != null)
-            {
-                ret = 1;
-            }
-
-            return ret;
         }
 
         /// <summary>
-        /// Compares to.
+        /// Compares the current and passed individual to see if they are the same.
         /// </summary>
-        /// <param name="indiB">The indi b.</param>
-        /// <returns>TODO: Doc</returns>
-        public int CompareTo(object indiB)
+        /// <param name="individual">The individual to compare the current instance against.</param>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        public int CompareTo(GedcomIndividualRecord individual)
         {
-            return GedcomIndividualRecord.CompareByName(this, (GedcomIndividualRecord)indiB);
+            if (individual == null)
+            {
+                return 1;
+            }
+
+            var nameCompare = GedcomNameListComparer.CompareNames(Names, individual.Names);
+            if (nameCompare != 0)
+            {
+                return nameCompare;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Compares the current individual against the passed individual to see if they are
+        /// essentially the same. Compares the content, not the structure.
+        /// For example, names are compared but internal xref ids are not.
+        /// </summary>
+        /// <param name="individual">The second person to compare against.</param>
+        /// <returns>TODO: Doc</returns>
+        public int CompareTo(object individual)
+        {
+            if (individual != null && !(individual is GedcomIndividualRecord))
+            {
+                throw new ArgumentException($"Object must be of type {nameof(GedcomIndividualRecord)}.");
+            }
+
+            return CompareTo(individual as GedcomIndividualRecord);
         }
 
         /// <summary>
@@ -733,7 +724,7 @@ namespace GeneGenie.Gedcom
             base.Delete();
 
             // remove from families
-            if (RefCount == 0)
+            if (RefCount <= 0)
             {
                 if (spouseIn != null)
                 {
@@ -819,9 +810,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the name.
+        /// Gets the preferred name (if set) or the first name if no preferred name is set.
         /// </summary>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>A GedcomName or null if no names found.</returns>
         public GedcomName GetName()
         {
             GedcomName ret = Names.Find(n => n.PreferedName == true);
@@ -1002,11 +993,11 @@ namespace GeneGenie.Gedcom
             {
                 if (!soundex)
                 {
-                    surname = UnknownNamePart;
+                    surname = Constants.UnknownNamePart;
                 }
                 else
                 {
-                    surname = UnknownSoundex;
+                    surname = Constants.UnknownSoundex;
                 }
             }
 
@@ -1050,11 +1041,11 @@ namespace GeneGenie.Gedcom
             {
                 if (!soundex)
                 {
-                    checkName = UnknownNamePart;
+                    checkName = Constants.UnknownNamePart;
                 }
                 else
                 {
-                    checkName = UnknownSoundex;
+                    checkName = Constants.UnknownSoundex;
                 }
             }
 

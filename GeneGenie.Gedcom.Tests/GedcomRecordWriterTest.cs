@@ -19,68 +19,54 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
-    using System.IO;
+    using System.Linq;
     using Xunit;
 
     /// <summary>
-    /// TODO: Tidy and refactor.
+    /// Tests for ensuring that GEDCOM files can be loaded, saved and reopened without data loss.
     /// </summary>
     public class GedcomRecordWriterTest
     {
-        private GedcomRecordWriter writer;
-
-        private void Write(string file)
+        [Theory]
+        [InlineData(".\\Data\\presidents.ged")]
+        [InlineData(".\\Data\\superfluous-ident-test.ged")]
+        private void Gedcom_databases_are_equal_after_rewriting(string sourceFile)
         {
-            string dir = ".\\Data";
-            string gedcomFile = Path.Combine(dir, file);
+            var originalReader = GedcomRecordReader.CreateReader(sourceFile);
+            var rewrittenPath = sourceFile + ".rewritten";
+            GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
 
-            string outputDir = Path.Combine(dir, "Output");
-            string expectedDir = Path.Combine(dir, "Expected");
+            var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
 
-            if (!Directory.Exists(outputDir))
-            {
-                Directory.CreateDirectory(outputDir);
-            }
-
-            if (!Directory.Exists(expectedDir))
-            {
-                Directory.CreateDirectory(expectedDir);
-            }
-
-            GedcomRecordReader reader = new GedcomRecordReader();
-            reader.ReadGedcom(gedcomFile);
-
-            Assert.True(reader.Database.Count > 0, "No records read");
-
-            writer = new GedcomRecordWriter();
-            writer.Test = true;
-            writer.Database = reader.Database;
-            writer.GedcomFile = Path.Combine(outputDir, file);
-
-            writer.ApplicationName = "Gedcom.NET";
-            writer.ApplicationSystemId = "Gedcom.NET";
-            writer.ApplicationVersion = "Test Suite";
-            writer.Corporation = "David A Knight";
-
-            writer.WriteGedcom();
-
-            string expectedOutput = Path.Combine(expectedDir, file);
-            if (!File.Exists(expectedOutput))
-            {
-                File.Copy(writer.GedcomFile, expectedOutput);
-            }
-
-            string written = File.ReadAllText(writer.GedcomFile);
-            string expected = File.ReadAllText(expectedOutput);
-
-            Assert.True(written == expected, "Output differs from expected");
+            Assert.Equal(originalReader.Database, rewrittenReader.Database);
         }
 
         [Theory]
-        [InlineData("presidents.ged")]
-        private void Test1(string fileName)
+        [InlineData(".\\Data\\presidents.ged")]
+        [InlineData(".\\Data\\superfluous-ident-test.ged")]
+        private void Gedcom_headers_are_equal_after_rewriting(string sourceFile)
         {
-            Write(fileName);
+            var originalReader = GedcomRecordReader.CreateReader(sourceFile);
+            var rewrittenPath = sourceFile + ".rewritten";
+            GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
+
+            var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
+
+            Assert.Equal(originalReader.Database.Header, rewrittenReader.Database.Header);
+        }
+
+        [Theory]
+        [InlineData(".\\Data\\presidents.ged")]
+        [InlineData(".\\Data\\superfluous-ident-test.ged")]
+        private void Individuals_are_equal_after_rewriting(string sourceFile)
+        {
+            var originalReader = GedcomRecordReader.CreateReader(sourceFile);
+            var rewrittenPath = sourceFile + ".rewritten";
+            GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
+
+            var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
+
+            Assert.Equal(originalReader.Database.Individuals.OrderBy(i => i.AutomatedRecordID), rewrittenReader.Database.Individuals.OrderBy(i => i.AutomatedRecordID));
         }
     }
 }

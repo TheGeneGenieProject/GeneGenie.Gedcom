@@ -115,21 +115,27 @@
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="DataHelperExtensions\GedcomIndividualRecordFactory.cs" />
     <Compile Include="Date\GedcomDateCompareTest.cs" />
     <Compile Include="Date\GedcomDateNullEqualTest.cs" />
     <Compile Include="Date\GedcomDatePeriodTest.cs" />
     <Compile Include="Date\GedcomDateParseTest.cs" />
     <Compile Include="GedcomDeleteTest.cs" />
+    <Compile Include="GedcomIdentTest.cs" />
     <Compile Include="GedcomToDoTests.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
-    <Compile Include="GedcomFileParseTest.cs" />
     <Compile Include="GedcomGraphTest.cs" />
-    <Compile Include="GedcomIndividualMatchTest.cs" />
-    <Compile Include="GedcomRecordReaderTest.cs" />
+    <Compile Include="Individuals\GedcomIndividualMatchTest.cs" />
+    <Compile Include="RecordReaderTests\GedcomRecordCountTest.cs" />
     <Compile Include="GedcomRecordWriterTest.cs" />
     <Compile Include="GedcomXMLGeneratorTest.cs" />
     <Compile Include="GedcomXMLTransformTest.cs" />
     <Compile Include="IndexedKeyCollectionTest.cs" />
+    <Compile Include="Individuals\GedcomNameParsingTest.cs" />
+    <Compile Include="Individuals\GedcomNameComparisonTest.cs" />
+    <Compile Include="Individuals\GedcomIndividualComparisonTest.cs" />
+    <Compile Include="RecordReaderTests\GedcomSourceReaderTest.cs" />
+    <Compile Include="TortureTest\GedcomTortureTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -149,6 +155,45 @@
     <None Include="Data\simple.ged">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\multiple-sources.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\Document.DOC">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\Document.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\Document.RTF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\Document.tex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\ImgFile.MAC">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\ImgFile.PCX">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\ImgFile.PIC">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\ImgFile.PSD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\TGC551.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\TGC551LF.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\TGC55C.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TortureTests\TGC55CLF.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="GeneGenie.Gedcom.Tests.ruleset">
       <SubType>Designer</SubType>
     </None>
@@ -161,6 +206,46 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\superfluous-ident-test.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\TortureTests\enthist.aif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\force.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\ImgFile.BMP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\ImgFile.GIF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\ImgFile.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\ImgFile.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\ImgFile.TGA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\ImgFile.TIF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\README.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\suntun.mov">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\TortureTests\top.mpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">

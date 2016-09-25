@@ -135,6 +135,7 @@ namespace GeneGenie.Gedcom
                         else
                         {
                             Surname = string.Empty;
+                            i = name.Length; // No surname, must just be a given name only.
                         }
                     }
                     else
@@ -520,6 +521,28 @@ namespace GeneGenie.Gedcom
                         (!string.IsNullOrEmpty(surname)) ||
                         (!string.IsNullOrEmpty(suffix));
             }
+        }
+
+        /// <summary>
+        /// Compares two GedcomName instances by using the full name.
+        /// </summary>
+        /// <param name="name1">The first name to compare.</param>
+        /// <param name="name2">The second name to compare.</param>
+        /// <returns>An integer specifying the relative sort order.</returns>
+        public static int CompareByName(GedcomName name1, GedcomName name2)
+        {
+            int ret = -1;
+
+            if (name1 != null && name2 != null)
+            {
+                ret = string.Compare(name1.Name, name2.Name);
+            }
+            else if (name1 != null)
+            {
+                ret = 1;
+            }
+
+            return ret;
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-// <copyright file="HeinerEichmannAllTagsTest.cs" company="GeneGenie.com">
+// <copyright file="GedcomSourceReaderTest.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -14,31 +14,29 @@
 // along with this program. If not, see http:www.gnu.org/licenses/ .
 //
 // </copyright>
-// <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Parser
+namespace GeneGenie.Gedcom
 {
-    using Enums;
+    using System.Linq;
+    using Parser;
     using Xunit;
 
     /// <summary>
-    /// Ensures that the parser loads a file that contains all known GEDCOM tags.
-    /// TODO: Could do with validating that it actually understood every tag in that file.
+    /// Tests that source records are read in for the varying record types.
     /// </summary>
-    public class HeinerEichmannAllTagsTest
+    public class GedcomSourceReaderTest
     {
-        /// <summary>
-        /// File sourced from http://heiner-eichmann.de/gedcom/allged.htm
-        /// </summary>
         [Fact]
-        private void Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses()
+        private void Correct_number_of_sourced_loaded_for_individual()
         {
-            var loader = new GedcomLoader();
+            var reader = GedcomRecordReader.CreateReader(".\\Data\\multiple-sources.ged");
+            string personId = reader.Parser.XrefCollection["P1"];
 
-            var result = loader.LoadAndParse("allged.ged");
+            var individual = reader.Database.Individuals.First(i => i.XRefID == personId);
 
-            Assert.Equal(GedcomErrorState.NoError, result.ErrorState);
+            Assert.Equal(1, individual.Birth.Sources.Count);
+            Assert.Equal(1, individual.Death.Sources.Count);
         }
     }
 }
