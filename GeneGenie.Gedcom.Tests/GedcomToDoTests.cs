@@ -55,6 +55,10 @@ namespace GeneGenie.Gedcom.Tests
         6) Ansel Encoding - restore, unit tests.
         7) Name parsing tests according to spec.
 
+        Find all console.writeline, debug.print, debug.* trace.*, diagnostics etc. and ensure we capture them in the parse info logs.
+         For example, 'Unknown state / tag parsing'
+        Notes are hard work, we need to do lookups by xref instead of just having a list of GedcomNote records attached. Need to fix this as a pain to test and use as well.
+
         Notes;
         We should implement icomparable<t>/icomparable on objects and replace duff icomparables.
  Do on GedcomName, then gedcomIndividual

@@ -37,7 +37,7 @@ namespace GeneGenie.Gedcom.Parser
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
-
+            //should be failing too with the problem with individual gender.
             Assert.Equal(originalReader.Database, rewrittenReader.Database);
         }
 
@@ -65,7 +65,7 @@ namespace GeneGenie.Gedcom.Parser
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
-
+            //superflous adds U, this test should be failing.
             Assert.Equal(originalReader.Database.Individuals.OrderBy(i => i.AutomatedRecordID), rewrittenReader.Database.Individuals.OrderBy(i => i.AutomatedRecordID));
         }
     }

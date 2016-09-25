@@ -383,5 +383,52 @@ namespace GeneGenie.Gedcom
                 }
             }
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var place = obj as GedcomPlace;
+
+            if (place == null)
+            {
+                return false;
+            }
+
+            if (!Equals(ChangeDate, place.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!Equals(Form, place.Form))
+            {
+                return false;
+            }
+
+            if (!Equals(Latitude, place.Latitude))
+            {
+                return false;
+            }
+
+            if (!Equals(Longitude, place.Longitude))
+            {
+                return false;
+            }
+
+            if (!Equals(Name, place.Name))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(PhoneticVariations, place.PhoneticVariations))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(RomanizedVariations, place.RomanizedVariations))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

@@ -148,5 +148,22 @@ namespace GeneGenie.Gedcom
 
             OutputStandard(sw);
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var note = obj as GedcomNoteRecord;
+
+            if (note == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Text, note.Text))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace GeneGenie.Gedcom
     using System.Collections.Generic;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc + i think we might be able to use an ObservableList instead.
     /// </summary>
     /// <typeparam name="T">TODO: Not sure what uses this yet.</typeparam>
     /// <seealso cref="System.Collections.Generic.List{T}" />

@@ -500,16 +500,12 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [prefered name].
+        /// Gets or sets a value indicating whether this is the individuals preferred name.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [prefered name]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [preferred name]; otherwise, <c>false</c>.
         /// </value>
-        public bool PreferedName
-        {
-            get { return preferedName; }
-            set { preferedName = value; }
-        }
+        public bool PreferredName { get; set; }
 
         private bool IsSet
         {
@@ -543,6 +539,11 @@ namespace GeneGenie.Gedcom
             }
 
             return ret;
+        }
+
+        public override bool IsSimilar(object obj)
+        {
+            return CompareByName(this, obj as GedcomName) == 0;
         }
 
         /// <summary>

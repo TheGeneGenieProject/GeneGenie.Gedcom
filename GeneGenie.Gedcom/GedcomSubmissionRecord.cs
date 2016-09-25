@@ -19,6 +19,7 @@
 
 namespace GeneGenie.Gedcom
 {
+    using System;
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
@@ -222,6 +223,48 @@ namespace GeneGenie.Gedcom
                     Changed();
                 }
             }
+        }
+
+        public override bool IsSimilar(object obj)
+        {
+            var submission = obj as GedcomSubmissionRecord;
+
+            if (submission == null)
+            {
+                return false;
+            }
+
+            if (!Equals(FamilyFile, submission.FamilyFile))
+            {
+                return false;
+            }
+
+            if (!Equals(GenerationsOfAncestors, submission.GenerationsOfAncestors))
+            {
+                return false;
+            }
+
+            if (!Equals(GenerationsOfDecendants, submission.GenerationsOfDecendants))
+            {
+                return false;
+            }
+
+            if (!Equals(OrdinanceProcessFlag, submission.OrdinanceProcessFlag))
+            {
+                return false;
+            }
+
+            if (!Equals(Submitter, submission.Submitter))
+            {
+                return false;
+            }
+
+            if (!Equals(TempleCode, submission.TempleCode))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // TODO: add output method

@@ -131,5 +131,10 @@ namespace GeneGenie.Gedcom
 
             OutputStandard(tw);
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

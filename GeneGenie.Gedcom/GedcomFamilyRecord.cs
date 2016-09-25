@@ -84,7 +84,7 @@ namespace GeneGenie.Gedcom
                 GedcomFamilyLink link = new GedcomFamilyLink();
                 link.Database = database;
                 link.Family = XRefID;
-                link.Indi = indi1.XRefID;
+                link.Individual = indi1.XRefID;
                 indi1.SpouseIn.Add(link);
 
                 if (indi2 != null)
@@ -92,7 +92,7 @@ namespace GeneGenie.Gedcom
                     link = new GedcomFamilyLink();
                     link.Database = database;
                     link.Family = XRefID;
-                    link.Indi = indi2.XRefID;
+                    link.Individual = indi2.XRefID;
                     indi2.SpouseIn.Add(link);
                 }
 
@@ -406,7 +406,7 @@ namespace GeneGenie.Gedcom
                     GedcomFamilyLink link = new GedcomFamilyLink();
                     link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = indi.XRefID;
+                    link.Individual = indi.XRefID;
                     link.Level = 1;
                     indi.ChildIn.Add(link);
                 }
@@ -527,7 +527,7 @@ namespace GeneGenie.Gedcom
                     GedcomFamilyLink link = new GedcomFamilyLink();
                     link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = this.husband;
+                    link.Individual = this.husband;
                     husband.SpouseIn.Add(link);
                 }
             }
@@ -541,7 +541,7 @@ namespace GeneGenie.Gedcom
                     GedcomFamilyLink link = new GedcomFamilyLink();
                     link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = this.wife;
+                    link.Individual = this.wife;
                     wife.SpouseIn.Add(link);
                 }
             }
@@ -593,7 +593,7 @@ namespace GeneGenie.Gedcom
                     GedcomFamilyLink link = new GedcomFamilyLink();
                     link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = this.husband;
+                    link.Individual = this.husband;
                     husband.SpouseIn.Add(link);
                 }
             }
@@ -607,7 +607,7 @@ namespace GeneGenie.Gedcom
                     GedcomFamilyLink link = new GedcomFamilyLink();
                     link.Database = Database;
                     link.Family = XRefID;
-                    link.Indi = this.wife;
+                    link.Individual = this.wife;
                     wife.SpouseIn.Add(link);
                 }
             }
@@ -1148,6 +1148,63 @@ namespace GeneGenie.Gedcom
                 sw.Write(" _MSTAT ");
                 sw.Write(StartStatus.ToString());
             }
+        }
+
+        public override bool IsSimilar(object obj)
+        {
+            var family = obj as GedcomFamilyRecord;
+
+            if (family == null)
+            {
+                return false;
+            }
+
+            if (!Equals(ChangeDate, family.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!Equals(Children, family.Children))
+            {
+                return false;
+            }
+
+            if (!Equals(Events, family.Events))
+            {
+                return false;
+            }
+
+            if (!Equals(Husband, family.Husband))
+            {
+                return false;
+            }
+
+            if (!Equals(Marriage, family.Marriage))
+            {
+                return false;
+            }
+
+            if (!Equals(NumberOfChildren, family.NumberOfChildren))
+            {
+                return false;
+            }
+
+            if (!Equals(StartStatus, family.StartStatus))
+            {
+                return false;
+            }
+
+            if (!Equals(SubmitterRecords, family.SubmitterRecords))
+            {
+                return false;
+            }
+
+            if (!Equals(Wife, family.Wife))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

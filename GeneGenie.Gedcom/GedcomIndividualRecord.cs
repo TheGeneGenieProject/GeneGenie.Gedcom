@@ -108,7 +108,7 @@ namespace GeneGenie.Gedcom
             name.Level = 1;
             name.Database = database;
             name.Name = "unknown /" + surname + "/";
-            name.PreferedName = true;
+            name.PreferredName = true;
 
             Names.Add(name);
 
@@ -655,12 +655,6 @@ namespace GeneGenie.Gedcom
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
-        {
-            return CompareTo(obj as GedcomIndividualRecord) == 0;
-        }
-
-        /// <inheritdoc/>
         public override int GetHashCode()
         {
             // Overflow is fine, just wrap.
@@ -680,6 +674,18 @@ namespace GeneGenie.Gedcom
 
         /// <summary>
         /// Compares the current and passed individual to see if they are the same.
+        /// Compares using user submitted data, not the internal ids which may change.
+        /// </summary>
+        /// <param name="obj">The object to compare the current individual instance against.</param>
+        /// <returns>True if they match, false otherwise.</returns>
+        public override bool IsSimilar(object obj)
+        {
+            return CompareTo(obj as GedcomIndividualRecord) == 0;
+        }
+
+        /// <summary>
+        /// Compares the current and passed individual to see if they are the same.
+        /// Compares using user submitted data, not the internal ids which may change.
         /// </summary>
         /// <param name="individual">The individual to compare the current instance against.</param>
         /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
@@ -688,6 +694,11 @@ namespace GeneGenie.Gedcom
             if (individual == null)
             {
                 return 1;
+            }
+
+            if (individual.Sex != Sex)
+            {
+                return individual.Sex.CompareTo(Sex);
             }
 
             var nameCompare = GedcomNameListComparer.CompareNames(Names, individual.Names);
@@ -708,11 +719,6 @@ namespace GeneGenie.Gedcom
         /// <returns>TODO: Doc</returns>
         public int CompareTo(object individual)
         {
-            if (individual != null && !(individual is GedcomIndividualRecord))
-            {
-                throw new ArgumentException($"Object must be of type {nameof(GedcomIndividualRecord)}.");
-            }
-
             return CompareTo(individual as GedcomIndividualRecord);
         }
 
@@ -815,7 +821,7 @@ namespace GeneGenie.Gedcom
         /// <returns>A GedcomName or null if no names found.</returns>
         public GedcomName GetName()
         {
-            GedcomName ret = Names.Find(n => n.PreferedName == true);
+            GedcomName ret = Names.Find(n => n.PreferredName == true);
             if (ret == null && Names.Count > 0)
             {
                 ret = Names[0];
@@ -832,7 +838,7 @@ namespace GeneGenie.Gedcom
         {
             foreach (GedcomName n in Names)
             {
-                n.PreferedName = n == name;
+                n.PreferredName = n == name;
             }
         }
 
@@ -1294,105 +1300,105 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs this instance of an individual as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The sw.</param>
-        public override void Output(TextWriter sw)
+        /// <param name="tw">The textwriter to output to.</param>
+        public override void Output(TextWriter tw)
         {
-            base.Output(sw);
+            base.Output(tw);
 
-            GedcomName preferedName = Names.Find(n => n.PreferedName == true);
+            GedcomName preferedName = Names.Find(n => n.PreferredName == true);
             if (preferedName != null)
             {
-                preferedName.Output(sw);
+                preferedName.Output(tw);
             }
 
             foreach (GedcomName name in names)
             {
                 if (name != preferedName)
                 {
-                    name.Output(sw);
+                    name.Output(tw);
                 }
             }
 
             string levelPlusOne = Util.IntToString(Level + 1);
 
-            sw.Write(Environment.NewLine);
-            sw.Write(levelPlusOne);
-            sw.Write(" SEX ");
-            switch (Sex)
+            if (Sex != GedcomSex.NotSet)
             {
-                case GedcomSex.Male:
-                    sw.Write("M");
-                    break;
-                case GedcomSex.Female:
-                    sw.Write("F");
-                    break;
-                case GedcomSex.Neuter:
-                    sw.Write("N");
-                    break;
-                case GedcomSex.Both:
-                    sw.Write("B");
-                    break;
-                case GedcomSex.Undetermined:
-                    sw.Write("U");
-                    break;
-                default:
-                    sw.Write("U");
-                    break;
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" SEX ");
+                switch (Sex)
+                {
+                    case GedcomSex.Male:
+                        tw.Write("M");
+                        break;
+                    case GedcomSex.Female:
+                        tw.Write("F");
+                        break;
+                    case GedcomSex.Neuter:
+                        tw.Write("N");
+                        break;
+                    case GedcomSex.Both:
+                        tw.Write("B");
+                        break;
+                    case GedcomSex.Undetermined:
+                        tw.Write("U");
+                        break;
+                }
             }
 
             if (RestrictionNotice != GedcomRestrictionNotice.None)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RESN ");
-                sw.Write(RestrictionNotice.ToString().ToLower());
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RESN ");
+                tw.Write(RestrictionNotice.ToString().ToLower());
             }
 
             foreach (GedcomIndividualEvent individualEvent in events)
             {
-                individualEvent.Output(sw);
+                individualEvent.Output(tw);
             }
 
             if (attributes != null)
             {
                 foreach (GedcomIndividualEvent individualEvent in attributes)
                 {
-                    individualEvent.Output(sw);
+                    individualEvent.Output(tw);
                 }
             }
 
             foreach (GedcomFamilyLink link in childIn)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" FAMC ");
-                sw.Write("@");
-                sw.Write(link.Family);
-                sw.Write("@");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" FAMC ");
+                tw.Write("@");
+                tw.Write(link.Family);
+                tw.Write("@");
 
                 switch (link.Pedigree)
                 {
                     case PedigreeLinkageType.Adopted:
-                        sw.Write(Environment.NewLine);
-                        sw.Write(Util.IntToString(Level + 2));
-                        sw.Write(" PEDI adopted");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write(" PEDI adopted");
                         break;
                     case PedigreeLinkageType.Birth:
-                        sw.Write(Environment.NewLine);
-                        sw.Write(Util.IntToString(Level + 2));
-                        sw.Write(" PEDI birth");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write(" PEDI birth");
                         break;
                     case PedigreeLinkageType.Foster:
-                        sw.Write(Environment.NewLine);
-                        sw.Write(Util.IntToString(Level + 2));
-                        sw.Write(" PEDI foster");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write(" PEDI foster");
                         break;
                     case PedigreeLinkageType.Sealing:
-                        sw.Write(Environment.NewLine);
-                        sw.Write(Util.IntToString(Level + 2));
-                        sw.Write(" PEDI sealing");
+                        tw.Write(Environment.NewLine);
+                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write(" PEDI sealing");
                         break;
                     default:
                         // FatherAdopted / MotherAdopted are
@@ -1406,24 +1412,24 @@ namespace GeneGenie.Gedcom
             GedcomFamilyLink prefSpouse = SpouseIn.Find(s => s.PreferedSpouse == true);
             if (prefSpouse != null)
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" FAMS ");
-                sw.Write("@");
-                sw.Write(prefSpouse.Family);
-                sw.Write("@");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" FAMS ");
+                tw.Write("@");
+                tw.Write(prefSpouse.Family);
+                tw.Write("@");
             }
 
             foreach (GedcomFamilyLink link in spouseIn)
             {
                 if (link != prefSpouse)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" FAMS ");
-                    sw.Write("@");
-                    sw.Write(link.Family);
-                    sw.Write("@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" FAMS ");
+                    tw.Write("@");
+                    tw.Write(link.Family);
+                    tw.Write("@");
                 }
             }
 
@@ -1431,30 +1437,30 @@ namespace GeneGenie.Gedcom
             {
                 foreach (string submitter in SubmitterRecords)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" SUBM ");
-                    sw.Write("@");
-                    sw.Write(submitter);
-                    sw.Write("@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" SUBM ");
+                    tw.Write("@");
+                    tw.Write(submitter);
+                    tw.Write("@");
                 }
             }
 
             foreach (GedcomAssociation association in Associations)
             {
-                association.Output(sw);
+                association.Output(tw);
             }
 
             if (alia != null)
             {
                 foreach (string alia in Alia)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" ALIA ");
-                    sw.Write("@");
-                    sw.Write(alia);
-                    sw.Write("@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" ALIA ");
+                    tw.Write("@");
+                    tw.Write(alia);
+                    tw.Write("@");
                 }
             }
 
@@ -1462,12 +1468,12 @@ namespace GeneGenie.Gedcom
             {
                 foreach (string anci in Anci)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" ANCI ");
-                    sw.Write("@");
-                    sw.Write(anci);
-                    sw.Write("@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" ANCI ");
+                    tw.Write("@");
+                    tw.Write(anci);
+                    tw.Write("@");
                 }
             }
 
@@ -1475,31 +1481,31 @@ namespace GeneGenie.Gedcom
             {
                 foreach (string anci in Desi)
                 {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusOne);
-                    sw.Write(" DESI ");
-                    sw.Write("@");
-                    sw.Write(anci);
-                    sw.Write("@");
+                    tw.Write(Environment.NewLine);
+                    tw.Write(levelPlusOne);
+                    tw.Write(" DESI ");
+                    tw.Write("@");
+                    tw.Write(anci);
+                    tw.Write("@");
                 }
             }
 
             if (!string.IsNullOrEmpty(PermanentRecordFileNumber))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" RFN ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" RFN ");
                 string line = PermanentRecordFileNumber.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             if (!string.IsNullOrEmpty(AncestralFileNumber))
             {
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" AFN ");
+                tw.Write(Environment.NewLine);
+                tw.Write(levelPlusOne);
+                tw.Write(" AFN ");
                 string line = AncestralFileNumber.Replace("@", "@@");
-                sw.Write(line);
+                tw.Write(line);
             }
 
             // NOTE: this should always be NULL, it is here as
@@ -1507,7 +1513,7 @@ namespace GeneGenie.Gedcom
             // the address will have been converted to a RESI event upon loading
             if (Address != null)
             {
-                Address.Output(sw, Level + 1);
+                Address.Output(tw, Level + 1);
             }
         }
     }

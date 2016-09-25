@@ -260,5 +260,37 @@ namespace GeneGenie.Gedcom
                 }
             }
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var repository = obj as GedcomRepositoryCitation;
+
+            if (repository == null)
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(CallNumbers, repository.CallNumbers))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(MediaTypes, repository.MediaTypes))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(OtherMediaTypes, repository.OtherMediaTypes))
+            {
+                return false;
+            }
+
+            if (!Equals(Repository, repository.Repository))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

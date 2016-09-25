@@ -24,6 +24,7 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Xml;
     using Enums;
+    using System.Linq;
 
     /// <summary>
     /// TODO: Doc
@@ -238,6 +239,7 @@ namespace GeneGenie.Gedcom
                 GedcomChangeDate childChangeDate;
                 if (Database == null)
                 {
+                    // TODO: Don't throw exceptions in properties, need to work around.
                     throw new Exception("MISSING DATABASE: " + this.RecordType.ToString());
                 }
 
@@ -561,9 +563,18 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Compares the common elements of the passes GedcomRecord against this instance.
-        /// The data checked is used by multiple inheritors so it makes sense to check sources here
-        /// and have the inheritor call us before exiting their Equals.
+        /// Must be overriden in derived classes to compare the user entered data for that instance.
+        /// Called from the <see cref="Equals(GedcomRecord)" /> before after it checks common
+        /// data elements (notes, sources etc.).
+        /// </summary>
+        /// <param name="obj">The object to compare this instance against.</param>
+        /// <returns>True if instance matches user data, otherwise false.</returns>
+        public abstract bool IsSimilar(object obj);
+
+        /// <summary>
+        /// Compares the inheriting instance user entered data against the passed GedcomRecord.
+        /// If that matches, will then compare the common elements of the passed GedcomRecord
+        /// against this instance (Source etc. which are common to all inheritors).
         /// </summary>
         /// <param name="obj">The GedcomRecord to compare against.</param>
         /// <returns>Returns true if the core base properties match, otherwise false.</returns>
@@ -574,14 +585,46 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            var record = obj as GedcomRecord;
-
-            if (!GedcomGenericListComparer.CompareLists(Sources, record.Sources))
+            // Ask the inheriting object if its user entered data is the same.
+            if (!IsSimilar(obj))
             {
                 return false;
             }
 
-            // TODO: Add notes and multimedia in here for comparison.
+            var record = obj as GedcomRecord;
+
+            if (!Equals(ChangeDate, record.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!Equals(Level, record.Level))
+            {
+                return false;
+            }
+
+            if (!Equals(RestrictionNotice, record.RestrictionNotice))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareGedcomRecordLists(Sources, record.Sources))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(Multimedia, record.Multimedia))
+            {
+                return false;
+            }
+
+            /* TODO: Notes are hard work, we need to do lookups by xref instead of just having a list of GedcomNote records attached. Need to fix this as a pain to test and use as well.
+            //if (!GedcomGenericListComparer.CompareLists(Notes, record.Notes))
+            //{
+            //    return false;
+            //}
+            */
+
             return true;
         }
 

@@ -268,5 +268,37 @@ namespace GeneGenie.Gedcom
                 Address.Output(sw, Level + 1);
             }
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var repository = obj as GedcomRepositoryRecord;
+
+            if (repository == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Address, repository.Address))
+            {
+                return false;
+            }
+
+            if (!Equals(ChangeDate, repository.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!Equals(Citations, repository.Citations))
+            {
+                return false;
+            }
+
+            if (!Equals(Name, repository.Name))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

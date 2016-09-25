@@ -66,6 +66,22 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Fact]
+        private void Individual_is_not_similar_to_null()
+        {
+            var person1 = gedcomDb.NamedPerson("Ryan");
+
+            Assert.False(person1.IsSimilar(null));
+        }
+
+        [Fact]
+        private void Individual_is_not_equal_to_null()
+        {
+            var person1 = gedcomDb.NamedPerson("Ryan");
+
+            Assert.False(Equals(null, person1));
+        }
+
+        [Fact]
         private void Individual_is_sorted_after_null()
         {
             var person1 = gedcomDb.NamedPerson("Ryan");
@@ -73,6 +89,15 @@ namespace GeneGenie.Gedcom.Parser
             var sortOrder = person1.CompareTo(null);
 
             Assert.Equal(1, sortOrder);
+        }
+
+        [Fact]
+        private void Individuals_with_same_facts_are_similar()
+        {
+            var person1 = gedcomDb.NamedPerson("Ryan");
+            var person2 = gedcomDb.NamedPerson("Ryan");
+
+            Assert.True(person1.IsSimilar(person2));
         }
 
         [Fact]
@@ -84,6 +109,26 @@ namespace GeneGenie.Gedcom.Parser
             var sortOrder = person1.CompareTo(person2);
 
             Assert.Equal(0, sortOrder);
+        }
+
+        [Fact]
+        private void Individuals_with_different_sex_are_not_similar()
+        {
+            var person1 = gedcomDb.NamedPerson("Ryan");
+            var person2 = gedcomDb.NamedPerson("Ryan");
+            person2.Sex = Gedcom.Enums.GedcomSex.Male;
+
+            Assert.False(person1.IsSimilar(person2));
+        }
+
+        [Fact]
+        private void Individuals_with_different_sex_are_not_equal()
+        {
+            var person1 = gedcomDb.NamedPerson("Ryan");
+            var person2 = gedcomDb.NamedPerson("Ryan");
+            person2.Sex = Gedcom.Enums.GedcomSex.Male;
+
+            Assert.NotEqual(person1, person2);
         }
 
         [Fact]

@@ -35,7 +35,7 @@ namespace GeneGenie.Gedcom.Tests.DataHelperExtensions
             personName.Level = 1;
             personName.Database = gedcomDb;
             personName.Name = name;
-            personName.PreferedName = true;
+            personName.PreferredName = true;
 
             var person = new GedcomIndividualRecord(gedcomDb);
             person.Names.Clear();
@@ -64,7 +64,7 @@ namespace GeneGenie.Gedcom.Tests.DataHelperExtensions
                     personName.Given = givenName;
                 }
 
-                personName.PreferedName = true;
+                personName.PreferredName = true;
                 if (!string.IsNullOrWhiteSpace(surname))
                 {
                     personName.Surname = surname;

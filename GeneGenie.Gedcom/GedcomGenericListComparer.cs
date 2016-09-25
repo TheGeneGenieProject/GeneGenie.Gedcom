@@ -35,7 +35,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// True if they match, otherwise false.
         /// </returns>
-        public static bool CompareLists<T>(List<T> list1, List<T> list2)
+        public static bool CompareGedcomRecordLists<T>(List<T> list1, List<T> list2)
             where T : GedcomRecord
         {
             if (list1.Count != list2.Count)
@@ -47,8 +47,27 @@ namespace GeneGenie.Gedcom
             var sortedList2 = list2.OrderBy(n => n.AutomatedRecordID).ToList();
             for (int i = 0; i < sortedList1.Count; i++)
             {
-                // Call the Equals on the record that should be overriden and comparing by the user entered content.
-                if (!sortedList1.ElementAt(i).Equals(sortedList2.ElementAt(i)))
+                if (!Equals(sortedList1.ElementAt(i), sortedList2.ElementAt(i)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static bool CompareLists<T>(List<T> list1, List<T> list2)
+        {
+            if (list1.Count != list2.Count)
+            {
+                return false;
+            }
+
+            var sortedList1 = list1.OrderBy(n => n).ToList();
+            var sortedList2 = list2.OrderBy(n => n).ToList();
+            for (int i = 0; i < sortedList1.Count; i++)
+            {
+                if (!Equals(sortedList1.ElementAt(i), sortedList2.ElementAt(i)))
                 {
                     return false;
                 }

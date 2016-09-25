@@ -100,7 +100,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The application system identifier.
         /// </value>
-        public string ApplicationSystemID { get; set; } = "GeneGenie.Gedcom";
+        public string ApplicationSystemId { get; set; } = "GeneGenie.Gedcom";
 
         /// <summary>
         /// Gets or sets the corporation.
@@ -361,7 +361,7 @@ namespace GeneGenie.Gedcom
             sw.Write("0 HEAD");
 
             sw.Write(Environment.NewLine);
-            sw.Write("1 SOUR {0}", ApplicationSystemID);
+            sw.Write("1 SOUR {0}", ApplicationSystemId);
 
             if (!string.IsNullOrEmpty(ApplicationName))
             {
@@ -446,8 +446,7 @@ namespace GeneGenie.Gedcom
             if (hasSubmitter)
             {
                 sw.Write(Environment.NewLine);
-                sw.Write("1 SUBM ");
-                sw.Write(submitterXRefID);
+                sw.Write($"1 SUBM {submitterXRefID}");
             }
         }
 
@@ -455,10 +454,12 @@ namespace GeneGenie.Gedcom
         /// Checks if the passed header is equal in terms of user content to the current instance.
         /// If new fields are added to the header they should also be added in here for comparison.
         /// </summary>
-        /// <param name="header">The header to compare against this instance.</param>
+        /// <param name="obj">The object to compare against this instance.</param>
         /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
-        public bool Equals(GedcomHeader header)
+        public override bool IsSimilar(object obj)
         {
+            var header = obj as GedcomHeader;
+
             if (header == null)
             {
                 return false;
@@ -469,7 +470,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(ApplicationSystemID, header.ApplicationSystemID))
+            if (!Equals(ApplicationSystemId, header.ApplicationSystemId))
             {
                 return false;
             }
@@ -529,13 +530,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            return base.Equals(header);
-        }
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as GedcomHeader);
+            return true;
         }
 
         /// <inheritdoc/>
@@ -547,7 +542,7 @@ namespace GeneGenie.Gedcom
                 int hash = 17;
 
                 hash *= 23 + ApplicationName.GetHashCode();
-                hash *= 23 + ApplicationSystemID.GetHashCode();
+                hash *= 23 + ApplicationSystemId.GetHashCode();
                 hash *= 23 + ApplicationVersion.GetHashCode();
                 hash *= 23 + ContentDescription.GetHashCode();
                 hash *= 23 + Copyright.GetHashCode();

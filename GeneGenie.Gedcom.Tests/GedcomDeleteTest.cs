@@ -73,12 +73,12 @@ namespace GeneGenie.Gedcom
         {
             var reader = GedcomRecordReader.CreateReader(".\\Data\\multiple-sources.ged");
             var sourceId = reader.Parser.XrefCollection["SRC1"];
-            var originalRefCount = reader.Database[sourceId].RefCount;
+            var originalSourceCount = reader.Database.Sources.Count;
 
             reader.Database.Individuals.First().Delete();
 
-            Assert.Equal(1, originalRefCount);
-            Assert.Null(reader.Database[sourceId]);
+            Assert.Equal(3, originalSourceCount);
+            Assert.Equal(2, reader.Database.Sources.Count);
         }
 
         [Fact]

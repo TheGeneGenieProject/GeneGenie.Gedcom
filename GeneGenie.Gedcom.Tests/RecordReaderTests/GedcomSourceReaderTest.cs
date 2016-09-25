@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     public class GedcomSourceReaderTest
     {
         [Fact]
-        private void Correct_number_of_sourced_loaded_for_individual()
+        private void Correct_number_of_sources_loaded_for_individual()
         {
             var reader = GedcomRecordReader.CreateReader(".\\Data\\multiple-sources.ged");
             string personId = reader.Parser.XrefCollection["P1"];

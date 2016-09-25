@@ -993,5 +993,72 @@ namespace GeneGenie.Gedcom
                 sw.Write(Util.IntToString((int)Certainty));
             }
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var eventRecord = obj as GedcomEvent;
+
+            if (eventRecord == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Address, eventRecord.Address))
+            {
+                return false;
+            }
+
+            if (!Equals(Cause, eventRecord.Cause))
+            {
+                return false;
+            }
+
+            if (!Equals(Certainty, eventRecord.Certainty))
+            {
+                return false;
+            }
+
+            if (!Equals(ChangeDate, eventRecord.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!Equals(Classification, eventRecord.Classification))
+            {
+                return false;
+            }
+
+            if (!Equals(Date, eventRecord.Date))
+            {
+                return false;
+            }
+
+            if (!Equals(EventName, eventRecord.EventName))
+            {
+                return false;
+            }
+
+            if (!Equals(EventType, eventRecord.EventType))
+            {
+                return false;
+            }
+
+            if (!Equals(Place, eventRecord.Place))
+            {
+                return false;
+            }
+
+            if (!Equals(ReligiousAffiliation, eventRecord.ReligiousAffiliation))
+            {
+                return false;
+            }
+
+            if (!Equals(ResponsibleAgency, eventRecord.ResponsibleAgency))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

@@ -24,7 +24,6 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using Data;
     using Enums;
-    using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.
@@ -380,6 +379,11 @@ namespace GeneGenie.Gedcom
             }
 
             return ret;
+        }
+
+        public override bool IsSimilar(object obj)
+        {
+            return CompareByDate(this, obj as GedcomDate) == 0;
         }
 
         /// <summary>

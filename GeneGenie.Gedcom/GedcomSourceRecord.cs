@@ -706,5 +706,92 @@ namespace GeneGenie.Gedcom
                 }
             }
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var source = obj as GedcomSourceRecord;
+
+            if (source == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Agency, source.Agency))
+            {
+                return false;
+            }
+
+            if (!Equals(ChangeDate, source.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareGedcomRecordLists(Citations, source.Citations))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(DataNotes, source.DataNotes))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(EventsRecorded, source.EventsRecorded))
+            {
+                return false;
+            }
+
+            if (!Equals(FiledBy, source.FiledBy))
+            {
+                return false;
+            }
+
+            if (!Equals(Originator, source.Originator))
+            {
+                return false;
+            }
+
+            if (!Equals(OriginatorText, source.OriginatorText))
+            {
+                return false;
+            }
+
+            if (!Equals(PublicationFacts, source.PublicationFacts))
+            {
+                return false;
+            }
+
+            if (!Equals(PublicationText, source.PublicationText))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareGedcomRecordLists(RepositoryCitations, source.RepositoryCitations))
+            {
+                return false;
+            }
+
+            if (!Equals(Text, source.Text))
+            {
+                return false;
+            }
+
+            if (!Equals(TextText, source.TextText))
+            {
+                return false;
+            }
+
+            if (!Equals(Title, source.Title))
+            {
+                return false;
+            }
+
+            if (!Equals(TitleText, source.TitleText))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

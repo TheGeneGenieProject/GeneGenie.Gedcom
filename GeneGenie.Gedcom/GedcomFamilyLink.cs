@@ -19,6 +19,7 @@
 
 namespace GeneGenie.Gedcom
 {
+    using System;
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
@@ -80,12 +81,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets the indi.
+        /// Gets or sets the individual being linked in this family record.
         /// </summary>
-        /// <value>
-        /// The indi.
-        /// </value>
-        public string Indi
+        public string Individual
         {
             get
             {
@@ -206,6 +204,53 @@ namespace GeneGenie.Gedcom
         {
             get { return preferedSpouse; }
             set { preferedSpouse = value; }
+        }
+
+        public override bool IsSimilar(object obj)
+        {
+            var link = obj as GedcomFamilyLink;
+
+            if (link == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Family, link.Family))
+            {
+                return false;
+            }
+
+            if (!Equals(FatherPedigree, link.FatherPedigree))
+            {
+                return false;
+            }
+
+            if (!Equals(Individual, link.Individual))
+            {
+                return false;
+            }
+
+            if (!Equals(MotherPedigree, link.MotherPedigree))
+            {
+                return false;
+            }
+
+            if (!Equals(Pedigree, link.Pedigree))
+            {
+                return false;
+            }
+
+            if (!Equals(PreferedSpouse, link.PreferedSpouse))
+            {
+                return false;
+            }
+
+            if (!Equals(Status, link.Status))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -300,9 +300,9 @@ namespace GeneGenie.Gedcom.Parser
 
                     // brothers keeper doesn't output a source name, so set the name to
                     // the same as the ID if it is empty
-                    if (string.IsNullOrEmpty(header.ApplicationName) && !string.IsNullOrEmpty(header.ApplicationSystemID))
+                    if (string.IsNullOrEmpty(header.ApplicationName) && !string.IsNullOrEmpty(header.ApplicationSystemId))
                     {
-                        header.ApplicationName = header.ApplicationSystemID;
+                        header.ApplicationName = header.ApplicationSystemId;
                     }
                 }
 
@@ -322,7 +322,7 @@ namespace GeneGenie.Gedcom.Parser
                                 famLink = new GedcomFamilyLink();
                                 famLink.Database = Database;
                                 famLink.Family = family.XRefID;
-                                famLink.Indi = husbandID;
+                                famLink.Individual = husbandID;
                                 famLink.Level = 1;
                                 famLink.PreferedSpouse = husband.SpouseIn.Count == 0;
                                 husband.SpouseIn.Add(famLink);
@@ -347,7 +347,7 @@ namespace GeneGenie.Gedcom.Parser
                                 famLink = new GedcomFamilyLink();
                                 famLink.Database = Database;
                                 famLink.Family = family.XRefID;
-                                famLink.Indi = wifeID;
+                                famLink.Individual = wifeID;
                                 famLink.Level = 1;
                                 wife.SpouseIn.Add(famLink);
                             }
@@ -372,7 +372,7 @@ namespace GeneGenie.Gedcom.Parser
                                 famLink = new GedcomFamilyLink();
                                 famLink.Database = Database;
                                 famLink.Family = family.XRefID;
-                                famLink.Indi = childID;
+                                famLink.Individual = childID;
                                 famLink.Level = 1;
                                 famLink.Status = ChildLinkageStatus.Unknown;
 
@@ -1085,7 +1085,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "SOUR":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            headerRecord.ApplicationSystemID = lineValue;
+                            headerRecord.ApplicationSystemId = lineValue;
                         }
 
                         break;
@@ -1767,7 +1767,7 @@ namespace GeneGenie.Gedcom.Parser
                             GedcomFamilyLink childIn = new GedcomFamilyLink();
                             childIn.Level = level;
                             childIn.Family = lineValue;
-                            childIn.Indi = individualRecord.XRefID;
+                            childIn.Individual = individualRecord.XRefID;
 
                             missingReferences.Add(lineValue);
 
@@ -1782,7 +1782,7 @@ namespace GeneGenie.Gedcom.Parser
                             GedcomFamilyLink spouseIn = new GedcomFamilyLink();
                             spouseIn.Level = level;
                             spouseIn.Family = lineValue;
-                            spouseIn.Indi = individualRecord.XRefID;
+                            spouseIn.Individual = individualRecord.XRefID;
                             spouseIn.PreferedSpouse = individualRecord.SpouseIn.Count == 0;
 
                             missingReferences.Add(lineValue);
@@ -1830,7 +1830,7 @@ namespace GeneGenie.Gedcom.Parser
                             name.Database = parseState.Database;
                             name.Level = level;
                             name.Name = lineValue;
-                            name.PreferedName = individualRecord.Names.Count == 0;
+                            name.PreferredName = individualRecord.Names.Count == 0;
 
                             individualRecord.Names.Add(name);
                             parseState.Records.Push(name);
@@ -1847,7 +1847,7 @@ namespace GeneGenie.Gedcom.Parser
                             name.Level = level;
                             name.Name = lineValue;
                             name.Type = "aka";
-                            name.PreferedName = individualRecord.Names.Count == 0;
+                            name.PreferredName = individualRecord.Names.Count == 0;
                             individualRecord.Names.Add(name);
                         }
 
@@ -1921,7 +1921,7 @@ namespace GeneGenie.Gedcom.Parser
                             name.Level = level;
                             name.Name = lineValue;
                             name.Type = "aka";
-                            name.PreferedName = individualRecord.Names.Count == 0;
+                            name.PreferredName = individualRecord.Names.Count == 0;
                             individualRecord.Names.Add(name);
                         }
 

@@ -20,6 +20,7 @@
 namespace GeneGenie.Gedcom
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Enums;
 
@@ -31,7 +32,7 @@ namespace GeneGenie.Gedcom
     {
         private string name;
         private GedcomAddress address;
-        private string[] languagePreferences;
+        private List<string> languagePreferences;
         private string registeredRFN;
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         public GedcomSubmitterRecord()
         {
-            LanguagePreferences = new string[3];
+            LanguagePreferences = new List<string>(3);
         }
 
         /// <summary>
@@ -131,7 +132,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The language preferences.
         /// </value>
-        public string[] LanguagePreferences
+        public List<string> LanguagePreferences
         {
             get
             {
@@ -263,6 +264,43 @@ namespace GeneGenie.Gedcom
             }
 
             OutputStandard(sw);
+        }
+
+        public override bool IsSimilar(object obj)
+        {
+            var submitter = obj as GedcomSubmitterRecord;
+
+            if (submitter == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Address, submitter.Address))
+            {
+                return false;
+            }
+
+            if (!Equals(ChangeDate, submitter.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(LanguagePreferences, submitter.LanguagePreferences))
+            {
+                return false;
+            }
+
+            if (!Equals(Name, submitter.Name))
+            {
+                return false;
+            }
+
+            if (!Equals(RegisteredRFN, submitter.RegisteredRFN))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

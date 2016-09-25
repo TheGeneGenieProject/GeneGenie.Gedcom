@@ -212,30 +212,34 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal (in contents, not structure) to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <param name="gedcomDb">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
         ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Equals(object obj)
+        public bool Equals(GedcomDatabase gedcomDb)
         {
-            var gedcomDb = obj as GedcomDatabase;
-
             if (gedcomDb == null)
             {
                 return false;
             }
 
-            if (Header != gedcomDb.Header)
+            if (!Equals(Header, gedcomDb.Header))
             {
                 return false;
             }
 
-            if (!Individuals.OrderBy(i => i.AutomatedRecordID).SequenceEqual(gedcomDb.Individuals.OrderBy(i => i.AutomatedRecordID)))
+            if (!GedcomGenericListComparer.CompareGedcomRecordLists(Individuals, gedcomDb.Individuals))
             {
                 return false;
             }
 
             return true;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GedcomDatabase);
         }
 
         /// <inheritdoc/>

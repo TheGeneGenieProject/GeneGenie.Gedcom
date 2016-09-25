@@ -242,5 +242,32 @@ namespace GeneGenie.Gedcom
                 }
             }
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var media = obj as GedcomMultimediaRecord;
+
+            if (media == null)
+            {
+                return false;
+            }
+
+            if (!Equals(ChangeDate, media.ChangeDate))
+            {
+                return false;
+            }
+
+            if (!GedcomGenericListComparer.CompareLists(Files, media.Files))
+            {
+                return false;
+            }
+
+            if (!Equals(Title, media.Title))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

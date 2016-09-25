@@ -20,33 +20,26 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// The gender / sex of an individual.
     /// </summary>
     public enum GedcomSex
     {
-        /// <summary>
-        /// The undetermined
-        /// </summary>
+        /// <summary>The sex of the individual has not been set yet and is equivalent to null.</summary>
+        NotSet = 0,
+
+        /// <summary>Undetermined from available records and not quite sure what the sex is./// </summary>
         Undetermined,
 
-        /// <summary>
-        /// The male
-        /// </summary>
+        /// <summary>The individual is male.</summary>
         Male,
 
-        /// <summary>
-        /// The female
-        /// </summary>
+        /// <summary>The individual is female.</summary>
         Female,
 
-        /// <summary>
-        /// The both
-        /// </summary>
+        /// <summary>The individual is both male and female.</summary>
         Both,
 
-        /// <summary>
-        /// The neuter
-        /// </summary>
+        /// <summary>The individual is neuter.</summary>
         Neuter
     }
 }

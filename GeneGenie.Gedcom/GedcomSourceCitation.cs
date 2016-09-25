@@ -420,5 +420,47 @@ namespace GeneGenie.Gedcom
                 sw.Write(Util.IntToString((int)Certainty));
             }
         }
+
+        public override bool IsSimilar(object obj)
+        {
+            var citation = obj as GedcomSourceCitation;
+
+            if (citation == null)
+            {
+                return false;
+            }
+
+            if (!Equals(Certainty, citation.Certainty))
+            {
+                return false;
+            }
+
+            if (!Equals(Date, citation.Date))
+            {
+                return false;
+            }
+
+            if (!Equals(EventType, citation.EventType))
+            {
+                return false;
+            }
+
+            if (!Equals(Page, citation.Page))
+            {
+                return false;
+            }
+
+            if (!Equals(Role, citation.Role))
+            {
+                return false;
+            }
+
+            if (!Equals(Text, citation.Text))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
