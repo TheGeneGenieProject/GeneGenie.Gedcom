@@ -3599,12 +3599,9 @@ namespace GeneGenie.Gedcom.Parser
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
                             // only 3 lang are allowed
-                            for (int i = 0; i < 3; i++)
+                            if (submitterRecord.LanguagePreferences.Count < 3)
                             {
-                                if (string.IsNullOrEmpty(submitterRecord.LanguagePreferences[i]))
-                                {
-                                    submitterRecord.LanguagePreferences[i] = lineValue;
-                                }
+                                submitterRecord.LanguagePreferences.Add(lineValue);
                             }
                         }
 
