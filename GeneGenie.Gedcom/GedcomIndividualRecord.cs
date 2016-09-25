@@ -701,12 +701,13 @@ namespace GeneGenie.Gedcom
                 return individual.Sex.CompareTo(Sex);
             }
 
-            var nameCompare = GedcomNameListComparer.CompareNames(Names, individual.Names);
+            var nameCompare = GedcomGenericListComparer.CompareListSortOrders(Names, individual.Names);
             if (nameCompare != 0)
             {
                 return nameCompare;
             }
 
+            // TODO: Put more property tests in here.
             return 0;
         }
 

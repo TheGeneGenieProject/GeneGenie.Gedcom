@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// A name for a given individual, allowing different variations to be
     /// stored.
     /// </summary>
-    public class GedcomName : GedcomRecord
+    public class GedcomName : GedcomRecord, IComparable<GedcomName>
     {
         private string type;
 
@@ -520,23 +520,16 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Compares two GedcomName instances by using the full name.
         /// </summary>
-        /// <param name="name1">The first name to compare.</param>
-        /// <param name="name2">The second name to compare.</param>
+        /// <param name="other">The name to compare against this instance.</param>
         /// <returns>An integer specifying the relative sort order.</returns>
-        public static int CompareByName(GedcomName name1, GedcomName name2)
+        public int CompareTo(GedcomName other)
         {
-            int ret = -1;
-
-            if (name1 != null && name2 != null)
+            if (other == null)
             {
-                ret = string.Compare(name1.Name, name2.Name);
-            }
-            else if (name1 != null)
-            {
-                ret = 1;
+                return 1;
             }
 
-            return ret;
+            return string.Compare(Name, other.Name);
         }
 
         /// <summary>
@@ -548,7 +541,7 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public override bool IsSimilar(object obj)
         {
-            return CompareByName(this, obj as GedcomName) == 0;
+            return CompareTo(obj as GedcomName) == 0;
         }
 
         /// <summary>

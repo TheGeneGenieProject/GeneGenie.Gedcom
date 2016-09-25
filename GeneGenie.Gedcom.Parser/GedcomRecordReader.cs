@@ -1608,7 +1608,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            familyRecord.AutomatedRecordID = lineValue;
+                            familyRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;
@@ -1966,7 +1966,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            individualRecord.AutomatedRecordID = lineValue;
+                            individualRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;
@@ -2777,7 +2777,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            multimediaRecord.AutomatedRecordID = lineValue;
+                            multimediaRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;
@@ -2874,7 +2874,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            noteRecord.AutomatedRecordID = lineValue;
+                            noteRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;
@@ -3080,7 +3080,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            repositoryRecord.AutomatedRecordID = lineValue;
+                            repositoryRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;
@@ -3234,7 +3234,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            sourceRecord.AutomatedRecordID = lineValue;
+                            sourceRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;
@@ -3616,7 +3616,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            submitterRecord.AutomatedRecordID = lineValue;
+                            submitterRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;
@@ -3717,7 +3717,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "RIN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            submissionRecord.AutomatedRecordID = lineValue;
+                            submissionRecord.AutomatedRecordId = lineValue;
                         }
 
                         break;

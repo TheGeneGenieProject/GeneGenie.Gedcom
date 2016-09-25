@@ -18,6 +18,7 @@
 
 namespace GeneGenie.Gedcom
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -44,8 +45,8 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            var sortedList1 = list1.OrderBy(n => n.AutomatedRecordID).ToList();
-            var sortedList2 = list2.OrderBy(n => n.AutomatedRecordID).ToList();
+            var sortedList1 = list1.OrderBy(n => n.AutomatedRecordId).ToList();
+            var sortedList2 = list2.OrderBy(n => n.AutomatedRecordId).ToList();
             for (int i = 0; i < sortedList1.Count; i++)
             {
                 if (!Equals(sortedList1.ElementAt(i), sortedList2.ElementAt(i)))
@@ -85,6 +86,43 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compares two lists of records to see if they are equal.
+        /// The records must implement IComparable and inherit from GedcomRecord.
+        /// </summary>
+        /// <typeparam name="T">A type that inherits from GedcomRecord and implements IComparable.</typeparam>
+        /// <param name="list1">The first list of records.</param>
+        /// <param name="list2">The second list of records.</param>
+        /// <returns>
+        /// Returns an integer that indicates their relative position in the sort order.
+        /// </returns>
+        public static int CompareListSortOrders<T>(List<T> list1, List<T> list2)
+            where T : GedcomRecord, IComparable<T>
+        {
+            if (list1.Count > list2.Count)
+            {
+                return 1;
+            }
+
+            if (list1.Count < list2.Count)
+            {
+                return -1;
+            }
+
+            var sortedList1 = list1.OrderBy(n => n.AutomatedRecordId).ToList();
+            var sortedList2 = list2.OrderBy(n => n.AutomatedRecordId).ToList();
+            for (int i = 0; i < sortedList1.Count; i++)
+            {
+                var compare = sortedList1.ElementAt(i).CompareTo(sortedList2.ElementAt(i));
+                if (compare != 0)
+                {
+                    return compare;
+                }
+            }
+
+            return 0;
         }
     }
 }

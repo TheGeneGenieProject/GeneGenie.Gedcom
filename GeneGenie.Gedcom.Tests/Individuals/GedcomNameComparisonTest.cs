@@ -43,7 +43,7 @@ namespace GeneGenie.Gedcom.Parser
             var list1 = new List<GedcomName> { new GedcomName() };
             var list2 = new List<GedcomName> { };
 
-            Assert.Equal(1, GedcomNameListComparer.CompareNames(list1, list2));
+            Assert.Equal(1, GedcomGenericListComparer.CompareListSortOrders(list1, list2));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace GeneGenie.Gedcom.Parser
             var list1 = new List<GedcomName> { };
             var list2 = new List<GedcomName> { new GedcomName() };
 
-            Assert.Equal(-1, GedcomNameListComparer.CompareNames(list1, list2));
+            Assert.Equal(-1, GedcomGenericListComparer.CompareListSortOrders(list1, list2));
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace GeneGenie.Gedcom.Parser
             var list1 = new List<GedcomName> { new GedcomName() };
             var list2 = new List<GedcomName> { new GedcomName() };
 
-            Assert.Equal(0, GedcomNameListComparer.CompareNames(list1, list2));
+            Assert.Equal(0, GedcomGenericListComparer.CompareListSortOrders(list1, list2));
         }
 
         [Fact]

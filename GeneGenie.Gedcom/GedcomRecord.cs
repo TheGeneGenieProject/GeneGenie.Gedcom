@@ -50,7 +50,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// The automated record identifier
         /// </summary>
-        private string automatedRecordID;
+        private string automatedRecordId;
 
         /// <summary>
         /// The change date
@@ -205,18 +205,18 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The automated record identifier.
         /// </value>
-        public string AutomatedRecordID
+        public string AutomatedRecordId
         {
             get
             {
-                return automatedRecordID;
+                return automatedRecordId;
             }
 
             set
             {
-                if (value != automatedRecordID)
+                if (value != automatedRecordId)
                 {
-                    automatedRecordID = value;
+                    automatedRecordId = value;
                     Changed();
                 }
             }
@@ -801,7 +801,7 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            if (!string.IsNullOrEmpty(AutomatedRecordID))
+            if (!string.IsNullOrEmpty(AutomatedRecordId))
             {
                 if (levelPlusOne == null)
                 {
@@ -811,7 +811,7 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" RIN ");
-                string line = AutomatedRecordID.Replace("@", "@@");
+                string line = AutomatedRecordId.Replace("@", "@@");
                 sw.Write(line);
             }
         }
