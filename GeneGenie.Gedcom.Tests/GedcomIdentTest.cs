@@ -19,7 +19,6 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
-    using System.IO;
     using System.Linq;
     using Xunit;
 
@@ -37,7 +36,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Fact]
-        private void Three_lines_of_notes_are_read_when_dodgy_spec_is_used()
+        private void Multiline_note_is_read_when_dodgy_ident_tag_is_used()
         {
             var reader = Read(".\\Data\\superfluous-ident-test.ged");
 
@@ -47,7 +46,14 @@ namespace GeneGenie.Gedcom.Parser
             Assert.Equal("First line of a note.\r\nSecond line of a note.\r\nThird line of a note.", note.Text);
         }
 
-        /* TODO: Tests for read count, read content, write notes. See http://wiki-en.genealogy.net/GEDCOM/NOTE-Tag
-         * */
+        [Fact]
+        private void Multiline_note_is_parsed_as_one_note()
+        {
+            var reader = Read(".\\Data\\superfluous-ident-test.ged");
+
+            var noteXref = reader.Database.Individuals.Single().Notes.First();
+
+            Assert.Equal(1, reader.Database.Notes.Count);
+        }
     }
 }
