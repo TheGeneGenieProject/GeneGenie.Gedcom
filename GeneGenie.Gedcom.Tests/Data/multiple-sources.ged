@@ -1,0 +1,110 @@
+0 HEAD
+1 CHAR UTF-8
+1 SOUR Ancestry.com Family Trees
+2 VERS (2010.3)
+2 NAME Ancestry.com Family Trees
+2 CORP Ancestry.com
+1 GEDC
+2 VERS 5.5
+2 FORM LINEAGE-LINKED
+0 @P1@ INDI 
+1 BIRT 
+2 DATE 10 Jan 1910
+2 PLAC Luton, Bedfordshire, England
+2 SOUR @SRC1@
+3 PAGE Citation 1
+3 DATA
+4 DATE Citation 1 date
+3 NOTE Citation 1 address
+3 NOTE Citation 1 info
+3 DATA
+4 TEXT Citation 1 text
+1 DEAT 
+2 DATE 9 Jan 1990
+2 PLAC Luton, Bedfordshire, England
+2 SOUR @SRC2@
+3 PAGE Citation 2
+3 DATA
+4 DATE Citation 2 date
+3 NOTE Citation 2 information
+3 DATA
+4 TEXT Citation 2 text
+1 SEX M
+1 NAME Given Middle /Person1Surname/ Jr
+1 FAMS @F1@
+0 @P2@ INDI 
+1 DEAT 
+2 DATE 31 Dec 1999
+2 PLAC Bedfordshire, England
+2 SOUR @SRC3@
+3 PAGE Citation 3
+3 DATA
+4 DATE Citation 3 date
+3 NOTE Citation 3 web address
+3 NOTE Citation 3 information
+3 DATA
+4 TEXT Citation 3 text
+1 BIRT 
+2 DATE 1 Apr 1914
+2 PLAC Bedfordshire, England
+2 SOUR @SRC2@
+3 PAGE Citation 3
+3 DATA
+4 DATE Citation 3 date
+3 NOTE Citation 3 web address
+3 NOTE Citation 3 information
+3 DATA
+4 TEXT Citation 3 text
+1 SEX F
+1 NAME Given2 Middle2 /Person2Surname/ Sr
+1 FAMS @F1@
+0 @F1@ FAM 
+1 HUSB @P1@
+1 WIFE @P2@
+1 NOTE Family note.
+0 @R150224420@ REPO
+1 RFN Reference
+1 NAME Repository 1
+1 PHON 12112121212
+1 ADDR Bedfordshire
+1 CALN 1
+1 NOTE Note
+0 @R150224421@ REPO
+1 RFN Repository 2 reference
+1 NAME Repository 2
+1 PHON 2222222222222
+1 ADDR Repository 2 address
+1 CALN 22222222222
+1 NOTE Repository 2 note
+0 @R150224422@ REPO
+1 RFN Repository 3 reference
+1 NAME Repository 3
+1 PHON 3333333333
+1 ADDR Repository 3 address
+1 CALN 333333333333
+1 NOTE Repository 3 note
+0 @SRC1@ SOUR
+1 REPO @R150224420@
+1 RFN Source 1 reference
+1 TITL Source 1
+1 AUTH Source 1 author
+1 PUBL Source 1 publisher
+1 CALN 11111111111
+1 NOTE Should be used by person 1
+0 @SRC2@ SOUR
+1 REPO @R150224421@
+1 RFN Source 2 reference
+1 TITL Source 2
+1 AUTH Source 2 author
+1 PUBL Source 2 publisher
+1 CALN 2222222222222222
+1 NOTE Source 2 note
+0 @SRC3@ SOUR
+1 REPO @R150224422@
+1 RFN Source 3 reference
+1 TITL Source 3
+1 AUTH Source 3 author
+1 PUBL Source 3 publisher
+1 CALN 333333333333333333
+1 NOTE Source 3 note
+0 TRLR

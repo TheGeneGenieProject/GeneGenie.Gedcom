@@ -1,0 +1,23 @@
+﻿0 HEAD
+1 SOUR TJ
+2 NAME Tamura Jones
+2 VERS 1.0
+1 DATE 9 Sep 2013
+1 FILE IdentCONT.GED
+1 NOTE Test File: CONT line with identifier.
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+1 LANG English
+1 SUBM @U1@
+0 @U1@ SUBM
+1 NAME Name
+0 @I1@ INDI
+1 NAME One /Note/
+2 SURN Note
+2 GIVN One
+1 NOTE First line of a note.
+2 @IDENT@ CONT Second line of a note.
+2 CONT Third line of a note.
+0 TRLR
