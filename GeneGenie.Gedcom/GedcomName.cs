@@ -549,15 +549,15 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>TODO: Doc</returns>
-        public float IsMatch(GedcomName name)
+        public decimal IsMatch(GedcomName name)
         {
-            float match = 0F;
+            var match = decimal.Zero;
 
             int parts = 0;
 
             // TODO: perform soundex check as well?
             // how would that effect returning a % match?
-            float matches = 0;
+            var matches = decimal.Zero;
 
             bool surnameMatched = false;
 
@@ -632,14 +632,14 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            match = (matches / parts) * 100.0F;
+            match = (matches / parts) * 100m;
 
             // TODO: heavily penalise the surname not matching
             // for this to work correctly better matching needs to be
             // performed, not just string comparison
             if (!surnameMatched)
             {
-                match *= 0.25F;
+                match *= 0.25m;
             }
 
             return match;

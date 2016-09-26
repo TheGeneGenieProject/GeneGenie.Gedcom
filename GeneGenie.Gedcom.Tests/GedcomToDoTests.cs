@@ -47,7 +47,6 @@ namespace GeneGenie.Gedcom.Tests
                 Names
                 Events (birth and death?)
                 Notes
-            Do we need CompareTo or can we just use equals? This changes ListComparer. See if we can drop CompareTo.
         2) Tags missed from rewrite tests.
         3) Proper tests for missing / corrupted tags on all ged files, can we use a memory stream to avoid writing to the file system?
         4) Plan for iComparable etc on all records, have as a virtual.

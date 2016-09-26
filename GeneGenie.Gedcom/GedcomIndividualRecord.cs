@@ -1071,66 +1071,67 @@ namespace GeneGenie.Gedcom
         // % match
 
         /// <summary>
-        /// Determines whether the specified indi is match.
+        /// Determines whether the passed individual is a match for the current instance
+        /// based on key user entered data.
         /// </summary>
-        /// <param name="indi">The indi.</param>
+        /// <param name="individual">The individual to compare.</param>
         /// <returns>TODO: Doc</returns>
-        public float IsMatch(GedcomIndividualRecord indi)
+        public decimal IsMatch(GedcomIndividualRecord individual)
         {
-            float match = 0F;
+            var match = decimal.Zero;
 
             // check name
-            float nameMatch = 0F;
-            foreach (GedcomName indiName in indi.Names)
+            var nameMatch = decimal.Zero;
+            foreach (GedcomName indiName in individual.Names)
             {
                 foreach (GedcomName name in Names)
                 {
-                    float currentNameMatch = name.IsMatch(indiName);
+                    var currentNameMatch = name.IsMatch(indiName);
 
                     nameMatch = Math.Max(nameMatch, currentNameMatch);
                 }
             }
 
             // 0% name match would be pointless checking other details
-            if (nameMatch != 0)
+            if (nameMatch != decimal.Zero)
             {
                 // check gender
-                float genderMatch = 0;
-                if (Sex == indi.Sex)
+                var genderMatch = decimal.Zero;
+                if (Sex == individual.Sex)
                 {
-                    genderMatch = 100.0F;
+                    genderMatch = 100m;
                 }
 
                 // check dob
-                float dobMatch = 0F;
+                var dobMatch = decimal.Zero;
                 GedcomEvent birth = Birth;
-                GedcomEvent indiBirth = indi.Birth;
+                GedcomEvent indiBirth = individual.Birth;
                 if (birth != null && indiBirth != null)
                 {
                     dobMatch = birth.IsMatch(indiBirth);
                 }
                 else if (birth == null && indiBirth == null)
                 {
-                    dobMatch = 100.0F;
+                    dobMatch = 100m;
                 }
 
                 // check dod
-                float dodMatch = 0F;
+                var dodMatch = decimal.Zero;
                 GedcomEvent death = Death;
-                GedcomEvent indiDeath = indi.Death;
+                GedcomEvent indiDeath = individual.Death;
                 if (death != null && indiDeath != null)
                 {
                     dodMatch = death.IsMatch(indiDeath);
                 }
                 else if (death == null && indiDeath == null)
                 {
-                    dodMatch = 100.0F;
+                    dodMatch = 100m;
                 }
 
                 // check parents ?
 
                 // System.Console.WriteLine("name: " + nameMatch + "\tdob: " + dobMatch + "\tdod: " + dodMatch);
-                match = (nameMatch + genderMatch + dobMatch + dodMatch) / 4.0F;
+                match = (nameMatch + genderMatch + dobMatch + dodMatch) / 4m;
             }
 
             return match;

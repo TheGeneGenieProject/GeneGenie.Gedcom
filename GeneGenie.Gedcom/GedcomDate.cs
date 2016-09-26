@@ -427,58 +427,56 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="date">TODO: Doc 2</param>
         /// <returns>TODO: Doc 3</returns>
-        public float IsMatch(GedcomDate date)
+        public decimal IsMatch(GedcomDate date)
         {
-            float match = 0F;
+            var match = decimal.Zero;
 
             if (Date1 == date.Date1 && Date2 == date.Date2 && DatePeriod == date.DatePeriod)
             {
-                match = 100.0F;
+                return 100m;
             }
-            else
+
+            // compare date components in DateTime if present
+            var matches = decimal.Zero;
+            int parts = 0;
+
+            DateTime? dateDate1 = date.DateTime1;
+            DateTime? dateDate2 = date.DateTime2;
+
+            // same type, nice and simple,
+            // range is the same as between as far as we are concerned
+            // for instance an Occupation could have been FROM a TO B
+            // or BETWEEN a AND b
+            // logic doesn't hold for one off events such a birth, but
+            // then a Range doesn't make sense for those anyway so if
+            // we have one should be safe to assume it is Between
+            if (DateType == date.DateType &&
+                (DatePeriod == date.DatePeriod ||
+                (DatePeriod == GedcomDatePeriod.Range && date.DatePeriod == GedcomDatePeriod.Between) ||
+                (DatePeriod == GedcomDatePeriod.Between && date.DatePeriod == GedcomDatePeriod.Range)))
             {
-                // compare date components in DateTime if present
-                float matches = 0;
-                int parts = 0;
+                matches++;
 
-                DateTime? dateDate1 = date.DateTime1;
-                DateTime? dateDate2 = date.DateTime2;
+                // checked 1 value
+                parts++;
 
-                // same type, nice and simple,
-                // range is the same as between as far as we are concerned
-                // for instance an Occupation could have been FROM a TO B
-                // or BETWEEN a AND b
-                // logic doesn't hold for one off events such a birth, but
-                // then a Range doesn't make sense for those anyway so if
-                // we have one should be safe to assume it is Between
-                if (DateType == date.DateType &&
-                    (DatePeriod == date.DatePeriod ||
-                    (DatePeriod == GedcomDatePeriod.Range && date.DatePeriod == GedcomDatePeriod.Between) ||
-                    (DatePeriod == GedcomDatePeriod.Between && date.DatePeriod == GedcomDatePeriod.Range)))
-                {
-                    matches++;
+                parts += partsParsed1;
+                var date1Match = MatchDateTimes(DateTime1, date.DateTime1);
 
-                    // checked 1 value
-                    parts++;
+                // correct for number of date parts parsed
+                date1Match *= partsParsed1 / 3m;
 
-                    parts += 3;
-                    float date1Match = MatchDateTimes(DateTime1, dateDate1);
+                matches += date1Match;
 
-                    // correct for number of date parts parsed
-                    date1Match *= partsParsed1 / 3.0F;
+                parts += partsParsed2;
+                var date2Match = MatchDateTimes(DateTime2, date.DateTime2);
 
-                    matches += date1Match;
+                // correct for number of date parts parsed
+                date2Match *= partsParsed2 / 3m;
 
-                    parts += 3;
-                    float date2Match = MatchDateTimes(DateTime2, dateDate2);
+                matches += date2Match;
 
-                    // correct for number of date parts parsed
-                    date2Match *= partsParsed2 / 3.0F;
-
-                    matches += date2Match;
-
-                    match = (matches / parts) * 100.0F;
-                }
+                match = (matches / parts) * 100m;
             }
 
             return match;
@@ -633,6 +631,7 @@ namespace GeneGenie.Gedcom
                 {
                     // We only got a year, so we need to interpret that as a range from the start to the end of the year.
                     dateTime2 = dateTime1.Value.AddYears(1).AddSeconds(-1);
+                    partsParsed2 = 1;
                     AddParserMessage(ParserMessageIds.InterpretedAsYearRange, inputDate, dateTime1, dateTime2);
                 }
             }
@@ -645,6 +644,7 @@ namespace GeneGenie.Gedcom
                 {
                     // We only got a month and year, so we need to interpret that as a range from the start to the end of the month.
                     dateTime2 = dateTime1.Value.AddMonths(1).AddSeconds(-1);
+                    partsParsed2 = 2;
                     AddParserMessage(ParserMessageIds.InterpretedAsMonthRange, inputDate, dateTime1, dateTime2);
                 }
             }
@@ -796,9 +796,9 @@ namespace GeneGenie.Gedcom
         /// <returns>Returns a float rather than an int to allow for some fuzziness
         /// e.g.  10-11-2000 is 10 NOV 2000 or 11 OCT 2000
         /// </returns>
-        private float MatchDateTimes(DateTime? dateTimeA, DateTime? dateTimeB)
+        private decimal MatchDateTimes(DateTime? dateTimeA, DateTime? dateTimeB)
         {
-            float matches = 0;
+            var matches = decimal.Zero;
 
             if ((dateTimeA == null && dateTimeB == null) ||
                 ((!dateTimeA.HasValue) && (!dateTimeB.HasValue)))
@@ -821,11 +821,11 @@ namespace GeneGenie.Gedcom
 
                     if (a.Year >= b.Year - delta && a.Year <= b.Year + delta)
                     {
-                        matches += 0.25F;
+                        matches += 0.25m;
                     }
                     else if (b.Year >= a.Year - delta && b.Year <= a.Year + delta)
                     {
-                        matches += 0.25F;
+                        matches += 0.25m;
                     }
                 }
 
@@ -853,7 +853,7 @@ namespace GeneGenie.Gedcom
                     // day + month should be +2, however
                     // as this is a fudge to handle diff formats don't
                     // give full weighting
-                    matches += 0.75F;
+                    matches += 0.75m;
                 }
             }
 

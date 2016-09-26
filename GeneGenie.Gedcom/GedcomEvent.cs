@@ -678,21 +678,21 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Determines whether the specified ev is match.
+        /// Determines whether the specified event is a match for this instance based on the date, type of event and place.
         /// </summary>
-        /// <param name="ev">The ev.</param>
+        /// <param name="ev">The event to compare against this instance.</param>
         /// <returns>TODO: Doc</returns>
-        public float IsMatch(GedcomEvent ev)
+        public decimal IsMatch(GedcomEvent ev)
         {
-            float match = 0F;
+            var match = decimal.Zero;
 
             if (ev.EventType == EventType)
             {
                 // match date
-                float dateMatch = 0;
+                var dateMatch = decimal.Zero;
                 if (Date == null && ev.Date == null)
                 {
-                    dateMatch = 100.0F;
+                    dateMatch = 100m;
                 }
                 else if (Date != null && ev.Date != null)
                 {
@@ -700,20 +700,20 @@ namespace GeneGenie.Gedcom
                 }
 
                 // match location
-                float locMatch = 0;
+                var locMatch = decimal.Zero;
                 if (Place == null && ev.Place == null)
                 {
-                    locMatch = 100.0F;
+                    locMatch = 100m;
                 }
                 else if (Place != null && ev.Place != null)
                 {
                     if (Place.Name == ev.Place.Name)
                     {
-                        locMatch = 100.0F;
+                        locMatch = 100m;
                     }
                 }
 
-                match = (dateMatch + locMatch) / 2.0F;
+                match = (dateMatch + locMatch) / 2m;
             }
 
             return match;

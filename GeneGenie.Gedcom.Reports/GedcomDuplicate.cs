@@ -45,7 +45,7 @@ namespace GeneGenie.Gedcom.Reports
         /// <param name="databaseB">The database b.</param>
         /// <param name="matchThreshold">The match threshold.</param>
         /// <returns>A list of duplicate records.</returns>
-        public static List<GedcomIndividualRecord> FindDuplicates(GedcomIndividualRecord indi, GedcomDatabase databaseB, float matchThreshold)
+        public static List<GedcomIndividualRecord> FindDuplicates(GedcomIndividualRecord indi, GedcomDatabase databaseB, decimal matchThreshold)
         {
             List<GedcomIndividualRecord> matches = new List<GedcomIndividualRecord>();
 
@@ -55,7 +55,7 @@ namespace GeneGenie.Gedcom.Reports
                 // so we can check this
                 if (matchIndi != indi)
                 {
-                    float match = indi.IsMatch(matchIndi);
+                    var match = indi.IsMatch(matchIndi);
 
                     if (match > matchThreshold)
                     {
@@ -76,7 +76,7 @@ namespace GeneGenie.Gedcom.Reports
         /// <param name="databaseB">The database b.</param>
         /// <param name="matchThreshold">The match threshold.</param>
         /// <param name="foundFunc">The found function.</param>
-        public static void FindDuplicates(GedcomDatabase databaseA, GedcomDatabase databaseB, float matchThreshold, DuplicateFoundFunc foundFunc)
+        public static void FindDuplicates(GedcomDatabase databaseA, GedcomDatabase databaseB, decimal matchThreshold, DuplicateFoundFunc foundFunc)
         {
             int total = databaseA.Individuals.Count;
             int potential = 0;

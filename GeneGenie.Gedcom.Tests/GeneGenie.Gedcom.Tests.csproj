@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="DataHelperExtensions\GedcomIndividualRecordFactory.cs" />
+    <Compile Include="Date\GedcomDateMatchTest.cs" />
     <Compile Include="Date\GedcomDateCompareTest.cs" />
     <Compile Include="Date\GedcomDateNullEqualTest.cs" />
     <Compile Include="Date\GedcomDatePeriodTest.cs" />

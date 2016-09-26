@@ -19,77 +19,120 @@
 
 namespace GeneGenie.Gedcom
 {
-    using System.IO;
-    using GeneGenie.Gedcom.Parser;
+    using Enums;
+    using Tests.DataHelperExtensions;
     using Xunit;
 
     /// <summary>
-    /// TODO: Rewrite into smaller focussed tests against smaller files, strings if possible.
+    /// Tests the ability to match individuals on user entered data.
     /// </summary>
     public class GedcomIndividualMatchTest
     {
-        private GedcomRecordReader reader;
-        private GedcomDatabase database;
+        private readonly GedcomDatabase gedcomDb;
 
-        private void Read(string file)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomIndividualMatchTest"/> class.
+        /// </summary>
+        public GedcomIndividualMatchTest()
         {
-            string dir = ".\\Data";
-            string gedcomFile = Path.Combine(dir, file);
-
-            reader = new GedcomRecordReader();
-            reader.ReadGedcom(gedcomFile);
-            database = reader.Database;
-
-            Assert.True(reader.Database.Count > 0, "No records read");
+            gedcomDb = new GedcomDatabase();
         }
 
-        [Fact(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
-        private void Test1()
+        [Fact]
+        private void Individuals_without_data_do_not_match_at_all()
         {
-            Read("test1.ged");
+            var individual1 = new GedcomIndividualRecord();
+            var individual2 = new GedcomIndividualRecord();
 
-            System.Console.WriteLine("Check 1");
+            var match = individual1.IsMatch(individual2);
 
-            // Elizabeth Rutherford
-            // BIRT 29 Jan 1811
-            string id = reader.Parser.XrefCollection["I0115"];
+            Assert.Equal(decimal.Zero, match);
+        }
 
-            System.Console.WriteLine("I0115 maps to " + id);
+        [Fact]
+        private void Individuals_match_with_one_name()
+        {
+            var individual1 = gedcomDb.NamedPerson("Ryan");
+            var individual2 = gedcomDb.NamedPerson("Ryan");
 
-            GedcomIndividualRecord indi = (GedcomIndividualRecord)database[id];
-            GedcomIndividualRecord indi2 = (GedcomIndividualRecord)database[id];
+            var match = individual1.IsMatch(individual2);
 
-            float match = indi.IsMatch(indi2);
+            Assert.Equal(100m, match);
+        }
 
-            System.Console.WriteLine("Match: " + match.ToString());
+        [Fact]
+        private void Individuals_match_with_two_names()
+        {
+            var individual1 = gedcomDb.NamedPerson("Ryan");
+            var individual2 = gedcomDb.NamedPerson("Ryan");
+            individual1.Names.Add(new GedcomName { Given = "Ryan", Surname = "O'Neill" });
+            individual2.Names.Add(new GedcomName { Given = "Ryan", Surname = "O'Neill" });
 
-            Assert.True(match == 100.0F, "Individual failed to match themself");
+            var match = individual1.IsMatch(individual2);
 
-            // Freddie Vashti Adams
-            // BIRT 25 Aug 1906
-            // DEAT 31 Mar 2991
-            System.Console.WriteLine("Check 2");
+            Assert.Equal(100m, match);
+        }
 
-            id = reader.Parser.XrefCollection["I0684"];
+        [Fact]
+        private void Individuals_match_on_name_and_date_of_birth()
+        {
+            var individual1 = gedcomDb.NamedPerson("Ryan");
+            var individual2 = gedcomDb.NamedPerson("Ryan");
+            individual1.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1990", "Paris"));
+            individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1990", "Paris"));
 
-            System.Console.WriteLine("I0684 maps to " + id);
+            var match = individual1.IsMatch(individual2);
 
-            indi2 = (GedcomIndividualRecord)database[id];
+            Assert.Equal(100m, match);
+        }
 
-            match = indi.IsMatch(indi2);
+        [Fact]
+        private void Individuals_match_on_name_date_of_birth_death_and_sex()
+        {
+            var individual1 = gedcomDb.NamedPerson("Ryan");
+            var individual2 = gedcomDb.NamedPerson("Ryan");
+            individual1.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual1.Events.Add(CreateEvent(GedcomEventType.DEAT, "Jan 1 2000", "Paris"));
+            individual1.Sex = GedcomSex.Female;
+            individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual2.Events.Add(CreateEvent(GedcomEventType.DEAT, "Jan 1 2000", "Paris"));
+            individual2.Sex = GedcomSex.Female;
 
-            System.Console.WriteLine("Match: " + match.ToString());
+            var match = individual1.IsMatch(individual2);
 
-            Assert.True(match != 100.0F, "Individual matched another 100%");
+            Assert.Equal(100m, match);
+        }
 
-            foreach (GedcomIndividualRecord indiRec in database.Individuals)
+        [Fact]
+        private void Individuals_are_rated_as_a_lower_match_when_one_fact_is_missing()
+        {
+            var individual1 = gedcomDb.NamedPerson("Ryan");
+            var individual2 = gedcomDb.NamedPerson("Ryan");
+            individual1.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual1.Events.Add(CreateEvent(GedcomEventType.DEAT, "Jan 1 2000", "Paris"));
+            individual1.Sex = GedcomSex.Female;
+            individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual2.Sex = GedcomSex.Female;
+
+            var match = individual1.IsMatch(individual2);
+
+            Assert.Equal(75m, match);
+        }
+
+        private GedcomIndividualEvent CreateEvent(GedcomEventType eventType, string dateText, string placeName)
+        {
+            var ev = new GedcomIndividualEvent
             {
-                match = indi.IsMatch(indiRec);
-                if (match > 50)
-                {
-                    System.Console.WriteLine(match + "% match on " + indiRec.XRefID + " " + indiRec.Names[0].Name);
-                }
-            }
+                EventType = eventType,
+                Date = new GedcomDate(gedcomDb)
+            };
+            ev.Date.ParseDateString(dateText);
+            ev.Place = new GedcomPlace
+            {
+                Name = placeName
+            };
+
+            return ev;
         }
     }
 }

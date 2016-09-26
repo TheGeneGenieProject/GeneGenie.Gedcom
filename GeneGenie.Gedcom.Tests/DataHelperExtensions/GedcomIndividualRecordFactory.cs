@@ -19,7 +19,7 @@
 namespace GeneGenie.Gedcom.Tests.DataHelperExtensions
 {
     /// <summary>
-    /// Helper functions to create people with names.
+    /// Helper functions to create people with names for unit testing.
     /// </summary>
     public static class GedcomIndividualRecordFactory
     {
