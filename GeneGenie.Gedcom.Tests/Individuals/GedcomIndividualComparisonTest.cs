@@ -70,7 +70,7 @@ namespace GeneGenie.Gedcom.Parser
         {
             var person1 = gedcomDb.NamedPerson("Ryan");
 
-            Assert.False(person1.IsSimilar(null));
+            Assert.False(person1.IsEquivalentTo(null));
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace GeneGenie.Gedcom.Parser
             var person1 = gedcomDb.NamedPerson("Ryan");
             var person2 = gedcomDb.NamedPerson("Ryan");
 
-            Assert.True(person1.IsSimilar(person2));
+            Assert.True(person1.IsEquivalentTo(person2));
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace GeneGenie.Gedcom.Parser
             var person2 = gedcomDb.NamedPerson("Ryan");
             person2.Sex = Gedcom.Enums.GedcomSex.Male;
 
-            Assert.False(person1.IsSimilar(person2));
+            Assert.False(person1.IsEquivalentTo(person2));
         }
 
         [Fact]

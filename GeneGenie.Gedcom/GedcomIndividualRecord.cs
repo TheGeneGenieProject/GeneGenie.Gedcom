@@ -678,7 +678,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="obj">The object to compare the current individual instance against.</param>
         /// <returns>True if they match, false otherwise.</returns>
-        public override bool IsSimilar(object obj)
+        public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomIndividualRecord) == 0;
         }
@@ -1068,15 +1068,13 @@ namespace GeneGenie.Gedcom
             return ret;
         }
 
-        // % match
-
         /// <summary>
         /// Determines whether the passed individual is a match for the current instance
         /// based on key user entered data.
         /// </summary>
-        /// <param name="individual">The individual to compare.</param>
-        /// <returns>TODO: Doc</returns>
-        public decimal IsMatch(GedcomIndividualRecord individual)
+        /// <param name="individual">The individual to compare this instance against.</param>
+        /// <returns>A score from 0 to 100 representing the percentage match.</returns>
+        public decimal CalculateSimilarityScore(GedcomIndividualRecord individual)
         {
             var match = decimal.Zero;
 
@@ -1086,7 +1084,7 @@ namespace GeneGenie.Gedcom
             {
                 foreach (GedcomName name in Names)
                 {
-                    var currentNameMatch = name.IsMatch(indiName);
+                    var currentNameMatch = name.CalculateSimilarityScore(indiName);
 
                     nameMatch = Math.Max(nameMatch, currentNameMatch);
                 }
@@ -1108,7 +1106,7 @@ namespace GeneGenie.Gedcom
                 GedcomEvent indiBirth = individual.Birth;
                 if (birth != null && indiBirth != null)
                 {
-                    dobMatch = birth.IsMatch(indiBirth);
+                    dobMatch = birth.CalculateSimilarityScore(indiBirth);
                 }
                 else if (birth == null && indiBirth == null)
                 {
@@ -1121,7 +1119,7 @@ namespace GeneGenie.Gedcom
                 GedcomEvent indiDeath = individual.Death;
                 if (death != null && indiDeath != null)
                 {
-                    dodMatch = death.IsMatch(indiDeath);
+                    dodMatch = death.CalculateSimilarityScore(indiDeath);
                 }
                 else if (death == null && indiDeath == null)
                 {

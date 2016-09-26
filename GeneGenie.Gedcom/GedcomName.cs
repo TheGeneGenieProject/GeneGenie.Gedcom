@@ -539,17 +539,17 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// True if instance matches user data, otherwise false.
         /// </returns>
-        public override bool IsSimilar(object obj)
+        public override bool IsEquivalentTo(object obj)
         {
             return CompareTo(obj as GedcomName) == 0;
         }
 
         /// <summary>
-        /// Determines whether the specified name is a match.
+        /// Returns a percentage based score on how similar the passed record is to the current instance.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>TODO: Doc</returns>
-        public decimal IsMatch(GedcomName name)
+        /// <param name="name">The event to compare against this instance.</param>
+        /// <returns>A score from 0 to 100 representing the percentage match.</returns>
+        public decimal CalculateSimilarityScore(GedcomName name)
         {
             var match = decimal.Zero;
 

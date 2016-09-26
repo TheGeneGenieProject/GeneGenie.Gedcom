@@ -563,12 +563,15 @@ namespace GeneGenie.Gedcom
 
         /// <summary>
         /// Must be overriden in derived classes to compare the user entered data for that instance.
-        /// Called from the <see cref="Equals(GedcomRecord)" /> before it checks common
+        /// Called from the <see cref="Equals(GedcomRecord)" /> method before it checks common
         /// data elements (notes, sources etc.).
+        /// We use the word equivalent so that we avoid using the word equals. This is because we are
+        /// checking user entered data only and as far as the end user cares, two records can be equivalent
+        /// (matching) but they might be two different individuals / families etc.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
         /// <returns>True if instance matches user data, otherwise false.</returns>
-        public abstract bool IsSimilar(object obj);
+        public abstract bool IsEquivalentTo(object obj);
 
         /// <summary>
         /// Compares the inheriting instance user entered data against the passed GedcomRecord.
@@ -585,7 +588,7 @@ namespace GeneGenie.Gedcom
             }
 
             // Ask the inheriting object if its user entered data is the same.
-            if (!IsSimilar(obj))
+            if (!IsEquivalentTo(obj))
             {
                 return false;
             }

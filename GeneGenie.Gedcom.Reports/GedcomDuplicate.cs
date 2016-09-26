@@ -55,7 +55,7 @@ namespace GeneGenie.Gedcom.Reports
                 // so we can check this
                 if (matchIndi != indi)
                 {
-                    var match = indi.IsMatch(matchIndi);
+                    var match = indi.CalculateSimilarityScore(matchIndi);
 
                     if (match > matchThreshold)
                     {

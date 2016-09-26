@@ -44,7 +44,7 @@ namespace GeneGenie.Gedcom
             var individual1 = new GedcomIndividualRecord();
             var individual2 = new GedcomIndividualRecord();
 
-            var match = individual1.IsMatch(individual2);
+            var match = individual1.CalculateSimilarityScore(individual2);
 
             Assert.Equal(decimal.Zero, match);
         }
@@ -55,7 +55,7 @@ namespace GeneGenie.Gedcom
             var individual1 = gedcomDb.NamedPerson("Ryan");
             var individual2 = gedcomDb.NamedPerson("Ryan");
 
-            var match = individual1.IsMatch(individual2);
+            var match = individual1.CalculateSimilarityScore(individual2);
 
             Assert.Equal(100m, match);
         }
@@ -68,7 +68,7 @@ namespace GeneGenie.Gedcom
             individual1.Names.Add(new GedcomName { Given = "Ryan", Surname = "O'Neill" });
             individual2.Names.Add(new GedcomName { Given = "Ryan", Surname = "O'Neill" });
 
-            var match = individual1.IsMatch(individual2);
+            var match = individual1.CalculateSimilarityScore(individual2);
 
             Assert.Equal(100m, match);
         }
@@ -81,7 +81,7 @@ namespace GeneGenie.Gedcom
             individual1.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1990", "Paris"));
             individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1990", "Paris"));
 
-            var match = individual1.IsMatch(individual2);
+            var match = individual1.CalculateSimilarityScore(individual2);
 
             Assert.Equal(100m, match);
         }
@@ -98,7 +98,7 @@ namespace GeneGenie.Gedcom
             individual2.Events.Add(CreateEvent(GedcomEventType.DEAT, "Jan 1 2000", "Paris"));
             individual2.Sex = GedcomSex.Female;
 
-            var match = individual1.IsMatch(individual2);
+            var match = individual1.CalculateSimilarityScore(individual2);
 
             Assert.Equal(100m, match);
         }
@@ -114,7 +114,7 @@ namespace GeneGenie.Gedcom
             individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
             individual2.Sex = GedcomSex.Female;
 
-            var match = individual1.IsMatch(individual2);
+            var match = individual1.CalculateSimilarityScore(individual2);
 
             Assert.Equal(75m, match);
         }

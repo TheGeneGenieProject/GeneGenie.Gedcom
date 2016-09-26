@@ -49,7 +49,7 @@ namespace GeneGenie.Gedcom.Date.Tests
             var dateA = CreateDate(dateAText);
             var dateB = CreateDate(dateBText);
 
-            var matched = dateA.IsMatch(dateB);
+            var matched = dateA.CalculateSimilarityScore(dateB);
 
             Assert.Equal(expectedMatch, matched, 1);
         }

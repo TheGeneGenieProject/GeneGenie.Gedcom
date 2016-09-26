@@ -250,7 +250,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// True if instance matches user data, otherwise false.
         /// </returns>
-        public override bool IsSimilar(object obj)
+        public override bool IsEquivalentTo(object obj)
         {
             var media = obj as GedcomMultimediaRecord;
 

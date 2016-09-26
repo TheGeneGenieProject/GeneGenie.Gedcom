@@ -456,7 +456,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="obj">The object to compare against this instance.</param>
         /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
-        public override bool IsSimilar(object obj)
+        public override bool IsEquivalentTo(object obj)
         {
             var header = obj as GedcomHeader;
 

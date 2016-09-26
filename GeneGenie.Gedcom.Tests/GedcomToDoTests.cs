@@ -60,19 +60,9 @@ namespace GeneGenie.Gedcom.Tests
 
         Notes;
         We should implement icomparable<t>/icomparable on objects and replace duff icomparables.
- Do on GedcomName, then gedcomIndividual
-Compare does not fail.
- Suggest compare is;
-  Gedcom compare sums up all;
-   Header record compares.
-   Submitter record compares.
-   Individual record compares.
-Tags missed, name, givn, surname.
-Tags introduced sex.
 Notes should be attached to individual when not xrefs.
 Torture tests http://www.tamurajones.net/ThreeTortureTests.xhtml
 Notes have extra lines added
-Their SUBM xref is @'ed, ours is not.
 Missing VERS from SOUR as well.
 Compare our line count with their line count, should be same ideally.
 

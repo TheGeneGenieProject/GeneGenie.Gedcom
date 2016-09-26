@@ -388,7 +388,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// True if instance matches user data, otherwise false.
         /// </returns>
-        public override bool IsSimilar(object obj)
+        public override bool IsEquivalentTo(object obj)
         {
             return CompareByDate(this, obj as GedcomDate) == 0;
         }
@@ -423,11 +423,11 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// TODO: Doc
+        /// Returns a percentage based score on how similar the passed record is to the current instance.
         /// </summary>
-        /// <param name="date">TODO: Doc 2</param>
-        /// <returns>TODO: Doc 3</returns>
-        public decimal IsMatch(GedcomDate date)
+        /// <param name="date">The date to compare this instance against.</param>
+        /// <returns>A score from 0 to 100 representing the percentage match.</returns>
+        public decimal CalculateSimilarityScore(GedcomDate date)
         {
             var match = decimal.Zero;
 

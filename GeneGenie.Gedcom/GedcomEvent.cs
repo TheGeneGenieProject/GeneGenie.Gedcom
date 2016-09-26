@@ -678,11 +678,11 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Determines whether the specified event is a match for this instance based on the date, type of event and place.
+        /// Returns a percentage based score on how similar the passed record is to the current instance.
         /// </summary>
         /// <param name="ev">The event to compare against this instance.</param>
-        /// <returns>TODO: Doc</returns>
-        public decimal IsMatch(GedcomEvent ev)
+        /// <returns>A score from 0 to 100 representing the percentage match.</returns>
+        public decimal CalculateSimilarityScore(GedcomEvent ev)
         {
             var match = decimal.Zero;
 
@@ -696,7 +696,7 @@ namespace GeneGenie.Gedcom
                 }
                 else if (Date != null && ev.Date != null)
                 {
-                    dateMatch = Date.IsMatch(ev.Date);
+                    dateMatch = Date.CalculateSimilarityScore(ev.Date);
                 }
 
                 // match location
@@ -1001,7 +1001,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// True if instance matches user data, otherwise false.
         /// </returns>
-        public override bool IsSimilar(object obj)
+        public override bool IsEquivalentTo(object obj)
         {
             var eventRecord = obj as GedcomEvent;
 
