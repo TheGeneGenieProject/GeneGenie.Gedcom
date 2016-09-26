@@ -446,7 +446,7 @@ namespace GeneGenie.Gedcom
             if (hasSubmitter)
             {
                 sw.Write(Environment.NewLine);
-                sw.Write($"1 SUBM {submitterXRefID}");
+                sw.Write($"1 SUBM @{submitterXRefID}@");
             }
         }
 

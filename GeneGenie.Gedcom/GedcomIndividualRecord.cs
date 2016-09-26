@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     using Enums;
 
     /// <summary>
-    /// Details about a given individual
+    /// Details about a given individual.
     /// </summary>
     public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<GedcomIndividualRecord>
     {
@@ -696,15 +696,15 @@ namespace GeneGenie.Gedcom
                 return 1;
             }
 
-            if (individual.Sex != Sex)
-            {
-                return individual.Sex.CompareTo(Sex);
-            }
-
             var nameCompare = GedcomGenericListComparer.CompareListSortOrders(Names, individual.Names);
             if (nameCompare != 0)
             {
                 return nameCompare;
+            }
+
+            if (individual.Sex != Sex)
+            {
+                return individual.Sex.CompareTo(Sex);
             }
 
             // TODO: Put more property tests in here.
@@ -1126,9 +1126,6 @@ namespace GeneGenie.Gedcom
                     dodMatch = 100m;
                 }
 
-                // check parents ?
-
-                // System.Console.WriteLine("name: " + nameMatch + "\tdob: " + dobMatch + "\tdod: " + dodMatch);
                 match = (nameMatch + genderMatch + dobMatch + dodMatch) / 4m;
             }
 
