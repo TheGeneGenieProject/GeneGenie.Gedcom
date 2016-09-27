@@ -309,11 +309,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the notes.
+        /// Gets a list of cross references to notes for this record.
+        /// TODO: This lookup is not easy to use, can we simply this to a list of note records?
         /// </summary>
-        /// <value>
-        /// The notes.
-        /// </value>
         public GedcomRecordList<string> Notes
         {
             get

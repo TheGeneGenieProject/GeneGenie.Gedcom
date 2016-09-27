@@ -22,6 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Xml;
     using Enums;
 
@@ -696,10 +697,16 @@ namespace GeneGenie.Gedcom
                 return 1;
             }
 
-            var nameCompare = GedcomGenericListComparer.CompareListSortOrders(Names, individual.Names);
-            if (nameCompare != 0)
+            var compare = GedcomGenericListComparer.CompareListSortOrders(Names, individual.Names);
+            if (compare != 0)
             {
-                return nameCompare;
+                return compare;
+            }
+
+            compare = CompareEvents(individual.Events);
+            if (compare != 0)
+            {
+                return compare;
             }
 
             if (individual.Sex != Sex)
@@ -708,6 +715,49 @@ namespace GeneGenie.Gedcom
             }
 
             // TODO: Put more property tests in here.
+            return CompareNotes(individual);
+        }
+
+        private int CompareEvents(GedcomRecordList<GedcomIndividualEvent> events)
+        {
+            // TODO: This is a long winded and non-reusable way of comparing two lists. Can we use a generic comparer?
+            if (events.Count < Events.Count)
+            {
+                return -1;
+            }
+
+            if (events.Count > Events.Count)
+            {
+                return 1;
+            }
+
+            for (int i = 0; i < events.Count(); i++)
+            {
+                var indiEv = events.ElementAt(i);
+                var ev = Events.ElementAt(i);
+
+                if (indiEv == null && ev == null)
+                {
+                    return 0;
+                }
+
+                if (indiEv == null)
+                {
+                    return -1;
+                }
+
+                if (ev == null)
+                {
+                    return 1;
+                }
+
+                var compare = indiEv.CompareTo(ev);
+                if (compare != 0)
+                {
+                    return compare;
+                }
+            }
+
             return 0;
         }
 
@@ -1512,6 +1562,54 @@ namespace GeneGenie.Gedcom
             {
                 Address.Output(tw, Level + 1);
             }
+        }
+
+        private int CompareNotes(GedcomIndividualRecord individual)
+        {
+            // TODO: This is a long winded and non-reusable way of comparing two lists. Can we use a generic comparer and place this into the GedcomNote class?
+            if (Notes.Count < individual.Notes.Count)
+            {
+                return -1;
+            }
+
+            if (Notes.Count > individual.Notes.Count)
+            {
+                return 1;
+            }
+
+            var indiList = individual.Notes.OrderBy(noteXRef => noteXRef);
+            var noteList = Notes.OrderBy(noteXRef => noteXRef);
+            for (int i = 0; i < noteList.Count(); i++)
+            {
+                var indiNoteXref = indiList.ElementAt(i);
+                var noteXref = noteList.ElementAt(i);
+                var indiNote = individual.Database[indiNoteXref] as GedcomNoteRecord;
+                var note = Database[noteXref] as GedcomNoteRecord;
+
+                if (indiNote == null && note == null)
+                {
+                    return 0;
+                }
+
+                if (indiNote == null)
+                {
+                    return -1;
+                }
+
+                if (note == null)
+                {
+                    return 1;
+                }
+
+                var indiNoteUtf8 = System.Text.Encoding.UTF8.GetString(System.Text.Encoding.Default.GetBytes(indiNote.Text));
+                var compare = string.Compare(indiNoteUtf8, note.Text);
+                if (compare != 0)
+                {
+                    return compare;
+                }
+            }
+
+            return 0;
         }
     }
 }

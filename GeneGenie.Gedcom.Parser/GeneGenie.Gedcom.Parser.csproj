@@ -130,7 +130,6 @@
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
-    <None Include="stylecop1.json" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />

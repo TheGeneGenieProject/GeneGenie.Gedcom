@@ -19,7 +19,6 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
-    using System.Linq;
     using Xunit;
 
     /// <summary>
@@ -66,7 +65,7 @@ namespace GeneGenie.Gedcom.Parser
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
 
-            Assert.Equal(originalReader.Database.Individuals.OrderBy(i => i.AutomatedRecordId), rewrittenReader.Database.Individuals.OrderBy(i => i.AutomatedRecordId));
+            Assert.True(GedcomGenericListComparer.CompareGedcomRecordLists(originalReader.Database.Individuals, rewrittenReader.Database.Individuals));
         }
     }
 }

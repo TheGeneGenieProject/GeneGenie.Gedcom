@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// </summary>
     public static class Util
     {
-        private static readonly char[] NewLineArray = Environment.NewLine.ToCharArray();
+        private static readonly string[] NewLineArray = { Environment.NewLine };
 
         /// <summary>
         /// Generates a soundex string for the passed value.
@@ -240,7 +240,7 @@ namespace GeneGenie.Gedcom
         {
             string line = text.Replace("@", "@@");
 
-            string[] lines = line.Split(NewLineArray);
+            string[] lines = line.Split(NewLineArray, StringSplitOptions.None);
             bool first = true;
 
             string levelPlusOne = null;

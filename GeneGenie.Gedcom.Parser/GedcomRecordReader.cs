@@ -1052,7 +1052,7 @@ namespace GeneGenie.Gedcom.Parser
                                     // or should it be 436 (DOS)
                                     enc = Encoding.GetEncoding(1252);
                                     break;
-                                case "IBMPC":
+                                case "IBMPC": // Not a valid character set as the code page is ambiguous, but we try to import it anyway.
                                     enc = Encoding.GetEncoding(437);
                                     break;
                                 case "UTF8":

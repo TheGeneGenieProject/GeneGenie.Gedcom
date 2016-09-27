@@ -52,6 +52,6 @@ namespace GeneGenie.Gedcom.Parser.Enums
         UTF32LE,
 
         /// <summary>Encoding was not found. We should default to unknown at the top instead and report error.</summary>
-        UnSupported
+        UnSupported,
     }
 }

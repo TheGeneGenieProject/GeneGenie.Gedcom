@@ -31,7 +31,7 @@ namespace GeneGenie.Gedcom
     public class GedcomEvent : GedcomRecord, IComparable
     {
         private static string[] typeStrings = new string[]
-      {
+        {
             "EVEN",
 
             // Family Events
@@ -89,7 +89,7 @@ namespace GeneGenie.Gedcom
 
             // GEDCOM allows custom records, beginging with _
             "_UNKN"
-      };
+        };
 
         private static List<string> typeDescriptions = new List<string>()
         {
@@ -585,49 +585,6 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Compares the by date.
-        /// </summary>
-        /// <param name="eventA">The event a.</param>
-        /// <param name="eventB">The event b.</param>
-        /// <returns>TODO: Doc</returns>
-        public static int CompareByDate(GedcomEvent eventA, GedcomEvent eventB)
-        {
-            int ret = -1;
-
-            if (eventA != null && eventB != null)
-            {
-                GedcomDate dateA = eventA.Date;
-                GedcomDate dateB = eventB.Date;
-
-                if (dateA != null && dateB != null)
-                {
-                    DateTime dateTimeA;
-                    DateTime dateTimeB;
-
-                    if (DateTime.TryParse(dateA.Date1, out dateTimeA) && DateTime.TryParse(dateB.Date1, out dateTimeB))
-                    {
-                        ret = DateTime.Compare(dateTimeA, dateTimeB);
-                    }
-
-                    if (ret == 0)
-                    {
-                        ret = string.Compare(eventA.eventName, eventB.eventName);
-                    }
-                }
-                else if (dateA != null)
-                {
-                    ret = 1;
-                }
-            }
-            else if (eventA != null)
-            {
-                ret = 1;
-            }
-
-            return ret;
-        }
-
-        /// <summary>
         /// Attempts to determine a standard event type from a textual
         /// description.  Always returns GenericEvent if one can't be found
         /// even though where the string came from maybe a FACT
@@ -668,13 +625,42 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Compares to.
+        /// Compares two events to see if the date and place are the same.
         /// </summary>
-        /// <param name="eventB">The event b.</param>
-        /// <returns>TODO: Doc</returns>
-        public int CompareTo(object eventB)
+        /// <param name="obj">The event instance to compare against.</param>
+        /// <returns>Relative position in the sort order.</returns>
+        public int CompareTo(object obj)
         {
-            return GedcomEvent.CompareByDate(this, (GedcomEvent)eventB);
+            var eventToCompare = obj as GedcomEvent;
+
+            if (eventToCompare == null)
+            {
+                return -1;
+            }
+
+            if (eventToCompare.Date == null && Date == null)
+            {
+                return 0;
+            }
+
+            if (eventToCompare.Date == null)
+            {
+                return -1;
+            }
+
+            if (Date == null)
+            {
+                return 1;
+            }
+
+            var compare = GedcomDate.CompareByDate(Date, eventToCompare.Date);
+
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            return string.Compare(eventName, eventToCompare.eventName);
         }
 
         /// <summary>
