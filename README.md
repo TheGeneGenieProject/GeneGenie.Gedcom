@@ -26,7 +26,7 @@ In beta. Should be usable but we welcome bug reports and pull requests.
 
 ## Contributing
 
-We'd love your help, subject to a few points. If you submit code then you'll need to sign a Contributor Licence Agreement to state that your contribution is your own and we can use it, plus you'll also need to stick to the style guidelines.
+We would love your help, subject to a few points. If you submit code then you'll need to sign a Contributor Licence Agreement to state that your contribution is your own and we can use it, you'll also need to stick to the style guidelines.
 
 ### Issues
 
