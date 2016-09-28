@@ -19,13 +19,26 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
+    using System.IO;
     using Xunit;
+    using Xunit.Abstractions;
 
     /// <summary>
     /// Tests for ensuring that GEDCOM files can be loaded, saved and reopened without data loss.
     /// </summary>
     public class GedcomRecordWriterTest
     {
+        private readonly ITestOutputHelper output;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GedcomRecordWriterTest"/> class.
+        /// </summary>
+        /// <param name="output">A helper class used to log output to the test runner.</param>
+        public GedcomRecordWriterTest(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Theory]
         [InlineData(".\\Data\\presidents.ged")]
         [InlineData(".\\Data\\superfluous-ident-test.ged")]
@@ -65,7 +78,26 @@ namespace GeneGenie.Gedcom.Parser
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
 
+            AttachFileContentsToTest(sourceFile, rewrittenPath);
             Assert.True(GedcomGenericListComparer.CompareGedcomRecordLists(originalReader.Database.Individuals, rewrittenReader.Database.Individuals));
+        }
+
+        /// <summary>
+        /// To help diagnose file differences, this function logs the contents of the files to the test runner.
+        /// </summary>
+        /// <param name="sourceFile">Path to source file to show.</param>
+        /// <param name="rewrittenPath">Path to file that has been rewritten.</param>
+        private void AttachFileContentsToTest(string sourceFile, string rewrittenPath)
+        {
+            var sourceContents = File.ReadAllText(sourceFile);
+            var rewrittenContents = File.ReadAllText(rewrittenPath);
+
+            output.WriteLine("Comparing files, output was;");
+            output.WriteLine("****************************");
+            output.WriteLine(sourceContents);
+            output.WriteLine("****************************");
+            output.WriteLine(rewrittenContents);
+            output.WriteLine("****************************");
         }
     }
 }
