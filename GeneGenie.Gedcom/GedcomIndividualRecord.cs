@@ -718,49 +718,6 @@ namespace GeneGenie.Gedcom
             return CompareNotes(individual);
         }
 
-        private int CompareEvents(GedcomRecordList<GedcomIndividualEvent> events)
-        {
-            // TODO: This is a long winded and non-reusable way of comparing two lists. Can we use a generic comparer?
-            if (events.Count < Events.Count)
-            {
-                return -1;
-            }
-
-            if (events.Count > Events.Count)
-            {
-                return 1;
-            }
-
-            for (int i = 0; i < events.Count(); i++)
-            {
-                var indiEv = events.ElementAt(i);
-                var ev = Events.ElementAt(i);
-
-                if (indiEv == null && ev == null)
-                {
-                    return 0;
-                }
-
-                if (indiEv == null)
-                {
-                    return -1;
-                }
-
-                if (ev == null)
-                {
-                    return 1;
-                }
-
-                var compare = indiEv.CompareTo(ev);
-                if (compare != 0)
-                {
-                    return compare;
-                }
-            }
-
-            return 0;
-        }
-
         /// <summary>
         /// Compares the current individual against the passed individual to see if they are
         /// essentially the same. Compares the content, not the structure.
@@ -1562,6 +1519,49 @@ namespace GeneGenie.Gedcom
             {
                 Address.Output(tw, Level + 1);
             }
+        }
+
+        private int CompareEvents(GedcomRecordList<GedcomIndividualEvent> events)
+        {
+            // TODO: This is a long winded and non-reusable way of comparing two lists. Can we use a generic comparer?
+            if (events.Count < Events.Count)
+            {
+                return -1;
+            }
+
+            if (events.Count > Events.Count)
+            {
+                return 1;
+            }
+
+            for (int i = 0; i < events.Count(); i++)
+            {
+                var indiEv = events.ElementAt(i);
+                var ev = Events.ElementAt(i);
+
+                if (indiEv == null && ev == null)
+                {
+                    return 0;
+                }
+
+                if (indiEv == null)
+                {
+                    return -1;
+                }
+
+                if (ev == null)
+                {
+                    return 1;
+                }
+
+                var compare = indiEv.CompareTo(ev);
+                if (compare != 0)
+                {
+                    return compare;
+                }
+            }
+
+            return 0;
         }
 
         private int CompareNotes(GedcomIndividualRecord individual)
