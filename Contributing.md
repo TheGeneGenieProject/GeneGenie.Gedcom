@@ -4,6 +4,12 @@ We would love your help, subject to a few points. If you submit code then you'll
 
 **Don't worry if you are new to open source, just ask for help via [Twitter (@ryanoneill1970)](https://twitter.com/ryanoneill1970) or create an issue in GitHub.**
 
+### Keep it simple
+
+Try to keep your changes small and focussed on one thing so that when we merge, we can see what has been changed and review it easily. For example, changing typos in documentation and a minor bug fix should be two different commits.
+
+If your changes need to be big, break them down into smaller steps. If you can't do that, talk to us first as it'll be easier to merge later on.
+
 ### Issues
 
 If you find any problems and do not have the time to delve into the code to fix them, please open an issue with a concise test case containing the file or lines of GEDCOM data that caused the problem. Please also state the expected output.
