@@ -21,6 +21,7 @@ namespace GeneGenie.Gedcom.Parser
 {
     using System;
     using System.Collections;
+    using System.IO;
     using System.Text;
 
     /// <summary>
@@ -99,7 +100,7 @@ namespace GeneGenie.Gedcom.Parser
         public bool AllowTabsSave { get; set; }
 
         /// <summary>
-        /// Helper method to output a standard GEDCOM file without needing to create a write.
+        /// Helper method to output a standard GEDCOM file without needing to create a writer.
         /// </summary>
         /// <param name="database">The database to output.</param>
         /// <param name="file">The file path to output to.</param>
@@ -107,6 +108,17 @@ namespace GeneGenie.Gedcom.Parser
         {
             var writer = new GedcomRecordWriter();
             writer.WriteGedcom(database, file);
+        }
+
+        /// <summary>
+        /// Helper method to output a standard GEDCOM file without needing to create a writer.
+        /// </summary>
+        /// <param name="database">The database to output.</param>
+        /// <param name="stream">The stream to write to.</param>
+        public static void OutputGedcom(GedcomDatabase database, Stream stream)
+        {
+            var writer = new GedcomRecordWriter();
+            writer.WriteGedcom(database, stream);
         }
 
         /// <summary>
@@ -118,34 +130,60 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Outputs a GedcomDatabase to the given file
+        /// Outputs a GedcomDatabase to the given file.
         /// </summary>
-        /// <param name="database">The GedcomDatabase to write</param>
-        /// <param name="file">The filename to write to</param>
+        /// <param name="database">The GedcomDatabase to write.</param>
+        /// <param name="file">The filename to write to.</param>
         public void WriteGedcom(GedcomDatabase database, string file)
         {
             Encoding enc = new UTF8Encoding();
-            using (var w = new GedcomStreamWriter(file, false, enc))
+            using (var writer = new GedcomStreamWriter(file, false, enc))
             {
-                w.AllowInformationSeparatorOnSave = AllowInformationSeparatorOnSave;
-                w.AllowLineTabsSave = AllowLineTabsSave;
-                w.AllowTabsSave = AllowTabsSave;
-
-                database.Header.Output(w);
-
-                // write records
-                foreach (DictionaryEntry entry in database)
-                {
-                    GedcomRecord record = entry.Value as GedcomRecord;
-
-                    record.Output(w);
-                    w.Write(Environment.NewLine);
-                }
-
-                w.Write(Environment.NewLine);
-                w.WriteLine("0 TRLR");
-                w.Write(Environment.NewLine);
+                Write(database, writer);
             }
+        }
+
+        /// <summary>
+        /// Outputs a GedcomDatabase to the passed stream.
+        /// </summary>
+        /// <param name="database">The GedcomDatabase to write.</param>
+        /// <param name="stream">The stream to write to.</param>
+        public void WriteGedcom(GedcomDatabase database, Stream stream)
+        {
+            Encoding enc = new UTF8Encoding();
+            using (var writer = new GedcomStreamWriter(stream, enc, 1024, true))
+            {
+                Write(database, writer);
+            }
+        }
+
+        /// <summary>
+        /// Writes the specified database to the passed writer.
+        /// Not for use outside this class as the writer must be
+        /// responsibly disposed in a using block by the caller.
+        /// </summary>
+        /// <param name="database">The database to write.</param>
+        /// <param name="writer">The writer to use for outputting the database.</param>
+        private void Write(GedcomDatabase database, GedcomStreamWriter writer)
+        {
+            writer.AllowInformationSeparatorOnSave = AllowInformationSeparatorOnSave;
+            writer.AllowLineTabsSave = AllowLineTabsSave;
+            writer.AllowTabsSave = AllowTabsSave;
+
+            database.Header.Output(writer);
+
+            // write records
+            foreach (DictionaryEntry entry in database)
+            {
+                var record = entry.Value as GedcomRecord;
+
+                record.Output(writer);
+                writer.Write(Environment.NewLine);
+            }
+
+            writer.Write(Environment.NewLine);
+            writer.WriteLine("0 TRLR");
+            writer.Write(Environment.NewLine);
         }
     }
 }

@@ -70,13 +70,14 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomStreamWriter"/> class.
+        /// Initializes a new instance of the <see cref="GedcomStreamWriter" /> class.
         /// </summary>
         /// <param name="stream">The stream to write to.</param>
         /// <param name="encoding">The character encoding to use.</param>
         /// <param name="bufferSize">The buffer size, in bytes.</param>
-        public GedcomStreamWriter(Stream stream, Encoding encoding, int bufferSize)
-            : base(stream, encoding, bufferSize)
+        /// <param name="leaveOpen">true to leave the stream open after the <see cref="T:System.IO.StreamWriter" /> object is disposed; otherwise, false.</param>
+        public GedcomStreamWriter(Stream stream, Encoding encoding, int bufferSize, bool leaveOpen)
+            : base(stream, encoding, bufferSize, leaveOpen)
         {
         }
 
