@@ -93,9 +93,9 @@ namespace GeneGenie.Gedcom.Parser
             var rewrittenContents = File.ReadAllText(rewrittenPath);
 
             output.WriteLine("Comparing files, output was;");
-            output.WriteLine("****************************");
+            output.WriteLine("******* Source *************");
             output.WriteLine(sourceContents);
-            output.WriteLine("****************************");
+            output.WriteLine("******* Rewritten **********");
             output.WriteLine(rewrittenContents);
             output.WriteLine("****************************");
         }
