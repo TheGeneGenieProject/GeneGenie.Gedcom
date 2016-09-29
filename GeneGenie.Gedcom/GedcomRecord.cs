@@ -708,6 +708,7 @@ namespace GeneGenie.Gedcom
 
                 changeDate.Date1 = now.ToString("dd MMM yyyy");
                 changeDate.Time = now.ToString("hh:mm:ss");
+                changeDate.DatePeriod = GedcomDatePeriod.Exact;
             }
         }
 
