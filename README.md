@@ -43,29 +43,31 @@ You'll want to make sure that the file you just ready was parsed OK and handle a
 
 ### Adding a person to the tree
 
-    var individual = new GedcomIndividualRecord();
+    var individual = new GedcomIndividualRecord(db);
 
-    var name = new GedcomName
-    {
-        Given = "Michael",
-        Surname = "Mouse",
-        Nick = "Mickey"
-    };
+    var name = individual.Names[0];
+    name.Given = "Michael";
+    name.Surname = "Mouse";
+    name.Nick = "Mickey";
+
     individual.Names.Add(name);
 
-    var birthDate = new GedcomDate();
+    var birthDate = new GedcomDate(db);
     birthDate.ParseDateString("24 Jan 1933");
     individual.Events.Add(new GedcomIndividualEvent
     {
+        Database = db,
         Date = birthDate,
         EventType = Enums.GedcomEventType.Birth
     });
 
 ### Saving the tree
 
+    GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
+
 ## Status
 
-In beta. Should be usable but we welcome bug reports and pull requests.
+In beta. Should be usable but we welcome bug reports, suggestions and pull requests.
 
 ### Current appveyor status
 [![Build status](https://ci.appveyor.com/api/projects/status/5o7cb79h0p7gci61?svg=true)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom)
