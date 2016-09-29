@@ -393,7 +393,7 @@ namespace GeneGenie.Gedcom.Parser
                                 {
                                     switch (indiEv.EventType)
                                     {
-                                        case GedcomEventType.BIRT:
+                                        case GedcomEventType.Birth:
                                             // BIRT records do not state father/mother birth,
                                             // all we can say is both are natural
                                             famLink.Pedigree = PedigreeLinkageType.Birth;
@@ -1988,7 +1988,7 @@ namespace GeneGenie.Gedcom.Parser
 
                         // event
                         individualEvent = new GedcomIndividualEvent();
-                        individualEvent.EventType = GedcomEventType.BIRT;
+                        individualEvent.EventType = GedcomEventType.Birth;
                         individualEvent.Level = level;
                         individualEvent.IndiRecord = individualRecord;
 
@@ -3802,7 +3802,7 @@ namespace GeneGenie.Gedcom.Parser
                             done = true;
                         }
                         else if (tag == "FAMC" &&
-                                   (eventRecord.EventType == GedcomEventType.BIRT ||
+                                   (eventRecord.EventType == GedcomEventType.Birth ||
                                      eventRecord.EventType == GedcomEventType.CHR ||
                                      eventRecord.EventType == GedcomEventType.ADOP))
                         {

@@ -1,4 +1,4 @@
-﻿// <copyright file="Program.cs" company="GeneGenie.com">
+﻿// <copyright file="Step2QueryTree.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -19,33 +19,31 @@
 namespace GeneGenie.Gedcom.Sample
 {
     using System;
+    using System.Linq;
 
     /// <summary>
-    /// Sample console app showing how to read, query, change and save a GEDCOM file.
+    /// Tiny sample class on how to query a GEDCOM file.
     /// </summary>
-    public class Program
+    public class Step2QueryTree
     {
         /// <summary>
-        /// App entry point.
+        /// Queries the tree for any individual with a name, just to show how to query.
         /// </summary>
-        public static void Main()
+        /// <param name="db">The database to query.</param>
+        public static void QueryTree(GedcomDatabase db)
         {
-            var db = Step1LoadTreeFromFile.LoadPresidentsTree();
-            if (db == null)
+            Console.WriteLine($"Found {db.Families.Count} families and {db.Individuals.Count} individuals.");
+            var individual = db
+                .Individuals
+                .FirstOrDefault(f => f.Names.Any());
+
+            if (individual == null)
             {
+                Console.WriteLine($"Couldn't find any individuals in the GEDCOM file with a name, which is odd!");
                 return;
             }
 
-            Step2QueryTree.QueryTree(db);
-
-            Console.WriteLine($"Count of people before adding new person - {db.Individuals.Count}.");
-            Step3AddAPerson.AddPerson(db);
-            Console.WriteLine($"Count of people after adding new person - {db.Individuals.Count}.");
-
-            Step4SaveTree.Save(db);
-
-            Console.WriteLine("Finished, press a key to continue.");
-            Console.ReadKey();
+            Console.WriteLine($"Individual found with a preferred name of '{individual.GetName().Name}'.");
         }
     }
 }

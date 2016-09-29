@@ -78,8 +78,8 @@ namespace GeneGenie.Gedcom
         {
             var individual1 = gedcomDb.NamedPerson("Ryan");
             var individual2 = gedcomDb.NamedPerson("Ryan");
-            individual1.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1990", "Paris"));
-            individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1990", "Paris"));
+            individual1.Events.Add(CreateEvent(GedcomEventType.Birth, "Jan 1 1990", "Paris"));
+            individual2.Events.Add(CreateEvent(GedcomEventType.Birth, "Jan 1 1990", "Paris"));
 
             var match = individual1.CalculateSimilarityScore(individual2);
 
@@ -91,10 +91,10 @@ namespace GeneGenie.Gedcom
         {
             var individual1 = gedcomDb.NamedPerson("Ryan");
             var individual2 = gedcomDb.NamedPerson("Ryan");
-            individual1.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual1.Events.Add(CreateEvent(GedcomEventType.Birth, "Jan 1 1900", "Paris"));
             individual1.Events.Add(CreateEvent(GedcomEventType.DEAT, "Jan 1 2000", "Paris"));
             individual1.Sex = GedcomSex.Female;
-            individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual2.Events.Add(CreateEvent(GedcomEventType.Birth, "Jan 1 1900", "Paris"));
             individual2.Events.Add(CreateEvent(GedcomEventType.DEAT, "Jan 1 2000", "Paris"));
             individual2.Sex = GedcomSex.Female;
 
@@ -108,10 +108,10 @@ namespace GeneGenie.Gedcom
         {
             var individual1 = gedcomDb.NamedPerson("Ryan");
             var individual2 = gedcomDb.NamedPerson("Ryan");
-            individual1.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual1.Events.Add(CreateEvent(GedcomEventType.Birth, "Jan 1 1900", "Paris"));
             individual1.Events.Add(CreateEvent(GedcomEventType.DEAT, "Jan 1 2000", "Paris"));
             individual1.Sex = GedcomSex.Female;
-            individual2.Events.Add(CreateEvent(GedcomEventType.BIRT, "Jan 1 1900", "Paris"));
+            individual2.Events.Add(CreateEvent(GedcomEventType.Birth, "Jan 1 1900", "Paris"));
             individual2.Sex = GedcomSex.Female;
 
             var match = individual1.CalculateSimilarityScore(individual2);

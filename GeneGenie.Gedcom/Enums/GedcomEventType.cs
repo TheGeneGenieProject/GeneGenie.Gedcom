@@ -88,10 +88,8 @@ namespace GeneGenie.Gedcom.Enums
 
         // Individual Events
 
-        /// <summary>
-        /// The birt
-        /// </summary>
-        BIRT,
+        /// <summary>Date of birth.</summary>
+        Birth,
 
         /// <summary>
         /// The character

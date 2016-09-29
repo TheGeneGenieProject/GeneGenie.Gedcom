@@ -469,7 +469,7 @@ namespace GeneGenie.Gedcom
         /// </value>
         public GedcomIndividualEvent Birth
         {
-            get { return FindEvent(GedcomEventType.BIRT); }
+            get { return FindEvent(GedcomEventType.Birth); }
         }
 
         /// <summary>

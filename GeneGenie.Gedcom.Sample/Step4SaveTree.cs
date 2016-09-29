@@ -1,4 +1,4 @@
-﻿// <copyright file="Program.cs" company="GeneGenie.com">
+﻿// <copyright file="Step4SaveTree.cs" company="GeneGenie.com">
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -19,33 +19,21 @@
 namespace GeneGenie.Gedcom.Sample
 {
     using System;
+    using Parser;
 
     /// <summary>
-    /// Sample console app showing how to read, query, change and save a GEDCOM file.
+    /// Tiny sample class on how to save a GEDCOM file.
     /// </summary>
-    public class Program
+    public class Step4SaveTree
     {
         /// <summary>
-        /// App entry point.
+        /// Saves the sample database out to a new file.
         /// </summary>
-        public static void Main()
+        /// <param name="db">The database to save.</param>
+        public static void Save(GedcomDatabase db)
         {
-            var db = Step1LoadTreeFromFile.LoadPresidentsTree();
-            if (db == null)
-            {
-                return;
-            }
-
-            Step2QueryTree.QueryTree(db);
-
-            Console.WriteLine($"Count of people before adding new person - {db.Individuals.Count}.");
-            Step3AddAPerson.AddPerson(db);
-            Console.WriteLine($"Count of people after adding new person - {db.Individuals.Count}.");
-
-            Step4SaveTree.Save(db);
-
-            Console.WriteLine("Finished, press a key to continue.");
-            Console.ReadKey();
+            GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
+            Console.WriteLine($"Output database to rewritten.ged.");
         }
     }
 }
