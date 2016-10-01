@@ -20,32 +20,32 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// Indicates the credibility of a piece of information, based upon its supporting evidence.
     /// </summary>
     public enum GedcomCertainty
     {
         /// <summary>
-        /// The unreliable
+        /// Unreliable
         /// </summary>
         Unreliable = 0,
 
         /// <summary>
-        /// The questionable
+        /// Questionable
         /// </summary>
         Questionable = 1,
 
         /// <summary>
-        /// The secondary
+        /// Secondary
         /// </summary>
         Secondary = 2,
 
         /// <summary>
-        /// The primary
+        /// Primary
         /// </summary>
         Primary = 3,
 
         /// <summary>
-        /// The unknown
+        /// Unknown
         /// </summary>
         Unknown = 4
     }

@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// The database for all the GEDCOM records.
     /// This is currently just in memory.  To implement a "real"
     /// database you should derive from this class and override
-    /// the neccesary methods / properties
+    /// the necessary methods / properties.
     /// </summary>
     public class GedcomDatabase : IEnumerator
     {
@@ -70,9 +70,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the header for a GEDCOM file.
         /// </summary>
-        /// TODO: Docs
         public virtual GedcomHeader Header { get; set; }
 
         /// <summary>
@@ -191,10 +190,9 @@ namespace GeneGenie.Gedcom
         public bool Loading { get; set; }
 
         /// <summary>
-        /// Get / Set the GedcomRecord associated with the given XRef.
+        /// Gets or sets the GedcomRecord associated with the given XRef.
         /// </summary>
         /// <param name="key">TODO: Doc</param>
-        /// TODO: DOC
         public virtual GedcomRecord this[string key]
         {
             get

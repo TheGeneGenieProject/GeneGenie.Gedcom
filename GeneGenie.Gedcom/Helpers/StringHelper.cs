@@ -20,10 +20,13 @@
 namespace GeneGenie.Gedcom.Helpers
 {
     /// <summary>
+    /// Helper class for determining the properties of a string.
+    /// </summary>
+    /// <remarks>
     /// Unsure of the rationale behind this class, it could have been put in place as a faster
     /// version of the .Net BCL functions. Before replacing it with the BCL version we should
     /// benchmark it.
-    /// </summary>
+    /// </remarks>
     public static class StringHelper
     {
         /// <summary>

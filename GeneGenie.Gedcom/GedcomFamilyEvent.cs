@@ -99,10 +99,10 @@ namespace GeneGenie.Gedcom
         // this event belongs in
 
         /// <summary>
-        /// Gets or sets the fam record.
+        /// Gets or sets the family record.
         /// </summary>
         /// <value>
-        /// The fam record.
+        /// The family record.
         /// </value>
         /// <exception cref="Exception">Must set a GedcomFamilyRecord on a GedcomFamilyEvent</exception>
         public GedcomFamilyRecord FamRecord
@@ -183,7 +183,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Outputs the specified sw.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer to output to.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

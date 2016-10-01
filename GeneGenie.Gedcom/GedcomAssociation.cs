@@ -25,7 +25,7 @@ namespace GeneGenie.Gedcom
 
     /// <summary>
     /// How the given individual is associated to another.
-    /// Each GedcomIndividal contains a list of these
+    /// Each GedcomIndividal contains a list of these.
     /// </summary>
     public class GedcomAssociation : GedcomRecord
     {
@@ -41,27 +41,24 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets
+        /// Gets the record type for an association.
         /// </summary>
-        /// TODO: Docs
         public override GedcomRecordType RecordType
         {
             get { return GedcomRecordType.Association; }
         }
 
         /// <summary>
-        /// Gets
+        /// Gets the GEDCOM tag for an association.
         /// </summary>
-        /// TODO: Docs
         public override string GedcomTag
         {
             get { return "ASSO"; }
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the description for this association.
         /// </summary>
-        /// TODO: Docs
         public string Description
         {
             get
@@ -80,9 +77,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the individual for this association.
         /// </summary>
-        /// TODO: Docs
         public string Individual
         {
             get
@@ -103,7 +99,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Outputs a GEDCOM format version of this instance.
         /// </summary>
-        /// <param name="tw">Where to output the text to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             tw.Write(Environment.NewLine);
@@ -133,7 +129,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Compare the user entered data against the passed instance for similarity.
+        /// Compare the user-entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
         /// <returns>

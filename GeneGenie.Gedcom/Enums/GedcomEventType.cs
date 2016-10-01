@@ -20,258 +20,297 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: All of these need documenting properly.
+    /// GEDCOM Event Types
     /// </summary>
     public enum GedcomEventType
     {
         /// <summary>
-        /// A generic event.
+        /// Generic Event
         /// </summary>
         GenericEvent = 0,
 
         // Family Events
 
         /// <summary>
-        /// The anul
+        /// Annulment
         /// </summary>
+        /// <remarks>
+        /// Declaring a marriage void from the beginning (never existed).
+        /// </remarks>
         ANUL,
 
         /// <summary>
-        /// The cens fam
+        /// Census
         /// </summary>
+        /// <remarks>
+        /// The event of the periodic count of the population for a designated locality,
+        /// such as a national or state Census.
+        /// </remarks>
         CENS_FAM,
 
         /// <summary>
-        /// The div
+        /// Divorce
         /// </summary>
+        /// <remarks>
+        /// An event of dissolving a marriage through civil action.
+        /// </remarks>
         DIV,
 
         /// <summary>
-        /// The divf
+        /// Divorce Filed
         /// </summary>
+        /// <remarks>
+        /// An event of filing for a divorce by a spouse.
+        /// </remarks>
         DIVF,
 
         /// <summary>
-        /// The enga
+        /// Engagement
         /// </summary>
+        /// <remarks>
+        /// An event of recording or announcing an agreement between two people to become married.
+        /// </remarks>
         ENGA,
 
         /// <summary>
-        /// The marb
+        /// Marriage Bann
         /// </summary>
+        /// <remarks>
+        /// An event of an official public notice given that two people intend to marry.
+        /// </remarks>
         MARB,
 
         /// <summary>
-        /// The marc
+        /// Marriage Contract
         /// </summary>
+        /// <remarks>
+        /// An event of recording a formal agreement of marriage, including the prenuptial
+        /// agreement in which marriage partners reach agreement about the property rights
+        /// of one or both, securing property to their children.
+        /// </remarks>
         MARC,
 
         /// <summary>
-        /// The marr
+        /// Marriage
         /// </summary>
+        /// <remarks>
+        /// A legal, common-law, or customary event of creating a family unit of a man and a woman as husband and wife.
+        /// </remarks>
         MARR,
 
         /// <summary>
-        /// The marl
+        /// Marriage License
         /// </summary>
+        /// <remarks>
+        /// An event of obtaining a legal license to marry.
+        /// </remarks>
         MARL,
 
         /// <summary>
-        /// The mars
+        /// Marriage Settlement
         /// </summary>
+        /// <remarks>
+        /// An event of creating an agreement between two people contemplating marriage, at which time
+        /// they agree to release or modify property rights that would otherwise arise from the marriage.
+        /// </remarks>
         MARS,
 
         /// <summary>
-        /// The resi
+        /// Residence
         /// </summary>
+        /// <remarks>
+        /// An address or place of residence that a family or individual resided.
+        /// </remarks>
         RESI,
 
         // Individual Events
 
-        /// <summary>Date of birth.</summary>
+        /// <summary>
+        /// Birth
+        /// </summary>
         Birth,
 
         /// <summary>
-        /// The character
+        /// Christening
         /// </summary>
         CHR,
 
         /// <summary>
-        /// The deat
+        /// Death
         /// </summary>
         DEAT,
 
         /// <summary>
-        /// The buri
+        /// Burial
         /// </summary>
         BURI,
 
         /// <summary>
-        /// The crem
+        /// Cremation
         /// </summary>
         CREM,
 
         /// <summary>
-        /// The adop
+        /// Adoption
         /// </summary>
         ADOP,
 
         /// <summary>
-        /// The bapm
+        ///Baptism
         /// </summary>
         BAPM,
 
         /// <summary>
-        /// The barm
+        /// Bar Mitzvah
         /// </summary>
         BARM,
 
         /// <summary>
-        /// The basm
+        /// Bat Mitzvah
         /// </summary>
         BASM,
 
         /// <summary>
-        /// The bles
+        /// Blessing
         /// </summary>
         BLES,
 
         /// <summary>
-        /// The chra
+        /// Adult Christening
         /// </summary>
         CHRA,
 
         /// <summary>
-        /// The conf
+        /// Confirmation
         /// </summary>
         CONF,
 
         /// <summary>
-        /// The fcom
+        /// First Communion
         /// </summary>
         FCOM,
 
         /// <summary>
-        /// The ordn
+        /// Ordination
         /// </summary>
         ORDN,
 
         /// <summary>
-        /// The natu
+        /// Naturalization
         /// </summary>
         NATU,
 
         /// <summary>
-        /// The emig
+        /// Emigration
         /// </summary>
         EMIG,
 
         /// <summary>
-        /// The immi
+        /// Immigration
         /// </summary>
         IMMI,
 
         /// <summary>
-        /// The cens
+        /// Census
         /// </summary>
         CENS,
 
         /// <summary>
-        /// The prob
+        /// Probate
         /// </summary>
         PROB,
 
         /// <summary>
-        /// The will
+        /// Will Creation
         /// </summary>
         WILL,
 
         /// <summary>
-        /// The grad
+        /// Graduation
         /// </summary>
         GRAD,
 
         /// <summary>
-        /// The reti
+        /// Retirement
         /// </summary>
         RETI,
 
         // Facts
 
         /// <summary>
-        /// The generic fact
+        /// Generic Fact
         /// </summary>
         GenericFact,
 
         /// <summary>
-        /// The cast fact
+        /// Caste
         /// </summary>
         CASTFact,
 
         /// <summary>
-        /// The DSCR fact
+        /// Physical Description
         /// </summary>
         DSCRFact,
 
         /// <summary>
-        /// The educ fact
+        /// Education
         /// </summary>
         EDUCFact,
 
         /// <summary>
-        /// The idno fact
+        /// National ID Number
         /// </summary>
         IDNOFact,
 
         /// <summary>
-        /// The nati fact
+        /// National Or Tribal Origin
         /// </summary>
         NATIFact,
 
         /// <summary>
-        /// The nchi fact
+        /// Number of Children
         /// </summary>
         NCHIFact,
 
         /// <summary>
-        /// The NMR fact
+        /// Number of Marriages
         /// </summary>
         NMRFact,
 
         /// <summary>
-        /// The occu fact
+        /// Occupation
         /// </summary>
         OCCUFact,
 
         /// <summary>
-        /// The property fact
+        /// Possessions
         /// </summary>
         PROPFact,
 
         /// <summary>
-        /// The reli fact
+        /// Religion
         /// </summary>
         RELIFact,
 
         /// <summary>
-        /// The resi fact
+        /// Residence
         /// </summary>
         RESIFact,
 
         /// <summary>
-        /// The SSN fact
+        /// Social Security Number
         /// </summary>
         SSNFact,
 
         /// <summary>
-        /// The titl fact
+        /// Nobility Type Title
         /// </summary>
         TITLFact,
 
-        // GEDCOM allows custom records, beginging with _
+        // GEDCOM allows custom records, beginning with _
 
         /// <summary>
-        /// The custom
+        /// Custom
         /// </summary>
         Custom
     }

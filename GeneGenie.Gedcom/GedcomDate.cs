@@ -75,9 +75,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the calendar type.
         /// </summary>
-        /// TODO: Doc
         public GedcomDateType DateType
         {
             get
@@ -96,9 +95,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the date period.
         /// </summary>
-        /// TODO: Doc
         public GedcomDatePeriod DatePeriod
         {
             get
@@ -118,9 +116,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the time.
         /// </summary>
-        /// TODO: Doc
         public string Time
         {
             get
@@ -860,6 +857,11 @@ namespace GeneGenie.Gedcom
             return matches;
         }
 
+        /// <summary>
+        /// Split a date string into parts.
+        /// </summary>
+        /// <param name="dataString">The date to split.</param>
+        /// <returns>Array of strings representing parts of a date.</returns>
         private string[] SplitDateString(string dataString)
         {
             // TODO: the split here accounts for large(ish) amounts of memory allocation
@@ -867,6 +869,15 @@ namespace GeneGenie.Gedcom
             return dataString.Split(StaticDateData.GedcomDateParseDelimiters, StringSplitOptions.RemoveEmptyEntries);
         }
 
+        /// <summary>
+        /// Get DateTime information from an array representing parts of a date.
+        /// </summary>
+        /// <param name="dateSplit">The parts of a valid date.</param>
+        /// <param name="start">The first element in the array that contains a valid date part.</param>
+        /// <param name="num">The number of elements in the array that contain valid date parts.</param>
+        /// <param name="calendar">The calendar for the given date.</param>
+        /// <param name="inputDate">The original date string, used for feedback to the user if the date cannot be parsed.</param>
+        /// <returns>Return a DateTime if the passed-in values could be parsed into a valid DateTime; otherwise null.</returns>
         private DateTime? GetDateInfo(string[] dateSplit, int start, int num, Calendar calendar, string inputDate)
         {
             string year = string.Empty;

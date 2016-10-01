@@ -20,32 +20,32 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// Indicates the child-to-family relationship for pedigree navigation purposes.
     /// </summary>
     public enum PedigreeLinkageType
     {
         /// <summary>
-        /// The unknown
+        /// Unknown
         /// </summary>
         Unknown = 0,
 
         /// <summary>
-        /// The adopted
+        /// Adopted
         /// </summary>
         Adopted,
 
         /// <summary>
-        /// The birth
+        /// Biological
         /// </summary>
         Birth,
 
         /// <summary>
-        /// The foster
+        /// Foster
         /// </summary>
         Foster,
 
         /// <summary>
-        /// The sealing
+        /// Sealing
         /// </summary>
         Sealing,
 
@@ -54,12 +54,12 @@ namespace GeneGenie.Gedcom.Enums
         // on CHIL in the FAM record
 
         /// <summary>
-        /// The father adopted
+        /// Father Adopted
         /// </summary>
         FatherAdopted,
 
         /// <summary>
-        /// The mother adopted
+        /// Mother Adopted
         /// </summary>
         MotherAdopted
     }

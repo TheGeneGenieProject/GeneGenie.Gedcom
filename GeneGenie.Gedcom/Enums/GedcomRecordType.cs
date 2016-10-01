@@ -20,116 +20,116 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// GEDCOM Record Types
     /// </summary>
     public enum GedcomRecordType
     {
         /// <summary>
-        /// The generic record
+        /// Generic Record
         /// </summary>
         GenericRecord = 0,
 
         /// <summary>
-        /// The family
+        /// Family
         /// </summary>
         Family,
 
         /// <summary>
-        /// The individual
+        /// Individual
         /// </summary>
         Individual,
 
         /// <summary>
-        /// The multimedia
+        /// Multimedia
         /// </summary>
         Multimedia,
 
         /// <summary>
-        /// The note
+        /// Note
         /// </summary>
         Note,
 
         /// <summary>
-        /// The repository
+        /// Repository
         /// </summary>
         Repository,
 
         /// <summary>
-        /// The source
+        /// Source
         /// </summary>
         Source,
 
         /// <summary>
-        /// The submitter
+        /// Submitter
         /// </summary>
         Submitter,
 
         // non top level records
 
         /// <summary>
-        /// The submission
+        /// Submission
         /// </summary>
         Submission,
 
         /// <summary>
-        /// The event
+        /// Event
         /// </summary>
         Event,
 
         /// <summary>
-        /// The family event
+        /// Family Event
         /// </summary>
         FamilyEvent,
 
         /// <summary>
-        /// The place
+        /// Place
         /// </summary>
         Place,
 
         /// <summary>
-        /// The source citation
+        /// Source Citation
         /// </summary>
         SourceCitation,
 
         /// <summary>
-        /// The family link
+        /// Family Link
         /// </summary>
         FamilyLink,
 
         /// <summary>
-        /// The association
+        /// Association
         /// </summary>
         Association,
 
         /// <summary>
-        /// The name
+        /// Name
         /// </summary>
         Name,
 
         /// <summary>
-        /// The individual event
+        /// Individual Event
         /// </summary>
         IndividualEvent,
 
         /// <summary>
-        /// The date
+        /// Date
         /// </summary>
         Date,
 
         /// <summary>
-        /// The repository citation
+        /// Repository Citation
         /// </summary>
         RepositoryCitation,
 
         // GEDCOM allows custom records, beginging with _
 
         /// <summary>
-        /// The custom record
+        /// Custom Record
         /// </summary>
         CustomRecord,
 
         /// <summary>
-        /// The header
+        /// Header
         /// </summary>
         Header
     }

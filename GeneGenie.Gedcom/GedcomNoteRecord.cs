@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     using Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// GEDCOM Note Record
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     public class GedcomNoteRecord : GedcomRecord

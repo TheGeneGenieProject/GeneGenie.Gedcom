@@ -145,7 +145,7 @@ namespace GeneGenie.Gedcom
         };
 
         /// <summary>
-        /// TODO: Doc
+        /// The GEDCOM event type
         /// </summary>
         private GedcomEventType eventType;
 
@@ -565,20 +565,24 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Types to readable.
+        /// Get the user-friendly textual description for a GedcomEventType.
         /// </summary>
-        /// <param name="eventType">Type of the event.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="eventType">A GEDCOM event type.</param>
+        /// <returns>
+        /// The textual description for a given GedcomEventType.
+        /// </returns>
         public static string TypeToReadable(GedcomEventType eventType)
         {
             return typeDescriptions[(int)eventType];
         }
 
         /// <summary>
-        /// Types to tag.
+        /// Get the tag for a GedcomEventType.
         /// </summary>
-        /// <param name="eventType">Type of the event.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="eventType">A GEDCOM event type.</param>
+        /// <returns>
+        /// The tag for a given GedcomEventType.
+        /// </returns>
         public static string TypeToTag(GedcomEventType eventType)
         {
             return typeStrings[(int)eventType];
@@ -591,7 +595,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="readable">The type name as a string.</param>
         /// <returns>
-        /// TODO: Doc
+        /// A GedcomEventType matching the textual description, or GenericEvent if no match was found.
         /// </returns>
         public static GedcomEventType ReadableToType(string readable)
         {

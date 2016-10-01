@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     using Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// GEDCOM Record
     /// </summary>
     public abstract class GedcomRecord
     {
@@ -101,10 +101,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public virtual string GedcomTag
         {
@@ -310,10 +310,10 @@ namespace GeneGenie.Gedcom
 
         /// <summary>
         /// Gets a list of cross references to notes for this record.
-        /// TODO: This lookup is not easy to use, can we simply this to a list of note records?
         /// </summary>
         public GedcomRecordList<string> Notes
         {
+            // TODO: This lookup is not easy to use, can we simply this to a list of note records?
             get
             {
                 if (notes == null)
@@ -376,9 +376,10 @@ namespace GeneGenie.Gedcom
 
         /// <summary>
         /// Gets or sets the restriction notice.
-        /// The restriction notice.
-        /// not standard GEDCOM, but no reason not to put a restriction notice at this level
         /// </summary>
+        /// <remarks>
+        /// Not standard GEDCOM, but no reason not to put a restriction notice at this level.
+        /// </remarks>
         /// <value>
         /// The restriction notice.
         /// </value>
@@ -455,7 +456,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public virtual void GenerateXML(XmlNode root)
         {
         }
@@ -463,7 +464,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the note XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public void GenerateNoteXML(XmlNode root)
         {
             foreach (string noteID in Notes)
@@ -538,9 +539,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs the specified writer.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer to output to.</param>
         public virtual void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
@@ -560,7 +561,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Must be overriden in derived classes to compare the user entered data for that instance.
+        /// Must be overridden in derived classes to compare the user entered data for that instance.
         /// Called from the <see cref="Equals(GedcomRecord)" /> method before it checks common
         /// data elements (notes, sources etc.).
         /// We use the word equivalent so that we avoid using the word equals. This is because we are
@@ -568,7 +569,7 @@ namespace GeneGenie.Gedcom
         /// (matching) but they might be two different individuals / families etc.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>True if instance matches user data, otherwise false.</returns>
+        /// <returns>True if instance matches user data, otherwise False.</returns>
         public abstract bool IsEquivalentTo(object obj);
 
         /// <summary>
@@ -577,7 +578,7 @@ namespace GeneGenie.Gedcom
         /// against this instance (Source etc. which are common to all inheritors).
         /// </summary>
         /// <param name="obj">The GedcomRecord to compare against.</param>
-        /// <returns>Returns true if the core base properties match, otherwise false.</returns>
+        /// <returns>True if the core base properties match, otherwise False.</returns>
         public bool Equals(GedcomRecord obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -672,7 +673,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Lists the changed.
+        /// Update the GedcomChangeDate for this record.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -682,7 +683,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Changeds this instance.
+        /// Update the GedcomChangeDate for this record.
         /// </summary>
         protected virtual void Changed()
         {
@@ -715,7 +716,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Splits the text.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The stream writer.</param>
         /// <param name="line">The line.</param>
         protected void SplitText(StreamWriter sw, string line)
         {
@@ -725,7 +726,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Outputs the standard.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer.</param>
         protected void OutputStandard(TextWriter sw)
         {
             string levelPlusOne = null;

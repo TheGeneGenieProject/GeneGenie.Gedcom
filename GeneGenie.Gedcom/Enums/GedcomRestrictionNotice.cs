@@ -20,27 +20,30 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// GEDCOM Restriction Types
     /// </summary>
+    /// <remarks>
+    /// Signifies that access to information has been denied or otherwise restricted.
+    /// </remarks>
     public enum GedcomRestrictionNotice
     {
         /// <summary>
-        /// The none
+        /// None
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// The confidential
+        /// Confidential
         /// </summary>
         Confidential,
 
         /// <summary>
-        /// The locked
+        /// Locked
         /// </summary>
         Locked,
 
         /// <summary>
-        /// The privacy
+        /// Privacy
         /// </summary>
         Privacy
     }

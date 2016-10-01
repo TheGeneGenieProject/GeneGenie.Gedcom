@@ -150,10 +150,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the sex character.
+        /// Gets a single letter representing the individual's gender.
         /// </summary>
         /// <value>
-        /// The sex character.
+        /// The gender character.
         /// </value>
         public string SexChar
         {
@@ -246,10 +246,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the attributes.
+        /// Gets the list of events.
         /// </summary>
         /// <value>
-        /// The attributes.
+        /// The list of events.
         /// </value>
         public GedcomRecordList<GedcomIndividualEvent> Attributes
         {
@@ -308,7 +308,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the associations.
+        /// Gets this individual's associations to others.
         /// </summary>
         /// <value>
         /// The associations.
@@ -328,10 +328,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the alia.
+        /// Get the list of aliases.
         /// </summary>
         /// <value>
-        /// The alia.
+        /// The list of aliases.
         /// </value>
         public GedcomRecordList<string> Alia
         {
@@ -506,10 +506,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the medical.
+        /// Gets the medical event.
         /// </summary>
         /// <value>
-        /// The medical.
+        /// The medical event.
         /// </value>
         public GedcomIndividualEvent Medical
         {
@@ -851,10 +851,12 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Spouses the in family.
+        /// Determine whether a spouse is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// True if spouse is in the family; otherwise False.
+        /// </returns>
         public bool SpouseInFamily(string family)
         {
             GedcomFamilyLink tmp;
@@ -863,11 +865,13 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Spouses the in family.
+        /// Determine whether a spouse is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <param name="famLink">The fam link.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="famLink">The family link.</param>
+        /// <returns>
+        /// True if spouse is in the family; otherwise False.
+        /// </returns>
         public bool SpouseInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -887,10 +891,12 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Childs the in family.
+        /// Determine whether a child is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// True if child is in the family; otherwise False.
+        /// </returns>
         public bool ChildInFamily(string family)
         {
             GedcomFamilyLink tmp;
@@ -899,11 +905,13 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Determines if there is a child in the family.
+        /// Determines whether a child is in the family.
         /// </summary>
         /// <param name="family">The family.</param>
         /// <param name="famLink">The fam link.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// True if child is in the family; otherwise False.
+        /// </returns>
         public bool ChildInFamily(string family, out GedcomFamilyLink famLink)
         {
             bool ret = false;
@@ -925,7 +933,9 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Gets the family.
         /// </summary>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// Family
+        /// </returns>
         public GedcomFamilyRecord GetFamily()
         {
             GedcomFamilyRecord fam = null;
@@ -948,7 +958,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Sets the prefered spouse.
+        /// Sets the preferred spouse.
         /// </summary>
         /// <param name="xrefID">The xref identifier.</param>
         public void SetPreferedSpouse(string xrefID)
@@ -973,7 +983,9 @@ namespace GeneGenie.Gedcom
         /// Finds the event.
         /// </summary>
         /// <param name="eventType">Type of the event.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// The event if found; otherwise null.
+        /// </returns>
         public GedcomIndividualEvent FindEvent(GedcomEventType eventType)
         {
             return events.Find(e => e.EventType == eventType);

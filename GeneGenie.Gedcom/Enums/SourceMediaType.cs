@@ -20,119 +20,119 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// Source Media Type
     /// </summary>
     public enum SourceMediaType
     {
         /// <summary>
-        /// The none
+        /// None
         /// </summary>
         None,
 
         /// <summary>
-        /// The audio
+        /// Audio
         /// </summary>
         Audio,
 
         /// <summary>
-        /// The book
+        /// Book
         /// </summary>
         Book,
 
         /// <summary>
-        /// The card
+        /// Card
         /// </summary>
         Card,
 
         /// <summary>
-        /// The electronic
+        /// Electronic
         /// </summary>
         Electronic,
 
         /// <summary>
-        /// The fiche
+        /// Fiche
         /// </summary>
         Fiche,
 
         /// <summary>
-        /// The film
+        /// Film
         /// </summary>
         Film,
 
         /// <summary>
-        /// The magazine
+        /// Magazine
         /// </summary>
         Magazine,
 
         /// <summary>
-        /// The manuscript
+        /// Manuscript
         /// </summary>
         Manuscript,
 
         /// <summary>
-        /// The map
+        /// Map
         /// </summary>
         Map,
 
         /// <summary>
-        /// The newspaper
+        /// Newspaper
         /// </summary>
         Newspaper,
 
         /// <summary>
-        /// The photo
+        /// Photo
         /// </summary>
         Photo,
 
         /// <summary>
-        /// The tombstone
+        /// Tombstone
         /// </summary>
         Tombstone,
 
         /// <summary>
-        /// The video
+        /// Video
         /// </summary>
         Video,
 
         // non standard gedcom media types
 
         /// <summary>
-        /// The civil registry
+        /// Civil Registry
         /// </summary>
         Civil_Registry,
 
         /// <summary>
-        /// The family archive cd
+        /// Family Archive CD
         /// </summary>
         Family_Archive_CD,
 
         /// <summary>
-        /// The microfilm
+        /// Microfilm
         /// </summary>
         Microfilm,
 
         /// <summary>
-        /// The census
+        /// Census
         /// </summary>
         Census,
 
         /// <summary>
-        /// The letter
+        /// Letter
         /// </summary>
         Letter,
 
         /// <summary>
-        /// The official document
+        /// Official Document
         /// </summary>
         Official_Document,
 
         /// <summary>
-        /// The microfiche
+        /// Microfiche
         /// </summary>
         Microfiche, // TODO: we should correct this one to be Fiche
 
         /// <summary>
-        /// The other
+        /// Other
         /// </summary>
         Other
     }
