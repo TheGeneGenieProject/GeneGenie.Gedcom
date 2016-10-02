@@ -20,27 +20,27 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// Child Linkage Status
     /// </summary>
     public enum ChildLinkageStatus
     {
         /// <summary>
-        /// The unknown
+        /// Unknown
         /// </summary>
         Unknown,
 
         /// <summary>
-        /// The challenged
+        /// Challenged
         /// </summary>
         Challenged,
 
         /// <summary>
-        /// The disproven
+        /// Disproven
         /// </summary>
         Disproven,
 
         /// <summary>
-        /// The proven
+        /// Proven
         /// </summary>
         Proven
     }

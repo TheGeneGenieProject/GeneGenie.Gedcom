@@ -76,11 +76,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets the famc.
+        /// Gets or sets the family in which an individual appears as a child.
         /// </summary>
-        /// <value>
-        /// The famc.
-        /// </value>
         public string Famc
         {
             get
@@ -99,11 +96,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets the adopted by.
+        /// Gets or sets the adoption type.
         /// </summary>
-        /// <value>
-        /// The adopted by.
-        /// </value>
         public GedcomAdoptionType AdoptedBy
         {
             get
@@ -124,11 +118,8 @@ namespace GeneGenie.Gedcom
         // util backpointer to the individual for this event
 
         /// <summary>
-        /// Gets or sets the indi record.
+        /// Gets or sets the individual's record.
         /// </summary>
-        /// <value>
-        /// The indi record.
-        /// </value>
         /// <exception cref="Exception">Must set a GedcomIndividualRecord on a GedcomIndividualEvent</exception>
         public GedcomIndividualRecord IndiRecord
         {
@@ -199,7 +190,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the pers information XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public void GeneratePersInfoXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -249,9 +240,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs data to the specified writer.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

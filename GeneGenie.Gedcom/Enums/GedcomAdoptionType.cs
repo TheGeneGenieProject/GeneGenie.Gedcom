@@ -20,27 +20,27 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// GEDCOM Adoption Type
     /// </summary>
     public enum GedcomAdoptionType
     {
         /// <summary>
-        /// The none
+        /// None
         /// </summary>
         None = 0,
 
         /// <summary>
-        /// The husband
+        /// Husband
         /// </summary>
         Husband,
 
         /// <summary>
-        /// The wife
+        /// Wife
         /// </summary>
         Wife,
 
         /// <summary>
-        /// The husband and wife
+        /// Husband and Wife
         /// </summary>
         HusbandAndWife
     }

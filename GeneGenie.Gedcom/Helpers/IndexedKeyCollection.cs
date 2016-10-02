@@ -47,7 +47,9 @@ namespace GeneGenie.Gedcom.Helpers
             Strings = new List<string>(size);
         }
 
-        /// <summary>Gets or sets the strings which form the collection.</summary>
+        /// <summary>
+        /// Gets or sets the strings which form the collection.
+        /// </summary>
         protected List<string> Strings { get; set; }
 
         /// <summary>
@@ -129,7 +131,6 @@ namespace GeneGenie.Gedcom.Helpers
 
         /// <summary>
         /// Finds the specified string.
-        /// TODO: Needs unit testing and benchmarking.
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
@@ -138,6 +139,8 @@ namespace GeneGenie.Gedcom.Helpers
         /// <returns>True if string found, false otherwise.</returns>
         public virtual bool Find(string str, int startIndex, int length, out int pos)
         {
+            // TODO: Needs unit testing and benchmarking.
+
             bool found = false;
 
             int i = 0;

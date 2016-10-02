@@ -20,32 +20,32 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// TODO: Doc
+    /// Marriage Start Status
     /// </summary>
     public enum MarriageStartStatus
     {
         /// <summary>
-        /// The single
+        /// Single
         /// </summary>
         Single = 0,
 
         /// <summary>
-        /// The private
+        /// Private
         /// </summary>
         Private = 1,
 
         /// <summary>
-        /// The partners
+        /// Partners
         /// </summary>
         Partners = 2,
 
         /// <summary>
-        /// The other
+        /// Other
         /// </summary>
         Other = 3,
 
         /// <summary>
-        /// The unknown
+        /// Unknown
         /// </summary>
         Unknown = 4
     }

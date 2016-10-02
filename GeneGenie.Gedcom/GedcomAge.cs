@@ -43,9 +43,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the date on which the age of an individual changed.
         /// </summary>
-        /// TODO: Docs
         public GedcomChangeDate ChangeDate { get; set; }
 
         /// <summary>
@@ -70,9 +69,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets a value indicating whether
+        /// Gets a value indicating whether the individual is considered stillborn.
         /// </summary>
-        /// TODO: Docs
         public bool StillBorn
         {
             get
@@ -82,9 +80,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets a value indicating whether
+        /// Gets a value indicating whether the individual is considered an infant.
         /// </summary>
-        /// TODO: Docs
         public bool Infant
         {
             get
@@ -94,9 +91,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets a value indicating whether
+        /// Gets a value indicating whether the individual is considered a child.
         /// </summary>
-        /// TODO: Docs
         public bool Child
         {
             get
@@ -106,9 +102,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the year portion of the individual's age.
         /// </summary>
-        /// TODO: Docs
         public int Years
         {
             get
@@ -127,9 +122,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the month portion of the individual's age.
         /// </summary>
-        /// TODO: Docs
         public int Months
         {
             get
@@ -148,9 +142,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the day portion of the individual's age.
         /// </summary>
-        /// TODO: Docs
         public int Days
         {
             get
@@ -312,7 +305,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Output GEDCOM formatted text representing the age.
         /// </summary>
-        /// <param name="tw">Where to output to.</param>
+        /// <param name="tw">The writer to output to.</param>
         /// <param name="level">The GEDCOM level.</param>
         public void Output(TextWriter tw, int level)
         {

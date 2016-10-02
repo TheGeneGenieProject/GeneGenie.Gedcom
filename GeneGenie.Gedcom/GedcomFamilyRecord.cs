@@ -134,10 +134,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the gedcom tag for a family record.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The gedcom tag for a family record.
         /// </value>
         public override string GedcomTag
         {
@@ -145,10 +145,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the events.
+        /// Gets the family events.
         /// </summary>
         /// <value>
-        /// The events.
+        /// The family events.
         /// </value>
         public GedcomRecordList<GedcomFamilyEvent> Events
         {
@@ -368,10 +368,12 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Adds the new event.
+        /// Add a new family event for a given event type.
         /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="type">The event type.</param>
+        /// <returns>
+        /// The new family event based on the given event type.
+        /// </returns>
         public GedcomFamilyEvent AddNewEvent(GedcomEventType type)
         {
             GedcomFamilyEvent familyEvent = new GedcomFamilyEvent();
@@ -385,10 +387,12 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Adds the child.
+        /// Add a child.
         /// </summary>
-        /// <param name="indi">The indi.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="indi">The child.</param>
+        /// <returns>
+        /// Returns True if a new child record is added; otherwise False.
+        /// </returns>
         public bool AddChild(GedcomIndividualRecord indi)
         {
             bool added = false;
@@ -420,9 +424,11 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Adds the new child.
+        /// Add a new child.
         /// </summary>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// The child's record.
+        /// </returns>
         public GedcomIndividualRecord AddNewChild()
         {
             GedcomIndividualRecord husband = null;
@@ -467,7 +473,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Removes the child.
+        /// Remove a child.
         /// </summary>
         /// <param name="child">The child.</param>
         public void RemoveChild(GedcomIndividualRecord child)
@@ -484,7 +490,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Changes the husband.
         /// </summary>
-        /// <param name="indi">The indi.</param>
+        /// <param name="indi">The husband.</param>
         public void ChangeHusband(GedcomIndividualRecord indi)
         {
             GedcomIndividualRecord husband = null;
@@ -550,7 +556,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Changes the wife.
         /// </summary>
-        /// <param name="indi">The indi.</param>
+        /// <param name="indi">The wife.</param>
         public void ChangeWife(GedcomIndividualRecord indi)
         {
             GedcomIndividualRecord husband = null;
@@ -616,7 +622,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Removes the husband.
         /// </summary>
-        /// <param name="indi">The indi.</param>
+        /// <param name="indi">The husband.</param>
         public void RemoveHusband(GedcomIndividualRecord indi)
         {
             GedcomFamilyLink link;
@@ -635,7 +641,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Removes the wife.
         /// </summary>
-        /// <param name="indi">The indi.</param>
+        /// <param name="indi">The wife.</param>
         public void RemoveWife(GedcomIndividualRecord indi)
         {
             GedcomFamilyLink link;
@@ -679,7 +685,7 @@ namespace GeneGenie.Gedcom
         /// Sets the type of the linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <param name="type">The type.</param>
+        /// <param name="type">The pedigree linkage type.</param>
         public void SetLinkageType(string childXrefID, PedigreeLinkageType type)
         {
             SetLinkageType(childXrefID, type, GedcomAdoptionType.HusbandAndWife);
@@ -689,8 +695,8 @@ namespace GeneGenie.Gedcom
         /// Sets the type of the linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="to">To.</param>
+        /// <param name="type">The pedigree linkage type.</param>
+        /// <param name="to">The adoption type.</param>
         public void SetLinkageType(string childXrefID, PedigreeLinkageType type, GedcomAdoptionType to)
         {
             Dictionary<string, PedigreeLinkageType> dict;
@@ -738,7 +744,9 @@ namespace GeneGenie.Gedcom
         /// Gets the type of the husband linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// Pedigree linkage type for husband.
+        /// </returns>
         public PedigreeLinkageType GetHusbandLinkageType(string childXrefID)
         {
             PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
@@ -777,7 +785,9 @@ namespace GeneGenie.Gedcom
         /// Gets the type of the wife linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// Pedigree linkage type for wife.
+        /// </returns>
         public PedigreeLinkageType GetWifeLinkageType(string childXrefID)
         {
             PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
@@ -816,7 +826,9 @@ namespace GeneGenie.Gedcom
         /// Gets the type of the linkage.
         /// </summary>
         /// <param name="childXrefID">The child xref identifier.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// Pedigree linkage type.
+        /// </returns>
         public PedigreeLinkageType GetLinkageType(string childXrefID)
         {
             PedigreeLinkageType ret = PedigreeLinkageType.Unknown;
@@ -854,7 +866,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -1035,7 +1047,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Outputs the specified sw.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);
