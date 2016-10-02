@@ -77,10 +77,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag for a submission record.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {

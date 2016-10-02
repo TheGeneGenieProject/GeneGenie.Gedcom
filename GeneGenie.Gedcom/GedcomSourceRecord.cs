@@ -148,10 +148,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag for a source record.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {
@@ -433,21 +433,29 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Compares two source records.
+        /// Compares two source records by title.
         /// </summary>
-        /// <param name="sourceA">The source a.</param>
-        /// <param name="sourceB">The source b.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="sourceA">The first source record.</param>
+        /// <param name="sourceB">The second source record.</param>
+        /// <returns>
+        /// &lt;0 if the first record's title precedes the second in the sort order;
+        /// &gt;0 if the second record's title precedes the first;
+        /// 0 if the titles are equal
+        /// </returns>
         public static int CompareByTitle(GedcomSourceRecord sourceA, GedcomSourceRecord sourceB)
         {
             return string.Compare(sourceA.Title, sourceB.Title);
         }
 
         /// <summary>
-        /// Compares this instance of a source record against the passed one.
+        /// Compares this source record to another record.
         /// </summary>
-        /// <param name="sourceB">The source b.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="sourceB">A source record.</param>
+        /// <returns>
+        /// &lt;0 if the first record precedes the second in the sort order;
+        /// &gt;0 if the second record precedes the first;
+        /// 0 if the records are equal
+        /// </returns>
         public int CompareTo(object sourceB)
         {
             return GedcomSourceRecord.CompareByTitle(this, (GedcomSourceRecord)sourceB);
@@ -474,7 +482,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -540,9 +548,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs this record in GEDCOM format.
+        /// Outputs this source record as a GEDCOM record.
         /// </summary>
-        /// <param name="tw">The TextWriter to output to.</param>
+        /// <param name="tw">The writer to output to.</param>
         public override void Output(TextWriter tw)
         {
             base.Output(tw);

@@ -69,10 +69,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag for a multimedia record.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {
@@ -80,10 +80,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the files.
+        /// Gets the multimedia files.
         /// </summary>
         /// <value>
-        /// The files.
+        /// The multimedia files.
         /// </value>
         public GedcomRecordList<GedcomMultimediaFile> Files
         {
@@ -167,9 +167,13 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Compares the two passed records by title.
         /// </summary>
-        /// <param name="mediaA">The media a.</param>
-        /// <param name="mediaB">The media b.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="mediaA">The first multimedia record.</param>
+        /// <param name="mediaB">The second multimedia record.</param>
+        /// <returns>
+        /// &lt;0 if the first record's title precedes the second in the sort order;
+        /// &gt;0 if the second record's title precedes the first;
+        /// 0 if the titles are equal
+        /// </returns>
         public static int CompareByTitle(GedcomMultimediaRecord mediaA, GedcomMultimediaRecord mediaB)
         {
             return string.Compare(mediaA.Title, mediaB.Title);
@@ -193,9 +197,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs this instance as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer to output to.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

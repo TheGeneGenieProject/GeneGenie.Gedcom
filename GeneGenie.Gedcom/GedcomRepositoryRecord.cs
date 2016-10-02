@@ -71,10 +71,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag for a repository record.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {
@@ -194,19 +194,27 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Compares the names of the passed records.
         /// </summary>
-        /// <param name="repoA">The repo a.</param>
-        /// <param name="repoB">The repo b.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="repoA">The first repository record.</param>
+        /// <param name="repoB">The second repository record.</param>
+        /// <returns>
+        /// &lt;0 if the first record's name precedes the second in the sort order;
+        /// &gt;0 if the second record's name precedes the first;
+        /// 0 if the names are equal
+        /// </returns>
         public static int CompareByName(GedcomRepositoryRecord repoA, GedcomRepositoryRecord repoB)
         {
             return string.Compare(repoA.Name, repoB.Name);
         }
 
         /// <summary>
-        /// Compares to.
+        /// Compares this repository record to another record.
         /// </summary>
-        /// <param name="repoB">The repo b.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <param name="repoB">A repository record.</param>
+        /// <returns>
+        /// &lt;0 if the this record precedes the other in the sort order;
+        /// &gt;0 if the other record precedes this one;
+        /// 0 if the records are equal
+        /// </returns>
         public int CompareTo(object repoB)
         {
             return GedcomRepositoryRecord.CompareByName(this, (GedcomRepositoryRecord)repoB);
@@ -215,7 +223,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -247,9 +255,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs this repository record as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer to output to.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);
@@ -274,7 +282,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
         /// <returns>
-        /// True if instance matches user data, otherwise false.
+        /// True if instance matches user data, otherwise False.
         /// </returns>
         public override bool IsEquivalentTo(object obj)
         {

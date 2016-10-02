@@ -248,9 +248,9 @@ namespace GeneGenie.Gedcom
 #endif
 
         /// <summary>
-        /// Outputs data to the specified writer.
+        /// Output GEDCOM format for this instance.
         /// </summary>
-        /// <param name="sw">The writer.</param>
+        /// <param name="sw">Where to output the data to.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

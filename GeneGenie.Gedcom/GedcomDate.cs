@@ -136,9 +136,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets the date, or the first date in a date range.
         /// </summary>
-        /// TODO: Doc
         public string Date1
         {
             get
@@ -158,18 +157,16 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        ///
-        /// Gets </summary>
-        /// TODO: Doc
+        /// Gets the DateTime, or the first DateTime in a date range.
+        /// </summary>
         public DateTime? DateTime1
         {
             get { return dateTime1; }
         }
 
         /// <summary>
-        ///
-        /// Gets or sets </summary>
-        /// TODO: Doc
+        /// Gets or sets the second date in a date range.
+        /// </summary>
         public string Date2
         {
             get
@@ -189,9 +186,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets
+        /// Gets the second DateTime in a date range.
         /// </summary>
-        /// TODO: Doc
         public DateTime? DateTime2
         {
             get { return dateTime2; }

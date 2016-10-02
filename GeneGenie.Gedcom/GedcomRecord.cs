@@ -539,7 +539,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified writer.
+        /// Outputs this instance as a GEDCOM record.
         /// </summary>
         /// <param name="sw">The writer to output to.</param>
         public virtual void Output(TextWriter sw)
@@ -653,7 +653,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Splits the text.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The streamwriter.</param>
         /// <param name="line">The line.</param>
         /// <param name="level">The level.</param>
         protected static void SplitText(StreamWriter sw, string line, int level)

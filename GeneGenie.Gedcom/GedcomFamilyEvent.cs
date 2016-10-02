@@ -181,9 +181,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Output GEDCOM format for this family event.
         /// </summary>
-        /// <param name="sw">The writer to output to.</param>
+        /// <param name="sw">Where to output the data to.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);
