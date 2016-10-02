@@ -17,14 +17,20 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
+#define XML_NODE_UNDEFINED
+
 namespace GeneGenie.Gedcom
 {
+
     using System;
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Xml;
     using Enums;
+
+#if (!XML_NODE_UNDEFINED)
+    using System.Xml;
+#endif
 
     /// <summary>
     /// Details about a given individual.
@@ -1175,6 +1181,7 @@ namespace GeneGenie.Gedcom
             return fam;
         }
 
+#if(!XML_NODE_UNDEFINED)
         /// <summary>
         /// Generates the XML.
         /// </summary>
@@ -1314,6 +1321,7 @@ namespace GeneGenie.Gedcom
 
             root.AppendChild(indiNode);
         }
+#endif
 
         /// <summary>
         /// Outputs this instance of an individual as a GEDCOM record.
