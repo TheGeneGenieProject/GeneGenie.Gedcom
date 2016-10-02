@@ -91,9 +91,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Ints to string.
+        /// Convert an integer to a string.
         /// </summary>
-        /// <param name="i">The i.</param>
+        /// <param name="i">The integer.</param>
         /// <returns>TODO: Doc, also, why is this needed? Not in the framework?</returns>
         public static string IntToString(int i)
         {
@@ -178,10 +178,12 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Escapes at sign.
+        /// Escapes "at" sign.
         /// </summary>
         /// <param name="str">The string.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// The input string with the @ symbol escaped, or the original string if no @ symbol present.
+        /// </returns>
         public static string EscapeAtSign(string str)
         {
             if (str.IndexOf("@") != -1)
@@ -196,7 +198,9 @@ namespace GeneGenie.Gedcom
         /// Returns the position of the escaped character in the passed string.
         /// </summary>
         /// <param name="str">The string.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// A count of the total number of escaped characters (the "at" sign) found in the passed string, or 0 if none.
+        /// </returns>
         public static int EscapedAtLength(string str)
         {
             int i = 0;
@@ -218,7 +222,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Splits the line text.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer.</param>
         /// <param name="text">The text.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
@@ -230,7 +234,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Splits the line text.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer.</param>
         /// <param name="text">The text.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
@@ -285,7 +289,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Splits the text.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer.</param>
         /// <param name="line">The line.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>
@@ -300,7 +304,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Splits the text.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer.</param>
         /// <param name="line">The line.</param>
         /// <param name="level">The level.</param>
         /// <param name="maxLen">The maximum length.</param>

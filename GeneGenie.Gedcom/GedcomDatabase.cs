@@ -422,15 +422,20 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// TODO: Doc
+        /// Advances the enumerator to the next element of the collection.
         /// </summary>
-        /// <returns>TODO: Doc 2</returns>
+        /// <returns>
+        /// True if the enumerator was successfully advanced to the next element;
+        /// False if the enumerator has passed the end of the collection.
+        /// </returns>
         public virtual bool MoveNext()
         {
             return Table.GetEnumerator().MoveNext();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Sets the enumerator to its initial position, which is before the first element in the collection.
+        /// </summary>
         public virtual void Reset()
         {
             Table.GetEnumerator().Reset();

@@ -81,10 +81,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {
@@ -646,9 +646,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs this instance as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer to output to.</param>
         public override void Output(TextWriter sw)
         {
             // TODO: should output name parts?  not well supported by other

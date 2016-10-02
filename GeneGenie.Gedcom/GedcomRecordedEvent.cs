@@ -168,7 +168,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Changeds this instance.
+        /// Updates the changed date and time.
         /// </summary>
         protected virtual void Changed()
         {

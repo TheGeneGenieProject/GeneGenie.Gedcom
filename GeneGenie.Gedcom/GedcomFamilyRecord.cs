@@ -70,8 +70,8 @@ namespace GeneGenie.Gedcom
         /// Initializes a new instance of the <see cref="GedcomFamilyRecord" /> class.
         /// </summary>
         /// <param name="database">The database to associate with this record.</param>
-        /// <param name="indi1">The indi1.</param>
-        /// <param name="indi2">The indi2.</param>
+        /// <param name="indi1">The first individual.</param>
+        /// <param name="indi2">The second individual.</param>
         public GedcomFamilyRecord(GedcomDatabase database, GedcomIndividualRecord indi1, GedcomIndividualRecord indi2)
             : this()
         {
@@ -1045,9 +1045,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Output GEDCOM format for this instance.
         /// </summary>
-        /// <param name="sw">The writer.</param>
+        /// <param name="sw">Where to output the data to.</param>
         public override void Output(TextWriter sw)
         {
             base.Output(sw);

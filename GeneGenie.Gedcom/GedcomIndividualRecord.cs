@@ -128,10 +128,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag for an individual.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {
@@ -139,10 +139,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the names.
+        /// Gets the individual's names.
         /// </summary>
         /// <value>
-        /// The names.
+        /// The names of the individual.
         /// </value>
         public GedcomRecordList<GedcomName> Names
         {
@@ -996,7 +996,9 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// True if the surname starts with prefix; otherwise False.
+        /// </returns>
         public bool MatchSurname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1044,7 +1046,9 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <param name="soundex">if set to <c>true</c> [soundex].</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>
+        /// True if the firstname starts with prefix; otherwise False.
+        /// </returns>
         public bool MatchFirstname(string prefix, bool soundex)
         {
             bool ret = false;
@@ -1152,8 +1156,8 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets a "fake" family record that contains all of this individuals children.
-        /// The record will only contain children
+        /// Gets a "fake" family record that contains all of this individual's children.
+        /// The record will only contain children.
         /// </summary>
         /// <returns>
         /// A <see cref="GedcomFamilyRecord"/>
@@ -1178,7 +1182,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;

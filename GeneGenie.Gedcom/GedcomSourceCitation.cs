@@ -66,10 +66,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the gedcom tag.
+        /// Gets the GEDCOM tag for a source citation.
         /// </summary>
         /// <value>
-        /// The gedcom tag.
+        /// The GEDCOM tag.
         /// </value>
         public override string GedcomTag
         {
@@ -254,7 +254,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Generates the XML.
         /// </summary>
-        /// <param name="root">The root.</param>
+        /// <param name="root">The root node.</param>
         public override void GenerateXML(XmlNode root)
         {
             XmlDocument doc = root.OwnerDocument;
@@ -312,9 +312,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Outputs this source citation as a GEDCOM record.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">The writer to output to.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);

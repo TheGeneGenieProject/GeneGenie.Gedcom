@@ -353,9 +353,9 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Outputs the specified sw.
+        /// Output GEDCOM format for this instance.
         /// </summary>
-        /// <param name="sw">The sw.</param>
+        /// <param name="sw">Where to output the data to.</param>
         public override void Output(TextWriter sw)
         {
             sw.Write("0 HEAD");
