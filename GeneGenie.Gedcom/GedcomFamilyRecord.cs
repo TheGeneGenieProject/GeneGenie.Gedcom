@@ -16,13 +16,16 @@
 // </copyright>
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
+#define XML_NODE_UNDEFINED
 
 namespace GeneGenie.Gedcom
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
+#if (!XML_NODE_UNDEFINED)
     using System.Xml;
+#endif
     using Enums;
 
     /// <summary>
@@ -863,6 +866,7 @@ namespace GeneGenie.Gedcom
             return ret;
         }
 
+#if(!XML_NODE_UNDEFINED)
         /// <summary>
         /// Generates the XML.
         /// </summary>
@@ -1043,6 +1047,7 @@ namespace GeneGenie.Gedcom
 
             root.AppendChild(famNode);
         }
+#endif
 
         /// <summary>
         /// Output GEDCOM format for this instance.

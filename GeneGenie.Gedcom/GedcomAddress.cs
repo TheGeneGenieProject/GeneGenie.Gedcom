@@ -16,12 +16,16 @@
 // </copyright>
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
+#define XML_NODE_UNDEFINED
 
 namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
+
+#if (!XML_NODE_UNDEFINED)
     using System.Xml;
+#endif
 
     /// <summary>
     /// Stores details of an address
@@ -471,6 +475,7 @@ namespace GeneGenie.Gedcom
             }
         }
 
+#if (!XML_NODE_UNDEFINED)
         /// <summary>
         /// Add the GEDCOM 6 XML elements for the data in this object as child
         /// nodes of the given root.
@@ -549,6 +554,7 @@ namespace GeneGenie.Gedcom
                 root.AppendChild(node);
             }
         }
+#endif
 
         /// <summary>
         /// Get the GEDCOM 5.5 lines for the data in this object.
