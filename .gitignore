@@ -250,3 +250,5 @@ ModelManifest.xml
 /GeneGenie.Gedcom.Fetcher
 /GedFan0.4.0.0
 *.ncrunchsolution
+/GeneGenie.Gedcom/NuGet/PackageSource/GeneGenie.Gedcom.0.0.1.34214.zip
+*.zip
