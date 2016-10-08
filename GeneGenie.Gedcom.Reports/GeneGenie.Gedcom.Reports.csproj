@@ -162,7 +162,9 @@
     <None Include="GeneGenie.Gedcom.Reports.ruleset">
       <SubType>Designer</SubType>
     </None>
+    <None Include="NuGet\cakebuild.ps1" />
     <None Include="NuGet\GeneGenie.Gedcom.Reports.nuspec" />
+    <None Include="NuGet\msbuild.ps1" />
     <None Include="packages.config" />
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
