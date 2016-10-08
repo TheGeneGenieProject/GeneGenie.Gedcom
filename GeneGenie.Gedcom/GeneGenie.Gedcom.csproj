@@ -231,6 +231,6 @@
   </Target>
   <Target Name="Publish">
     <!-- Publish the nupkg to the server by simply copying it to the correct location. -->
-    <!--<Copy SourceFiles="$(PackageDir)\$(AssemblyName).%(OutputAssemblyInfo.Version).nupkg;$(PackageDir)\$(AssemblyName).%(OutputAssemblyInfo.Version).symbols.nupkg" DestinationFolder="\\server\path\to\nuget\package" />-->
+    <Copy SourceFiles="$(ProjectDir)NuGet\PackageSource\$(AssemblyName).%(OutputAssemblyInfo.Version).nupkg;" DestinationFolder="$(SolutionDir)nuget\PackageSource" />
   </Target>
 </Project>
