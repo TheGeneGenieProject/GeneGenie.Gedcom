@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using GeneGenie.Gedcom.Tests.DataHelperExtensions;
-using Xunit;
-using GeneGenie.Gedcom.Enums;
-
-namespace GeneGenie.Gedcom.Tests.Individuals
+﻿namespace GeneGenie.Gedcom.Tests.Individuals
 {
+    using Enums;
+    using Xunit;
+
+    /// <summary>
+    /// Tests for equality of family links.
+    /// </summary>
     public class GedcomFamilyLinkComparisonTest
     {
         private readonly GedcomDatabase gedcomDb;
