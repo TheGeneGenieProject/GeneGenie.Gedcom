@@ -39,6 +39,15 @@
         }
 
         [Fact]
+        private void Family_links_with_same_facts_are_similar()
+        {
+            var familyLink1 = GenerateComparableFamilyLink();
+            var familyLink2 = GenerateComparableFamilyLink();
+
+            Assert.True(familyLink1.IsEquivalentTo(familyLink2));
+        }
+
+        [Fact]
         private void Family_links_with_different_father_pedigrees_are_not_equal_test()
         {
             var familyLink1 = GenerateComparableFamilyLink();
