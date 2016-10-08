@@ -223,8 +223,9 @@ namespace GeneGenie.Gedcom
         /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
         public int CompareTo(GedcomFamilyLink link)
         {
-            // Family and Individual appear to store XRefId values,
-            // which don't seem to contribute to the equality of a family link.
+            /* Family and Individual appear to store XRefId values,
+             * which don't seem to contribute to the equality of a family link.
+             */
 
             if (link == null)
             {
