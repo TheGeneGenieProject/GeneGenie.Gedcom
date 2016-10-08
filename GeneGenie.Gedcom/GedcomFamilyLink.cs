@@ -25,7 +25,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// How an individal is linked to a family
     /// </summary>
-    public class GedcomFamilyLink : GedcomRecord
+    public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable
     {
         private string family;
         private string indi;
@@ -207,57 +207,72 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Compare the user entered data against the passed instance for similarity.
+        /// Compares the current and passed family link to see if they are the same.
         /// </summary>
-        /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>True if they match, False otherwise.</returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var link = obj as GedcomFamilyLink;
+            return CompareTo(obj as GedcomFamilyLink) == 0;
+        }
+
+        /// <summary>
+        /// Compares the current and passed family link to see if they are the same.
+        /// </summary>
+        /// <param name="link">The family link to compare the current instance against.</param>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        public int CompareTo(GedcomFamilyLink link)
+        {
+            /* Family and Individual appear to store XRefId values,
+             * which don't seem to contribute to the equality of a family link.
+             */
 
             if (link == null)
             {
-                return false;
+                return 1;
             }
 
-            if (!Equals(Family, link.Family))
+            var compare = link.FatherPedigree.CompareTo(FatherPedigree);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(FatherPedigree, link.FatherPedigree))
+            compare = link.MotherPedigree.CompareTo(MotherPedigree);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Individual, link.Individual))
+            compare = link.Pedigree.CompareTo(Pedigree);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(MotherPedigree, link.MotherPedigree))
+            compare = link.PreferedSpouse.CompareTo(PreferedSpouse);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Pedigree, link.Pedigree))
+            compare = link.Status.CompareTo(Status);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(PreferedSpouse, link.PreferedSpouse))
-            {
-                return false;
-            }
+            return compare;
+        }
 
-            if (!Equals(Status, link.Status))
-            {
-                return false;
-            }
-
-            return true;
+        /// <summary>
+        /// Compares the current and passed family link to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomFamilyLink);
         }
     }
 }
