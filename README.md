@@ -22,7 +22,7 @@ To load a tree into memory use the following static helper.
 
 There are other variants of this helper and non static methods that allow you to specify additional parameters such as encoding.
 
-You'll want to make sure that the file you just ready was parsed OK and handle any failures;
+You'll want to make sure that the file you just read was parsed OK and handle any failures;
 
     if (gedcomReader.Parser.ErrorState != Parser.Enums.GedcomErrorState.NoError)
     {
