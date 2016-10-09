@@ -16,10 +16,12 @@
 // </copyright>
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
+#define XML_NODE_UNDEFINED
 
 namespace GeneGenie.Gedcom.Reports
 {
     using System.IO;
+#if (!XML_NODE_UNDEFINED)
     using System.Xml;
     using GeneGenie.Gedcom.Parser;
     using Xunit;
@@ -62,4 +64,6 @@ namespace GeneGenie.Gedcom.Reports
             DumpXML(fileName);
         }
     }
+    #endif
+
 }

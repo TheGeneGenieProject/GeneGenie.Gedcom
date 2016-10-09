@@ -17,15 +17,19 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
+#define XML_NODE_UNDEFINED
+
 namespace GeneGenie.Gedcom.Reports
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+#if (!XML_NODE_UNDEFINED)
     using System.Xml;
     using System.Xml.XPath;
     using System.Xml.Xsl;
+#endif
     using Enums;
     using Gedcom.Enums;
 
@@ -106,6 +110,8 @@ namespace GeneGenie.Gedcom.Reports
         /// Gets or sets the xref identifier.
         /// </summary>
         public string XrefId { get; set; }
+
+#if (!XML_NODE_UNDEFINED)
 
         /// <summary>
         /// Generates the XML.
@@ -296,6 +302,9 @@ namespace GeneGenie.Gedcom.Reports
                 }
             }
         }
+#endif
+
+#if (!XML_NODE_UNDEFINED)
 
         private void AppendIndividualDetails(GedcomIndividualRecord indi, XmlNode root, int generation)
         {
@@ -329,5 +338,6 @@ namespace GeneGenie.Gedcom.Reports
                 }
             }
         }
+#endif
     }
 }
