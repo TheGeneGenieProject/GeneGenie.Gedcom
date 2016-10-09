@@ -38,6 +38,8 @@ namespace GeneGenie.Gedcom.Reports
         {
         }
 
+#if(!XML_NODE_UNDEFINED)
+
         /// <summary>
         /// Generates the XML.
         /// </summary>
@@ -67,5 +69,7 @@ namespace GeneGenie.Gedcom.Reports
 
             return doc;
         }
+#endif
+
     }
 }
