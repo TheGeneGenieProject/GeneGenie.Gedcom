@@ -22,6 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Xml;
     using Enums;
 
@@ -1183,12 +1184,17 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(Children, family.Children))
+            if (!Equals(NumberOfChildren, family.NumberOfChildren))
             {
                 return false;
             }
 
-            if (!Equals(Events, family.Events))
+            if (!Children.All(family.Children.Contains))
+            {
+                return false;
+            }
+
+            if (!Events.All(family.Events.Contains))
             {
                 return false;
             }
@@ -1198,12 +1204,12 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(Marriage, family.Marriage))
+            if (!Equals(Wife, family.Wife))
             {
                 return false;
             }
 
-            if (!Equals(NumberOfChildren, family.NumberOfChildren))
+            if (!Equals(Marriage, family.Marriage))
             {
                 return false;
             }
@@ -1213,12 +1219,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(SubmitterRecords, family.SubmitterRecords))
-            {
-                return false;
-            }
-
-            if (!Equals(Wife, family.Wife))
+            if (!SubmitterRecords.All(family.SubmitterRecords.Contains))
             {
                 return false;
             }
