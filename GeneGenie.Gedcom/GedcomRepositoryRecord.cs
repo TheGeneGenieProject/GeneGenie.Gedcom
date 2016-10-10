@@ -21,6 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Xml;
     using Enums;
 
@@ -303,7 +304,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(Citations, repository.Citations))
+            if (!Citations.All(repository.Citations.Contains))
             {
                 return false;
             }

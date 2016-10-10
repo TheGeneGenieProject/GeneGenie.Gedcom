@@ -1014,6 +1014,11 @@ namespace GeneGenie.Gedcom
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj as GedcomAddress);
+        }
+
         private void Changed()
         {
             if (database == null)
