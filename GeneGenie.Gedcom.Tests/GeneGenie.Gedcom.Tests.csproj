@@ -151,6 +151,7 @@
     <Compile Include="GedcomGraphTest.cs" />
     <Compile Include="Individuals\GedcomFamilyLinkComparisonTest.cs" />
     <Compile Include="Individuals\GedcomIndividualMatchTest.cs" />
+    <Compile Include="GedComComparisonTests.cs" />
     <Compile Include="RecordReaderTests\GedcomRecordCountTest.cs" />
     <Compile Include="GedcomRecordWriterTest.cs" />
     <Compile Include="GedcomXMLGeneratorTest.cs" />

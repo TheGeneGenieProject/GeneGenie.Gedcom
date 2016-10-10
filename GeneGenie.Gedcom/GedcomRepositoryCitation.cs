@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// TODO: Doc
     /// </summary>
     /// <seealso cref="GedcomRecord" />
-    public class GedcomRepositoryCitation : GedcomRecord
+    public class GedcomRepositoryCitation : GedcomRecord, IEquatable<GedcomRepositoryCitation>
     {
         private string repository;
 
@@ -298,6 +298,12 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <inheritdoc />
+        public bool Equals(GedcomRepositoryCitation other)
+        {
+            return IsEquivalentTo(other);
         }
     }
 }

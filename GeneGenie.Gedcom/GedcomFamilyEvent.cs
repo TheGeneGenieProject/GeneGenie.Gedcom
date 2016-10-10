@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// An event relating to a given family
     /// </summary>
-    public class GedcomFamilyEvent : GedcomEvent
+    public class GedcomFamilyEvent : GedcomEvent, IEquatable<GedcomFamilyEvent>
     {
         private GedcomAge husbandAge;
         private GedcomAge wifeAge;
@@ -217,6 +217,12 @@ namespace GeneGenie.Gedcom
 
                 WifeAge.Output(sw, Level + 2);
             }
+        }
+
+        /// <inheritdoc />
+        public bool Equals(GedcomFamilyEvent other)
+        {
+            return IsEquivalentTo(other);
         }
     }
 }
