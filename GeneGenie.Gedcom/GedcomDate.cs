@@ -425,7 +425,7 @@ namespace GeneGenie.Gedcom
         /// <returns>True if they match, False otherwise.</returns>
         public bool Equals(GedcomDate otherDate)
         {
-            return CompareTo(otherDate) == 0;
+            return this == otherDate;
         }
 
         /// <inheritdoc/>

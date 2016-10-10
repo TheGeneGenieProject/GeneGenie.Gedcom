@@ -87,5 +87,75 @@ namespace GeneGenie.Gedcom.Date.Tests
 
             Assert.True(lessThan);
         }
+
+        [Theory]
+        [InlineData("1 Jan 1900", "1 Jan 2000")]
+        private void Compare_by_date_returns_less_than_zero_when_first_date_is_earlier(string dateAText, string dateBText)
+        {
+            var dateA = CreateDate(dateAText);
+            var dateB = CreateDate(dateBText);
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == -1);
+        }
+
+        [Theory]
+        [InlineData("1 Jan 2000", "1 Jan 1900")]
+        private void Compare_by_date_returns_greater_than_zero_when_second_date_is_earlier(string dateAText, string dateBText)
+        {
+            var dateA = CreateDate(dateAText);
+            var dateB = CreateDate(dateBText);
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 1);
+        }
+
+        [Theory]
+        [InlineData("1 Jan 1900", "1 Jan 1900")]
+        private void Compare_by_date_returns_zero_when_dates_are_equal(string dateAText, string dateBText)
+        {
+            var dateA = CreateDate(dateAText);
+            var dateB = CreateDate(dateBText);
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 0);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_zero_when_dates_are_both_null()
+        {
+            var dateA = new GedcomDate();
+            var dateB = new GedcomDate();
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 0);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_less_than_zero_when_only_first_date_is_null()
+        {
+            var dateA = new GedcomDate();
+            var dateB = CreateDate("1 Jan 1900");
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == -1);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_greater_than_zero_when_only_second_date_is_null()
+        {
+            var dateA = CreateDate("1 Jan 1900");
+            var dateB = new GedcomDate();
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 1);
+        }
+
     }
 }
