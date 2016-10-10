@@ -45,6 +45,13 @@ namespace GeneGenie.Gedcom.Date.Tests
             yield return new object[] { "Jan 1900", "1900" };
         }
 
+        private static IEnumerable<object> GetDistinctDateRangesAndExpectedSortValue()
+        {
+            yield return new object[] { "1 Jan 1900", "1 Jan 2000", -1 };
+            yield return new object[] { "1 Jan 1900", "1 Jan 1900", 0 };
+            yield return new object[] { "1 Jan 2000", "1 Jan 1900", 1 };
+        }
+
         private static GedcomDate CreateDate(string dateText)
         {
             var date = new GedcomDate();
@@ -89,39 +96,15 @@ namespace GeneGenie.Gedcom.Date.Tests
         }
 
         [Theory]
-        [InlineData("1 Jan 1900", "1 Jan 2000")]
-        private void Compare_by_date_returns_less_than_zero_when_first_date_is_earlier(string dateAText, string dateBText)
+        [MemberData(nameof(GetDistinctDateRangesAndExpectedSortValue))]
+        private void Compare_by_date_sorts_two_dates_correctly(string dateAText, string dateBText, int expectedSortValue)
         {
             var dateA = CreateDate(dateAText);
             var dateB = CreateDate(dateBText);
 
-            var result = GedcomDate.CompareByDate(dateA, dateB);
+            var actualSortValue = GedcomDate.CompareByDate(dateA, dateB);
 
-            Assert.True(result == -1);
-        }
-
-        [Theory]
-        [InlineData("1 Jan 2000", "1 Jan 1900")]
-        private void Compare_by_date_returns_greater_than_zero_when_second_date_is_earlier(string dateAText, string dateBText)
-        {
-            var dateA = CreateDate(dateAText);
-            var dateB = CreateDate(dateBText);
-
-            var result = GedcomDate.CompareByDate(dateA, dateB);
-
-            Assert.True(result == 1);
-        }
-
-        [Theory]
-        [InlineData("1 Jan 1900", "1 Jan 1900")]
-        private void Compare_by_date_returns_zero_when_dates_are_equal(string dateAText, string dateBText)
-        {
-            var dateA = CreateDate(dateAText);
-            var dateB = CreateDate(dateBText);
-
-            var result = GedcomDate.CompareByDate(dateA, dateB);
-
-            Assert.True(result == 0);
+            Assert.Equal(expectedSortValue, actualSortValue);
         }
 
         [Fact]
@@ -157,5 +140,16 @@ namespace GeneGenie.Gedcom.Date.Tests
             Assert.True(result == 1);
         }
 
+        [Theory]
+        [MemberData(nameof(GetDistinctDateRangesAndExpectedSortValue))]
+        private void CompareTo_sorts_two_dates_correctly(string dateAText, string dateBText, int expectedSortValue)
+        {
+            var dateA = CreateDate(dateAText);
+            var dateB = CreateDate(dateBText);
+
+            var actualSortValue = dateA.CompareTo(dateB);
+
+            Assert.Equal(expectedSortValue, actualSortValue);
+        }
     }
 }
