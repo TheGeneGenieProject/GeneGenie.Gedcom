@@ -8,19 +8,6 @@
     /// </summary>
     public class GedcomFamilyLinkComparisonTest
     {
-        private readonly GedcomDatabase gedcomDb;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomFamilyLinkComparisonTest"/> class.
-        /// </summary>
-        /// <remarks>
-        /// Test suite for the <see cref="GedcomFamilyLinkComparisonTest"/> class.
-        /// </remarks>
-        public GedcomFamilyLinkComparisonTest()
-        {
-            gedcomDb = new GedcomDatabase();
-        }
-
         [Fact]
         private void Family_link_is_not_equal_to_null_test()
         {

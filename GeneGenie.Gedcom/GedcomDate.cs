@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.
     /// </summary>
-    public class GedcomDate : GedcomRecord
+    public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IEquatable<GedcomDate>
     {
         private GedcomDateType dateType;
         private GedcomDatePeriod datePeriod;
@@ -383,7 +383,7 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public override bool IsEquivalentTo(object obj)
         {
-            return CompareByDate(this, obj as GedcomDate) == 0;
+            return CompareTo(obj as GedcomDate) == 0;
         }
 
         /// <summary>
@@ -396,6 +396,36 @@ namespace GeneGenie.Gedcom
         public override bool Equals(object obj)
         {
             return this == (GedcomDate)obj;
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in object to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomDate);
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in date to see if they are the same.
+        /// </summary>
+        /// <param name="otherDate">The date to compare the current instance against.</param>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        public int CompareTo(GedcomDate otherDate)
+        {
+            return CompareByDate(this, otherDate);
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in date to see if they are the same.
+        /// </summary>
+        /// <param name="otherDate">The date to compare the current instance against.</param>
+        /// <returns>True if they match, False otherwise.</returns>
+        public bool Equals(GedcomDate otherDate)
+        {
+            return CompareTo(otherDate) == 0;
         }
 
         /// <inheritdoc/>

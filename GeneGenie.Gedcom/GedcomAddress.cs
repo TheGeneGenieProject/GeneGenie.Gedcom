@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Stores details of an address
     /// </summary>
-    public class GedcomAddress
+    public class GedcomAddress : IComparable<GedcomAddress>, IComparable, IEquatable<GedcomAddress>
     {
         private string addressLine;
         private string addressLine1;
@@ -469,6 +469,91 @@ namespace GeneGenie.Gedcom
                     Changed();
                 }
             }
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in address to see if they are the same.
+        /// </summary>
+        /// <param name="otherAddress">The address to compare the current instance against.</param>
+        /// <returns>
+        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
+        /// </returns>
+        public int CompareTo(GedcomAddress otherAddress)
+        {
+            if (otherAddress == null)
+            {
+                return 1;
+            }
+
+            var compare = otherAddress.AddressLine.CompareTo(AddressLine);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = otherAddress.AddressLine1.CompareTo(AddressLine1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = otherAddress.AddressLine2.CompareTo(AddressLine2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = otherAddress.AddressLine3.CompareTo(AddressLine3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = otherAddress.ChangeDate.CompareTo(ChangeDate);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = otherAddress.AddressLine3.CompareTo(AddressLine3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = otherAddress.AddressLine3.CompareTo(AddressLine3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+
+
+            return compare;
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in address to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>
+        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
+        /// </returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomAddress);
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in address to see if they are the same.
+        /// </summary>
+        /// <param name="otherAddress">The address to compare the current instance against.</param>
+        /// <returns>
+        /// True if they match, False otherwise.
+        /// </returns>
+        public bool Equals(GedcomAddress otherAddress)
+        {
+            return CompareTo(otherAddress) == 0;
         }
 
         /// <summary>
