@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Stores details of an address
     /// </summary>
-    public class GedcomAddress
+    public class GedcomAddress : IComparable<GedcomAddress>, IComparable, IEquatable<GedcomAddress>
     {
         private string addressLine;
         private string addressLine1;
@@ -469,6 +469,173 @@ namespace GeneGenie.Gedcom
                     Changed();
                 }
             }
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in address to see if they are the same.
+        /// </summary>
+        /// <param name="otherAddress">The address to compare the current instance against.</param>
+        /// <returns>
+        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
+        /// </returns>
+        public int CompareTo(GedcomAddress otherAddress)
+        {
+            if (otherAddress == null)
+            {
+                return 1;
+            }
+
+            var compare = string.Compare(AddressLine, otherAddress.AddressLine);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(AddressLine1, otherAddress.AddressLine1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(AddressLine2, otherAddress.AddressLine2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(AddressLine3, otherAddress.AddressLine3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = GedcomDate.CompareByDate(ChangeDate, otherAddress.ChangeDate);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(City, otherAddress.City);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Country, otherAddress.Country);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Email1, otherAddress.Email1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Email2, otherAddress.Email2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Email3, otherAddress.Email3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Fax1, otherAddress.Fax1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Fax2, otherAddress.Fax2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Fax3, otherAddress.Fax3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Phone1, otherAddress.Phone1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Phone2, otherAddress.Phone2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Phone3, otherAddress.Phone3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(PostCode, otherAddress.PostCode);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(State, otherAddress.State);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Www1, otherAddress.Www1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Www2, otherAddress.Www2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Www3, otherAddress.Www3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            return compare;
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in address to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>
+        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
+        /// </returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomAddress);
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in address to see if they are the same.
+        /// </summary>
+        /// <param name="otherAddress">The address to compare the current instance against.</param>
+        /// <returns>
+        /// True if they match, False otherwise.
+        /// </returns>
+        public bool Equals(GedcomAddress otherAddress)
+        {
+            return CompareTo(otherAddress) == 0;
         }
 
         /// <summary>
@@ -1012,11 +1179,6 @@ namespace GeneGenie.Gedcom
                     System.Diagnostics.Debug.WriteLine("Truncating Www3");
                 }
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj as GedcomAddress);
         }
 
         private void Changed()

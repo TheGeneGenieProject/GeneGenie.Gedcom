@@ -45,6 +45,13 @@ namespace GeneGenie.Gedcom.Date.Tests
             yield return new object[] { "Jan 1900", "1900" };
         }
 
+        private static IEnumerable<object> GetDistinctDateRangesAndExpectedSortValue()
+        {
+            yield return new object[] { "1 Jan 1900", "1 Jan 2000", -1 };
+            yield return new object[] { "1 Jan 1900", "1 Jan 1900", 0 };
+            yield return new object[] { "1 Jan 2000", "1 Jan 1900", 1 };
+        }
+
         private static GedcomDate CreateDate(string dateText)
         {
             var date = new GedcomDate();
@@ -86,6 +93,96 @@ namespace GeneGenie.Gedcom.Date.Tests
             var lessThan = dateA < dateB;
 
             Assert.True(lessThan);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetDistinctDateRangesAndExpectedSortValue))]
+        private void Compare_by_date_sorts_two_dates_correctly(string dateAText, string dateBText, int expectedSortValue)
+        {
+            var dateA = CreateDate(dateAText);
+            var dateB = CreateDate(dateBText);
+
+            var actualSortValue = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.Equal(expectedSortValue, actualSortValue);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_zero_when_internal_date_values_are_both_null()
+        {
+            var dateA = new GedcomDate();
+            var dateB = new GedcomDate();
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 0);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_less_than_zero_when_only_first_internal_date_is_null()
+        {
+            var dateA = new GedcomDate();
+            var dateB = CreateDate("1 Jan 1900");
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == -1);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_greater_than_zero_when_only_second_internal_date_is_null()
+        {
+            var dateA = CreateDate("1 Jan 1900");
+            var dateB = new GedcomDate();
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 1);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_zero_when_dates_are_both_null()
+        {
+            GedcomDate dateA = null;
+            GedcomDate dateB = null;
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 0);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_less_than_zero_when_only_first_date_is_null()
+        {
+            GedcomDate dateA = null;
+            GedcomDate dateB = new GedcomDate();
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == -1);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_greater_than_zero_when_only_second_date_is_null()
+        {
+            GedcomDate dateA = new GedcomDate();
+            GedcomDate dateB = null;
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 1);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetDistinctDateRangesAndExpectedSortValue))]
+        private void CompareTo_sorts_two_dates_correctly(string dateAText, string dateBText, int expectedSortValue)
+        {
+            var dateA = CreateDate(dateAText);
+            var dateB = CreateDate(dateBText);
+
+            var actualSortValue = dateA.CompareTo(dateB);
+
+            Assert.Equal(expectedSortValue, actualSortValue);
         }
     }
 }
