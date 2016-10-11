@@ -108,7 +108,7 @@ namespace GeneGenie.Gedcom.Date.Tests
         }
 
         [Fact]
-        private void Compare_by_date_returns_zero_when_dates_are_both_null()
+        private void Compare_by_date_returns_zero_when_internal_date_values_are_both_null()
         {
             var dateA = new GedcomDate();
             var dateB = new GedcomDate();
@@ -119,7 +119,7 @@ namespace GeneGenie.Gedcom.Date.Tests
         }
 
         [Fact]
-        private void Compare_by_date_returns_less_than_zero_when_only_first_date_is_null()
+        private void Compare_by_date_returns_less_than_zero_when_only_first_internal_date_is_null()
         {
             var dateA = new GedcomDate();
             var dateB = CreateDate("1 Jan 1900");
@@ -130,10 +130,43 @@ namespace GeneGenie.Gedcom.Date.Tests
         }
 
         [Fact]
-        private void Compare_by_date_returns_greater_than_zero_when_only_second_date_is_null()
+        private void Compare_by_date_returns_greater_than_zero_when_only_second_internal_date_is_null()
         {
             var dateA = CreateDate("1 Jan 1900");
             var dateB = new GedcomDate();
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 1);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_zero_when_dates_are_both_null()
+        {
+            GedcomDate dateA = null;
+            GedcomDate dateB = null;
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == 0);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_less_than_zero_when_only_first_date_is_null()
+        {
+            GedcomDate dateA = null;
+            GedcomDate dateB = new GedcomDate();
+
+            var result = GedcomDate.CompareByDate(dateA, dateB);
+
+            Assert.True(result == -1);
+        }
+
+        [Fact]
+        private void Compare_by_date_returns_greater_than_zero_when_only_second_date_is_null()
+        {
+            GedcomDate dateA = new GedcomDate();
+            GedcomDate dateB = null;
 
             var result = GedcomDate.CompareByDate(dateA, dateB);
 

@@ -485,49 +485,131 @@ namespace GeneGenie.Gedcom
                 return 1;
             }
 
-            var compare = otherAddress.AddressLine.CompareTo(AddressLine);
+            var compare = string.Compare(AddressLine, otherAddress.AddressLine);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = otherAddress.AddressLine1.CompareTo(AddressLine1);
+            compare = string.Compare(AddressLine1, otherAddress.AddressLine1);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = otherAddress.AddressLine2.CompareTo(AddressLine2);
+            compare = string.Compare(AddressLine2, otherAddress.AddressLine2);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = otherAddress.AddressLine3.CompareTo(AddressLine3);
+            compare = string.Compare(AddressLine3, otherAddress.AddressLine3);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = otherAddress.ChangeDate.CompareTo(ChangeDate);
+            compare = GedcomDate.CompareByDate(ChangeDate, otherAddress.ChangeDate);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = otherAddress.AddressLine3.CompareTo(AddressLine3);
+            compare = string.Compare(City, otherAddress.City);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = otherAddress.AddressLine3.CompareTo(AddressLine3);
+            compare = string.Compare(Country, otherAddress.Country);
             if (compare != 0)
             {
                 return compare;
             }
 
+            compare = string.Compare(Email1, otherAddress.Email1);
+            if (compare != 0)
+            {
+                return compare;
+            }
 
+            compare = string.Compare(Email2, otherAddress.Email2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Email3, otherAddress.Email3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Fax1, otherAddress.Fax1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Fax2, otherAddress.Fax2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Fax3, otherAddress.Fax3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Phone1, otherAddress.Phone1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Phone2, otherAddress.Phone2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Phone3, otherAddress.Phone3);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(PostCode, otherAddress.PostCode);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(State, otherAddress.State);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Www1, otherAddress.Www1);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Www2, otherAddress.Www2);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Www3, otherAddress.Www3);
+            if (compare != 0)
+            {
+                return compare;
+            }
 
             return compare;
         }
@@ -1097,11 +1179,6 @@ namespace GeneGenie.Gedcom
                     System.Diagnostics.Debug.WriteLine("Truncating Www3");
                 }
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj as GedcomAddress);
         }
 
         private void Changed()

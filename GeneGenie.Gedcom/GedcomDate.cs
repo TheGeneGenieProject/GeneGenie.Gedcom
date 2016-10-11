@@ -355,6 +355,22 @@ namespace GeneGenie.Gedcom
         /// <returns>0 if equal, -1 if datea less than dateb, else 1.</returns>
         public static int CompareByDate(GedcomDate datea, GedcomDate dateb)
         {
+            bool anull = Equals(datea, null);
+            bool bnull = Equals(dateb, null);
+
+            if (anull && bnull)
+            {
+                return 0;
+            }
+            else if (anull)
+            {
+                return -1;
+            }
+            else if (bnull)
+            {
+                return 1;
+            }
+
             int ret = CompareNullableDateTime(datea.DateTime1, dateb.DateTime1);
 
             if (ret == 0)
