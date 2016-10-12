@@ -131,9 +131,9 @@ namespace GeneGenie.Gedcom.Reports
             }
             else
             {
-                foreach (GedcomIndividualRecord indi in Database.Individuals)
+                foreach (GedcomIndividualRecord gedcomIndividualRecord in Database.Individuals)
                 {
-                    AppendIndividualDetails(indi, root, 0);
+                    AppendIndividualDetails(gedcomIndividualRecord, root, 0);
                 }
 
                 foreach (GedcomSourceRecord source in Database.Sources)
