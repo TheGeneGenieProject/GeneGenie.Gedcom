@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     using System.Linq;
     using Enums;
 
-#if (!XML_NODE_UNDEFINED)
+#if !XML_NODE_UNDEFINED
     using System.Xml;
 #endif
 
@@ -1185,7 +1185,7 @@ namespace GeneGenie.Gedcom
             return fam;
         }
 
-#if(!XML_NODE_UNDEFINED)
+#if !XML_NODE_UNDEFINED
         /// <summary>
         /// Generates the XML.
         /// </summary>
