@@ -21,7 +21,6 @@
 
 namespace GeneGenie.Gedcom
 {
-
 #if !XML_NODE_UNDEFINED
     using System.Xml;
 #endif
