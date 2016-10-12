@@ -333,7 +333,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Get the list of aliases.
+        /// Gets the list of aliases.
         /// </summary>
         /// <value>
         /// The list of aliases.
