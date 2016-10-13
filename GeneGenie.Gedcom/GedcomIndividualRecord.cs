@@ -35,7 +35,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Details about a given individual.
     /// </summary>
-    public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<GedcomIndividualRecord>
+    public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<GedcomIndividualRecord>, IEquatable<GedcomIndividualRecord>
     {
         private GedcomRecordList<GedcomName> names;
         private GedcomSex sex;
@@ -734,6 +734,17 @@ namespace GeneGenie.Gedcom
         public int CompareTo(object individual)
         {
             return CompareTo(individual as GedcomIndividualRecord);
+        }
+
+        /// <summary>
+        /// Compares the current and passed individual to see if they are the same.
+        /// Compares using user submitted data, not the internal ids which may change.
+        /// </summary>
+        /// <param name="other">The other individual to compare the current individual against.</param>
+        /// <returns>True if they match, false otherwise.</returns>
+        public bool Equals(GedcomIndividualRecord other)
+        {
+            return CompareTo(other) == 0;
         }
 
         /// <summary>
