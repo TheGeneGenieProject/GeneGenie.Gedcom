@@ -27,7 +27,7 @@ namespace GeneGenie.Gedcom
     /// How the given individual is associated to another.
     /// Each GedcomIndividal contains a list of these.
     /// </summary>
-    public class GedcomAssociation : GedcomRecord
+    public class GedcomAssociation : GedcomRecord, IComparable, IComparable<GedcomAssociation>, IEquatable<GedcomAssociation>
     {
         private string description;
 
@@ -137,24 +137,60 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var association = obj as GedcomAssociation;
+            return CompareTo(obj as GedcomAssociation) == 0;
+        }
 
-            if (association == null)
+        /// <summary>
+        /// Compares the current and passed-in object to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>
+        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
+        /// </returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomAssociation);
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in association to see if they are the same.
+        /// </summary>
+        /// <param name="other">The association to compare the current instance against.</param>
+        /// <returns>
+        /// A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.
+        /// </returns>
+        public int CompareTo(GedcomAssociation other)
+        {
+            if (other == null)
             {
-                return false;
+                return 1;
             }
 
-            if (!Equals(Description, association.Description))
+            var compare = other.Description.CompareTo(Description);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Individual, association.Individual))
+            compare = other.Individual.CompareTo(Individual);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            return true;
+            return compare;
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in association to see if they are the same.
+        /// </summary>
+        /// <param name="other">The association to compare the current instance against.</param>
+        /// <returns>
+        /// True if they match, False otherwise.
+        /// </returns>
+        public bool Equals(GedcomAssociation other)
+        {
+            return CompareTo(other) == 0;
         }
     }
 }

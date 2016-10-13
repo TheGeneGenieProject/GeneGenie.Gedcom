@@ -150,6 +150,7 @@
     <Compile Include="GedcomVariationComparisonTest.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
     <Compile Include="GedcomGraphTest.cs" />
+    <Compile Include="Individuals\GedcomAssociationComparisonTest.cs" />
     <Compile Include="Individuals\GedcomFamilyLinkComparisonTest.cs" />
     <Compile Include="Individuals\GedcomIndividualMatchTest.cs" />
     <Compile Include="GedComComparisonTests.cs" />
