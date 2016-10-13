@@ -166,13 +166,13 @@ namespace GeneGenie.Gedcom
                 return 1;
             }
 
-            var compare = other.Description.CompareTo(Description);
+            var compare = string.Compare(other.Description, Description);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = other.Individual.CompareTo(Individual);
+            compare = string.Compare(other.Individual, Individual);
             if (compare != 0)
             {
                 return compare;
