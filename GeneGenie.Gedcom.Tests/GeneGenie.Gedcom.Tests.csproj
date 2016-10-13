@@ -147,6 +147,7 @@
     <Compile Include="GedcomDeleteTest.cs" />
     <Compile Include="GedcomIdentTest.cs" />
     <Compile Include="GedcomToDoTests.cs" />
+    <Compile Include="GedcomVariationComparisonTest.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
     <Compile Include="GedcomGraphTest.cs" />
     <Compile Include="Individuals\GedcomFamilyLinkComparisonTest.cs" />

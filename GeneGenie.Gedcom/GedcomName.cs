@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// A name for a given individual, allowing different variations to be
     /// stored.
     /// </summary>
-    public class GedcomName : GedcomRecord, IComparable<GedcomName>
+    public class GedcomName : GedcomRecord, IComparable<GedcomName>, IComparable, IEquatable<GedcomName>
     {
         private string type;
 
@@ -529,15 +529,97 @@ namespace GeneGenie.Gedcom
                 return 1;
             }
 
-            return string.Compare(Name, other.Name);
+            var compare = string.Compare(Type, other.Type);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = GedcomGenericListComparer.CompareListOrder(PhoneticVariations, other.PhoneticVariations);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = GedcomGenericListComparer.CompareListOrder(RomanizedVariations, other.RomanizedVariations);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Surname, other.Surname);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Prefix, other.Prefix);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Given, other.Given);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(SurnamePrefix, other.SurnamePrefix);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Suffix, other.Suffix);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Nick, other.Nick);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = PreferredName.CompareTo(other.PreferredName);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            return compare;
         }
 
         /// <summary>
-        /// Compare the user entered data against the passed instance for similarity.
+        /// Compares two GedcomName instances by using the full name.
+        /// </summary>
+        /// <param name="obj">The name to compare against this instance.</param>
+        /// <returns>An integer specifying the relative sort order.</returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomName);
+        }
+
+        /// <summary>
+        /// Compare the user-entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomName to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise False.
+        /// </returns>
+        public bool Equals(GedcomName other)
+        {
+            return CompareTo(other) == 0;
+        }
+
+        /// <summary>
+        /// Compare the user-entered data against the passed instance for similarity.
         /// </summary>
         /// <param name="obj">The object to compare this instance against.</param>
         /// <returns>
-        /// True if instance matches user data, otherwise false.
+        /// True if instance matches user data, otherwise False.
         /// </returns>
         public override bool IsEquivalentTo(object obj)
         {

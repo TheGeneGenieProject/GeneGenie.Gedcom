@@ -24,7 +24,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// TODO: Doc
     /// </summary>
-    public class GedcomVariation
+    public class GedcomVariation : IComparable<GedcomVariation>, IComparable, IEquatable<GedcomVariation>
     {
         ///// <summary>
         ///// TODO: Doc, why such a vague type?
@@ -116,6 +116,53 @@ namespace GeneGenie.Gedcom
         {
             get { return changeDate; }
             set { changeDate = value; }
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in GedcomVariation to see if they are the same.
+        /// </summary>
+        /// <param name="other">The GedcomVariation to compare the current instance against.</param>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        public int CompareTo(GedcomVariation other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            var compare = string.Compare(Value, other.Value);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(VariationType, other.VariationType);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            return compare;
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in object to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>A 32-bit signed integer that indicates whether this instance precedes, follows, or appears in the same position in the sort order as the value parameter.</returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomVariation);
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in GedcomVariation to see if they are the same.
+        /// </summary>
+        /// <param name="other">The GedcomVariation to compare the current instance against.</param>
+        /// <returns>True if they match, False otherwise.</returns>
+        public bool Equals(GedcomVariation other)
+        {
+            return CompareTo(other) == 0;
         }
 
         /// <summary>
