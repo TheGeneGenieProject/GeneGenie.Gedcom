@@ -509,12 +509,6 @@ namespace GeneGenie.Gedcom
                 return compare;
             }
 
-            compare = GedcomDate.CompareByDate(ChangeDate, otherAddress.ChangeDate);
-            if (compare != 0)
-            {
-                return compare;
-            }
-
             compare = string.Compare(City, otherAddress.City);
             if (compare != 0)
             {

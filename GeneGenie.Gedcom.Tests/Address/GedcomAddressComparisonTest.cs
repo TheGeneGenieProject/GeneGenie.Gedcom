@@ -70,18 +70,9 @@ namespace GeneGenie.Gedcom.Address.Tests
         }
 
         [Fact]
-        private void Address_is_not_equal_if_change_date_is_different()
+        private void Address_is_equal_if_change_date_is_different()
         {
             var address1 = new GedcomAddress { ChangeDate = new GedcomChangeDate(null) { Date1 = "01 Jan 1900" } };
-            var address2 = new GedcomAddress { ChangeDate = new GedcomChangeDate(null) { Date1 = "01 Jan 2000" } };
-
-            Assert.False(address1.CompareTo(address2) == 0);
-        }
-
-        [Fact]
-        private void Address_is_equal_if_change_date_is_same()
-        {
-            var address1 = new GedcomAddress { ChangeDate = new GedcomChangeDate(null) { Date1 = "01 Jan 2000" } };
             var address2 = new GedcomAddress { ChangeDate = new GedcomChangeDate(null) { Date1 = "01 Jan 2000" } };
 
             Assert.True(address1.CompareTo(address2) == 0);
