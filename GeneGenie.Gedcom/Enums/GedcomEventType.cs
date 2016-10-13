@@ -156,7 +156,7 @@ namespace GeneGenie.Gedcom.Enums
         ADOP,
 
         /// <summary>
-        ///Baptism
+        /// Baptism
         /// </summary>
         BAPM,
 

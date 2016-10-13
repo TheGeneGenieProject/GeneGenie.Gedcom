@@ -140,7 +140,6 @@ namespace GeneGenie.Gedcom.Helpers
         public virtual bool Find(string str, int startIndex, int length, out int pos)
         {
             // TODO: Needs unit testing and benchmarking.
-
             bool found = false;
 
             int i = 0;

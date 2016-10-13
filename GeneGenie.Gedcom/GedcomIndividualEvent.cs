@@ -21,8 +21,7 @@
 
 namespace GeneGenie.Gedcom
 {
-
-#if (!XML_NODE_UNDEFINED)
+#if !XML_NODE_UNDEFINED
     using System.Xml;
 #endif
 
@@ -193,7 +192,7 @@ namespace GeneGenie.Gedcom
             }
         }
 
-#if(!XML_NODE_UNDEFINED)
+#if !XML_NODE_UNDEFINED
         /// <summary>
         /// Generates the pers information XML.
         /// </summary>

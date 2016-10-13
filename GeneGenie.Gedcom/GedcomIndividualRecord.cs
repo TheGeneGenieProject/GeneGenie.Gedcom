@@ -21,14 +21,13 @@
 
 namespace GeneGenie.Gedcom
 {
-
     using System;
     using System.Globalization;
     using System.IO;
     using System.Linq;
     using Enums;
 
-#if (!XML_NODE_UNDEFINED)
+#if !XML_NODE_UNDEFINED
     using System.Xml;
 #endif
 
@@ -334,7 +333,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Get the list of aliases.
+        /// Gets the list of aliases.
         /// </summary>
         /// <value>
         /// The list of aliases.
@@ -1185,7 +1184,7 @@ namespace GeneGenie.Gedcom
             return fam;
         }
 
-#if(!XML_NODE_UNDEFINED)
+#if !XML_NODE_UNDEFINED
         /// <summary>
         /// Generates the XML.
         /// </summary>
@@ -1481,39 +1480,39 @@ namespace GeneGenie.Gedcom
 
             if (alia != null)
             {
-                foreach (string alia in Alia)
+                foreach (string aliaValue in Alia)
                 {
                     tw.Write(Environment.NewLine);
                     tw.Write(levelPlusOne);
                     tw.Write(" ALIA ");
                     tw.Write("@");
-                    tw.Write(alia);
+                    tw.Write(aliaValue);
                     tw.Write("@");
                 }
             }
 
             if (anci != null)
             {
-                foreach (string anci in Anci)
+                foreach (string anciValue in Anci)
                 {
                     tw.Write(Environment.NewLine);
                     tw.Write(levelPlusOne);
                     tw.Write(" ANCI ");
                     tw.Write("@");
-                    tw.Write(anci);
+                    tw.Write(anciValue);
                     tw.Write("@");
                 }
             }
 
             if (desi != null)
             {
-                foreach (string anci in Desi)
+                foreach (string desiValue in Desi)
                 {
                     tw.Write(Environment.NewLine);
                     tw.Write(levelPlusOne);
                     tw.Write(" DESI ");
                     tw.Write("@");
-                    tw.Write(anci);
+                    tw.Write(desiValue);
                     tw.Write("@");
                 }
             }
