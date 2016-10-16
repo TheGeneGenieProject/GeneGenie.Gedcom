@@ -476,8 +476,8 @@ namespace GeneGenie.Gedcom.Parser
         [Fact]
         private void Individuals_with_same_facts_are_similar()
         {
-            var person1 = gedcomDb.NamedPerson("Ryan");
-            var person2 = gedcomDb.NamedPerson("Ryan");
+            var person1 = GenerateCompleteIndividual();
+            var person2 = GenerateCompleteIndividual();
 
             Assert.True(person1.IsEquivalentTo(person2));
         }
@@ -485,8 +485,8 @@ namespace GeneGenie.Gedcom.Parser
         [Fact]
         private void Individuals_with_same_facts_are_sorted_equally()
         {
-            var person1 = gedcomDb.NamedPerson("Ryan");
-            var person2 = gedcomDb.NamedPerson("Ryan");
+            var person1 = GenerateCompleteIndividual();
+            var person2 = GenerateCompleteIndividual();
 
             var sortOrder = person1.CompareTo(person2);
 
@@ -500,6 +500,28 @@ namespace GeneGenie.Gedcom.Parser
             gedcomDb.Add(xrefId, note);
             var person = gedcomDb.NamedPerson("Mary");
             person.Notes.Add(xrefId);
+            return person;
+        }
+
+        private GedcomIndividualRecord GenerateCompleteIndividual()
+        {
+            var person = gedcomDb.NamedPerson("John");
+
+            person.Sex = GedcomSex.Male;
+            person.Events.Add(new GedcomIndividualEvent { EventName = "Event A" });
+            person.Events.Add(new GedcomIndividualEvent { EventName = "Event B" });
+            person.Attributes.Add(new GedcomIndividualEvent { EventName = "Attribute A" });
+            person.Attributes.Add(new GedcomIndividualEvent { EventName = "Attribute B" });
+            person.ChildIn.Add(new GedcomFamilyLink { Pedigree = PedigreeLinkageType.Birth });
+            person.ChildIn.Add(new GedcomFamilyLink { Pedigree = PedigreeLinkageType.Unknown });
+            person.SpouseIn.Add(new GedcomFamilyLink { Pedigree = PedigreeLinkageType.Unknown });
+            person.SpouseIn.Add(new GedcomFamilyLink { Pedigree = PedigreeLinkageType.Birth });
+            person.Associations.Add(new GedcomAssociation { Description = "Some association." });
+            person.Associations.Add(new GedcomAssociation { Description = "Another association." });
+            person.Alia.Add("Jonathon");
+            person.Alia.Add("Jon");
+            person.Address = new GedcomAddress { Country = "United States", State = "CA" };
+
             return person;
         }
     }
