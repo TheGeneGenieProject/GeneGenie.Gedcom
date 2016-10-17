@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Defines a generic event or fact
     /// </summary>
-    public class GedcomEvent : GedcomRecord, IComparable
+    public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>
     {
         private static string[] typeStrings = new string[]
         {
@@ -635,30 +635,32 @@ namespace GeneGenie.Gedcom
         /// <returns>Relative position in the sort order.</returns>
         public int CompareTo(object obj)
         {
-            var eventToCompare = obj as GedcomEvent;
+            return CompareTo(obj as GedcomEvent);
+        }
 
+        /// <summary>
+        /// Compares two events to see if the date and place are the same.
+        /// </summary>
+        /// <param name="eventToCompare">The event instance to compare against.</param>
+        /// <returns>Relative position in the sort order.</returns>
+        public int CompareTo(GedcomEvent eventToCompare)
+        {
             if (eventToCompare == null)
             {
                 return -1;
             }
 
-            if (eventToCompare.Date == null && Date == null)
-            {
-                return 0;
-            }
-
-            if (eventToCompare.Date == null)
+            if (eventToCompare.Date == null && Date != null)
             {
                 return -1;
             }
 
-            if (Date == null)
+            if (Date == null && eventToCompare.Date != null)
             {
-                return 1;
+                return -1;
             }
 
             var compare = GedcomDate.CompareByDate(Date, eventToCompare.Date);
-
             if (compare != 0)
             {
                 return compare;

@@ -232,31 +232,31 @@ namespace GeneGenie.Gedcom
                 return 1;
             }
 
-            var compare = link.FatherPedigree.CompareTo(FatherPedigree);
+            var compare = FatherPedigree.CompareTo(link.FatherPedigree);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = link.MotherPedigree.CompareTo(MotherPedigree);
+            compare = MotherPedigree.CompareTo(link.MotherPedigree);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = link.Pedigree.CompareTo(Pedigree);
+            compare = Pedigree.CompareTo(link.Pedigree);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = link.PreferedSpouse.CompareTo(PreferedSpouse);
+            compare = PreferedSpouse.CompareTo(link.PreferedSpouse);
             if (compare != 0)
             {
                 return compare;
             }
 
-            compare = link.Status.CompareTo(Status);
+            compare = Status.CompareTo(link.Status);
             if (compare != 0)
             {
                 return compare;

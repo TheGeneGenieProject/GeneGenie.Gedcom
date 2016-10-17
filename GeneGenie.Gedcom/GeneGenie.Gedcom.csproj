@@ -151,6 +151,7 @@
     <Compile Include="GedcomFamilyEvent.cs" />
     <Compile Include="GedcomFamilyLink.cs" />
     <Compile Include="GedcomFamilyRecord.cs" />
+    <Compile Include="GedcomGenericComparer.cs" />
     <Compile Include="GedcomHeader.cs" />
     <Compile Include="GedcomIndividualEvent.cs" />
     <Compile Include="GedcomIndividualRecord.cs" />
