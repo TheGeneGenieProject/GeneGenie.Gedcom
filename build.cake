@@ -47,13 +47,27 @@ Task("Build")
     }
 });
 
+Task("Package")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+	Information("Creating nuget package...");
+});
+
+Task("Publish")
+    .IsDependentOn("Package")
+    .Does(() =>
+{
+	Information("Publishing nuget package...");
+});
+
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Publish");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
