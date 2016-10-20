@@ -164,7 +164,6 @@
     </None>
     <None Include="NuGet\cakebuild.ps1" />
     <None Include="NuGet\GeneGenie.Gedcom.Reports.nuspec" />
-    <None Include="NuGet\msbuild.ps1" />
     <None Include="packages.config" />
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
@@ -187,13 +186,20 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
   <Target Name="AfterBuild">
-    <!-- Load up the information from the assembly -->
     <GetAssemblyIdentity AssemblyFiles="$(OutputPath)$(AssemblyName).dll">
       <Output TaskParameter="Assemblies" ItemName="OutputAssemblyInfo" />
     </GetAssemblyIdentity>
     <Message Text="Info: %(OutputAssemblyInfo.Version)" />
   </Target>
+  <PropertyGroup>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      Package;
+      Publish;
+    </BuildDependsOn>
+  </PropertyGroup>
   <Target Name="Package">
     <!-- Package the project -->
     <Message Text="Creating nuget package: $(AssemblyName)_%(OutputAssemblyInfo.Version).nupkg" />
