@@ -255,3 +255,5 @@ ModelManifest.xml
 /GedFan0.4.0.0
 *.ncrunchsolution
 *.zip
+/tools/Cake
+/tools/packages.config.md5sum
