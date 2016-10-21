@@ -64,7 +64,7 @@ Task("Package")
 
 	var assemblyInfo = ParseAssemblyInfo("./" + projGedCom + "/AssemblyInfo.cs");
 	var settings = new NuGetPackSettings {
-                                Id = Guid.NewGuid().ToString(),
+                                Id = projGedCom,
                                 Version = assemblyInfo.AssemblyVersion,
                                 Title = assemblyInfo.Title,
 								Authors = new[] { "GeneGenie" },
@@ -82,7 +82,7 @@ Task("Package")
 	Information("Creating nuget package " + projParser);
 	assemblyInfo = ParseAssemblyInfo("./" + projParser + "/AssemblyInfo.cs");
 	
-	settings.Id = Guid.NewGuid().ToString();
+	settings.Id = projParser;
 	settings.Version = assemblyInfo.AssemblyVersion;
 	settings.Title = assemblyInfo.Title;
 	settings.Description = assemblyInfo.Description;	
@@ -95,7 +95,7 @@ Task("Package")
 	Information("Creating nuget package " + projReports);
 	assemblyInfo = ParseAssemblyInfo("./" + projReports + "/AssemblyInfo.cs");
 
-	settings.Id = Guid.NewGuid().ToString(); 
+	settings.Id = projReports; 
 	settings.Version = assemblyInfo.AssemblyVersion;
 	settings.Title = assemblyInfo.Title;
 	settings.Description = assemblyInfo.Description;		
@@ -117,7 +117,7 @@ Task("Publish")
 	packages.Add(projParser + "/NuGet/PackageSource/*.nupkg");
 	packages.Add(projGedCom + "/NuGet/PackageSource/*.nupkg");
 
-	Information("Publishing DISABLED (Edit build.cake to enable it)");
+	Information("Publishing DISABLED (Edit build_nugget.cake to enable it)");
             
 	// Push the package.
 	//NuGetPush(packages, new NuGetPushSettings {
