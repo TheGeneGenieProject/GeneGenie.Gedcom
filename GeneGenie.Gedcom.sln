@@ -37,7 +37,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneGenie.Gedcom.Sample", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{46146A60-2A90-4583-A8E9-43B095085D39}"
 	ProjectSection(SolutionItems) = preProject
+		Contributing.md = Contributing.md
 		nuget\nuget.exe = nuget\nuget.exe
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7EFA9B20-4650-4219-B6B2-BB44B2E909BF}"
+	ProjectSection(SolutionItems) = preProject
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		build_nuget.cake = build_nuget.cake
+		build_nuget.ps1 = build_nuget.ps1
 	EndProjectSection
 EndProject
 Global
@@ -115,6 +124,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{46146A60-2A90-4583-A8E9-43B095085D39} = {F401944E-C633-4259-808F-B34422A46ECB}
+		{7EFA9B20-4650-4219-B6B2-BB44B2E909BF} = {F401944E-C633-4259-808F-B34422A46ECB}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		name = Gedcom.NET
