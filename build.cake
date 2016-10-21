@@ -4,13 +4,16 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
+var configurations = new List<string>() { "Release Nuget 4.5" , "Release Nuget 4.6" };
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
 
-// Define directories.
-var buildDir = Directory("GeneGenie.Gedcom/bin") + Directory(configuration);
+// Define directories
+var buildDirGeneGenieGedCom = Directory("GeneGenie.Gedcom/bin") + Directory(configuration);
+var buildDirGeneGenieGedComParser = Directory("GeneGenie.Gedcom/bin") + Directory(configuration);
+var buildDirGeneGenieGedComReports = Directory("GeneGenie.Gedcom/bin") + Directory(configuration);
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -19,7 +22,9 @@ var buildDir = Directory("GeneGenie.Gedcom/bin") + Directory(configuration);
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectory(buildDir);
+    CleanDirectory(buildDirGeneGenieGedCom);
+	CleanDirectory(buildDirGeneGenieGedComParser);
+	CleanDirectory(buildDirGeneGenieGedComReports);
 });
 
 Task("Restore-NuGet-Packages")
@@ -33,18 +38,20 @@ Task("Build")
     .IsDependentOn("Restore-NuGet-Packages")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
-    {
-      // Use MSBuild
-      MSBuild("GeneGenie.Gedcom.sln", settings =>
-        settings.SetConfiguration(configuration));
-    }
-    else
-    {
-      // Use XBuild
-      XBuild("GeneGenie.Gedcom.sln", settings =>
-        settings.SetConfiguration(configuration));
-    }
+	foreach (var buildConfig in configurations) 
+	{ 
+		if(IsRunningOnWindows())
+		{
+		  // Use MSBuild
+		  MSBuild("GeneGenie.Gedcom.sln", settings => settings.SetConfiguration(buildConfig));
+		}
+		else
+		{
+		  // Use XBuild
+		  XBuild("GeneGenie.Gedcom.sln", settings => settings.SetConfiguration(buildConfig));
+		}
+	}
+    
 });
 
 Task("Package")
