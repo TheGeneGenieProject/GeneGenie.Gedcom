@@ -20,12 +20,13 @@
 namespace GeneGenie.Gedcom
 {
     using System;
+    using System.Linq;
     using Enums;
 
     /// <summary>
     /// TODO: Doc
     /// </summary>
-    public class GedcomRecordedEvent
+    public class GedcomRecordedEvent: IComparable<GedcomRecordedEvent>, IComparable, IEquatable<GedcomRecordedEvent>
     {
         private GedcomDatabase database;
 
@@ -194,6 +195,107 @@ namespace GeneGenie.Gedcom
                 changeDate.Date1 = now.ToString("dd MMM yyyy");
                 changeDate.Time = now.ToString("hh:mm:ss");
             }
+        }
+
+        /// <summary>
+        /// Compares this event to another record.
+        /// </summary>
+        /// <param name="other">A recorded event.</param>
+        /// <returns>
+        /// &lt;0 if the first event precedes the second in the sort order;
+        /// &gt;0 if the second event precedes the first;
+        /// 0 if the events are equal
+        /// </returns>
+        public int CompareTo(GedcomRecordedEvent other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            var compare = CompareEvents(Types, other.Types);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = GedcomGenericComparer.SafeCompareOrder(Date, other.Date);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = GedcomGenericComparer.SafeCompareOrder(Place, other.Place);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            return compare;
+        }
+
+        /// <summary>
+        /// Compares this event to another record.
+        /// </summary>
+        /// <param name="obj">A recorded event.</param>
+        /// <returns>
+        /// &lt;0 if the first event precedes the second in the sort order;
+        /// &gt;0 if the second event precedes the first;
+        /// 0 if the events are equal
+        /// </returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomRecordedEvent);
+        }
+
+        /// <summary>
+        /// Compare the GedcomRecordedEvent against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The other instance to compare this instance against.</param>
+        /// <returns>
+        /// True if other instance matches this instance, otherwise False.
+        /// </returns>
+        public bool Equals(GedcomRecordedEvent other)
+        {
+            return CompareTo(other) == 0;
+        }
+
+        /// <summary>
+        /// Compare the GedcomRecordedEvent against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The other instance to compare this instance against.</param>
+        /// <returns>
+        /// True if other instance matches this instance, otherwise False.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return CompareTo(obj as GedcomRecordedEvent) == 0;
+        }
+
+        private static int CompareEvents(GedcomRecordList<GedcomEventType> list1, GedcomRecordList<GedcomEventType> list2)
+        {
+            if (list1.Count > list2.Count)
+            {
+                return 1;
+            }
+
+            if (list1.Count < list2.Count)
+            {
+                return -1;
+            }
+
+            var sortedList1 = list1.OrderBy(n => n).ToList();
+            var sortedList2 = list2.OrderBy(n => n).ToList();
+            for (var i = 0; i < sortedList1.Count; i++)
+            {
+                var compare = sortedList1.ElementAt(i).CompareTo(sortedList2.ElementAt(i));
+                if (compare != 0)
+                {
+                    return compare;
+                }
+            }
+
+            return 0;
         }
     }
 }

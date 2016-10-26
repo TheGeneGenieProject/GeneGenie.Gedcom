@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Defines a generic event or fact
     /// </summary>
-    public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>
+    public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>, IEquatable<GedcomEvent>
     {
         private static string[] typeStrings = new string[]
         {
@@ -1002,7 +1002,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(Address, eventRecord.Address))
+            if (!GedcomGenericComparer.SafeEqualityCheck(Address, eventRecord.Address))
             {
                 return false;
             }
@@ -1013,11 +1013,6 @@ namespace GeneGenie.Gedcom
             }
 
             if (!Equals(Certainty, eventRecord.Certainty))
-            {
-                return false;
-            }
-
-            if (!Equals(ChangeDate, eventRecord.ChangeDate))
             {
                 return false;
             }
@@ -1058,6 +1053,18 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomEvent to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomEvent other)
+        {
+            return IsEquivalentTo(other);
         }
     }
 }

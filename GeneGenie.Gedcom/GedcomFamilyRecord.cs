@@ -30,7 +30,7 @@ namespace GeneGenie.Gedcom
     /// Defines a family, consisting of husband/wife and children, and
     /// family events.
     /// </summary>
-    public class GedcomFamilyRecord : GedcomRecord
+    public class GedcomFamilyRecord : GedcomRecord, IEquatable<GedcomFamilyRecord>
     {
         private GedcomRecordList<GedcomFamilyEvent> events;
 
@@ -1179,11 +1179,6 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(ChangeDate, family.ChangeDate))
-            {
-                return false;
-            }
-
             if (!Equals(NumberOfChildren, family.NumberOfChildren))
             {
                 return false;
@@ -1225,6 +1220,18 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomFamilyRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomFamilyRecord other)
+        {
+            return IsEquivalentTo(other);
         }
     }
 }

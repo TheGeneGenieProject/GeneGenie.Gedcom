@@ -28,7 +28,7 @@ namespace GeneGenie.Gedcom
     /// A multimedia record, this can consist of any number of files
     /// of varying types
     /// </summary>
-    public class GedcomMultimediaRecord : GedcomRecord
+    public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
     {
         private GedcomRecordList<GedcomMultimediaFile> files;
 
@@ -263,11 +263,6 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(ChangeDate, media.ChangeDate))
-            {
-                return false;
-            }
-
             if (!GedcomGenericListComparer.CompareLists(Files, media.Files))
             {
                 return false;
@@ -279,6 +274,30 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomMultimediaRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomMultimediaRecord other)
+        {
+            return IsEquivalentTo(other);
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The object to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return IsEquivalentTo(obj);
         }
     }
 }

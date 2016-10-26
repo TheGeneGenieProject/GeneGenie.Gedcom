@@ -25,18 +25,45 @@
             {
                 return 0;
             }
-            else if (item2 == null)
+
+            if (item2 == null)
             {
                 return -1;
             }
-            else if (item1 == null)
+
+            if (item1 == null)
             {
                 return 1;
             }
-            else
+
+            return item1.CompareTo(item2);
+        }
+
+        /// <summary>
+        /// Compares two records to see if they are equal.
+        /// Safely handles one or both being null.
+        /// The records must implement IComparable.
+        /// </summary>
+        /// <typeparam name="T">A type that implements IComparable.</typeparam>
+        /// <param name="item1">The first record.</param>
+        /// <param name="item2">The second record.</param>
+        /// <returns>
+        /// Returns an integer that indicates their relative position in the sort order.
+        /// </returns>
+        public static bool SafeEqualityCheck<T>(T item1, T item2)
+            where T : IComparable<T>
+        {
+            if (item1 == null && item2 == null)
             {
-                return item1.CompareTo(item2);
+                return true;
             }
+
+            if (item1 == null || item2 == null)
+            {
+                return false;
+            }
+
+            return item1.Equals(item2);
         }
     }
 }

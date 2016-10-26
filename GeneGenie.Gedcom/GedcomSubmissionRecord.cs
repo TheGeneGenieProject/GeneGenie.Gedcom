@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     /// TODO: Doc
     /// </summary>
     /// <seealso cref="GedcomRecord" />
-    public class GedcomSubmissionRecord : GedcomRecord
+    public class GedcomSubmissionRecord : GedcomRecord, IEquatable<GedcomSubmissionRecord>
     {
         /// <summary>
         /// The submitter
@@ -272,6 +272,18 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomSubmissionRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomSubmissionRecord other)
+        {
+            return IsEquivalentTo(other);
         }
 
         // TODO: add output method
