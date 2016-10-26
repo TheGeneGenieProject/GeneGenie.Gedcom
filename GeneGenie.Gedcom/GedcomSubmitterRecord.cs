@@ -25,10 +25,10 @@ namespace GeneGenie.Gedcom
     using Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// An individual or organization who contributes genealogical data to a file or transfers it to someone else.
     /// </summary>
     /// <seealso cref="GedcomRecord" />
-    public class GedcomSubmitterRecord : GedcomRecord
+    public class GedcomSubmitterRecord : GedcomRecord, IEquatable<GedcomSubmitterRecord>
     {
         private string name;
         private GedcomAddress address;
@@ -287,11 +287,6 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(ChangeDate, submitter.ChangeDate))
-            {
-                return false;
-            }
-
             if (!GedcomGenericListComparer.CompareLists(LanguagePreferences, submitter.LanguagePreferences))
             {
                 return false;
@@ -308,6 +303,18 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomSubmitterRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomSubmitterRecord other)
+        {
+            return IsEquivalentTo(other);
         }
     }
 }

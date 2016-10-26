@@ -166,6 +166,16 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Compares the current and passed-in object to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>True if they match, False otherwise.</returns>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GedcomVariation);
+        }
+
+        /// <summary>
         /// Changeds this instance.
         /// </summary>
         protected virtual void Changed()
