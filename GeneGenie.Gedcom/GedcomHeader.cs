@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// The header from / for a GEDCOM file.
     /// </summary>
-    public class GedcomHeader : GedcomRecord
+    public class GedcomHeader : GedcomRecord, IEquatable<GedcomHeader>
     {
         private GedcomNoteRecord contentDescription;
 
@@ -531,6 +531,17 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Checks if the passed header is equal in terms of user content to the current instance.
+        /// If new fields are added to the header they should also be added in here for comparison.
+        /// </summary>
+        /// <param name="other">The GedcomHeader to compare against this instance.</param>
+        /// <returns>Returns true if headers match in user entered content, otherwise false.</returns>
+        public bool Equals(GedcomHeader other)
+        {
+            return IsEquivalentTo(other);
         }
 
         /// <inheritdoc/>

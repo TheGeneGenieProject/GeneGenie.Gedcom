@@ -29,7 +29,7 @@ namespace GeneGenie.Gedcom
     /// TODO: Doc
     /// </summary>
     /// <seealso cref="GedcomRecord" />
-    public class GedcomSourceCitation : GedcomRecord
+    public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitation>, IComparable<GedcomSourceCitation>, IComparable
     {
         private string source;
 
@@ -430,44 +430,100 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var citation = obj as GedcomSourceCitation;
+            return CompareTo(obj as GedcomSourceCitation) == 0;
+        }
 
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomSourceCitation to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomSourceCitation other)
+        {
+            return IsEquivalentTo(other);
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The object to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return IsEquivalentTo(obj);
+        }
+
+        /// <summary>
+        /// Compares another source citation to the current instance.
+        /// </summary>
+        /// <param name="citation">A citation.</param>
+        /// <returns>
+        /// &lt;0 if this citation precedes the other in the sort order;
+        /// &gt;0 if the other citation precedes this one;
+        /// 0 if the citations are equal
+        /// </returns>
+        public int CompareTo(GedcomSourceCitation citation)
+        {
             if (citation == null)
             {
-                return false;
+                return 1;
             }
 
-            if (!Equals(Certainty, citation.Certainty))
+            var compare = Certainty.CompareTo(citation.Certainty);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Date, citation.Date))
+            compare = GedcomGenericComparer.SafeCompareOrder(Date, citation.Date);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(EventType, citation.EventType))
+            compare = GedcomGenericComparer.SafeCompareOrder(EventType, citation.EventType);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Page, citation.Page))
+            compare = GedcomGenericComparer.SafeCompareOrder(Page, citation.Page);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Role, citation.Role))
+            compare = GedcomGenericComparer.SafeCompareOrder(Role, citation.Role);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Text, citation.Text))
+            compare = GedcomGenericComparer.SafeCompareOrder(Text, citation.Text);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            return true;
+            return compare;
+        }
+
+        /// <summary>
+        /// Compares another object to the current instance.
+        /// </summary>
+        /// <param name="obj">A citation.</param>
+        /// <returns>
+        /// &lt;0 if this object precedes the other in the sort order;
+        /// &gt;0 if the other object precedes this one;
+        /// 0 if the objects are equal
+        /// </returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomSourceCitation);
         }
     }
 }

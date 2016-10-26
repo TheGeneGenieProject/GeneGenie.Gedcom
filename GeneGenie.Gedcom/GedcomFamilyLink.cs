@@ -25,7 +25,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// How an individal is linked to a family
     /// </summary>
-    public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable
+    public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable, IEquatable<GedcomFamilyLink>
     {
         private string family;
         private string indi;
@@ -273,6 +273,16 @@ namespace GeneGenie.Gedcom
         public int CompareTo(object obj)
         {
             return CompareTo(obj as GedcomFamilyLink);
+        }
+
+        /// <summary>
+        /// Compares the current and passed family link to see if they are the same.
+        /// </summary>
+        /// <param name="other">The GedcomFamilyLink to compare the current instance against.</param>
+        /// <returns>True if they match, False otherwise.</returns>
+        public bool Equals(GedcomFamilyLink other)
+        {
+            return CompareTo(other) == 0;
         }
     }
 }

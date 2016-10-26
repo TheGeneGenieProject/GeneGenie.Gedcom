@@ -24,7 +24,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// A multimedia file
     /// </summary>
-    public class GedcomMultimediaFile
+    public class GedcomMultimediaFile : IComparable, IComparable<GedcomMultimediaFile>, IEquatable<GedcomMultimediaFile>
     {
         private GedcomDatabase database;
 
@@ -135,6 +135,69 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Compares an object to this GedcomMultimediaFile to determine sort order.
+        /// </summary>
+        /// <param name="obj">The object to compare to the current instance</param>
+        /// <returns>Returns a value determine the sort order of the compared objects.</returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomMultimediaFile);
+        }
+
+        /// <summary>
+        /// Compares two GedcomMultimediaFile instances to determine sort order.
+        /// </summary>
+        /// <param name="other">The GedcomMultimediaFile to compare to the current instance</param>
+        /// <returns>Returns a value determine the sort order of the compared GedcomMultimediaFile objects.</returns>
+        public int CompareTo(GedcomMultimediaFile other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            var compare = string.Compare(Filename, other.Filename);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(Format, other.Format);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = string.Compare(SourceMediaType, other.SourceMediaType);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            return compare;
+        }
+
+        /// <summary>
+        /// Compares two instances of GedcomMultimediaFile to determine equality.
+        /// </summary>
+        /// <param name="other">The GedcomMultimediaFile to compare to the current instance</param>
+        /// <returns>True if equal, otherwise False</returns>
+        public bool Equals(GedcomMultimediaFile other)
+        {
+            return CompareTo(other) == 0;
+        }
+
+        /// <summary>
+        /// Compares an object to this GedcomMultimediaFile to determine equality.
+        /// </summary>
+        /// <param name="obj">The object to compare to the current instance</param>
+        /// <returns>True if equal, otherwise False</returns>
+        public override bool Equals(object obj)
+        {
+            return CompareTo(obj as GedcomMultimediaFile) == 0;
+        }
+ 
+        /// <summary>
         /// Updates the change date and time.
         /// </summary>
         protected virtual void Changed()
@@ -162,5 +225,5 @@ namespace GeneGenie.Gedcom
                 changeDate.Time = now.ToString("hh:mm:ss");
             }
         }
-    }
+   }
 }

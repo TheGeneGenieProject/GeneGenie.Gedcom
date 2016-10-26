@@ -49,6 +49,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
             var familyLink2 = GenerateComparableFamilyLink();
 
             Assert.True(familyLink1.IsEquivalentTo(familyLink2));
+            Assert.True(familyLink1.Equals(familyLink2));
         }
 
         [Fact]

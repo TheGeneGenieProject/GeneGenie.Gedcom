@@ -27,7 +27,7 @@ namespace GeneGenie.Gedcom
     /// Represents a place or location.
     /// </summary>
     /// <seealso cref="GedcomRecord" />
-    public class GedcomPlace : GedcomRecord
+    public class GedcomPlace : GedcomRecord, IEquatable<GedcomPlace>, IComparable<GedcomPlace>, IComparable
     {
         private string name;
         private string form;
@@ -393,49 +393,86 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public override bool IsEquivalentTo(object obj)
         {
-            var place = obj as GedcomPlace;
+            return CompareTo(obj as GedcomPlace) == 0;
+        }
 
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomPlace to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomPlace other)
+        {
+            return CompareTo(other) == 0;
+        }
+
+        /// <summary>
+        /// Compares this place record to another record.
+        /// </summary>
+        /// <param name="place">A place record.</param>
+        /// <returns>
+        /// &lt;0 if the this record precedes the other in the sort order;
+        /// &gt;0 if the other record precedes this one;
+        /// 0 if the records are equal
+        /// </returns>
+        public int CompareTo(GedcomPlace place)
+        {
             if (place == null)
             {
-                return false;
+                return 1;
             }
 
-            if (!Equals(ChangeDate, place.ChangeDate))
+            var compare = string.Compare(Form, place.Form);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Form, place.Form))
+            compare = string.Compare(Latitude, place.Latitude);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Latitude, place.Latitude))
+            compare = string.Compare(Longitude, place.Longitude);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Longitude, place.Longitude))
+            compare = string.Compare(Name, place.Name);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!Equals(Name, place.Name))
+            compare = GedcomGenericListComparer.CompareListOrder(PhoneticVariations, place.PhoneticVariations);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!GedcomGenericListComparer.CompareLists(PhoneticVariations, place.PhoneticVariations))
+            compare = GedcomGenericListComparer.CompareListOrder(RomanizedVariations, place.RomanizedVariations);
+            if (compare != 0)
             {
-                return false;
+                return compare;
             }
 
-            if (!GedcomGenericListComparer.CompareLists(RomanizedVariations, place.RomanizedVariations))
-            {
-                return false;
-            }
+            return compare;
+        }
 
-            return true;
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The GedcomRepositoryRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise False.
+        /// </returns>
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as GedcomPlace);
         }
     }
 }

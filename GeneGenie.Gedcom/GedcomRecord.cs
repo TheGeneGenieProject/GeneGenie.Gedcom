@@ -594,11 +594,6 @@ namespace GeneGenie.Gedcom
 
             var record = obj as GedcomRecord;
 
-            if (!Equals(ChangeDate, record.ChangeDate))
-            {
-                return false;
-            }
-
             if (!Equals(Level, record.Level))
             {
                 return false;

@@ -30,7 +30,7 @@ namespace GeneGenie.Gedcom
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     /// <seealso cref="System.IComparable" />
-    public class GedcomSourceRecord : GedcomRecord, IComparable
+    public class GedcomSourceRecord : GedcomRecord, IComparable, IComparable<GedcomSourceRecord>, IEquatable<GedcomSourceRecord>
     {
         /// <summary>
         /// The events recorded
@@ -458,7 +458,7 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public int CompareTo(object sourceB)
         {
-            return GedcomSourceRecord.CompareByTitle(this, (GedcomSourceRecord)sourceB);
+            return CompareTo(sourceB as GedcomSourceRecord);
         }
 
         /// <summary>
@@ -736,11 +736,6 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(ChangeDate, source.ChangeDate))
-            {
-                return false;
-            }
-
             if (!GedcomGenericListComparer.CompareGedcomRecordLists(Citations, source.Citations))
             {
                 return false;
@@ -766,7 +761,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(OriginatorText, source.OriginatorText))
+            if (!Equals(Convert.ToString(OriginatorText), Convert.ToString(source.OriginatorText)))
             {
                 return false;
             }
@@ -776,7 +771,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(PublicationText, source.PublicationText))
+            if (!Equals(Convert.ToString(PublicationText), Convert.ToString(source.PublicationText)))
             {
                 return false;
             }
@@ -791,7 +786,7 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(TextText, source.TextText))
+            if (!Equals(Convert.ToString(TextText), Convert.ToString(source.TextText)))
             {
                 return false;
             }
@@ -801,12 +796,50 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(TitleText, source.TitleText))
+            if (!Equals(Convert.ToString(TitleText), Convert.ToString(source.TitleText)))
             {
                 return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compares this source record to another record.
+        /// </summary>
+        /// <param name="other">A source record.</param>
+        /// <returns>
+        /// &lt;0 if the first record precedes the second in the sort order;
+        /// &gt;0 if the second record precedes the first;
+        /// 0 if the records are equal
+        /// </returns>
+        public int CompareTo(GedcomSourceRecord other)
+        {
+            return CompareByTitle(this, other);
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomSourceRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomSourceRecord other)
+        {
+            return IsEquivalentTo(other);
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The GedcomSourceRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return IsEquivalentTo(obj as GedcomSourceRecord);
         }
     }
 }

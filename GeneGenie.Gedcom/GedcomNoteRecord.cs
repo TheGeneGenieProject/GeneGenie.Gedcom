@@ -29,7 +29,7 @@ namespace GeneGenie.Gedcom
     /// GEDCOM Note Record
     /// </summary>
     /// <seealso cref="GedcomRecord" />
-    public class GedcomNoteRecord : GedcomRecord
+    public class GedcomNoteRecord : GedcomRecord, IEquatable<GedcomNoteRecord>
     {
         private string text;
 
@@ -171,6 +171,18 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomNoteRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public bool Equals(GedcomNoteRecord other)
+        {
+            return IsEquivalentTo(other);
         }
     }
 }

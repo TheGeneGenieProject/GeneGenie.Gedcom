@@ -26,11 +26,11 @@ namespace GeneGenie.Gedcom
     using Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// An institution or person that has the specified item as part of their collection(s).
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     /// <seealso cref="System.IComparable" />
-    public class GedcomRepositoryRecord : GedcomRecord, IComparable
+    public class GedcomRepositoryRecord : GedcomRecord, IComparable, IComparable<GedcomRepositoryRecord>, IEquatable<GedcomRepositoryRecord>
     {
         private string name;
         private GedcomAddress address;
@@ -212,13 +212,13 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="repoB">A repository record.</param>
         /// <returns>
-        /// &lt;0 if the this record precedes the other in the sort order;
+        /// &lt;0 if this record precedes the other in the sort order;
         /// &gt;0 if the other record precedes this one;
         /// 0 if the records are equal
         /// </returns>
         public int CompareTo(object repoB)
         {
-            return GedcomRepositoryRecord.CompareByName(this, (GedcomRepositoryRecord)repoB);
+            return CompareTo(repoB as GedcomRepositoryRecord);
         }
 
         /// <summary>
@@ -299,11 +299,6 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            if (!Equals(ChangeDate, repository.ChangeDate))
-            {
-                return false;
-            }
-
             if (!Citations.All(repository.Citations.Contains))
             {
                 return false;
@@ -315,6 +310,32 @@ namespace GeneGenie.Gedcom
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Compares this repository record to another record.
+        /// </summary>
+        /// <param name="other">A repository record.</param>
+        /// <returns>
+        /// &lt;0 if this record precedes the other in the sort order;
+        /// &gt;0 if the other record precedes this one;
+        /// 0 if the records are equal
+        /// </returns>
+        public int CompareTo(GedcomRepositoryRecord other)
+        {
+            return CompareByName(this, other);
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="other">The GedcomRepositoryRecord to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise False.
+        /// </returns>
+        public bool Equals(GedcomRepositoryRecord other)
+        {
+            return IsEquivalentTo(other);
         }
     }
 }
