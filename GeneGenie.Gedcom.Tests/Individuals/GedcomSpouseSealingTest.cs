@@ -40,7 +40,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
         [Fact]
         private void Sealing_can_be_read_from_family_record_in_file()
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Sealing-test_2016-10-21.ged");
+            var reader = GedcomRecordReader.CreateReader(".\\Data\\Spouse-sealing.ged");
 
             var family = reader.Database.Families.Single();
 
@@ -50,7 +50,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
         [Fact]
         private void Sealing_description_can_be_read_from_family_record_in_file()
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Sealing-test_2016-10-21.ged");
+            var reader = GedcomRecordReader.CreateReader(".\\Data\\Spouse-sealing.ged");
 
             var family = reader.Database.Families.Single();
 
@@ -60,7 +60,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
         [Fact]
         private void Sealing_date_can_be_read_from_family_record_in_file()
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Sealing-test_2016-10-21.ged");
+            var reader = GedcomRecordReader.CreateReader(".\\Data\\Spouse-sealing.ged");
 
             var family = reader.Database.Families.Single();
 
@@ -70,7 +70,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
         [Fact]
         private void Sealing_place_can_be_read_from_family_record_in_file()
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Sealing-test_2016-10-21.ged");
+            var reader = GedcomRecordReader.CreateReader(".\\Data\\Spouse-sealing.ged");
 
             var family = reader.Database.Families.Single();
 
@@ -80,7 +80,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
         [Fact]
         private void Sealing_temple_code_can_be_read_from_family_record_in_file()
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Sealing-test_2016-10-21.ged");
+            var reader = GedcomRecordReader.CreateReader(".\\Data\\Spouse-sealing.ged");
 
             var family = reader.Database.Families.Single();
 
@@ -161,7 +161,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
 
         private GedcomRecordReader RewrittenFile()
         {
-            var sourceFile = ".\\Data\\Sealing-test_2016-10-21.ged";
+            var sourceFile = ".\\Data\\Spouse-sealing.ged";
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
             var rewrittenPath = sourceFile + ".rewritten";
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);

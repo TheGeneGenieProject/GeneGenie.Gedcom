@@ -181,7 +181,13 @@
     <None Include="Data\presidents.ged">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Sealing-test_2016-10-21.ged">
+    <None Include="Data\Child-sealing.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\FTM-pedigree-mapping.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Spouse-sealing.ged">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\simple.ged">

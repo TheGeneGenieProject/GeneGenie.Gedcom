@@ -15,7 +15,7 @@
 //
 // </copyright>
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
-// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
+// <author> Copyright (C) 2017 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom.Parser
 {
@@ -41,6 +41,7 @@ namespace GeneGenie.Gedcom.Parser
 
         [Theory]
         [InlineData(".\\Data\\presidents.ged")]
+        [InlineData(".\\Data\\Spouse-sealing.ged")]
         [InlineData(".\\Data\\superfluous-ident-test.ged")]
         private void Gedcom_databases_are_equal_after_rewriting(string sourceFile)
         {
@@ -50,11 +51,13 @@ namespace GeneGenie.Gedcom.Parser
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
 
+            AttachFileContentsToTest(sourceFile, rewrittenPath);
             Assert.Equal(originalReader.Database, rewrittenReader.Database);
         }
 
         [Theory]
         [InlineData(".\\Data\\presidents.ged")]
+        [InlineData(".\\Data\\Spouse-sealing.ged")]
         [InlineData(".\\Data\\superfluous-ident-test.ged")]
         private void Gedcom_headers_are_equal_after_rewriting(string sourceFile)
         {
@@ -64,11 +67,13 @@ namespace GeneGenie.Gedcom.Parser
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
 
+            AttachFileContentsToTest(sourceFile, rewrittenPath);
             Assert.Equal(originalReader.Database.Header, rewrittenReader.Database.Header);
         }
 
         [Theory]
         [InlineData(".\\Data\\presidents.ged")]
+        [InlineData(".\\Data\\Spouse-sealing.ged")]
         [InlineData(".\\Data\\superfluous-ident-test.ged")]
         private void Individuals_are_equal_after_rewriting(string sourceFile)
         {

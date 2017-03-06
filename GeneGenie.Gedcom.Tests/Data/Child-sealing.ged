@@ -1,0 +1,41 @@
+0 HEAD
+1 SOUR FTM
+2 VERS Family Tree Maker (22.0.0.1404)
+2 NAME Family Tree Maker for Windows
+2 CORP Ancestry.com
+3 ADDR 360 W 4800 N
+4 CONT Provo, UT 84604
+3 PHON (801) 705-7000
+1 DEST GED55
+1 DATE 21 OCT 2016
+1 CHAR UTF-8
+1 FILE C:\Users\r\Desktop\Sealing test_2016-10-21.ged
+1 SUBM @SUBM@
+1 GEDC
+2 VERS 5.5
+2 FORM LINEAGE-LINKED
+0 @SUBM@ SUBM
+0 @I1@ INDI
+1 NAME /Child/
+1 SEX U
+1 SLGC Sealed to parents description
+2 DATE 02 FEB 2010
+2 PLAC Alaska, San Jose, Costa Rica
+1 FAMC @F1@
+0 @I2@ INDI
+1 NAME /Father/
+1 SEX M
+1 TITL Father
+1 FAMS @F1@
+0 @I3@ INDI
+1 NAME /Mother/
+1 SEX F
+1 FAMS @F1@
+0 @F1@ FAM
+1 HUSB @I2@
+1 WIFE @I3@
+1 CHIL @I1@
+2 _FREL Natural
+2 _MREL Natural
+
+0 TRLR
