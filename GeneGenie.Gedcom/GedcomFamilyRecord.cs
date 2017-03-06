@@ -44,8 +44,7 @@ namespace GeneGenie.Gedcom
 
         private GedcomRecordList<string> submitterRecords;
 
-        // TODO
-        private object lDSSpouseSealings;
+        private GedcomSpouseSealingRecord spouseSealing;
 
         private MarriageStartStatus startStatus;
 
@@ -301,6 +300,26 @@ namespace GeneGenie.Gedcom
                 if (value != startStatus)
                 {
                     startStatus = value;
+                    Changed();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the spousal sealing record for this family or null if one does not exist.
+        /// </summary>
+        public GedcomSpouseSealingRecord SpouseSealing
+        {
+            get
+            {
+                return spouseSealing;
+            }
+
+            set
+            {
+                if (value != spouseSealing)
+                {
+                    spouseSealing = value;
                     Changed();
                 }
             }
@@ -1139,6 +1158,11 @@ namespace GeneGenie.Gedcom
                 sw.Write("@");
                 sw.Write(Util.IntToString(numberOfChildren));
                 sw.Write("@");
+            }
+
+            if (spouseSealing != null)
+            {
+                spouseSealing.Output(sw);
             }
 
             if (submitterRecords != null)

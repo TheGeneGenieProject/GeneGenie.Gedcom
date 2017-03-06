@@ -1,0 +1,61 @@
+0 HEAD
+1 SOUR FTM
+2 VERS Family Tree Maker (22.0.0.1404)
+2 NAME Family Tree Maker for Windows
+2 CORP Ancestry.com
+3 ADDR 360 W 4800 N
+4 CONT Provo, UT 84604
+3 PHON (801) 705-7000
+1 DEST GED55
+1 DATE 21 OCT 2016
+1 CHAR UTF-8
+1 FILE C:\Users\r\Desktop\Sealing test_2016-10-21.ged
+1 SUBM @SUBM@
+1 GEDC
+2 VERS 5.5
+2 FORM LINEAGE-LINKED
+0 @SUBM@ SUBM
+0 @I1@ INDI
+1 NAME /Child/
+1 SEX U
+1 FAMC @F1@
+0 @I2@ INDI
+1 NAME /Father/
+1 SEX M
+1 TITL Father
+1 FAMS @F1@
+0 @I3@ INDI
+1 NAME /Mother/
+1 SEX F
+1 FAMS @F1@
+0 @F1@ FAM
+1 HUSB @I2@
+1 WIFE @I3@
+1 CHIL @I1@
+1 SLGS Sealing description
+2 DATE 10 JAN 2011
+2 PLAC Timbuktu
+2 TEMP Temple Code
+2 STAT DNS/CAN
+3 DATE 11 FEB 2012
+2 SOUR @SRC1@
+2 NOTE An example note
+
+0 @SRC1@ SOUR
+1 REPO @R150224420@
+1 RFN Source 1 reference
+1 TITL Source 1
+1 AUTH Source 1 author
+1 PUBL Source 1 publisher
+1 CALN 11111111111
+1 NOTE Note for source
+
+0 @R150224420@ REPO
+1 RFN Reference
+1 NAME Repository 1
+1 PHON 12112121212
+1 ADDR Bedfordshire
+1 CALN 1
+1 NOTE Note
+
+0 TRLR

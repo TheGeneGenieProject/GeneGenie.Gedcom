@@ -710,6 +710,9 @@ namespace GeneGenie.Gedcom.Parser
                     case GedcomRecordType.SourceCitation:
                         ReadSourceCitationRecord();
                         break;
+                    case GedcomRecordType.SpouseSealing:
+                        ReadSpouseSealingRecord();
+                        break;
                     case GedcomRecordType.FamilyLink:
                         ReadFamilyLinkRecord();
                         break;
@@ -1595,8 +1598,12 @@ namespace GeneGenie.Gedcom.Parser
                         }
 
                         break;
-                    case "FIXME?????": // TODO:
-                        // lds spouse sealing
+                    case "SLGS": // LDS spouse sealing.
+                        familyRecord.SpouseSealing = new GedcomSpouseSealingRecord();
+                        familyRecord.SpouseSealing.Description = lineValue;
+                        familyRecord.SpouseSealing.Level = level;
+                        parseState.Records.Push(familyRecord.SpouseSealing);
+
                         break;
                     case "REFN":
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -4407,6 +4414,93 @@ namespace GeneGenie.Gedcom.Parser
             {
                 // shouldn't be here
                 Debug.WriteLine("Unknown state / tag parsing source citation node: " + tag + "\t at level: " + level);
+            }
+        }
+
+        private void ReadSpouseSealingRecord()
+        {
+            var record = parseState.Records.Peek() as GedcomSpouseSealingRecord;
+
+            if (level == record.ParsingLevel + 1)
+            {
+                switch (tag)
+                {
+                    case "DATE":
+                        GedcomDate date = new GedcomDate(Database);
+                        date.Level = level;
+                        parseState.Records.Push(date);
+                        record.Date = date;
+                        level++;
+                        ReadDateRecord();
+                        level--;
+                        parseState.Records.Pop();
+                        break;
+                    case "PLAC":
+                        record.Place = new GedcomPlace();
+                        record.Place.Database = Database;
+                        record.Place.Level = level;
+
+                        if (lineValueType == GedcomLineValueType.DataType)
+                        {
+                            record.Place.Name = Database.PlaceNameCollection[lineValue];
+                        }
+                        else
+                        {
+                            // invalid, provide a name anyway
+                            record.Place.Name = "Unknown";
+                            Debug.WriteLine("invalid place node, no name at level: " + level);
+                        }
+
+                        break;
+                    case "NOTE":
+                        AddNoteRecord(record);
+                        break;
+                    case "SOUR":
+                        AddSourceCitation(record);
+                        break;
+                    case "STAT":
+                        if (lineValueType == GedcomLineValueType.DataType)
+                        {
+                            try
+                            {
+                                record.Status = EnumHelper.Parse<SpouseSealingDateStatus>(lineValue, true);
+                            }
+                            catch
+                            {
+                                Debug.WriteLine("Invalid spouse sealing date status value: " + lineValue);
+
+                                record.Status = SpouseSealingDateStatus.NotSet;
+                            }
+                        }
+
+                        break;
+                    case "TEMP":
+                        record.TempleCode = lineValue;
+                        break;
+                    default:
+                        // TODO: Log unexpected tag below sealing.
+                        break;
+                }
+            }
+            else if ((!string.IsNullOrEmpty(parseState.PreviousTag)) &&
+                        parseState.PreviousTag == "STAT" &&
+                        level == parseState.PreviousLevel + 1)
+            {
+                if (tag == "DATE")
+                {
+                    if (lineValueType == GedcomLineValueType.DataType)
+                    {
+                        record.StatusChangeDate = new GedcomChangeDate(Database);
+                        record.StatusChangeDate.ParseDateString(lineValue);
+                        record.StatusChangeDate.Level = level;
+                        parseState.Records.Push(record.StatusChangeDate);
+                    }
+                }
+            }
+            else
+            {
+                // shouldn't be here
+                Debug.WriteLine("Unknown state / tag parsing note node: " + tag + "\t at level: " + level);
             }
         }
 

@@ -164,6 +164,7 @@
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
     <Compile Include="GedcomGraphTest.cs" />
     <Compile Include="Individuals\GedcomAssociationComparisonTest.cs" />
+    <Compile Include="Individuals\GedcomSpouseSealingTest.cs" />
     <Compile Include="Individuals\GedcomFamilyLinkComparisonTest.cs" />
     <Compile Include="Individuals\GedcomFamilyRecordComparisonTest.cs" />
     <Compile Include="Individuals\GedcomIndividualMatchTest.cs" />
@@ -192,6 +193,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\presidents.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Child-sealing.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\FTM-pedigree-mapping.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Spouse-sealing.ged">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\simple.ged">

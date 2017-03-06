@@ -92,6 +92,11 @@ namespace GeneGenie.Gedcom.Enums
         SourceCitation,
 
         /// <summary>
+        /// Latter Day Saints Spouse Sealing record for a married couple.
+        /// </summary>
+        SpouseSealing,
+
+        /// <summary>
         /// Family Link
         /// </summary>
         FamilyLink,
