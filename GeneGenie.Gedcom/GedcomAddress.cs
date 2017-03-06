@@ -633,6 +633,52 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Compares the current and passed-in address to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The address to compare the current instance against.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return CompareTo(obj) == 0;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            // Overflow is fine, just wrap.
+            unchecked
+            {
+                int hash = 17;
+
+                hash *= 23 + (addressLine == null ? 0 : addressLine.GetHashCode());
+                hash *= 23 + (addressLine1 == null ? 0 : addressLine1.GetHashCode());
+                hash *= 23 + (addressLine2 == null ? 0 : addressLine2.GetHashCode());
+                hash *= 23 + (addressLine3 == null ? 0 : addressLine3.GetHashCode());
+                hash *= 23 + (city == null ? 0 : city.GetHashCode());
+                hash *= 23 + (country == null ? 0 : country.GetHashCode());
+                hash *= 23 + (database == null ? 0 : database.GetHashCode());
+                hash *= 23 + (email1 == null ? 0 : email1.GetHashCode());
+                hash *= 23 + (email2 == null ? 0 : email2.GetHashCode());
+                hash *= 23 + (email3 == null ? 0 : email3.GetHashCode());
+                hash *= 23 + (fax1 == null ? 0 : fax1.GetHashCode());
+                hash *= 23 + (fax2 == null ? 0 : fax2.GetHashCode());
+                hash *= 23 + (fax3 == null ? 0 : fax3.GetHashCode());
+                hash *= 23 + (phone1 == null ? 0 : phone1.GetHashCode());
+                hash *= 23 + (phone2 == null ? 0 : phone2.GetHashCode());
+                hash *= 23 + (phone3 == null ? 0 : phone3.GetHashCode());
+                hash *= 23 + (postCode == null ? 0 : postCode.GetHashCode());
+                hash *= 23 + (state == null ? 0 : state.GetHashCode());
+                hash *= 23 + (www1 == null ? 0 : www1.GetHashCode());
+                hash *= 23 + (www2 == null ? 0 : www2.GetHashCode());
+                hash *= 23 + (www3 == null ? 0 : www3.GetHashCode());
+
+                return hash;
+            }
+        }
+
+        /// <summary>
         /// Add the GEDCOM 6 XML elements for the data in this object as child
         /// nodes of the given root.
         /// </summary>
