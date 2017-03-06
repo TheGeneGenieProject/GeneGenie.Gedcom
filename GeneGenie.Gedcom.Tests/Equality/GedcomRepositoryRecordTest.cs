@@ -24,7 +24,6 @@ namespace GeneGenie.Gedcom.Tests.Equality
     /// </summary>
     public class GedcomRepositoryRecordTest
     {
-
         private readonly GedcomRepositoryRecord rec1;
         private readonly GedcomRepositoryRecord rec2;
 

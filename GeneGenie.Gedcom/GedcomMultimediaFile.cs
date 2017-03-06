@@ -196,7 +196,7 @@ namespace GeneGenie.Gedcom
         {
             return CompareTo(obj as GedcomMultimediaFile) == 0;
         }
- 
+
         /// <summary>
         /// Updates the change date and time.
         /// </summary>
@@ -225,5 +225,5 @@ namespace GeneGenie.Gedcom
                 changeDate.Time = now.ToString("hh:mm:ss");
             }
         }
-   }
+    }
 }

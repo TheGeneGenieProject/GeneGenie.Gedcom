@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// TODO: Doc
     /// </summary>
-    public class GedcomRecordedEvent: IComparable<GedcomRecordedEvent>, IComparable, IEquatable<GedcomRecordedEvent>
+    public class GedcomRecordedEvent : IComparable<GedcomRecordedEvent>, IComparable, IEquatable<GedcomRecordedEvent>
     {
         private GedcomDatabase database;
 
@@ -169,35 +169,6 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Updates the changed date and time.
-        /// </summary>
-        protected virtual void Changed()
-        {
-            if (database == null)
-            {
-                // System.Console.WriteLine("Changed() called on record with no database set");
-                //
-                //              System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
-                //              foreach (System.Diagnostics.StackFrame f in trace.GetFrames())
-                //              {
-                //                  System.Console.WriteLine(f);
-                //              }
-            }
-            else if (!database.Loading)
-            {
-                if (changeDate == null)
-                {
-                    changeDate = new GedcomChangeDate(database); // TODO: what level?
-                }
-
-                DateTime now = DateTime.Now;
-
-                changeDate.Date1 = now.ToString("dd MMM yyyy");
-                changeDate.Time = now.ToString("hh:mm:ss");
-            }
-        }
-
-        /// <summary>
         /// Compares this event to another record.
         /// </summary>
         /// <param name="other">A recorded event.</param>
@@ -270,6 +241,35 @@ namespace GeneGenie.Gedcom
         public override bool Equals(object obj)
         {
             return CompareTo(obj as GedcomRecordedEvent) == 0;
+        }
+
+        /// <summary>
+        /// Updates the changed date and time.
+        /// </summary>
+        protected virtual void Changed()
+        {
+            if (database == null)
+            {
+                // System.Console.WriteLine("Changed() called on record with no database set");
+                //
+                //              System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+                //              foreach (System.Diagnostics.StackFrame f in trace.GetFrames())
+                //              {
+                //                  System.Console.WriteLine(f);
+                //              }
+            }
+            else if (!database.Loading)
+            {
+                if (changeDate == null)
+                {
+                    changeDate = new GedcomChangeDate(database); // TODO: what level?
+                }
+
+                DateTime now = DateTime.Now;
+
+                changeDate.Date1 = now.ToString("dd MMM yyyy");
+                changeDate.Time = now.ToString("hh:mm:ss");
+            }
         }
 
         private static int CompareEvents(GedcomRecordList<GedcomEventType> list1, GedcomRecordList<GedcomEventType> list2)
