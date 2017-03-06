@@ -137,6 +137,7 @@
     <Compile Include="Enums\GedcomRecordType.cs" />
     <Compile Include="Enums\ChildLinkageStatus.cs" />
     <Compile Include="Enums\ParserMessageIds.cs" />
+    <Compile Include="Enums\SpouseSealingDateStatus.cs" />
     <Compile Include="GedcomAddress.cs" />
     <Compile Include="GedcomAge.cs" />
     <Compile Include="GedcomAssociation.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="GedcomRepositoryRecord.cs" />
     <Compile Include="GedcomSourceCitation.cs" />
     <Compile Include="GedcomSourceRecord.cs" />
+    <Compile Include="GedcomSpouseSealingRecord.cs" />
     <Compile Include="GedcomSubmissionRecord.cs" />
     <Compile Include="GedcomSubmitterRecord.cs" />
     <Compile Include="GedcomVariation.cs" />

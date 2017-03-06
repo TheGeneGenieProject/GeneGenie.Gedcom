@@ -151,7 +151,7 @@
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
     <Compile Include="GedcomGraphTest.cs" />
     <Compile Include="Individuals\GedcomAssociationComparisonTest.cs" />
-    <Compile Include="Individuals\GedcomFamilySealingTest.cs" />
+    <Compile Include="Individuals\GedcomSpouseSealingTest.cs" />
     <Compile Include="Individuals\GedcomFamilyLinkComparisonTest.cs" />
     <Compile Include="Individuals\GedcomIndividualMatchTest.cs" />
     <Compile Include="GedComComparisonTests.cs" />
@@ -181,7 +181,9 @@
     <None Include="Data\presidents.ged">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Sealing test_2016-10-21.ged" />
+    <None Include="Data\Sealing-test_2016-10-21.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\simple.ged">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

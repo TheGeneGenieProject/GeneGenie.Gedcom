@@ -40,4 +40,19 @@
 1 SLGS Sealing description
 2 DATE 10 JAN 2011
 2 PLAC Timbuktu
+2 TEMP Temple Code
+2 STAT DNS/CAN
+3 DATE 11 FEB 2012
+2 SOUR @SRC1@
+2 NOTE An example note
+
+0 @SRC1@ SOUR
+1 REPO @R150224420@
+1 RFN Source 1 reference
+1 TITL Source 1
+1 AUTH Source 1 author
+1 PUBL Source 1 publisher
+1 CALN 11111111111
+1 NOTE Note for source
+
 0 TRLR

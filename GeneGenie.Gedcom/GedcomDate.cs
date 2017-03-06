@@ -787,12 +787,15 @@ namespace GeneGenie.Gedcom
                 tw.Write("@#D{0}@ ", dateType.ToString());
             }
 
-            string line = Period.Replace("@", "@@");
-            tw.Write(line);
+            if (!string.IsNullOrWhiteSpace(Period))
+            {
+                var period = Period.Replace("@", "@@");
+                tw.Write(period);
+            }
 
             if (!string.IsNullOrEmpty(Time))
             {
-                line = Time.Replace("@", "@@");
+                var line = Time.Replace("@", "@@");
 
                 tw.Write(Environment.NewLine);
                 tw.Write("{0} TIME {1}", Util.IntToString(Level + 1), line);
