@@ -25,7 +25,6 @@ namespace GeneGenie.Gedcom.Tests.Equality
     /// </summary>
     public class GedcomSourceCitationTest
     {
-
         private readonly GedcomSourceCitation sourceCit1;
         private readonly GedcomSourceCitation sourceCit2;
 
