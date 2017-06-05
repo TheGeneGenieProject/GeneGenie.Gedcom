@@ -131,6 +131,8 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AnselDecoder.cs" />
+    <Compile Include="AnselEncoder.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Enums\GedcomState.cs" />
     <Compile Include="Enums\GedcomErrorState.cs" />
@@ -196,7 +198,7 @@
     <GetAssemblyIdentity AssemblyFiles="$(OutputPath)$(AssemblyName).dll">
       <Output TaskParameter="Assemblies" ItemName="OutputAssemblyInfo" />
     </GetAssemblyIdentity>
-    <Message Text="Builded $(AssemblyName) - Version: %(OutputAssemblyInfo.Version)" />  
+    <Message Text="Builded $(AssemblyName) - Version: %(OutputAssemblyInfo.Version)" />
   </Target>
   <Target Name="Package">
     <!-- Package the project -->

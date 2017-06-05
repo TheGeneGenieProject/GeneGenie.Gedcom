@@ -25,7 +25,6 @@ namespace GeneGenie.Gedcom.Tests.Equality
     /// </summary>
     public class GedcomRecordedEventTest
     {
-
         private readonly GedcomRecordedEvent rec1;
         private readonly GedcomRecordedEvent rec2;
 

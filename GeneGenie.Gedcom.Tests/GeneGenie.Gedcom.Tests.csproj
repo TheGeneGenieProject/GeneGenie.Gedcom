@@ -159,6 +159,7 @@
     <Compile Include="Equality\GedcomSourceRecordTest.cs" />
     <Compile Include="Equality\GedcomSubmissionRecordTest.cs" />
     <Compile Include="Equality\GedcomSubmitterRecordTest.cs" />
+    <Compile Include="GedcomAnselEncoderTest.cs" />
     <Compile Include="GedcomToDoTests.cs" />
     <Compile Include="GedcomVariationComparisonTest.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
@@ -190,6 +191,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Data\allged.ged">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\ANSEL.GED">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\presidents.ged">
@@ -299,6 +303,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug - VS|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

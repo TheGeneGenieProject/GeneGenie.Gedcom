@@ -83,7 +83,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Event_with_different_date_is_not_equal()
         {
-            event1.Date = new GedcomDate {Date1 = "01/01/1901"};
+            event1.Date = new GedcomDate { Date1 = "01/01/1901" };
             event2.Date = new GedcomDate { Date1 = "12/12/2001" };
 
             Assert.NotEqual(event1, event2);
@@ -148,7 +148,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 Cause = "some cause",
                 Certainty = GedcomCertainty.Unknown,
                 Classification = "some classification",
-                Date = new GedcomDate { Date1 = "01/01/1980"},
+                Date = new GedcomDate { Date1 = "01/01/1980" },
                 EventName = "some event name",
                 EventType = GedcomEventType.BAPM,
                 Place = new GedcomPlace { Name = "sample place name" },
