@@ -160,6 +160,7 @@
     <Compile Include="Equality\GedcomSubmissionRecordTest.cs" />
     <Compile Include="Equality\GedcomSubmitterRecordTest.cs" />
     <Compile Include="GedcomAnselEncoderTest.cs" />
+    <Compile Include="GedcomSimpleTest.cs" />
     <Compile Include="GedcomToDoTests.cs" />
     <Compile Include="GedcomVariationComparisonTest.cs" />
     <Compile Include="HeinerEichmannAllTagsTest.cs" />
