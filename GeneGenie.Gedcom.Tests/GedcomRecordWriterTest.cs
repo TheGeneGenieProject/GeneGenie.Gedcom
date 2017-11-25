@@ -46,7 +46,7 @@ namespace GeneGenie.Gedcom.Parser
         private void Gedcom_databases_are_equal_after_rewriting(string sourceFile)
         {
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
-            var rewrittenPath = sourceFile + ".rewritten";
+            var rewrittenPath = $"{sourceFile}-{System.Guid.NewGuid()}.rewritten";
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
@@ -62,7 +62,7 @@ namespace GeneGenie.Gedcom.Parser
         private void Gedcom_headers_are_equal_after_rewriting(string sourceFile)
         {
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
-            var rewrittenPath = sourceFile + ".rewritten";
+            var rewrittenPath = $"{sourceFile}-{System.Guid.NewGuid()}.rewritten";
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
@@ -78,7 +78,7 @@ namespace GeneGenie.Gedcom.Parser
         private void Individuals_are_equal_after_rewriting(string sourceFile)
         {
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
-            var rewrittenPath = sourceFile + ".rewritten";
+            var rewrittenPath = $"{sourceFile}-{System.Guid.NewGuid()}.rewritten";
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
 
             var rewrittenReader = GedcomRecordReader.CreateReader(rewrittenPath);
