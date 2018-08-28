@@ -40,7 +40,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Source_citation_is_not_equal_to_null()
         {
-            Assert.NotEqual(sourceCit1, null);
+            Assert.NotNull(sourceCit1);
         }
 
         [Fact]

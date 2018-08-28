@@ -40,7 +40,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Recorded_event_is_not_equal_to_null()
         {
-            Assert.NotEqual(rec1, null);
+            Assert.NotNull(rec1);
         }
 
         [Fact]

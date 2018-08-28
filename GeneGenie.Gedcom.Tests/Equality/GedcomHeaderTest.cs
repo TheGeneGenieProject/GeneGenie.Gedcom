@@ -39,7 +39,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Header_is_not_equal_to_null()
         {
-            Assert.NotEqual(header1, null);
+            Assert.NotNull(header1);
         }
 
         [Fact]

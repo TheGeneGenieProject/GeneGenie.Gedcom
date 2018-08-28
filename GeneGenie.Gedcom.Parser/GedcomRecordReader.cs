@@ -178,8 +178,10 @@ namespace GeneGenie.Gedcom.Parser
             missingReferences = new List<string>();
             sourceCitations = new List<GedcomSourceCitation>();
             repoCitations = new List<GedcomRepositoryCitation>();
+			// Register additional code pages from nuget package so we can deal with exotic character sets.
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            try
+			try
             {
                 stream = null;
                 Encoding enc = Encoding.Default;
@@ -1038,7 +1040,7 @@ namespace GeneGenie.Gedcom.Parser
                         if (Parser.Charset == GedcomCharset.Unknown)
                         {
                             Encoding enc = null;
-                            GedcomCharset charset = GedcomCharset.UnSupported;
+                            GedcomCharset charset = GedcomCharset.Unsupported;
                             switch (lineValue)
                             {
                                 case "ANSEL":
@@ -1047,9 +1049,6 @@ namespace GeneGenie.Gedcom.Parser
                                     break;
                                 case "ANSI":
                                     charset = GedcomCharset.Ansi;
-
-                                    // default to windows codepage, wrong but best guess
-                                    // or should it be 436 (DOS)
                                     enc = Encoding.GetEncoding(1252);
                                     break;
                                 case "IBMPC": // Not a valid character set as the code page is ambiguous, but we try to import it anyway.

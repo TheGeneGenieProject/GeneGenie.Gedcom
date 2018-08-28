@@ -35,8 +35,8 @@ namespace GeneGenie.Gedcom
 
             var individual = reader.Database.Individuals.First(i => i.XRefID == personId);
 
-            Assert.Equal(1, individual.Birth.Sources.Count);
-            Assert.Equal(1, individual.Death.Sources.Count);
+            Assert.Single(individual.Birth.Sources);
+            Assert.Single(individual.Death.Sources);
         }
     }
 }

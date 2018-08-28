@@ -40,7 +40,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
         [Fact]
         private void Association_not_equal_to_null()
         {
-            Assert.NotEqual(assoc1, null);
+            Assert.NotNull(assoc1);
         }
 
         [Fact]

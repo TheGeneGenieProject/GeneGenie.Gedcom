@@ -510,7 +510,7 @@ namespace GeneGenie.Gedcom.Parser
                                         LineValueType = GedcomLineValueType.DataType;
                                     }
 
-                                    i = temp;
+									i = temp;
                                 }
 
                                 // TODO: no line value, but have hit the terminator

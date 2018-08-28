@@ -39,7 +39,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Note_record_is_not_equal_to_null()
         {
-            Assert.NotEqual(noteRecord1, null);
+            Assert.NotNull(noteRecord1);
         }
 
         [Fact]

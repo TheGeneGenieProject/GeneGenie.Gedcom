@@ -39,7 +39,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Submitter_record_is_not_equal_to_null()
         {
-            Assert.NotEqual(subRec1, null);
+            Assert.NotNull(subRec1);
         }
 
         [Fact]

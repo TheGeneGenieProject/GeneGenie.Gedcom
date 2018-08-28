@@ -39,7 +39,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Multimedia_file_is_not_equal_to_null()
         {
-            Assert.NotEqual(file1, null);
+            Assert.NotNull(file1);
         }
 
         [Fact]

@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom.Date.Tests
     /// </summary>
     public class GedcomDateMatchTest
     {
-        private static IEnumerable<object> DatesToMatch()
+        public static IEnumerable<object[]> DatesToMatch()
         {
             yield return new object[] { string.Empty, string.Empty, 100m };
             yield return new object[] { "19 APR 1996", "19 APR 1996", 100m };

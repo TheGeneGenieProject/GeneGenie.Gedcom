@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom.Date.Tests
     /// </summary>
     public class GedcomDateCompareTest
     {
-        private static IEnumerable<object> GetMatchedDates()
+		public static IEnumerable<object[]> GetMatchedDates()
         {
             yield return new object[] { string.Empty, string.Empty };
             yield return new object[] { "19 APR 1996", "19 APR 1996" };
@@ -34,25 +34,25 @@ namespace GeneGenie.Gedcom.Date.Tests
             yield return new object[] { "Feb", "FEB" };
         }
 
-        private static IEnumerable<object> GetEarlierDates()
+		public static IEnumerable<object[]> GetEarlierDates()
         {
             yield return new object[] { "01 Jan 1900", "1 Jan 1900" };
         }
 
-        private static IEnumerable<object> GetUnmatchedDates()
+        public static IEnumerable<object[]> GetUnmatchedDates()
         {
             yield return new object[] { "Jan 1900", string.Empty };
             yield return new object[] { "Jan 1900", "1900" };
         }
 
-        private static IEnumerable<object> GetDistinctDateRangesAndExpectedSortValue()
+		public static IEnumerable<object[]> GetDistinctDateRangesAndExpectedSortValue()
         {
             yield return new object[] { "1 Jan 1900", "1 Jan 2000", -1 };
             yield return new object[] { "1 Jan 1900", "1 Jan 1900", 0 };
             yield return new object[] { "1 Jan 2000", "1 Jan 1900", 1 };
         }
 
-        private static GedcomDate CreateDate(string dateText)
+		public static GedcomDate CreateDate(string dateText)
         {
             var date = new GedcomDate();
             date.ParseDateString(dateText);

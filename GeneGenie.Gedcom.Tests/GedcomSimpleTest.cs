@@ -64,7 +64,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var familiesCount = reader.Database.Families.Count;
-            Assert.Equal(familiesCount, 1);
+            Assert.Equal(1, familiesCount);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var familiesCount = reader.Database.Individuals.Count;
-            Assert.Equal(familiesCount, 3);
+            Assert.Equal(3, familiesCount);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var father = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Father/");
-            Assert.Equal(father?.Birth.Place.Name, "birth place");
+            Assert.Equal("birth place", father?.Birth.Place.Name);
         }
 
         [Fact]
@@ -112,7 +112,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var father = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Father/");
-            Assert.Equal(father?.Death.Place.Name, "death place");
+            Assert.Equal("death place", father?.Death.Place.Name);
         }
 
         [Fact]
@@ -136,7 +136,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
-            Assert.Equal(mother?.Birth.Place.Name, "birth place");
+            Assert.Equal("birth place", mother?.Birth.Place.Name);
         }
 
         [Fact]
@@ -152,7 +152,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
-            Assert.Equal(mother?.Death.Place.Name, "death place");
+            Assert.Equal("death place", mother?.Death.Place.Name);
         }
 
         [Fact]
@@ -168,7 +168,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var family = reader.Database.Families.SingleOrDefault();
-            Assert.Equal(family?.Marriage.Place.Name, "marriage place");
+            Assert.Equal("marriage place", family?.Marriage.Place.Name);
         }
 
         [Fact]
@@ -192,7 +192,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var child = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Child/");
-            Assert.Equal(child?.Birth.Place.Name, "birth place");
+            Assert.Equal("birth place", child?.Birth.Place.Name);
         }
 
         [Fact]
@@ -208,7 +208,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader(".\\Data\\simple.ged");
             var child = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Child/");
-            Assert.Equal(child?.Death.Place.Name, "death place");
+            Assert.Equal("death place", child?.Death.Place.Name);
         }
     }
 }

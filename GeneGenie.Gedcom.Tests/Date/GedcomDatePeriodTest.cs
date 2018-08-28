@@ -27,7 +27,7 @@ namespace GeneGenie.Gedcom.Date.Tests
     /// </summary>
     public class GedcomDatePeriodTest
     {
-        private static IEnumerable<object> ExpectedPeriodData()
+        public static IEnumerable<object[]> ExpectedPeriodData()
         {
             yield return new object[] { "1899", GedcomDatePeriod.Range };
             yield return new object[] { "Jan 1899", GedcomDatePeriod.Range };

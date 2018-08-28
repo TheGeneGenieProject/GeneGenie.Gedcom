@@ -121,9 +121,9 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData("Mary", "Bob", "1")]
-        [InlineData("Bob", "Bob", "0")]
-        [InlineData("Bob", "Mary", "-1")]
+        [InlineData("Mary", "Bob", 1)]
+        [InlineData("Bob", "Bob", 0)]
+        [InlineData("Bob", "Mary", -1)]
         private void Individuals_are_sorted_correctly_by_name(string name1, string name2, int expectedRelativePosition)
         {
             var person1 = gedcomDb.NamedPerson(name1);

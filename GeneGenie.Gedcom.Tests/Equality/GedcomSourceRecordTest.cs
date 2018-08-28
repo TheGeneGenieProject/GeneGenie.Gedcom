@@ -41,7 +41,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         [Fact]
         private void Source_record_is_not_equal_to_null()
         {
-            Assert.NotEqual(sourceRec1, null);
+            Assert.NotNull(sourceRec1);
         }
 
         [Fact]

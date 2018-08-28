@@ -25,17 +25,17 @@ namespace GeneGenie.Gedcom.Tests
     /// </summary>
     public class GedcomToDoTests
     {
-        [Theory(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
-        [InlineData("TODO:find_this_file.ged")]
-        private void Underscores_and_tabs_can_be_parsed(string fileName)
-        {
-            // This test will fail due to tabs in line value content unless
-            // we tell the parser to allow them (they are invalid in GEDCOM)
-            // will also fail unless - or _ are allowed in tag names
-            // due to a custom tag with - in it.
-            // Encoding enc = Encoding.BigEndianUnicode;
-            // Parse(fileName, enc, true, true);
-        }
+        //[Theory(Skip = "Needs rewriting as many smaller tests, file no longer exists.")]
+        //[InlineData("TODO:find_this_file.ged")]
+        //private void Underscores_and_tabs_can_be_parsed(string fileName)
+        //{
+        //    // This test will fail due to tabs in line value content unless
+        //    // we tell the parser to allow them (they are invalid in GEDCOM)
+        //    // will also fail unless - or _ are allowed in tag names
+        //    // due to a custom tag with - in it.
+        //    // Encoding enc = Encoding.BigEndianUnicode;
+        //    // Parse(fileName, enc, true, true);
+        //}
 
         /*
 

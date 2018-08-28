@@ -53,7 +53,7 @@ namespace GeneGenie.Gedcom.Parser
 
             var noteXref = reader.Database.Individuals.Single().Notes.First();
 
-            Assert.Equal(1, reader.Database.Notes.Count);
+            Assert.Single(reader.Database.Notes);
         }
     }
 }

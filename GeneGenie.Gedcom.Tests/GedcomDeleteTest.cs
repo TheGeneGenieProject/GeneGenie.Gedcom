@@ -89,7 +89,7 @@ namespace GeneGenie.Gedcom
             reader.Database.Individuals.First().Delete();
             reader.Database.Individuals.Single().Delete();
 
-            Assert.Equal(0, reader.Database.Families.Count);
+            Assert.Empty(reader.Database.Families);
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace GeneGenie.Gedcom
 
             reader.Database.Individuals.First().Delete();
 
-            Assert.Equal(1, reader.Database.Families.Count);
+            Assert.Single(reader.Database.Families);
         }
 
         [Fact]
@@ -109,7 +109,7 @@ namespace GeneGenie.Gedcom
 
             reader.Database.Individuals.First().Delete();
 
-            Assert.Equal(1, reader.Database.Families.Single().Notes.Count);
+            Assert.Single(reader.Database.Families.Single().Notes);
         }
 
         [Fact]
