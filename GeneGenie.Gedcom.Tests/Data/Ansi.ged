@@ -5,16 +5,16 @@
 1 DATE 28 Aug 2018
 2 TIME 11:33
 1 CHAR ANSI
-1 FILE /Ansi.ged
+1 FILE / Ansi.ged
 1 GEDC
 2 VERS 5.5
 2 FORM LINEAGE-LINKED
 0 @FATHER@ INDI
-1 NAME /Father/
+1 NAME / Father /
 1 SEX M
 1 FAMS @FAMILY@
 0 @MOTHER@ INDI
-1 NAME /Mother/
+1 NAME / Mother /
 1 SEX F
 1 FAMS @FAMILY@
 
@@ -24,9 +24,860 @@
 1 BIRT
 2 PLAC €
 
-0 @FAMILY@ FAM
-1 HUSB @FATHER@
-1 WIFE @MOTHER@
-1 CHIL @CHILD0@
+0 @CHILD1@ INDI
+1 FAMC @FAMILY@
+1 NAME /Single Low-9 Quotation Mark/
+1 BIRT
+2 PLAC ‚
 
+0 @CHILD2@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter F With Hook/
+1 BIRT
+2 PLAC ƒ
+
+0 @CHILD3@ INDI
+1 FAMC @FAMILY@
+1 NAME /Double Low-9 Quotation Mark/
+1 BIRT
+2 PLAC „
+
+0 @CHILD4@ INDI
+1 FAMC @FAMILY@
+1 NAME /Horizontal Ellipsis/
+1 BIRT
+2 PLAC …
+
+0 @CHILD5@ INDI
+1 FAMC @FAMILY@
+1 NAME /Dagger/
+1 BIRT
+2 PLAC †
+
+0 @CHILD6@ INDI
+1 FAMC @FAMILY@
+1 NAME /Double Dagger/
+1 BIRT
+2 PLAC ‡
+
+0 @CHILD7@ INDI
+1 FAMC @FAMILY@
+1 NAME /Modifier Letter Circumflex Accent/
+1 BIRT
+2 PLAC ˆ
+
+0 @CHILD8@ INDI
+1 FAMC @FAMILY@
+1 NAME /Per Mille Sign/
+1 BIRT
+2 PLAC ‰
+
+0 @CHILD9@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter S With Caron/
+1 BIRT
+2 PLAC Š
+
+0 @CHILD10@ INDI
+1 FAMC @FAMILY@
+1 NAME /Single Left-pointing Angle Quotation Mark/
+1 BIRT
+2 PLAC ‹
+
+0 @CHILD11@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Ligature Oe/
+1 BIRT
+2 PLAC Œ
+
+0 @CHILD12@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter Z With Caron/
+1 BIRT
+2 PLAC Ž
+
+0 @CHILD13@ INDI
+1 FAMC @FAMILY@
+1 NAME /Left Single Quotation Mark/
+1 BIRT
+2 PLAC ‘
+
+0 @CHILD14@ INDI
+1 FAMC @FAMILY@
+1 NAME /Right Single Quotation Mark/
+1 BIRT
+2 PLAC ’
+
+0 @CHILD15@ INDI
+1 FAMC @FAMILY@
+1 NAME /Left Double Quotation Mark/
+1 BIRT
+2 PLAC “
+
+0 @CHILD16@ INDI
+1 FAMC @FAMILY@
+1 NAME /Right Double Quotation Mark/
+1 BIRT
+2 PLAC ”
+
+0 @CHILD17@ INDI
+1 FAMC @FAMILY@
+1 NAME /Bullet/
+1 BIRT
+2 PLAC •
+
+0 @CHILD18@ INDI
+1 FAMC @FAMILY@
+1 NAME /En Dash/
+1 BIRT
+2 PLAC –
+
+0 @CHILD19@ INDI
+1 FAMC @FAMILY@
+1 NAME /Em Dash/
+1 BIRT
+2 PLAC —
+
+0 @CHILD20@ INDI
+1 FAMC @FAMILY@
+1 NAME /Small Tilde/
+1 BIRT
+2 PLAC ˜
+
+0 @CHILD21@ INDI
+1 FAMC @FAMILY@
+1 NAME /Trade Mark Sign/
+1 BIRT
+2 PLAC ™
+
+0 @CHILD22@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter S With Caron/
+1 BIRT
+2 PLAC š
+
+0 @CHILD23@ INDI
+1 FAMC @FAMILY@
+1 NAME /Single Right-pointing Angle Quotation Mark/
+1 BIRT
+2 PLAC ›
+
+0 @CHILD24@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Ligature Oe/
+1 BIRT
+2 PLAC œ
+
+0 @CHILD25@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter Z With Caron/
+1 BIRT
+2 PLAC ž
+
+0 @CHILD26@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter Y With Diaeresis/
+1 BIRT
+2 PLAC Ÿ
+
+0 @CHILD27@ INDI
+1 FAMC @FAMILY@
+1 NAME /No-break Space/
+1 BIRT
+2 PLAC  
+
+0 @CHILD28@ INDI
+1 FAMC @FAMILY@
+1 NAME /Inverted Exclamation Mark/
+1 BIRT
+2 PLAC ¡
+
+0 @CHILD29@ INDI
+1 FAMC @FAMILY@
+1 NAME /Cent Sign/
+1 BIRT
+2 PLAC ¢
+
+0 @CHILD30@ INDI
+1 FAMC @FAMILY@
+1 NAME /Pound Sign/
+1 BIRT
+2 PLAC £
+
+0 @CHILD31@ INDI
+1 FAMC @FAMILY@
+1 NAME /Currency Sign/
+1 BIRT
+2 PLAC ¤
+
+0 @CHILD32@ INDI
+1 FAMC @FAMILY@
+1 NAME /Yen Sign/
+1 BIRT
+2 PLAC ¥
+
+0 @CHILD33@ INDI
+1 FAMC @FAMILY@
+1 NAME /Broken Bar/
+1 BIRT
+2 PLAC ¦
+
+0 @CHILD34@ INDI
+1 FAMC @FAMILY@
+1 NAME /Section Sign/
+1 BIRT
+2 PLAC §
+
+0 @CHILD35@ INDI
+1 FAMC @FAMILY@
+1 NAME /Diaeresis/
+1 BIRT
+2 PLAC ¨
+
+0 @CHILD36@ INDI
+1 FAMC @FAMILY@
+1 NAME /Copyright Sign/
+1 BIRT
+2 PLAC ©
+
+0 @CHILD37@ INDI
+1 FAMC @FAMILY@
+1 NAME /Feminine Ordinal Indicator/
+1 BIRT
+2 PLAC ª
+
+0 @CHILD38@ INDI
+1 FAMC @FAMILY@
+1 NAME /Left-pointing Double Angle Quotation Mark/
+1 BIRT
+2 PLAC «
+
+0 @CHILD39@ INDI
+1 FAMC @FAMILY@
+1 NAME /Not Sign/
+1 BIRT
+2 PLAC ¬
+
+0 @CHILD40@ INDI
+1 FAMC @FAMILY@
+1 NAME /Soft Hyphen/
+1 BIRT
+2 PLAC ­
+
+0 @CHILD41@ INDI
+1 FAMC @FAMILY@
+1 NAME /Registered Sign/
+1 BIRT
+2 PLAC ®
+
+0 @CHILD42@ INDI
+1 FAMC @FAMILY@
+1 NAME /Macron/
+1 BIRT
+2 PLAC ¯
+
+0 @CHILD43@ INDI
+1 FAMC @FAMILY@
+1 NAME /Degree Sign/
+1 BIRT
+2 PLAC °
+
+0 @CHILD44@ INDI
+1 FAMC @FAMILY@
+1 NAME /Plus-minus Sign/
+1 BIRT
+2 PLAC ±
+
+0 @CHILD45@ INDI
+1 FAMC @FAMILY@
+1 NAME /Superscript Two/
+1 BIRT
+2 PLAC ²
+
+0 @CHILD46@ INDI
+1 FAMC @FAMILY@
+1 NAME /Superscript Three/
+1 BIRT
+2 PLAC ³
+
+0 @CHILD47@ INDI
+1 FAMC @FAMILY@
+1 NAME /Acute Accent/
+1 BIRT
+2 PLAC ´
+
+0 @CHILD48@ INDI
+1 FAMC @FAMILY@
+1 NAME /Micro Sign/
+1 BIRT
+2 PLAC µ
+
+0 @CHILD49@ INDI
+1 FAMC @FAMILY@
+1 NAME /Pilcrow Sign/
+1 BIRT
+2 PLAC ¶
+
+0 @CHILD50@ INDI
+1 FAMC @FAMILY@
+1 NAME /Middle Dot/
+1 BIRT
+2 PLAC ·
+
+0 @CHILD51@ INDI
+1 FAMC @FAMILY@
+1 NAME /Cedilla/
+1 BIRT
+2 PLAC ¸
+
+0 @CHILD52@ INDI
+1 FAMC @FAMILY@
+1 NAME /Superscript One/
+1 BIRT
+2 PLAC ¹
+
+0 @CHILD53@ INDI
+1 FAMC @FAMILY@
+1 NAME /Masculine Ordinal Indicator/
+1 BIRT
+2 PLAC º
+
+0 @CHILD54@ INDI
+1 FAMC @FAMILY@
+1 NAME /Right-pointing Double Angle Quotation Mark/
+1 BIRT
+2 PLAC »
+
+0 @CHILD55@ INDI
+1 FAMC @FAMILY@
+1 NAME /Vulgar Fraction One Quarter/
+1 BIRT
+2 PLAC ¼
+
+0 @CHILD56@ INDI
+1 FAMC @FAMILY@
+1 NAME /Vulgar Fraction One Half/
+1 BIRT
+2 PLAC ½
+
+0 @CHILD57@ INDI
+1 FAMC @FAMILY@
+1 NAME /Vulgar Fraction Three Quarters/
+1 BIRT
+2 PLAC ¾
+
+0 @CHILD58@ INDI
+1 FAMC @FAMILY@
+1 NAME /Inverted Question Mark/
+1 BIRT
+2 PLAC ¿
+
+0 @CHILD59@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter A With Grave/
+1 BIRT
+2 PLAC À
+
+0 @CHILD60@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter A With Acute/
+1 BIRT
+2 PLAC Á
+
+0 @CHILD61@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter A With Circumflex/
+1 BIRT
+2 PLAC Â
+
+0 @CHILD62@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter A With Tilde/
+1 BIRT
+2 PLAC Ã
+
+0 @CHILD63@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter A With Diaeresis/
+1 BIRT
+2 PLAC Ä
+
+0 @CHILD64@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter A With Ring Above/
+1 BIRT
+2 PLAC Å
+
+0 @CHILD65@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Ligature Ae/
+1 BIRT
+2 PLAC Æ
+
+0 @CHILD66@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter C With Cedilla/
+1 BIRT
+2 PLAC Ç
+
+0 @CHILD67@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter E With Grave/
+1 BIRT
+2 PLAC È
+
+0 @CHILD68@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter E With Acute/
+1 BIRT
+2 PLAC É
+
+0 @CHILD69@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter E With Circumflex/
+1 BIRT
+2 PLAC Ê
+
+0 @CHILD70@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter E With Diaeresis/
+1 BIRT
+2 PLAC Ë
+
+0 @CHILD71@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter I With Grave/
+1 BIRT
+2 PLAC Ì
+
+0 @CHILD72@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter I With Acute/
+1 BIRT
+2 PLAC Í
+
+0 @CHILD73@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter I With Circumflex/
+1 BIRT
+2 PLAC Î
+
+0 @CHILD74@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter I With Diaeresis/
+1 BIRT
+2 PLAC Ï
+
+0 @CHILD75@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter Eth/
+1 BIRT
+2 PLAC Ð
+
+0 @CHILD76@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter N With Tilde/
+1 BIRT
+2 PLAC Ñ
+
+0 @CHILD77@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter O With Grave/
+1 BIRT
+2 PLAC Ò
+
+0 @CHILD78@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter O With Acute/
+1 BIRT
+2 PLAC Ó
+
+0 @CHILD79@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter O With Circumflex/
+1 BIRT
+2 PLAC Ô
+
+0 @CHILD80@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter O With Tilde/
+1 BIRT
+2 PLAC Õ
+
+0 @CHILD81@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter O With Diaeresis/
+1 BIRT
+2 PLAC Ö
+
+0 @CHILD82@ INDI
+1 FAMC @FAMILY@
+1 NAME /Multiplication Sign/
+1 BIRT
+2 PLAC ×
+
+0 @CHILD83@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter O With Stroke/
+1 BIRT
+2 PLAC Ø
+
+0 @CHILD84@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter U With Grave/
+1 BIRT
+2 PLAC Ù
+
+0 @CHILD85@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter U With Acute/
+1 BIRT
+2 PLAC Ú
+
+0 @CHILD86@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter U With Circumflex/
+1 BIRT
+2 PLAC Û
+
+0 @CHILD87@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter U With Diaeresis/
+1 BIRT
+2 PLAC Ü
+
+0 @CHILD88@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter Y With Acute/
+1 BIRT
+2 PLAC Ý
+
+0 @CHILD89@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Capital Letter Thorn/
+1 BIRT
+2 PLAC Þ
+
+0 @CHILD90@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter Sharp S/
+1 BIRT
+2 PLAC ß
+
+0 @CHILD91@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter A With Grave/
+1 BIRT
+2 PLAC à
+
+0 @CHILD92@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter A With Acute/
+1 BIRT
+2 PLAC á
+
+0 @CHILD93@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter A With Circumflex/
+1 BIRT
+2 PLAC â
+
+0 @CHILD94@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter A With Tilde/
+1 BIRT
+2 PLAC ã
+
+0 @CHILD95@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter A With Diaeresis/
+1 BIRT
+2 PLAC ä
+
+0 @CHILD96@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter A With Ring Above/
+1 BIRT
+2 PLAC å
+
+0 @CHILD97@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Ligature Ae/
+1 BIRT
+2 PLAC æ
+
+0 @CHILD98@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter C With Cedilla/
+1 BIRT
+2 PLAC ç
+
+0 @CHILD99@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter E With Grave/
+1 BIRT
+2 PLAC è
+
+0 @CHILD100@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter E With Acute/
+1 BIRT
+2 PLAC é
+
+0 @CHILD101@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter E With Circumflex/
+1 BIRT
+2 PLAC ê
+
+0 @CHILD102@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter E With Diaeresis/
+1 BIRT
+2 PLAC ë
+
+0 @CHILD103@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter I With Grave/
+1 BIRT
+2 PLAC ì
+
+0 @CHILD104@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter I With Acute/
+1 BIRT
+2 PLAC í
+
+0 @CHILD105@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter I With Circumflex/
+1 BIRT
+2 PLAC î
+
+0 @CHILD106@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter I With Diaeresis/
+1 BIRT
+2 PLAC ï
+
+0 @CHILD107@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter Eth/
+1 BIRT
+2 PLAC ð
+
+0 @CHILD108@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter N With Tilde/
+1 BIRT
+2 PLAC ñ
+
+0 @CHILD109@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter O With Grave/
+1 BIRT
+2 PLAC ò
+
+0 @CHILD110@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter O With Acute/
+1 BIRT
+2 PLAC ó
+
+0 @CHILD111@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter O With Circumflex/
+1 BIRT
+2 PLAC ô
+
+0 @CHILD112@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter O With Tilde/
+1 BIRT
+2 PLAC õ
+
+0 @CHILD113@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter O With Diaeresis/
+1 BIRT
+2 PLAC ö
+
+0 @CHILD114@ INDI
+1 FAMC @FAMILY@
+1 NAME /Division Sign/
+1 BIRT
+2 PLAC ÷
+
+0 @CHILD115@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter O With Stroke/
+1 BIRT
+2 PLAC ø
+
+0 @CHILD116@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter U With Grave/
+1 BIRT
+2 PLAC ù
+
+0 @CHILD117@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter U With Acute/
+1 BIRT
+2 PLAC ú
+
+0 @CHILD118@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter U With Circumflex/
+1 BIRT
+2 PLAC û
+
+0 @CHILD119@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter U With Diaeresis/
+1 BIRT
+2 PLAC ü
+
+0 @CHILD120@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter Y With Acute/
+1 BIRT
+2 PLAC ý
+
+0 @CHILD121@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter Thorn/
+1 BIRT
+2 PLAC þ
+
+0 @CHILD122@ INDI
+1 FAMC @FAMILY@
+1 NAME /Latin Small Letter Y With Diaeresis/
+1 BIRT
+2 PLAC ÿ
+
+0 @FAMILY@ FAM
+1 CHIL @CHILD0@
+1 CHIL @CHILD1@
+1 CHIL @CHILD2@
+1 CHIL @CHILD3@
+1 CHIL @CHILD4@
+1 CHIL @CHILD5@
+1 CHIL @CHILD6@
+1 CHIL @CHILD7@
+1 CHIL @CHILD8@
+1 CHIL @CHILD9@
+1 CHIL @CHILD10@
+1 CHIL @CHILD11@
+1 CHIL @CHILD12@
+1 CHIL @CHILD13@
+1 CHIL @CHILD14@
+1 CHIL @CHILD15@
+1 CHIL @CHILD16@
+1 CHIL @CHILD17@
+1 CHIL @CHILD18@
+1 CHIL @CHILD19@
+1 CHIL @CHILD20@
+1 CHIL @CHILD21@
+1 CHIL @CHILD22@
+1 CHIL @CHILD23@
+1 CHIL @CHILD24@
+1 CHIL @CHILD25@
+1 CHIL @CHILD26@
+1 CHIL @CHILD27@
+1 CHIL @CHILD28@
+1 CHIL @CHILD29@
+1 CHIL @CHILD30@
+1 CHIL @CHILD31@
+1 CHIL @CHILD32@
+1 CHIL @CHILD33@
+1 CHIL @CHILD34@
+1 CHIL @CHILD35@
+1 CHIL @CHILD36@
+1 CHIL @CHILD37@
+1 CHIL @CHILD38@
+1 CHIL @CHILD39@
+1 CHIL @CHILD40@
+1 CHIL @CHILD41@
+1 CHIL @CHILD42@
+1 CHIL @CHILD43@
+1 CHIL @CHILD44@
+1 CHIL @CHILD45@
+1 CHIL @CHILD46@
+1 CHIL @CHILD47@
+1 CHIL @CHILD48@
+1 CHIL @CHILD49@
+1 CHIL @CHILD50@
+1 CHIL @CHILD51@
+1 CHIL @CHILD52@
+1 CHIL @CHILD53@
+1 CHIL @CHILD54@
+1 CHIL @CHILD55@
+1 CHIL @CHILD56@
+1 CHIL @CHILD57@
+1 CHIL @CHILD58@
+1 CHIL @CHILD59@
+1 CHIL @CHILD60@
+1 CHIL @CHILD61@
+1 CHIL @CHILD62@
+1 CHIL @CHILD63@
+1 CHIL @CHILD64@
+1 CHIL @CHILD65@
+1 CHIL @CHILD66@
+1 CHIL @CHILD67@
+1 CHIL @CHILD68@
+1 CHIL @CHILD69@
+1 CHIL @CHILD70@
+1 CHIL @CHILD71@
+1 CHIL @CHILD72@
+1 CHIL @CHILD73@
+1 CHIL @CHILD74@
+1 CHIL @CHILD75@
+1 CHIL @CHILD76@
+1 CHIL @CHILD77@
+1 CHIL @CHILD78@
+1 CHIL @CHILD79@
+1 CHIL @CHILD80@
+1 CHIL @CHILD81@
+1 CHIL @CHILD82@
+1 CHIL @CHILD83@
+1 CHIL @CHILD84@
+1 CHIL @CHILD85@
+1 CHIL @CHILD86@
+1 CHIL @CHILD87@
+1 CHIL @CHILD88@
+1 CHIL @CHILD89@
+1 CHIL @CHILD90@
+1 CHIL @CHILD91@
+1 CHIL @CHILD92@
+1 CHIL @CHILD93@
+1 CHIL @CHILD94@
+1 CHIL @CHILD95@
+1 CHIL @CHILD96@
+1 CHIL @CHILD97@
+1 CHIL @CHILD98@
+1 CHIL @CHILD99@
+1 CHIL @CHILD100@
+1 CHIL @CHILD101@
+1 CHIL @CHILD102@
+1 CHIL @CHILD103@
+1 CHIL @CHILD104@
+1 CHIL @CHILD105@
+1 CHIL @CHILD106@
+1 CHIL @CHILD107@
+1 CHIL @CHILD108@
+1 CHIL @CHILD109@
+1 CHIL @CHILD110@
+1 CHIL @CHILD111@
+1 CHIL @CHILD112@
+1 CHIL @CHILD113@
+1 CHIL @CHILD114@
+1 CHIL @CHILD115@
+1 CHIL @CHILD116@
+1 CHIL @CHILD117@
+1 CHIL @CHILD118@
+1 CHIL @CHILD119@
+1 CHIL @CHILD120@
+1 CHIL @CHILD121@
+1 CHIL @CHILD122@
 0 TRLR
