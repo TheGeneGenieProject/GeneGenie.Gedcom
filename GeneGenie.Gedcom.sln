@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7EFA9B20
 		build_nuget.ps1 = build_nuget.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneGenie.Gedcom.Sample", "GeneGenie.Gecom.Sample\GeneGenie.Gedcom.Sample.csproj", "{4160B51D-E4B8-4962-8E88-8925ACA07CEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneGenie.Gedcom.Sample", "GeneGenie.Gedcom.Sample\GeneGenie.Gedcom.Sample.csproj", "{4160B51D-E4B8-4962-8E88-8925ACA07CEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
