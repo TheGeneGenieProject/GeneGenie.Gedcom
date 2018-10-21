@@ -19,7 +19,7 @@
 namespace GeneGenie.Gedcom
 {
     using System.Linq;
-    using Parser;
+    using GeneGenie.Gedcom.Parser;
     using Xunit;
 
     /// <summary>

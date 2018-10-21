@@ -111,7 +111,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 GenerationsOfDecendants = 1,
                 OrdinanceProcessFlag = true,
                 Submitter = "a submitter",
-                TempleCode = "temple code"
+                TempleCode = "temple code",
             };
         }
     }

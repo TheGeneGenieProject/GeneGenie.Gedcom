@@ -18,7 +18,7 @@
 namespace GeneGenie.Gedcom.Tests.Equality
 {
     using System.Text;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -186,7 +186,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 EventsRecorded =
                 {
                     new GedcomRecordedEvent { Date = new GedcomDate { Date1 = "03/03/1933" } },
-                    new GedcomRecordedEvent { Date = new GedcomDate { Date1 = "04/04/1944" } }
+                    new GedcomRecordedEvent { Date = new GedcomDate { Date1 = "04/04/1944" } },
                 },
                 FiledBy = "sample filed by",
                 Originator = "sample originator",
@@ -196,12 +196,12 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 RepositoryCitations =
                 {
                     new GedcomRepositoryCitation { Repository = "repo one" },
-                    new GedcomRepositoryCitation { Repository = "repo two" }
+                    new GedcomRepositoryCitation { Repository = "repo two" },
                 },
                 Text = "sample text",
                 TextText = new StringBuilder("umm..."),
                 Title = "sample title",
-                TitleText = new StringBuilder("another sample title")
+                TitleText = new StringBuilder("another sample title"),
             };
         }
     }

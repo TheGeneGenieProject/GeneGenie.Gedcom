@@ -172,7 +172,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 SourceCopyright = "test source copyright",
                 SourceDate = new GedcomDate { Date1 = "01/01/1981" },
                 SourceName = "test source name",
-                TransmissionDate = new GedcomDate { Date1 = "01/01/2001" }
+                TransmissionDate = new GedcomDate { Date1 = "01/01/2001" },
             };
         }
     }

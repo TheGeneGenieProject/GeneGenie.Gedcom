@@ -37,6 +37,6 @@ namespace GeneGenie.Gedcom.Parser.Enums
         /// <summary>
         /// Line value is the actual data
         /// </summary>
-        DataType
+        DataType,
     }
 }

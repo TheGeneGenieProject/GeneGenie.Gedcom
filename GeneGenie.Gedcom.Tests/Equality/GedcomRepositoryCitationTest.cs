@@ -17,7 +17,7 @@
 
 namespace GeneGenie.Gedcom.Tests.Equality
 {
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -92,7 +92,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 CallNumbers = { "abc123", "xyz890" },
                 MediaTypes = { SourceMediaType.Book, SourceMediaType.Electronic },
                 OtherMediaTypes = { "one", "two" },
-                Repository = "sample repo"
+                Repository = "sample repo",
             };
         }
     }

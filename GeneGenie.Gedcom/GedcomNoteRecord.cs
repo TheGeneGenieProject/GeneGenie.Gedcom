@@ -23,7 +23,7 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Text;
     using System.Xml;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// GEDCOM Note Record

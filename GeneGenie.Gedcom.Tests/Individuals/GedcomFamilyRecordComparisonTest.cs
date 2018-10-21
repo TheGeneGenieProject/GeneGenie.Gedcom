@@ -17,7 +17,7 @@
 
 namespace GeneGenie.Gedcom.Tests.Individuals
 {
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -97,12 +97,12 @@ namespace GeneGenie.Gedcom.Tests.Individuals
             famRec1.Events.Add(new GedcomFamilyEvent
             {
                 EventType = GedcomEventType.MARR,
-                Certainty = GedcomCertainty.Primary
+                Certainty = GedcomCertainty.Primary,
             });
             famRec2.Events.Add(new GedcomFamilyEvent
             {
                 EventType = GedcomEventType.MARR,
-                Certainty = GedcomCertainty.Questionable
+                Certainty = GedcomCertainty.Questionable,
             });
 
             Assert.NotEqual(famRec1, famRec2);
@@ -139,7 +139,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
                 NumberOfChildren = 2,
                 Husband = "@I1@",
                 Wife = "@I2@",
-                StartStatus = MarriageStartStatus.Partners
+                StartStatus = MarriageStartStatus.Partners,
             };
 
             famRecord.Children.Add("@I3@");

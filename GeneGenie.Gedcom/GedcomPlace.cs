@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// Represents a place or location.

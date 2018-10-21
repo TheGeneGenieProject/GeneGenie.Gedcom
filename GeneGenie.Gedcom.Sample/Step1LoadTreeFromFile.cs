@@ -19,7 +19,7 @@
 namespace GeneGenie.Gedcom.Sample
 {
     using System;
-    using Parser;
+    using GeneGenie.Gedcom.Parser;
 
     /// <summary>
     /// Tiny sample class on how to load a GEDCOM file.

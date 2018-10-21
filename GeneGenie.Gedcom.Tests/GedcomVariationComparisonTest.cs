@@ -80,7 +80,7 @@ namespace GeneGenie.Gedcom.Tests
             return new GedcomVariation
             {
                 Value = "Some Value",
-                VariationType = "Some Variation Type"
+                VariationType = "Some Variation Type",
             };
         }
     }

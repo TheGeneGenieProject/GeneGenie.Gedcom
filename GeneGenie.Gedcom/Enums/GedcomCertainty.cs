@@ -47,6 +47,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Unknown
         /// </summary>
-        Unknown = 4
+        Unknown = 4,
     }
 }

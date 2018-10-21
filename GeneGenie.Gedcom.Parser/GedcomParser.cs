@@ -20,8 +20,8 @@
 namespace GeneGenie.Gedcom.Parser
 {
     using System;
-    using Enums;
-    using Helpers;
+    using GeneGenie.Gedcom.Helpers;
+    using GeneGenie.Gedcom.Parser.Enums;
 
     /// <summary>
     /// GedcomParser is responsible for parsing GEDCOM files.
@@ -41,7 +41,7 @@ namespace GeneGenie.Gedcom.Parser
             '!', '\"', '$', '%', '&', '\'', '(',
             ')', '*', '+', ',', '-', '.', '/', ':',
             ';', '<', '=', '>', '?', '[', ']', '\\',
-            '|', '^', '`', '{', '|', '}', '~'
+            '|', '^', '`', '{', '|', '}', '~',
         };
 
         private int previousLevel = -1;
@@ -510,7 +510,7 @@ namespace GeneGenie.Gedcom.Parser
                                         LineValueType = GedcomLineValueType.DataType;
                                     }
 
-									i = temp;
+                                    i = temp;
                                 }
 
                                 // TODO: no line value, but have hit the terminator

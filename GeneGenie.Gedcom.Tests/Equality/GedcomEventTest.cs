@@ -17,7 +17,7 @@
 
 namespace GeneGenie.Gedcom.Tests.Equality
 {
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -153,7 +153,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 EventType = GedcomEventType.BAPM,
                 Place = new GedcomPlace { Name = "sample place name" },
                 ReligiousAffiliation = "sample affiliation",
-                ResponsibleAgency = "sample agency"
+                ResponsibleAgency = "sample agency",
             };
         }
     }

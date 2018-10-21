@@ -136,6 +136,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Header
         /// </summary>
-        Header
+        Header,
     }
 }

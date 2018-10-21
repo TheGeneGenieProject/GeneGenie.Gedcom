@@ -312,6 +312,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Custom
         /// </summary>
-        Custom
+        Custom,
     }
 }

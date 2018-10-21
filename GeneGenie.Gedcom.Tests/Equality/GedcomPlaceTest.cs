@@ -86,13 +86,13 @@ namespace GeneGenie.Gedcom.Tests.Equality
             place1.PhoneticVariations.Add(new GedcomVariation
             {
                 Value = "variation value",
-                VariationType = "variation type"
+                VariationType = "variation type",
             });
             place2.PhoneticVariations.Clear();
             place2.PhoneticVariations.Add(new GedcomVariation
             {
                 Value = "another variation value",
-                VariationType = "another variation type"
+                VariationType = "another variation type",
             });
 
             Assert.NotEqual(place1, place2);
@@ -105,13 +105,13 @@ namespace GeneGenie.Gedcom.Tests.Equality
             place1.RomanizedVariations.Add(new GedcomVariation
             {
                 Value = "variation value",
-                VariationType = "variation type"
+                VariationType = "variation type",
             });
             place2.RomanizedVariations.Clear();
             place2.RomanizedVariations.Add(new GedcomVariation
             {
                 Value = "another variation value",
-                VariationType = "another variation type"
+                VariationType = "another variation type",
             });
 
             Assert.NotEqual(place1, place2);
@@ -134,12 +134,12 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 PhoneticVariations =
                 {
                     new GedcomVariation { Value = "variation value one", VariationType = "variation type one" },
-                    new GedcomVariation { Value = "variation value two", VariationType = "variation type two" }
+                    new GedcomVariation { Value = "variation value two", VariationType = "variation type two" },
                 },
                 RomanizedVariations =
                 {
-                    new GedcomVariation { Value = "variation value", VariationType = "variation type" }
-                }
+                    new GedcomVariation { Value = "variation value", VariationType = "variation type" },
+                },
             };
         }
     }

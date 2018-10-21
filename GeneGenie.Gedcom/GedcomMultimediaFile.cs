@@ -197,6 +197,16 @@ namespace GeneGenie.Gedcom
             return CompareTo(obj as GedcomMultimediaFile) == 0;
         }
 
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Filename,
+                Format,
+                SourceMediaType,
+            }.GetHashCode();
+        }
+
         /// <summary>
         /// Updates the change date and time.
         /// </summary>
@@ -224,16 +234,6 @@ namespace GeneGenie.Gedcom
                 changeDate.Date1 = now.ToString("dd MMM yyyy");
                 changeDate.Time = now.ToString("hh:mm:ss");
             }
-        }
-
-        public override int GetHashCode()
-        {
-            return new
-            {
-                Filename,
-                Format,
-                SourceMediaType,
-            }.GetHashCode();
         }
     }
 }

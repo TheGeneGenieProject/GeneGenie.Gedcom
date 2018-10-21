@@ -17,7 +17,7 @@
 
 namespace GeneGenie.Gedcom.Tests.Equality
 {
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -124,7 +124,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 EventType = "sample event type",
                 Page = "sample page",
                 Role = "sample role",
-                Text = "sample text"
+                Text = "sample text",
             };
         }
     }

@@ -74,8 +74,8 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 Files =
                 {
                     new GedcomMultimediaFile { Filename = "file_name_one" },
-                    new GedcomMultimediaFile { Filename = "file_name_two" }
-                }
+                    new GedcomMultimediaFile { Filename = "file_name_two" },
+                },
             };
         }
     }

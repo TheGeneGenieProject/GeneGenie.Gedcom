@@ -40,6 +40,6 @@ namespace GeneGenie.Gedcom.Enums
         Roman,
 
         /// <summary>Unknown calendar.</summary>
-        Unknown // TODO: Shouldn't this be first, as in 0 for the default int value?
+        Unknown, // TODO: Shouldn't this be first, as in 0 for the default int value?
     }
 }

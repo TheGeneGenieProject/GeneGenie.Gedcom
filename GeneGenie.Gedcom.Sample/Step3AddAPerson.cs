@@ -46,7 +46,7 @@ namespace GeneGenie.Gedcom.Sample
             {
                 Database = db,
                 Date = birthDate,
-                EventType = Enums.GedcomEventType.Birth
+                EventType = Enums.GedcomEventType.Birth,
             });
 
             Console.WriteLine($"Added record for '{individual.GetName().Name}' with birth date {individual.Birth.Date.Date1}.");

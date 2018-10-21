@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// An event relating to a given family

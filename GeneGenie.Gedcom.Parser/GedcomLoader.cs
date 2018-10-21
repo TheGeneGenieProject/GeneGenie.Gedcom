@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom.Parser
 {
     using System.IO;
     using System.Text;
-    using Enums;
+    using GeneGenie.Gedcom.Parser.Enums;
 
     /// <summary>
     /// Used by unit tests and benchmarks to load and parse GEDCOM files.

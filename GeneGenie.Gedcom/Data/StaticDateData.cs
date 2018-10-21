@@ -20,7 +20,7 @@
 namespace GeneGenie.Gedcom.Data
 {
     using System.Collections.Generic;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// Month and period data used for parsing dates from GEDCOM files.
@@ -37,7 +37,7 @@ namespace GeneGenie.Gedcom.Data
         /// </summary>
         public static readonly char[] GedcomDateParseDelimiters = new char[]
         {
-            ' ', '-'
+            ' ', '-',
         };
 
         /// <summary>
@@ -94,14 +94,14 @@ namespace GeneGenie.Gedcom.Data
             {
             "JAN", "FEB", "MAR", "APR", "MAY",
             "JUN", "JUL", "AUG", "SEP", "OCT",
-            "NOV", "DEC"
+            "NOV", "DEC",
             };
 
         private static readonly string[] ShortMonthsPunc = new string[] // non standard
         {
             "JAN.", "FEB.", "MAR.", "APR.", "MAY.",
             "JUN.", "JUL.", "AUG.", "SEP.", "OCT.",
-            "NOV.", "DEC."
+            "NOV.", "DEC.",
         };
 
         // non standard
@@ -109,7 +109,7 @@ namespace GeneGenie.Gedcom.Data
         {
             "JAN", "FEB", "MAR", "APR", "MAY",
             "JUN", "JUL", "AUG", "SEPT", "OCT",
-            "NOV", "DEC"
+            "NOV", "DEC",
         };
 
         // non standard
@@ -117,21 +117,21 @@ namespace GeneGenie.Gedcom.Data
         {
             "JAN.", "FEB.", "MAR.", "APR.", "MAY.",
             "JUN.", "JUL.", "AUG.", "SEPT.", "OCT.",
-            "NOV.", "DEC."
+            "NOV.", "DEC.",
         };
 
         private static readonly string[] LongMonths = new string[]
         {
             "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY",
             "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER",
-            "NOVEMBER", "DECEMBER"
+            "NOVEMBER", "DECEMBER",
         };
 
         private static readonly string[] ShortFrenMonths = new string[]
         {
             "VEND", "BRUM", "FRIM", "NIVO", "PLUB",
             "VENT", "GERM", "FLOR", "PRAI", "MESS",
-            "THER", "FRUC", "COMP"
+            "THER", "FRUC", "COMP",
         };
 
         // non standard
@@ -139,21 +139,21 @@ namespace GeneGenie.Gedcom.Data
         {
             "VEND.", "BRUM.", "FRIM.", "NIVO.", "PLUB.",
             "VENT.", "GERM.", "FLOR.", "PRAI.", "MESS.",
-            "THER.", "FRUC.", "COMP."
+            "THER.", "FRUC.", "COMP.",
         };
 
         private static readonly string[] LongFrenMonths = new string[]
         {
             "VENDEMIAIRE", "BRUMAIRE", "FRIMAIRE", "NIVOSE", "PLUVIOSE",
             "VENTOSE", "GERMINAL", "FLOREAL", "PRAIRIAL", "MESSIDOR",
-            "THERMIDOR", "FRUCTIDOR", "JOUR_COMPLEMENTAIRS"
+            "THERMIDOR", "FRUCTIDOR", "JOUR_COMPLEMENTAIRS",
         };
 
         private static readonly string[] ShortHebrMonths = new string[]
         {
             "TSH", "CSH", "KSL", "TVT", "SHV",
             "ADR", "ADS", "NSN", "IYR", "SVN",
-            "TMZ", "AAV", "ELL"
+            "TMZ", "AAV", "ELL",
         };
 
         // non standard
@@ -161,14 +161,14 @@ namespace GeneGenie.Gedcom.Data
         {
             "TSH.", "CSH.", "KSL.", "TVT.", "SHV.",
             "ADR.", "ADS.", "NSN.", "IYR.", "SVN.",
-            "TMZ.", "AAV.", "ELL."
+            "TMZ.", "AAV.", "ELL.",
         };
 
         private static readonly string[] LongHebrMonths = new string[]
         {
             "TISHRI", "CHESHCAN", "KISLEV", "TEVAT", "SHEVAT",
             "ADAR", "ADAR SHENI", "NISAN", "IYAR", "SIVAN",
-            "TAMMUZ", "AV", "ELUL"
+            "TAMMUZ", "AV", "ELUL",
         };
 
         static StaticDateData()
@@ -185,7 +185,7 @@ namespace GeneGenie.Gedcom.Data
                 LongFrenMonths,
                 ShortHebrMonths,
                 ShortHebrMonthsPunc,
-                LongHebrMonths
+                LongHebrMonths,
             };
         }
     }

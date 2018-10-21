@@ -20,8 +20,8 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
-    using Enums;
-    using Helpers;
+    using GeneGenie.Gedcom.Enums;
+    using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
     /// Details the spouse sealing event which can occur between a husband and wife.

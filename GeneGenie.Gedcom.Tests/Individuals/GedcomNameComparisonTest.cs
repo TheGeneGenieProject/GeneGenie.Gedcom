@@ -19,7 +19,7 @@
 namespace GeneGenie.Gedcom.Parser
 {
     using System.Collections.Generic;
-    using Tests.DataHelperExtensions;
+    using GeneGenie.Gedcom.Tests.DataHelperExtensions;
     using Xunit;
 
     /// <summary>
@@ -236,7 +236,7 @@ namespace GeneGenie.Gedcom.Parser
                 Surname = "Neumann",
                 Suffix = "Jr",
                 Nick = "Polly",
-                PreferredName = true
+                PreferredName = true,
             };
 
             name.PhoneticVariations.Add(new GedcomVariation { Value = "ma-rē", VariationType = "unknown" });

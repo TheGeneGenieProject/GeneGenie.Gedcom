@@ -22,7 +22,7 @@ namespace GeneGenie.Gedcom.Date.Tests
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -30,7 +30,7 @@ namespace GeneGenie.Gedcom.Date.Tests
     /// </summary>
     public class GedcomDateParseTest
     {
-		public static IEnumerable<object[]> SinglePartDateData()
+        public static IEnumerable<object[]> SinglePartDateData()
         {
             yield return new object[] { "1899", new DateTime(1899, 1, 1) };
             yield return new object[] { " 1899", new DateTime(1899, 1, 1) };
@@ -39,7 +39,7 @@ namespace GeneGenie.Gedcom.Date.Tests
             yield return new object[] { "  1899  ", new DateTime(1899, 1, 1) };
         }
 
-		public static IEnumerable<object[]> TwoPartDateData()
+        public static IEnumerable<object[]> TwoPartDateData()
         {
             yield return new object[] { "Feb 1896", new DateTime(1896, 2, 1) };
             yield return new object[] { "2 1896", new DateTime(1896, 2, 1) };
@@ -48,18 +48,18 @@ namespace GeneGenie.Gedcom.Date.Tests
             yield return new object[] { "Dec 1896", new DateTime(1896, 12, 1) };
         }
 
-		public static IEnumerable<object[]> WarningDateData()
+        public static IEnumerable<object[]> WarningDateData()
         {
             yield return new object[] { "29 Feb 2015", new DateTime(2015, 2, 28), ParserMessageIds.DayOfDateAdjusted };
         }
 
-		public static IEnumerable<object[]> PartialDatesForExpandingData()
+        public static IEnumerable<object[]> PartialDatesForExpandingData()
         {
             yield return new object[] { "2015", new DateTime(2015, 1, 1), new DateTime(2015, 12, 31, 23, 59, 59), ParserMessageIds.InterpretedAsYearRange };
             yield return new object[] { "Feb 2015", new DateTime(2015, 2, 1), new DateTime(2015, 2, 28, 23, 59, 59), ParserMessageIds.InterpretedAsMonthRange };
         }
 
-		public static IEnumerable<object[]> ErrorDateData()
+        public static IEnumerable<object[]> ErrorDateData()
         {
             yield return new object[] { "32 13 2015", ParserMessageIds.DateIsNotValid };
         }

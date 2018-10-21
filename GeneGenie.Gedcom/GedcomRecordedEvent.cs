@@ -21,7 +21,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.Linq;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// TODO: Doc
@@ -243,6 +243,16 @@ namespace GeneGenie.Gedcom
             return CompareTo(obj as GedcomRecordedEvent) == 0;
         }
 
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Types,
+                Date,
+                Place,
+            }.GetHashCode();
+        }
+
         /// <summary>
         /// Updates the changed date and time.
         /// </summary>
@@ -296,16 +306,6 @@ namespace GeneGenie.Gedcom
             }
 
             return 0;
-        }
-
-        public override int GetHashCode()
-        {
-            return new
-            {
-                Types,
-                Date,
-                Place,
-            }.GetHashCode();
         }
     }
 }

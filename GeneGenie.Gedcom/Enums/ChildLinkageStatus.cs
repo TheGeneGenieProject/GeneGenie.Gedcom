@@ -42,6 +42,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Proven
         /// </summary>
-        Proven
+        Proven,
     }
 }

@@ -17,7 +17,7 @@
 
 namespace GeneGenie.Gedcom.Address.Tests
 {
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -255,7 +255,7 @@ namespace GeneGenie.Gedcom.Address.Tests
                 State = "VA",
                 Www1 = "www.some-site.com",
                 Www2 = "www.some-other-site.edu",
-                Www3 = "www.yet-another-site.net"
+                Www3 = "www.yet-another-site.net",
             };
         }
     }

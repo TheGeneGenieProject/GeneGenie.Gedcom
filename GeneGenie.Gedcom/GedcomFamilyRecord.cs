@@ -24,7 +24,7 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Linq;
     using System.Xml;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// Defines a family, consisting of husband/wife and children, and

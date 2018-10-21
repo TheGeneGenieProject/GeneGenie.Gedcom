@@ -134,6 +134,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Other
         /// </summary>
-        Other
+        Other,
     }
 }

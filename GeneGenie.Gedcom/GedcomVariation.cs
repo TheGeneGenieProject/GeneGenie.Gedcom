@@ -175,6 +175,15 @@ namespace GeneGenie.Gedcom
             return Equals(obj as GedcomVariation);
         }
 
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Value,
+                VariationType,
+            }.GetHashCode();
+        }
+
         /// <summary>
         /// Changeds this instance.
         /// </summary>
@@ -202,15 +211,6 @@ namespace GeneGenie.Gedcom
                 ChangeDate.Date1 = now.ToString("dd MMM yyyy");
                 ChangeDate.Time = now.ToString("hh:mm:ss");
             }
-        }
-
-        public override int GetHashCode()
-        {
-            return new
-            {
-                Value,
-                VariationType,
-            }.GetHashCode();
         }
     }
 }

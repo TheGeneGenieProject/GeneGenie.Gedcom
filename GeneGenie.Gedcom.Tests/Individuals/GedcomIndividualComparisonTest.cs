@@ -20,8 +20,8 @@
 namespace GeneGenie.Gedcom.Parser
 {
     using System.Collections.Generic;
-    using Gedcom.Enums;
-    using Tests.DataHelperExtensions;
+    using GeneGenie.Gedcom.Enums;
+    using GeneGenie.Gedcom.Tests.DataHelperExtensions;
     using Xunit;
 
     /// <summary>

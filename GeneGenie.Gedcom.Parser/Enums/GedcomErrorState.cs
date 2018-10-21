@@ -88,6 +88,6 @@ namespace GeneGenie.Gedcom.Parser.Enums
         /// <summary>
         /// An unknown error has occured while parsing
         /// </summary>
-        UnknownError
+        UnknownError,
     }
 }

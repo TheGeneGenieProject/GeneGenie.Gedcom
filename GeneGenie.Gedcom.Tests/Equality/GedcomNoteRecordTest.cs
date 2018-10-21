@@ -61,7 +61,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
         {
             return new GedcomNoteRecord
             {
-                Text = "sample note"
+                Text = "sample note",
             };
         }
     }

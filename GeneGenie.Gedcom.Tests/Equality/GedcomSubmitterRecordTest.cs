@@ -91,7 +91,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 Address = new GedcomAddress { City = "submitter city" },
                 LanguagePreferences = { "en-US", "fr-FR" },
                 Name = "submitter name",
-                RegisteredRFN = "submitter rfn"
+                RegisteredRFN = "submitter rfn",
             };
         }
     }

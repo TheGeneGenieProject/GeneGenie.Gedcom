@@ -19,8 +19,8 @@
 
 namespace GeneGenie.Gedcom
 {
-    using Enums;
-    using Tests.DataHelperExtensions;
+    using GeneGenie.Gedcom.Enums;
+    using GeneGenie.Gedcom.Tests.DataHelperExtensions;
     using Xunit;
 
     /// <summary>
@@ -124,12 +124,12 @@ namespace GeneGenie.Gedcom
             var ev = new GedcomIndividualEvent
             {
                 EventType = eventType,
-                Date = new GedcomDate(gedcomDb)
+                Date = new GedcomDate(gedcomDb),
             };
             ev.Date.ParseDateString(dateText);
             ev.Place = new GedcomPlace
             {
-                Name = placeName
+                Name = placeName,
             };
 
             return ev;

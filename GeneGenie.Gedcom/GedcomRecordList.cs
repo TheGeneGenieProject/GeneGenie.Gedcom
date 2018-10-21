@@ -38,6 +38,7 @@ namespace GeneGenie.Gedcom
                     hc ^= p.GetHashCode();
                 }
             }
+
             return hc;
         }
     }

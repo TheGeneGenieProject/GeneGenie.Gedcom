@@ -45,6 +45,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Privacy
         /// </summary>
-        Privacy
+        Privacy,
     }
 }

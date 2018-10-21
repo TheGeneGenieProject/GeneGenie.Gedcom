@@ -72,7 +72,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
             return new GedcomAssociation
             {
                 Individual = "@ I2 @",
-                Description = "Godparent"
+                Description = "Godparent",
             };
         }
     }

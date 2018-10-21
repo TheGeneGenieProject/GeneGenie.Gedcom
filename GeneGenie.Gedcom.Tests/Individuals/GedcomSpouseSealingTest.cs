@@ -18,8 +18,8 @@
 namespace GeneGenie.Gedcom.Tests.Individuals
 {
     using System.Linq;
-    using Enums;
-    using Parser;
+    using GeneGenie.Gedcom.Enums;
+    using GeneGenie.Gedcom.Parser;
     using Xunit;
 
     /// <summary>

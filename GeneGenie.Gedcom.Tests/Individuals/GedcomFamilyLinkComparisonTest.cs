@@ -17,7 +17,7 @@
 
 namespace GeneGenie.Gedcom.Tests.Individuals
 {
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -115,7 +115,7 @@ namespace GeneGenie.Gedcom.Tests.Individuals
                 MotherPedigree = PedigreeLinkageType.Unknown,
                 Pedigree = PedigreeLinkageType.Unknown,
                 PreferedSpouse = false,
-                Status = ChildLinkageStatus.Unknown
+                Status = ChildLinkageStatus.Unknown,
             };
         }
     }

@@ -19,7 +19,7 @@
 
 namespace GeneGenie.Gedcom.Tests
 {
-    using Helpers;
+    using GeneGenie.Gedcom.Helpers;
     using Xunit;
 
     /// <summary>
@@ -96,7 +96,7 @@ namespace GeneGenie.Gedcom.Tests
 
             string[] names = new string[]
             {
-                "Abiathar", "Alice Blanch", "Almedia J", "Anna M", "Annie", "Anthony Desmond", "Anthony James", "Barber", "Barton William", "Board", "Bone", "Burchell", "Caswell", "Collins", "Corrinna", "Cullister Anne", "Day", "Deborah", "Dennis", "Duckett", "Edward", "Edwin", "Elizabeth", "Eric Gwyn", "Farrington", "Fiona M", "Forrester", "Frances C", "Geoffrey", "George", "George F", "German", "Gillian", "Grinning", "Groves", "Hannah", "Harry", "Hatfield", "Helen Elizabeth", "Henry James", "Horton", "Horwood", "Hughes", "Hyde", "Ira Walter", "Irene Winifred", "Iris Mary", "Ivor Harding", "Jane Rosemary", "Jean M A", "Jean Maud", "Jennifer Nancy", "Jenny", "Jeremy D J", "Joanne", "John", "John Werrett", "Kate A", "Kathleen Rose Lucy", "Keziah", "Knight", "Locke", "Margaret Mary", "Mary Jane", "Mavis Jean", "Michael Bruce", "Neville", "Paul V", "Pete", "Peter Bryan", "Phillipa", "Prewett", "Raymond Holloway", "Richard G", "Sarah F", "Slim", "Susan", "Suzanne Alison", "Sybil Beatrice", "Sydney Mary", "Tewkesbury", "Thomas", "Timothy", "Timothy J", "Toby", "Tomlinson", "Tracy Jane", "Valerie C", "Vince", "Walker", "Wallace", "Wayne Oakleigh", "Wendy", "Werrett", "Whereatt", "Wherrett", "Wherritt", "White", "Wilbur", "William", "William John", "Yendell", "Young"
+                "Abiathar", "Alice Blanch", "Almedia J", "Anna M", "Annie", "Anthony Desmond", "Anthony James", "Barber", "Barton William", "Board", "Bone", "Burchell", "Caswell", "Collins", "Corrinna", "Cullister Anne", "Day", "Deborah", "Dennis", "Duckett", "Edward", "Edwin", "Elizabeth", "Eric Gwyn", "Farrington", "Fiona M", "Forrester", "Frances C", "Geoffrey", "George", "George F", "German", "Gillian", "Grinning", "Groves", "Hannah", "Harry", "Hatfield", "Helen Elizabeth", "Henry James", "Horton", "Horwood", "Hughes", "Hyde", "Ira Walter", "Irene Winifred", "Iris Mary", "Ivor Harding", "Jane Rosemary", "Jean M A", "Jean Maud", "Jennifer Nancy", "Jenny", "Jeremy D J", "Joanne", "John", "John Werrett", "Kate A", "Kathleen Rose Lucy", "Keziah", "Knight", "Locke", "Margaret Mary", "Mary Jane", "Mavis Jean", "Michael Bruce", "Neville", "Paul V", "Pete", "Peter Bryan", "Phillipa", "Prewett", "Raymond Holloway", "Richard G", "Sarah F", "Slim", "Susan", "Suzanne Alison", "Sybil Beatrice", "Sydney Mary", "Tewkesbury", "Thomas", "Timothy", "Timothy J", "Toby", "Tomlinson", "Tracy Jane", "Valerie C", "Vince", "Walker", "Wallace", "Wayne Oakleigh", "Wendy", "Werrett", "Whereatt", "Wherrett", "Wherritt", "White", "Wilbur", "William", "William John", "Yendell", "Young",
             };
 
             foreach (string s in names)
@@ -120,7 +120,7 @@ namespace GeneGenie.Gedcom.Tests
 
             string[] names = new string[]
             {
-                "Grinning", "Sydney Mary ", "Day", "Susan ", "Vince", "Wayne Oakleigh ", "Bone", "Anna M ", "Annie"
+                "Grinning", "Sydney Mary ", "Day", "Susan ", "Vince", "Wayne Oakleigh ", "Bone", "Anna M ", "Annie",
             };
 
             foreach (string s in names)

@@ -17,7 +17,7 @@
 
 namespace GeneGenie.Gedcom.Tests.Equality
 {
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>
@@ -95,10 +95,10 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 Types = new GedcomRecordList<GedcomEventType>
                 {
                     GedcomEventType.CENS,
-                    GedcomEventType.CENS_FAM
+                    GedcomEventType.CENS_FAM,
                 },
                 Date = new GedcomDate { Date1 = "01/01/1980" },
-                Place = new GedcomPlace { Name = "some place" }
+                Place = new GedcomPlace { Name = "some place" },
             };
         }
     }

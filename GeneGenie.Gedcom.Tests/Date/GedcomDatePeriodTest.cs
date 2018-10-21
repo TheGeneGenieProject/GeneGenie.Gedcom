@@ -19,7 +19,7 @@
 namespace GeneGenie.Gedcom.Date.Tests
 {
     using System.Collections.Generic;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>

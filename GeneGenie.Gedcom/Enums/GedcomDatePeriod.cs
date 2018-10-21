@@ -52,6 +52,6 @@ namespace GeneGenie.Gedcom.Enums
         Interpretation,
 
         /// <summary>A date range.</summary>
-        Range
+        Range,
     }
 }

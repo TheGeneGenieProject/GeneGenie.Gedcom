@@ -61,6 +61,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Mother Adopted
         /// </summary>
-        MotherAdopted
+        MotherAdopted,
     }
 }

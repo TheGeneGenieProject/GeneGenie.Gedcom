@@ -22,7 +22,7 @@ namespace GeneGenie.Gedcom
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// An individual or organization who contributes genealogical data to a file or transfers it to someone else.

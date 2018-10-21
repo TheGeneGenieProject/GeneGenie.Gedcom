@@ -40,6 +40,6 @@ namespace GeneGenie.Gedcom.Enums
         Both,
 
         /// <summary>The individual is neuter.</summary>
-        Neuter
+        Neuter,
     }
 }

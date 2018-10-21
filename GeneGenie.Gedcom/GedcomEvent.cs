@@ -23,7 +23,7 @@ namespace GeneGenie.Gedcom
     using System.Collections.Generic;
     using System.IO;
     using System.Xml;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// Defines a generic event or fact
@@ -88,7 +88,7 @@ namespace GeneGenie.Gedcom
             "TITL",
 
             // GEDCOM allows custom records, beginging with _
-            "_UNKN"
+            "_UNKN",
         };
 
         private static List<string> typeDescriptions = new List<string>()
@@ -141,7 +141,7 @@ namespace GeneGenie.Gedcom
             "Residence",
             "Social Security Number",
             "Title",
-            "Custom"
+            "Custom",
         };
 
         /// <summary>

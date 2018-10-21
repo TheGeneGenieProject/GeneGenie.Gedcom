@@ -42,6 +42,6 @@ namespace GeneGenie.Gedcom.Parser.Enums
         /// <summary>
         /// Reading the value for the current tag
         /// </summary>
-        LineValue
+        LineValue,
     }
 }

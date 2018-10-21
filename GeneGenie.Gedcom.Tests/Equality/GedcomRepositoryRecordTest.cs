@@ -95,9 +95,9 @@ namespace GeneGenie.Gedcom.Tests.Equality
                 Citations =
                 {
                     new GedcomRepositoryCitation { CallNumbers = { "some call number" } },
-                    new GedcomRepositoryCitation { CallNumbers = { "another call number" } }
+                    new GedcomRepositoryCitation { CallNumbers = { "another call number" } },
                 },
-                Name = "sample repository name"
+                Name = "sample repository name",
             };
         }
     }

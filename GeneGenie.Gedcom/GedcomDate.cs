@@ -22,8 +22,8 @@ namespace GeneGenie.Gedcom
     using System;
     using System.Globalization;
     using System.IO;
-    using Data;
-    using Enums;
+    using GeneGenie.Gedcom.Data;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// Defines a date, allowing partial dates, date ranges etc.

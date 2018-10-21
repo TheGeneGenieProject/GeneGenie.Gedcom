@@ -23,7 +23,7 @@ namespace GeneGenie.Gedcom
     using System.IO;
     using System.Text;
     using System.Xml;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// TODO: Doc
@@ -535,7 +535,7 @@ namespace GeneGenie.Gedcom
                 EventType,
                 Page,
                 Role,
-                Text
+                Text,
             }.GetHashCode();
         }
     }

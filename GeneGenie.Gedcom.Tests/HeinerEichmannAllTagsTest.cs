@@ -19,7 +19,7 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
-    using Enums;
+    using GeneGenie.Gedcom.Parser.Enums;
     using Xunit;
 
     /// <summary>

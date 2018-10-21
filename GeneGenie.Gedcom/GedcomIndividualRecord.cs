@@ -25,7 +25,7 @@ namespace GeneGenie.Gedcom
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using Enums;
+    using GeneGenie.Gedcom.Enums;
 
 #if !XML_NODE_UNDEFINED
     using System.Xml;

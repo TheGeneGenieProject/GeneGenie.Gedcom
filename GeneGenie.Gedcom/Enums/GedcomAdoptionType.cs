@@ -42,6 +42,6 @@ namespace GeneGenie.Gedcom.Enums
         /// <summary>
         /// Husband and Wife
         /// </summary>
-        HusbandAndWife
+        HusbandAndWife,
     }
 }

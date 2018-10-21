@@ -81,7 +81,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
             {
                 Filename = "some_file",
                 Format = "some_format",
-                SourceMediaType = "some_source_media_type"
+                SourceMediaType = "some_source_media_type",
             };
         }
     }
