@@ -1072,7 +1072,7 @@ namespace GeneGenie.Gedcom
         {
             base.Output(sw);
 
-            string levelPlusOne = Util.IntToString(Level + 1);
+            string levelPlusOne = (Level + 1).ToString();
 
             if (RestrictionNotice != GedcomRestrictionNotice.None)
             {
@@ -1107,7 +1107,7 @@ namespace GeneGenie.Gedcom
                 sw.Write("@");
             }
 
-            string levelPlusTwo = Util.IntToString(Level + 2);
+            string levelPlusTwo = (Level + 2).ToString();
             foreach (string childID in children)
             {
                 sw.Write(Environment.NewLine);
@@ -1156,7 +1156,7 @@ namespace GeneGenie.Gedcom
                 sw.Write(levelPlusOne);
                 sw.Write(" NCHI ");
                 sw.Write("@");
-                sw.Write(Util.IntToString(numberOfChildren));
+                sw.Write(numberOfChildren.ToString());
                 sw.Write("@");
             }
 

@@ -778,7 +778,7 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter tw)
         {
             tw.Write(Environment.NewLine);
-            tw.Write(Util.IntToString(Level));
+            tw.Write(Level.ToString());
             tw.Write(" DATE ");
 
             // only output type if it isn't the default (Gregorian)
@@ -798,7 +798,7 @@ namespace GeneGenie.Gedcom
                 var line = Time.Replace("@", "@@");
 
                 tw.Write(Environment.NewLine);
-                tw.Write("{0} TIME {1}", Util.IntToString(Level + 1), line);
+                tw.Write("{0} TIME {1}", (Level + 1).ToString(), line);
             }
 
             OutputStandard(tw);

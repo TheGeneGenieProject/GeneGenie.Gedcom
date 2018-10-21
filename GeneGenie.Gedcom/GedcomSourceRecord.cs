@@ -565,7 +565,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 tw.Write(Environment.NewLine);
@@ -576,7 +576,7 @@ namespace GeneGenie.Gedcom
                 {
                     if (levelPlusTwo == null)
                     {
-                        levelPlusTwo = Util.IntToString(Level + 2);
+                        levelPlusTwo = (Level + 2).ToString();
                     }
 
                     tw.Write(Environment.NewLine);
@@ -590,7 +590,7 @@ namespace GeneGenie.Gedcom
                 {
                     if (levelPlusTwo == null)
                     {
-                        levelPlusTwo = Util.IntToString(Level + 2);
+                        levelPlusTwo = (Level + 2).ToString();
                     }
 
                     foreach (string noteID in DataNotes)
@@ -608,7 +608,7 @@ namespace GeneGenie.Gedcom
                 {
                     if (levelPlusTwo == null)
                     {
-                        levelPlusTwo = Util.IntToString(Level + 2);
+                        levelPlusTwo = (Level + 2).ToString();
                     }
 
                     foreach (GedcomRecordedEvent recordedEvent in EventsRecorded)
@@ -646,7 +646,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 tw.Write(Environment.NewLine);
@@ -659,7 +659,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 tw.Write(Environment.NewLine);
@@ -672,7 +672,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 tw.Write(Environment.NewLine);
@@ -685,7 +685,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 tw.Write(Environment.NewLine);
@@ -698,7 +698,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 tw.Write(Environment.NewLine);

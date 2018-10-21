@@ -332,18 +332,18 @@ namespace GeneGenie.Gedcom
 
                 if (Years != -1)
                 {
-                    tw.Write(Util.IntToString(Years));
+                    tw.Write(Years.ToString());
                     tw.Write("y ");
                 }
 
                 if (Months != -1)
                 {
-                    tw.Write(Util.IntToString(Months));
+                    tw.Write(Months.ToString());
                     tw.Write("m ");
                 }
                 else if (Days != -1)
                 {
-                    tw.Write(Util.IntToString(Days));
+                    tw.Write(Days.ToString());
                     tw.Write("d");
                 }
             }

@@ -1412,7 +1412,7 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            string levelPlusOne = Util.IntToString(Level + 1);
+            string levelPlusOne = (Level + 1).ToString();
 
             if (Sex != GedcomSex.NotSet)
             {
@@ -1473,22 +1473,22 @@ namespace GeneGenie.Gedcom
                 {
                     case PedigreeLinkageType.Adopted:
                         tw.Write(Environment.NewLine);
-                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write((Level + 2).ToString());
                         tw.Write(" PEDI adopted");
                         break;
                     case PedigreeLinkageType.Birth:
                         tw.Write(Environment.NewLine);
-                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write((Level + 2).ToString());
                         tw.Write(" PEDI birth");
                         break;
                     case PedigreeLinkageType.Foster:
                         tw.Write(Environment.NewLine);
-                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write((Level + 2).ToString());
                         tw.Write(" PEDI foster");
                         break;
                     case PedigreeLinkageType.Sealing:
                         tw.Write(Environment.NewLine);
-                        tw.Write(Util.IntToString(Level + 2));
+                        tw.Write((Level + 2).ToString());
                         tw.Write(" PEDI sealing");
                         break;
                     default:

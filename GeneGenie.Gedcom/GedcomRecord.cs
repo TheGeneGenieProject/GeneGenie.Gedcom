@@ -545,7 +545,7 @@ namespace GeneGenie.Gedcom
         public virtual void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(Level));
+            sw.Write(Level.ToString());
             sw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
@@ -730,7 +730,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -744,7 +744,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 foreach (string noteID in Notes)
@@ -766,7 +766,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 foreach (string multimediaID in Multimedia)
@@ -780,7 +780,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -792,7 +792,7 @@ namespace GeneGenie.Gedcom
                 if (!string.IsNullOrEmpty(UserReferenceType))
                 {
                     sw.Write(Environment.NewLine);
-                    sw.Write(Util.IntToString(Level + 2));
+                    sw.Write((Level + 2).ToString());
                     sw.Write(" REFN ");
                     line = UserReferenceType.Replace("@", "@@");
                     sw.Write(line);
@@ -803,7 +803,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);

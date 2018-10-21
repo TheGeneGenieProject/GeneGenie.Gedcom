@@ -321,7 +321,7 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter tw)
         {
             tw.WriteLine();
-            tw.Write(Util.IntToString(Level));
+            tw.Write(Level.ToString());
             tw.Write(" SLGS ");
 
             if (!string.IsNullOrEmpty(Description))
@@ -339,7 +339,7 @@ namespace GeneGenie.Gedcom
                 place.Output(tw);
             }
 
-            var levelPlusOne = Util.IntToString(Level + 1);
+            var levelPlusOne = (Level + 1).ToString();
             if (!string.IsNullOrWhiteSpace(templeCode))
             {
                 tw.WriteLine();
@@ -357,7 +357,7 @@ namespace GeneGenie.Gedcom
 
                 if (StatusChangeDate != null)
                 {
-                    var levelPlusTwo = Util.IntToString(Level + 2);
+                    var levelPlusTwo = (Level + 2).ToString();
 
                     tw.Write(Environment.NewLine);
                     tw.Write(levelPlusTwo);

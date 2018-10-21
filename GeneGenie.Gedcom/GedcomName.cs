@@ -736,7 +736,7 @@ namespace GeneGenie.Gedcom
             // TODO: should output name parts?  not well supported by other
             // apps?
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(Level));
+            sw.Write(Level.ToString());
             sw.Write(" NAME ");
             sw.Write(Name);
 
@@ -747,7 +747,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -763,12 +763,12 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 if (levelPlusTwo == null)
                 {
-                    levelPlusTwo = Util.IntToString(Level + 2);
+                    levelPlusTwo = (Level + 2).ToString();
                 }
 
                 foreach (GedcomVariation variation in PhoneticVariations)
@@ -793,12 +793,12 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 if (levelPlusTwo == null)
                 {
-                    levelPlusTwo = Util.IntToString(Level + 2);
+                    levelPlusTwo = (Level + 2).ToString();
                 }
 
                 foreach (GedcomVariation variation in RomanizedVariations)

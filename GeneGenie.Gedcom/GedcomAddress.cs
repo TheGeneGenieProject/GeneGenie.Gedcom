@@ -770,7 +770,7 @@ namespace GeneGenie.Gedcom
         public void Output(TextWriter sw, int level)
         {
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(level));
+            sw.Write(level.ToString());
             sw.Write(" ADDR");
 
             if (!string.IsNullOrEmpty(AddressLine))
@@ -787,7 +787,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(level + 1);
+                    levelPlusOne = (level + 1).ToString();
                 }
 
                 string line = AddressLine1.Replace("@", "@@");
@@ -810,7 +810,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(level + 1);
+                    levelPlusOne = (level + 1).ToString();
                 }
 
                 string line = AddressLine2.Replace("@", "@@");
@@ -833,7 +833,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(level + 1);
+                    levelPlusOne = (level + 1).ToString();
                 }
 
                 string line = AddressLine3.Replace("@", "@@");
@@ -856,7 +856,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(level + 1);
+                    levelPlusOne = (level + 1).ToString();
                 }
 
                 string line = City.Replace("@", "@@");
@@ -879,7 +879,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(level + 1);
+                    levelPlusOne = (level + 1).ToString();
                 }
 
                 string line = State.Replace("@", "@@");
@@ -902,7 +902,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(level + 1);
+                    levelPlusOne = (level + 1).ToString();
                 }
 
                 string line = PostCode.Replace("@", "@@");
@@ -925,7 +925,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(level + 1);
+                    levelPlusOne = (level + 1).ToString();
                 }
 
                 string line = Country.Replace("@", "@@");
@@ -948,7 +948,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Phone1.Replace("@", "@@");
@@ -971,7 +971,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Phone2.Replace("@", "@@");
@@ -994,7 +994,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Phone3.Replace("@", "@@");
@@ -1017,7 +1017,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Fax1.Replace("@", "@@");
@@ -1040,7 +1040,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Fax2.Replace("@", "@@");
@@ -1063,7 +1063,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Fax3.Replace("@", "@@");
@@ -1086,7 +1086,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Email1.Replace("@", "@@");
@@ -1109,7 +1109,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Email2.Replace("@", "@@");
@@ -1132,7 +1132,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Email3.Replace("@", "@@");
@@ -1155,7 +1155,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Www1.Replace("@", "@@");
@@ -1178,7 +1178,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Www2.Replace("@", "@@");
@@ -1201,7 +1201,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 string line = Www3.Replace("@", "@@");

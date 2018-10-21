@@ -461,7 +461,7 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public string GenerateXref(string prefix)
         {
-            return string.Format("{0}{1}", prefix, Util.IntToString(++xrefCounter));
+            return string.Format("{0}{1}", prefix, (++xrefCounter).ToString());
         }
 
         /// <summary>

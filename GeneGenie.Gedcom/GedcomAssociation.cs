@@ -103,13 +103,13 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter tw)
         {
             tw.Write(Environment.NewLine);
-            tw.Write(Util.IntToString(Level));
+            tw.Write(Level.ToString());
             tw.Write(" ASSO ");
             tw.Write("@");
             tw.Write(Individual);
             tw.Write("@");
 
-            string levelPlusOne = Util.IntToString(Level + 1);
+            string levelPlusOne = (Level + 1).ToString();
 
             tw.Write(Environment.NewLine);
             tw.Write(levelPlusOne);

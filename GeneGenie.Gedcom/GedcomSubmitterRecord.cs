@@ -214,7 +214,7 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(Level));
+            sw.Write(Level.ToString());
             sw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
@@ -226,7 +226,7 @@ namespace GeneGenie.Gedcom
 
             sw.Write(GedcomTag);
 
-            string levelPlusOne = Util.IntToString(Level + 1);
+            string levelPlusOne = (Level + 1).ToString();
 
             string name = Name;
             if (string.IsNullOrEmpty(name))

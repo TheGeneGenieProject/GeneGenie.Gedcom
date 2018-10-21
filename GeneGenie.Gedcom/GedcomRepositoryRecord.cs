@@ -266,7 +266,7 @@ namespace GeneGenie.Gedcom
             if (!string.IsNullOrEmpty(Name))
             {
                 sw.Write(Environment.NewLine);
-                sw.Write(Util.IntToString(Level + 1));
+                sw.Write((Level + 1).ToString());
                 sw.Write(" NAME ");
                 string line = Name.Replace("@", "@@");
                 sw.Write(line);

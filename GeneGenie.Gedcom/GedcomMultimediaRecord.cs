@@ -211,8 +211,8 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
-                    levelPlusTwo = Util.IntToString(Level + 2);
+                    levelPlusOne = (Level + 1).ToString();
+                    levelPlusTwo = (Level + 2).ToString();
                 }
 
                 sw.Write(Environment.NewLine);

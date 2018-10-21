@@ -870,7 +870,7 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(Level));
+            sw.Write(Level.ToString());
             sw.Write(" ");
 
             sw.Write(GedcomTag);
@@ -889,7 +889,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -917,7 +917,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -931,7 +931,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -945,7 +945,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -959,7 +959,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -976,13 +976,13 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" QUAY ");
-                sw.Write(Util.IntToString((int)Certainty));
+                sw.Write(((int)Certainty).ToString());
             }
         }
 

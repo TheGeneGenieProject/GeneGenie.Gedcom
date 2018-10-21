@@ -207,7 +207,7 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(Level));
+            sw.Write(Level.ToString());
             sw.Write(" ");
             sw.Write(GedcomTag);
 
@@ -222,7 +222,7 @@ namespace GeneGenie.Gedcom
 
             if (CallNumbers.Count > 0)
             {
-                string levelPlusOne = Util.IntToString(Level + 1);
+                string levelPlusOne = (Level + 1).ToString();
                 string levelPlusTwo = null;
 
                 int i = 0;
@@ -240,7 +240,7 @@ namespace GeneGenie.Gedcom
                     {
                         if (levelPlusTwo == null)
                         {
-                            levelPlusTwo = Util.IntToString(Level + 2);
+                            levelPlusTwo = (Level + 2).ToString();
                         }
 
                         sw.Write(Environment.NewLine);

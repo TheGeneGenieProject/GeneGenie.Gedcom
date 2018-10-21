@@ -256,7 +256,7 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(Level));
+            sw.Write(Level.ToString());
             sw.Write(" PLAC ");
 
             if (!string.IsNullOrEmpty(Name))
@@ -274,7 +274,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 string line = Form.Replace("@", "@@");
@@ -288,12 +288,12 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 if (levelPlusTwo == null)
                 {
-                    levelPlusTwo = Util.IntToString(Level + 2);
+                    levelPlusTwo = (Level + 2).ToString();
                 }
 
                 foreach (GedcomVariation variation in PhoneticVariations)
@@ -318,12 +318,12 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 if (levelPlusTwo == null)
                 {
-                    levelPlusTwo = Util.IntToString(Level + 2);
+                    levelPlusTwo = (Level + 2).ToString();
                 }
 
                 foreach (GedcomVariation variation in RomanizedVariations)
@@ -348,7 +348,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelPlusOne == null)
                 {
-                    levelPlusOne = Util.IntToString(Level + 1);
+                    levelPlusOne = (Level + 1).ToString();
                 }
 
                 sw.Write(Environment.NewLine);
@@ -358,7 +358,7 @@ namespace GeneGenie.Gedcom
                 {
                     if (levelPlusTwo == null)
                     {
-                        levelPlusTwo = Util.IntToString(Level + 2);
+                        levelPlusTwo = (Level + 2).ToString();
                     }
 
                     sw.Write(Environment.NewLine);
@@ -372,7 +372,7 @@ namespace GeneGenie.Gedcom
                 {
                     if (levelPlusTwo == null)
                     {
-                        levelPlusTwo = Util.IntToString(Level + 2);
+                        levelPlusTwo = (Level + 2).ToString();
                     }
 
                     sw.Write(Environment.NewLine);

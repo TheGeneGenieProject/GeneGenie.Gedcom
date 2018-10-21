@@ -91,93 +91,6 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Convert an integer to a string.
-        /// </summary>
-        /// <param name="i">The integer.</param>
-        /// <returns>TODO: Doc, also, why is this needed? Not in the framework?</returns>
-        public static string IntToString(int i)
-        {
-            bool neg = i < 0;
-            i = Math.Abs(i);
-
-            string ret;
-
-            // quick hack, most of the time we will be < 10 for gedcom levels
-            if (i < 10 && (!neg))
-            {
-                switch (i)
-                {
-                    case 1:
-                        ret = "1";
-                        break;
-                    case 2:
-                        ret = "2";
-                        break;
-                    case 3:
-                        ret = "3";
-                        break;
-                    case 4:
-                        ret = "4";
-                        break;
-                    case 5:
-                        ret = "5";
-                        break;
-                    case 6:
-                        ret = "6";
-                        break;
-                    case 7:
-                        ret = "7";
-                        break;
-                    case 8:
-                        ret = "8";
-                        break;
-                    case 9:
-                        ret = "9";
-                        break;
-                    case 0:
-                    default:
-                        ret = "0";
-                        break;
-                }
-            }
-            else
-            {
-                int tmp = i;
-                int digits = 1;
-                while (tmp / 10 > 0)
-                {
-                    digits++;
-                    tmp = tmp / 10;
-                }
-
-                char[] buffer = null;
-
-                if (neg)
-                {
-                    digits++;
-                }
-
-                buffer = new char[digits];
-
-                while (digits > 0)
-                {
-                    digits--;
-                    buffer[digits] = (char)(0x30 + (i % 10));
-                    i = i / 10;
-                }
-
-                if (neg)
-                {
-                    buffer[0] = '-';
-                }
-
-                ret = new string(buffer);
-            }
-
-            return ret;
-        }
-
-        /// <summary>
         /// Escapes "at" sign.
         /// </summary>
         /// <param name="str">The string.</param>
@@ -268,7 +181,7 @@ namespace GeneGenie.Gedcom
                 {
                     if (levelPlusOne == null)
                     {
-                        levelPlusOne = Util.IntToString(level + 1);
+                        levelPlusOne = (level + 1).ToString();
                     }
 
                     sw.Write(Environment.NewLine);
@@ -341,7 +254,7 @@ namespace GeneGenie.Gedcom
                     {
                         if (levelStr == null)
                         {
-                            levelStr = Util.IntToString(level);
+                            levelStr = level.ToString();
                         }
 
                         sw.Write(Environment.NewLine);
@@ -368,7 +281,7 @@ namespace GeneGenie.Gedcom
                     {
                         if (levelStr == null)
                         {
-                            levelStr = Util.IntToString(level);
+                            levelStr = level.ToString();
                         }
 
                         sw.Write(Environment.NewLine);
@@ -393,7 +306,7 @@ namespace GeneGenie.Gedcom
             {
                 if (levelStr == null)
                 {
-                    levelStr = Util.IntToString(level);
+                    levelStr = level.ToString();
                 }
 
                 sw.Write(Environment.NewLine);

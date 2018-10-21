@@ -129,7 +129,7 @@ namespace GeneGenie.Gedcom
         public override void Output(TextWriter sw)
         {
             sw.Write(Environment.NewLine);
-            sw.Write(Util.IntToString(Level));
+            sw.Write(Level.ToString());
             sw.Write(" ");
 
             if (!string.IsNullOrEmpty(XrefId))
