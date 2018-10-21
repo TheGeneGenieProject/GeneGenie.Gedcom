@@ -20,6 +20,7 @@
 namespace GeneGenie.Gedcom
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.IO;
     using System.Text;
     using System.Xml;
@@ -35,7 +36,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// The events recorded
         /// </summary>
-        private GedcomRecordList<GedcomRecordedEvent> eventsRecorded;
+        private ObservableCollection<GedcomRecordedEvent> eventsRecorded;
 
         /// <summary>
         /// The agency
@@ -164,14 +165,14 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The events recorded.
         /// </value>
-        public GedcomRecordList<GedcomRecordedEvent> EventsRecorded
+        public ObservableCollection<GedcomRecordedEvent> EventsRecorded
         {
             get
             {
                 if (eventsRecorded == null)
                 {
-                    eventsRecorded = new GedcomRecordList<GedcomRecordedEvent>();
-                    eventsRecorded.Changed += ListChanged;
+                    eventsRecorded = new ObservableCollection<GedcomRecordedEvent>();
+                    eventsRecorded.CollectionChanged += ListChanged;
                 }
 
                 return eventsRecorded;
@@ -214,7 +215,7 @@ namespace GeneGenie.Gedcom
                 if (dataNotes == null)
                 {
                     dataNotes = new GedcomRecordList<string>();
-                    dataNotes.Changed += ListChanged;
+                    dataNotes.CollectionChanged += ListChanged;
                 }
 
                 return dataNotes;
@@ -349,7 +350,7 @@ namespace GeneGenie.Gedcom
                 if (repositoryCitations == null)
                 {
                     repositoryCitations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    repositoryCitations.Changed += ListChanged;
+                    repositoryCitations.CollectionChanged += ListChanged;
                 }
 
                 return repositoryCitations;
@@ -369,7 +370,7 @@ namespace GeneGenie.Gedcom
                 if (citations == null)
                 {
                     citations = new GedcomRecordList<GedcomSourceCitation>();
-                    citations.Changed += ListChanged;
+                    citations.CollectionChanged += ListChanged;
                 }
 
                 return citations;
@@ -840,6 +841,27 @@ namespace GeneGenie.Gedcom
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj as GedcomSourceRecord);
+        }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Agency,
+                Citations,
+                DataNotes,
+                EventsRecorded,
+                FiledBy,
+                Originator,
+                OriginatorText,
+                PublicationFacts,
+                PublicationText,
+                RepositoryCitations,
+                Text,
+                TextText,
+                Title,
+                TitleText
+            }.GetHashCode();
         }
     }
 }

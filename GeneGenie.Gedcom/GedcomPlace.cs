@@ -126,7 +126,7 @@ namespace GeneGenie.Gedcom
                 if (phoneticVariations == null)
                 {
                     phoneticVariations = new GedcomRecordList<GedcomVariation>();
-                    phoneticVariations.Changed += ListChanged;
+                    phoneticVariations.CollectionChanged += ListChanged;
                 }
 
                 return phoneticVariations;
@@ -146,7 +146,7 @@ namespace GeneGenie.Gedcom
                 if (romanizedVariations == null)
                 {
                     romanizedVariations = new GedcomRecordList<GedcomVariation>();
-                    romanizedVariations.Changed += ListChanged;
+                    romanizedVariations.CollectionChanged += ListChanged;
                 }
 
                 return romanizedVariations;

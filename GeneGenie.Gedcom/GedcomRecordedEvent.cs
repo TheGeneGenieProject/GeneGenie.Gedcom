@@ -284,8 +284,8 @@ namespace GeneGenie.Gedcom
                 return -1;
             }
 
-            var sortedList1 = list1.OrderBy(n => n).ToList();
-            var sortedList2 = list2.OrderBy(n => n).ToList();
+            var sortedList1 = list1.OrderBy(n => n.GetHashCode()).ToList();
+            var sortedList2 = list2.OrderBy(n => n.GetHashCode()).ToList();
             for (var i = 0; i < sortedList1.Count; i++)
             {
                 var compare = sortedList1.ElementAt(i).CompareTo(sortedList2.ElementAt(i));
@@ -296,6 +296,16 @@ namespace GeneGenie.Gedcom
             }
 
             return 0;
+        }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Types,
+                Date,
+                Place,
+            }.GetHashCode();
         }
     }
 }

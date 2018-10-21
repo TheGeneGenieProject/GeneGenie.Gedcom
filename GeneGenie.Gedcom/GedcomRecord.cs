@@ -318,8 +318,8 @@ namespace GeneGenie.Gedcom
             {
                 if (notes == null)
                 {
-                    notes = new GedcomRecordList<string>(1);
-                    notes.Changed += ListChanged;
+                    notes = new GedcomRecordList<string>();
+                    notes.CollectionChanged += ListChanged;
                 }
 
                 return notes;
@@ -338,8 +338,8 @@ namespace GeneGenie.Gedcom
             {
                 if (multimedia == null)
                 {
-                    multimedia = new GedcomRecordList<string>(1);
-                    multimedia.Changed += ListChanged;
+                    multimedia = new GedcomRecordList<string>();
+                    multimedia.CollectionChanged += ListChanged;
                 }
 
                 return multimedia;
@@ -358,8 +358,8 @@ namespace GeneGenie.Gedcom
             {
                 if (sources == null)
                 {
-                    sources = new GedcomRecordList<GedcomSourceCitation>(1);
-                    sources.Changed += ListChanged;
+                    sources = new GedcomRecordList<GedcomSourceCitation>();
+                    sources.CollectionChanged += ListChanged;
                 }
 
                 return sources;

@@ -203,5 +203,14 @@ namespace GeneGenie.Gedcom
                 ChangeDate.Time = now.ToString("hh:mm:ss");
             }
         }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Value,
+                VariationType,
+            }.GetHashCode();
+        }
     }
 }

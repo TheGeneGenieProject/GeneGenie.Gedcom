@@ -227,20 +227,6 @@ namespace GeneGenie.Gedcom.Parser
 
         private GedcomName GenerateCompleteName()
         {
-            var phoneticVariations =
-                new GedcomRecordList<GedcomVariation>
-                {
-                    new GedcomVariation { Value = "ma-rē", VariationType = "unknown" },
-                    new GedcomVariation { Value = "mer-ē", VariationType = "unknown" }
-                };
-
-            var romanizedVariations =
-                new GedcomRecordList<GedcomVariation>
-                {
-                    new GedcomVariation { Value = "Miriam" },
-                    new GedcomVariation { Value = "Maria" }
-                };
-
             var name = new GedcomName
             {
                 Type = "aka",
@@ -253,8 +239,11 @@ namespace GeneGenie.Gedcom.Parser
                 PreferredName = true
             };
 
-            name.PhoneticVariations.AddRange(phoneticVariations);
-            name.RomanizedVariations.AddRange(romanizedVariations);
+            name.PhoneticVariations.Add(new GedcomVariation { Value = "ma-rē", VariationType = "unknown" });
+            name.PhoneticVariations.Add(new GedcomVariation { Value = "mer-ē", VariationType = "unknown" });
+
+            name.RomanizedVariations.Add(new GedcomVariation { Value = "Miriam" });
+            name.RomanizedVariations.Add(new GedcomVariation { Value = "Maria" });
 
             return name;
         }

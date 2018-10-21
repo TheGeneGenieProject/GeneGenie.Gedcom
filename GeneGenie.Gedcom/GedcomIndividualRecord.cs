@@ -73,19 +73,18 @@ namespace GeneGenie.Gedcom
         /// </summary>
         public GedcomIndividualRecord()
         {
-            // avoid resize, indi will nearly always have a name
-            names = new GedcomRecordList<GedcomName>(1);
-            names.Changed += ListChanged;
+            names = new GedcomRecordList<GedcomName>();
+            names.CollectionChanged += ListChanged;
 
             // do not set capacity on events, uses more memory, at least for Database1.ged
             events = new GedcomRecordList<GedcomIndividualEvent>();
-            events.Changed += ListChanged;
+            events.CollectionChanged += ListChanged;
 
             childIn = new GedcomRecordList<GedcomFamilyLink>();
-            childIn.Changed += ListChanged;
+            childIn.CollectionChanged += ListChanged;
 
             spouseIn = new GedcomRecordList<GedcomFamilyLink>();
-            spouseIn.Changed += ListChanged;
+            spouseIn.CollectionChanged += ListChanged;
         }
 
         /// <summary>
@@ -263,7 +262,7 @@ namespace GeneGenie.Gedcom
                 if (attributes == null)
                 {
                     attributes = new GedcomRecordList<GedcomIndividualEvent>();
-                    attributes.Changed += ListChanged;
+                    attributes.CollectionChanged += ListChanged;
                 }
 
                 return attributes;
@@ -305,7 +304,7 @@ namespace GeneGenie.Gedcom
                 if (submitterRecords == null)
                 {
                     submitterRecords = new GedcomRecordList<string>();
-                    submitterRecords.Changed += ListChanged;
+                    submitterRecords.CollectionChanged += ListChanged;
                 }
 
                 return submitterRecords;
@@ -325,7 +324,7 @@ namespace GeneGenie.Gedcom
                 if (associations == null)
                 {
                     associations = new GedcomRecordList<GedcomAssociation>();
-                    associations.Changed += ListChanged;
+                    associations.CollectionChanged += ListChanged;
                 }
 
                 return associations;
@@ -345,7 +344,7 @@ namespace GeneGenie.Gedcom
                 if (alia == null)
                 {
                     alia = new GedcomRecordList<string>();
-                    alia.Changed += ListChanged;
+                    alia.CollectionChanged += ListChanged;
                 }
 
                 return alia;
@@ -365,7 +364,7 @@ namespace GeneGenie.Gedcom
                 if (anci == null)
                 {
                     anci = new GedcomRecordList<string>();
-                    anci.Changed += ListChanged;
+                    anci.CollectionChanged += ListChanged;
                 }
 
                 return anci;
@@ -385,7 +384,7 @@ namespace GeneGenie.Gedcom
                 if (desi == null)
                 {
                     desi = new GedcomRecordList<string>();
-                    desi.Changed += ListChanged;
+                    desi.CollectionChanged += ListChanged;
                 }
 
                 return desi;
@@ -496,7 +495,7 @@ namespace GeneGenie.Gedcom
         /// </value>
         public GedcomIndividualEvent Height
         {
-            get { return Attributes.Find(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Height") == 0); }
+            get { return Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Height") == 0); }
         }
 
         /// <summary>
@@ -507,7 +506,7 @@ namespace GeneGenie.Gedcom
         /// </value>
         public GedcomIndividualEvent Weight
         {
-            get { return Attributes.Find(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Weight") == 0); }
+            get { return Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Weight") == 0); }
         }
 
         /// <summary>
@@ -518,7 +517,7 @@ namespace GeneGenie.Gedcom
         /// </value>
         public GedcomIndividualEvent Medical
         {
-            get { return Attributes.Find(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Medical") == 0); }
+            get { return Attributes.FirstOrDefault(a => a.EventType == GedcomEventType.GenericFact && string.Compare(a.EventName, "Medical") == 0); }
         }
 
         /// <summary>
@@ -738,6 +737,12 @@ namespace GeneGenie.Gedcom
                 return compare;
             }
 
+            compare = string.Compare(UserReferenceNumber, individual.UserReferenceNumber);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
             compare = GedcomGenericListComparer.CompareListSortOrders(ChildIn, individual.ChildIn);
             if (compare != 0)
             {
@@ -893,7 +898,7 @@ namespace GeneGenie.Gedcom
         /// <returns>A GedcomName or null if no names found.</returns>
         public GedcomName GetName()
         {
-            GedcomName ret = Names.Find(n => n.PreferredName == true);
+            GedcomName ret = Names.FirstOrDefault(n => n.PreferredName == true);
             if (ret == null && Names.Count > 0)
             {
                 ret = Names[0];
@@ -1004,7 +1009,7 @@ namespace GeneGenie.Gedcom
         {
             GedcomFamilyRecord fam = null;
 
-            GedcomFamilyLink link = SpouseIn.Find(f => (f.PreferedSpouse == true));
+            GedcomFamilyLink link = SpouseIn.FirstOrDefault(f => (f.PreferedSpouse == true));
 
             // shouldn't need this as we automatically set the prefered on loading
             // do the check anyway though just incase.
@@ -1052,7 +1057,7 @@ namespace GeneGenie.Gedcom
         /// </returns>
         public GedcomIndividualEvent FindEvent(GedcomEventType eventType)
         {
-            return events.Find(e => e.EventType == eventType);
+            return events.FirstOrDefault(e => e.EventType == eventType);
         }
 
         /// <summary>
@@ -1393,7 +1398,7 @@ namespace GeneGenie.Gedcom
         {
             base.Output(tw);
 
-            GedcomName preferedName = Names.Find(n => n.PreferredName == true);
+            GedcomName preferedName = Names.FirstOrDefault(n => n.PreferredName == true);
             if (preferedName != null)
             {
                 preferedName.Output(tw);
@@ -1495,7 +1500,7 @@ namespace GeneGenie.Gedcom
                 }
             }
 
-            GedcomFamilyLink prefSpouse = SpouseIn.Find(s => s.PreferedSpouse == true);
+            GedcomFamilyLink prefSpouse = SpouseIn.FirstOrDefault(s => s.PreferedSpouse == true);
             if (prefSpouse != null)
             {
                 tw.Write(Environment.NewLine);
@@ -1644,8 +1649,8 @@ namespace GeneGenie.Gedcom
                 return -1;
             }
 
-            var indiList = individual.Notes.OrderBy(noteXRef => noteXRef);
-            var noteList = Notes.OrderBy(noteXRef => noteXRef);
+            var indiList = individual.Notes.OrderBy(noteXRef => noteXRef.GetHashCode());
+            var noteList = Notes.OrderBy(noteXRef => noteXRef.GetHashCode());
             for (int i = 0; i < noteList.Count(); i++)
             {
                 var indiNoteXref = indiList.ElementAt(i);

@@ -225,5 +225,15 @@ namespace GeneGenie.Gedcom
                 changeDate.Time = now.ToString("hh:mm:ss");
             }
         }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Filename,
+                Format,
+                SourceMediaType,
+            }.GetHashCode();
+        }
     }
 }

@@ -525,5 +525,18 @@ namespace GeneGenie.Gedcom
         {
             return CompareTo(obj as GedcomSourceCitation);
         }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Certainty,
+                Date,
+                EventType,
+                Page,
+                Role,
+                Text
+            }.GetHashCode();
+        }
     }
 }

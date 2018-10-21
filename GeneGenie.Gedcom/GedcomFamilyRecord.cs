@@ -59,9 +59,9 @@ namespace GeneGenie.Gedcom
         public GedcomFamilyRecord()
         {
             events = new GedcomRecordList<GedcomFamilyEvent>();
-            events.Changed += ListChanged;
+            events.CollectionChanged += ListChanged;
             children = new GedcomRecordList<string>();
-            children.Changed += ListChanged;
+            children.CollectionChanged += ListChanged;
 
             startStatus = MarriageStartStatus.Unknown;
         }
@@ -248,7 +248,7 @@ namespace GeneGenie.Gedcom
                 if (submitterRecords == null)
                 {
                     submitterRecords = new GedcomRecordList<string>();
-                    submitterRecords.Changed += ListChanged;
+                    submitterRecords.CollectionChanged += ListChanged;
                 }
 
                 return submitterRecords;
@@ -1256,6 +1256,31 @@ namespace GeneGenie.Gedcom
         public bool Equals(GedcomFamilyRecord other)
         {
             return IsEquivalentTo(other);
+        }
+
+        /// <summary>
+        /// Compares the current and passed-in object to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>True if they match, False otherwise.</returns>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GedcomFamilyRecord);
+        }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                NumberOfChildren,
+                Children,
+                Events,
+                Husband,
+                Wife,
+                Marriage,
+                StartStatus,
+                SubmitterRecords,
+            }.GetHashCode();
         }
     }
 }

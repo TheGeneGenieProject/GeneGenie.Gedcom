@@ -141,7 +141,7 @@ namespace GeneGenie.Gedcom
                 if (citations == null)
                 {
                     citations = new GedcomRecordList<GedcomRepositoryCitation>();
-                    citations.Changed += ListChanged;
+                    citations.CollectionChanged += ListChanged;
                 }
 
                 return citations;

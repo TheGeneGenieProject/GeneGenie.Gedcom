@@ -284,5 +284,27 @@ namespace GeneGenie.Gedcom
         {
             return CompareTo(other) == 0;
         }
+
+        /// <summary>
+        /// Compares the current and passed-in object to see if they are the same.
+        /// </summary>
+        /// <param name="obj">The object to compare the current instance against.</param>
+        /// <returns>True if they match, False otherwise.</returns>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GedcomFamilyLink);
+        }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                FatherPedigree,
+                MotherPedigree,
+                Pedigree,
+                PreferedSpouse,
+                Status,
+            }.GetHashCode();
+        }
     }
 }

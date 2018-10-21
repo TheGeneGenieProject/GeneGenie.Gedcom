@@ -37,7 +37,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// True if they match, otherwise false.
         /// </returns>
-        public static bool CompareGedcomRecordLists<T>(List<T> list1, List<T> list2)
+        public static bool CompareGedcomRecordLists<T>(ICollection<T> list1, ICollection<T> list2)
             where T : GedcomRecord
         {
             if (list1.Count != list2.Count)
@@ -45,8 +45,8 @@ namespace GeneGenie.Gedcom
                 return false;
             }
 
-            var sortedList1 = list1.OrderBy(n => n.AutomatedRecordId).ToList();
-            var sortedList2 = list2.OrderBy(n => n.AutomatedRecordId).ToList();
+            var sortedList1 = list1.OrderBy(n => n.GetHashCode()).ToList();
+            var sortedList2 = list2.OrderBy(n => n.GetHashCode()).ToList();
             for (int i = 0; i < sortedList1.Count; i++)
             {
                 if (!Equals(sortedList1.ElementAt(i), sortedList2.ElementAt(i)))
@@ -68,15 +68,15 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// True if they match, otherwise false.
         /// </returns>
-        public static bool CompareLists<T>(List<T> list1, List<T> list2)
+        public static bool CompareLists<T>(ICollection<T> list1, ICollection<T> list2)
         {
             if (list1.Count != list2.Count)
             {
                 return false;
             }
 
-            var sortedList1 = list1.OrderBy(n => n).ToList();
-            var sortedList2 = list2.OrderBy(n => n).ToList();
+            var sortedList1 = list1.OrderBy(n => n.GetHashCode()).ToList();
+            var sortedList2 = list2.OrderBy(n => n.GetHashCode()).ToList();
             for (int i = 0; i < sortedList1.Count; i++)
             {
                 if (!Equals(sortedList1.ElementAt(i), sortedList2.ElementAt(i)))
@@ -98,7 +98,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// Returns an integer that indicates their relative position in the sort order.
         /// </returns>
-        public static int CompareListSortOrders<T>(List<T> list1, List<T> list2)
+        public static int CompareListSortOrders<T>(ICollection<T> list1, ICollection<T> list2)
             where T : GedcomRecord, IComparable<T>
         {
             if (list1.Count > list2.Count)
@@ -111,8 +111,8 @@ namespace GeneGenie.Gedcom
                 return -1;
             }
 
-            var sortedList1 = list1.OrderBy(n => n.AutomatedRecordId).ToList();
-            var sortedList2 = list2.OrderBy(n => n.AutomatedRecordId).ToList();
+            var sortedList1 = list1.OrderBy(n => n.GetHashCode()).ToList();
+            var sortedList2 = list2.OrderBy(n => n.GetHashCode()).ToList();
             for (int i = 0; i < sortedList1.Count; i++)
             {
                 var compare = sortedList1.ElementAt(i).CompareTo(sortedList2.ElementAt(i));
@@ -135,7 +135,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// Returns an integer that indicates their relative position in the sort order.
         /// </returns>
-        public static int CompareListOrder<T>(List<T> list1, List<T> list2)
+        public static int CompareListOrder<T>(ICollection<T> list1, ICollection<T> list2)
             where T : IComparable<T>
         {
             if (list1.Count > list2.Count)
@@ -148,8 +148,8 @@ namespace GeneGenie.Gedcom
                 return -1;
             }
 
-            var sortedList1 = list1.OrderBy(n => n).ToList();
-            var sortedList2 = list2.OrderBy(n => n).ToList();
+            var sortedList1 = list1.OrderBy(n => n.GetHashCode()).ToList();
+            var sortedList2 = list2.OrderBy(n => n.GetHashCode()).ToList();
             for (int i = 0; i < sortedList1.Count; i++)
             {
                 var compare = sortedList1.ElementAt(i).CompareTo(sortedList2.ElementAt(i));

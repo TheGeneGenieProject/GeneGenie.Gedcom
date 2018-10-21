@@ -40,7 +40,7 @@ namespace GeneGenie.Gedcom
         public GedcomMultimediaRecord()
         {
             files = new GedcomRecordList<GedcomMultimediaFile>();
-            files.Changed += ListChanged;
+            files.CollectionChanged += ListChanged;
         }
 
         /// <summary>
@@ -298,6 +298,15 @@ namespace GeneGenie.Gedcom
         public override bool Equals(object obj)
         {
             return IsEquivalentTo(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                Files,
+                Title,
+            }.GetHashCode();
         }
     }
 }

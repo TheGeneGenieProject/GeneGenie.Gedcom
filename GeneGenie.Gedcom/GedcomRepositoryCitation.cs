@@ -20,6 +20,7 @@
 namespace GeneGenie.Gedcom
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.IO;
     using System.Xml;
     using Enums;
@@ -44,10 +45,10 @@ namespace GeneGenie.Gedcom
         public GedcomRepositoryCitation()
         {
             callNumbers = new GedcomRecordList<string>();
-            callNumbers.Changed += ListChanged;
+            callNumbers.CollectionChanged += ListChanged;
 
             mediaTypes = new GedcomRecordList<SourceMediaType>();
-            mediaTypes.Changed += ListChanged;
+            mediaTypes.CollectionChanged += ListChanged;
         }
 
         /// <summary>
@@ -130,7 +131,7 @@ namespace GeneGenie.Gedcom
                 if (otherMediaTypes == null)
                 {
                     otherMediaTypes = new GedcomRecordList<string>();
-                    otherMediaTypes.Changed += ListChanged;
+                    otherMediaTypes.CollectionChanged += ListChanged;
                 }
 
                 return otherMediaTypes;
@@ -304,6 +305,29 @@ namespace GeneGenie.Gedcom
         public bool Equals(GedcomRepositoryCitation other)
         {
             return IsEquivalentTo(other);
+        }
+
+        /// <summary>
+        /// Compare the user entered data against the passed instance for similarity.
+        /// </summary>
+        /// <param name="obj">The object to compare this instance against.</param>
+        /// <returns>
+        /// True if instance matches user data, otherwise false.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return IsEquivalentTo(obj as GedcomRepositoryCitation);
+        }
+
+        public override int GetHashCode()
+        {
+            return new
+            {
+                CallNumbers,
+                MediaTypes,
+                OtherMediaTypes,
+                Repository,
+            }.GetHashCode();
         }
     }
 }
