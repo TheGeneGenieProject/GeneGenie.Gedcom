@@ -178,10 +178,10 @@ namespace GeneGenie.Gedcom.Parser
             missingReferences = new List<string>();
             sourceCitations = new List<GedcomSourceCitation>();
             repoCitations = new List<GedcomRepositoryCitation>();
-			// Register additional code pages from nuget package so we can deal with exotic character sets.
-			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            // Register additional code pages from nuget package so we can deal with exotic character sets.
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-			try
+            try
             {
                 stream = null;
                 Encoding enc = Encoding.Default;
@@ -787,7 +787,7 @@ namespace GeneGenie.Gedcom.Parser
                         note.Text = note.ParsedText.ToString();
                         note.ParsedText = null;
 
-                        if (StringHelper.IsWhiteSpace(note.Text))
+                        if (string.IsNullOrWhiteSpace(note.Text))
                         {
                             removedNotes.Add(note.XRefID);
                             current = null;
