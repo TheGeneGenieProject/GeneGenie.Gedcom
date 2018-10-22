@@ -25,21 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{46146A60-2A90-4583-A8E9-43B095085D39}"
-	ProjectSection(SolutionItems) = preProject
-		Contributing.md = Contributing.md
-		nuget\nuget.exe = nuget\nuget.exe
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7EFA9B20-4650-4219-B6B2-BB44B2E909BF}"
-	ProjectSection(SolutionItems) = preProject
-		build.cake = build.cake
-		build.ps1 = build.ps1
-		build_nuget.cake = build_nuget.cake
-		build_nuget.ps1 = build_nuget.ps1
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneGenie.Gedcom.Sample", "GeneGenie.Gedcom.Sample\GeneGenie.Gedcom.Sample.csproj", "{4160B51D-E4B8-4962-8E88-8925ACA07CEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneGenie.Gedcom.Sample", "GeneGenie.Gedcom.Sample\GeneGenie.Gedcom.Sample.csproj", "{4160B51D-E4B8-4962-8E88-8925ACA07CEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +79,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{46146A60-2A90-4583-A8E9-43B095085D39} = {F401944E-C633-4259-808F-B34422A46ECB}
-		{7EFA9B20-4650-4219-B6B2-BB44B2E909BF} = {F401944E-C633-4259-808F-B34422A46ECB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43BB825A-F62C-4ACC-B529-A7998B49D345}

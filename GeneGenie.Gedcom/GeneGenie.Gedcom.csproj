@@ -26,6 +26,14 @@
 
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
+    <Authors>Ryan O'Neill, David A. Knight, Grant Winney</Authors>
+    <PackageLicenseUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/master/Licence.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom</PackageProjectUrl>
+    <PackageIconUrl>https://avatars0.githubusercontent.com/u/22330020?s=200&amp;v=4</PackageIconUrl>
+    <RepositoryUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom</RepositoryUrl>
+    <PackageTags>gedcom genegenie gene genie parser</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
