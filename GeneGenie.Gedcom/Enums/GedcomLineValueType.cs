@@ -1,35 +1,30 @@
-﻿// <copyright file="GedcomState.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomLineValueType.cs" company="GeneGenie.com">
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 
-namespace GeneGenie.Gedcom.Parser.Enums
+namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// Defines the parse states for GEDCOM file
+    /// Line values in GEDCOM can either be a pointer to another record, or the data itself.
     /// </summary>
-    public enum GedcomState
+    public enum GedcomLineValueType
     {
         /// <summary>
-        /// Reading the current level
+        /// No line value
         /// </summary>
-        Level,
+        NoType,
 
         /// <summary>
-        /// Reading the current ID
+        /// Line value is a pointer to another record
         /// </summary>
-        XrefID,
+        PointerType,
 
         /// <summary>
-        /// Reading the current tag name
+        /// Line value is the actual data
         /// </summary>
-        Tag,
-
-        /// <summary>
-        /// Reading the value for the current tag
-        /// </summary>
-        LineValue,
+        DataType,
     }
 }

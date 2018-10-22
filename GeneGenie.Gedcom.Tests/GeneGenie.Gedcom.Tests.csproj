@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GeneGenie.Gedcom.Parser\GeneGenie.Gedcom.Parser.csproj" />
     <ProjectReference Include="..\GeneGenie.Gedcom\GeneGenie.Gedcom.csproj" />
   </ItemGroup>
 

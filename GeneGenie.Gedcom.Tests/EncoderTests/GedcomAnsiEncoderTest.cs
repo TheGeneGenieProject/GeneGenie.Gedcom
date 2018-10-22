@@ -7,8 +7,8 @@
 namespace GeneGenie.Gedcom.Tests.EncoderTests
 {
     using System.Linq;
+    using GeneGenie.Gedcom.Enums;
     using GeneGenie.Gedcom.Parser;
-    using GeneGenie.Gedcom.Parser.Enums;
     using Xunit;
 
     /// <summary>

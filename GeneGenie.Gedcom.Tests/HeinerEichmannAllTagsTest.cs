@@ -7,7 +7,7 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
-    using GeneGenie.Gedcom.Parser.Enums;
+    using GeneGenie.Gedcom.Enums;
     using Xunit;
 
     /// <summary>

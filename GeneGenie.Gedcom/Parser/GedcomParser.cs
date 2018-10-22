@@ -9,7 +9,7 @@ namespace GeneGenie.Gedcom.Parser
 {
     using System;
     using GeneGenie.Gedcom.Helpers;
-    using GeneGenie.Gedcom.Parser.Enums;
+    using GeneGenie.Gedcom.Enums;
 
     /// <summary>
     /// GedcomParser is responsible for parsing GEDCOM files.

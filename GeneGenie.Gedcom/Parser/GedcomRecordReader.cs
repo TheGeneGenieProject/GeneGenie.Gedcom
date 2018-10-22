@@ -14,7 +14,6 @@ namespace GeneGenie.Gedcom.Parser
     using System.Text;
     using GeneGenie.Gedcom.Enums;
     using GeneGenie.Gedcom.Helpers;
-    using GeneGenie.Gedcom.Parser.Enums;
 
     /// <summary>
     /// GedcomRecordReader will read in a given gedcom file

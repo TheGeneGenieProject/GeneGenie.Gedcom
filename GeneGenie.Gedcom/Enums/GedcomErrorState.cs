@@ -5,7 +5,7 @@
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 
-namespace GeneGenie.Gedcom.Parser.Enums
+namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
     /// Defines the current error status the parser is in
