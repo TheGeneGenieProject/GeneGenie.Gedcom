@@ -24,40 +24,19 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Release Nuget 4.0|Any CPU = Release Nuget 4.0|Any CPU
-		Release Nuget 4.5|Any CPU = Release Nuget 4.5|Any CPU
-		Release Nuget 4.6|Any CPU = Release Nuget 4.6|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release Nuget 4.0|Any CPU.ActiveCfg = Release|Any CPU
-		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release Nuget 4.0|Any CPU.Build.0 = Release|Any CPU
-		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release Nuget 4.5|Any CPU.ActiveCfg = Release|Any CPU
-		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release Nuget 4.5|Any CPU.Build.0 = Release|Any CPU
-		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release Nuget 4.6|Any CPU.ActiveCfg = Release|Any CPU
-		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release Nuget 4.6|Any CPU.Build.0 = Release|Any CPU
 		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{872AE81C-2178-4D2B-9077-34A8AD1595D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release Nuget 4.0|Any CPU.ActiveCfg = Release|Any CPU
-		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release Nuget 4.0|Any CPU.Build.0 = Release|Any CPU
-		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release Nuget 4.5|Any CPU.ActiveCfg = Release|Any CPU
-		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release Nuget 4.5|Any CPU.Build.0 = Release|Any CPU
-		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release Nuget 4.6|Any CPU.ActiveCfg = Release|Any CPU
-		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release Nuget 4.6|Any CPU.Build.0 = Release|Any CPU
 		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF78D435-CA1C-47C0-AA77-03311C2DD1EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release Nuget 4.0|Any CPU.ActiveCfg = Release|Any CPU
-		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release Nuget 4.0|Any CPU.Build.0 = Release|Any CPU
-		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release Nuget 4.5|Any CPU.ActiveCfg = Release|Any CPU
-		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release Nuget 4.5|Any CPU.Build.0 = Release|Any CPU
-		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release Nuget 4.6|Any CPU.ActiveCfg = Release|Any CPU
-		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release Nuget 4.6|Any CPU.Build.0 = Release|Any CPU
 		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4160B51D-E4B8-4962-8E88-8925ACA07CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
