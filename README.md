@@ -71,6 +71,7 @@ In beta. Should be usable but we welcome bug reports, suggestions and pull reque
 
 ### Current appveyor status
 [![Build status](https://ci.appveyor.com/api/projects/status/5o7cb79h0p7gci61?svg=true)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom)
+[![Tests status](https://appveyor-shields-badge.herokuapp.com/api/testResults/ryanoneill1970/genegenie-gedcom/badge.svg)](https://ci.appveyor.com/project/ryanoneill1970/genegenie-gedcom)
 
 ## Contributing
 
