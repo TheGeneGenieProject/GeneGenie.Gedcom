@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom.Sample
     /// <summary>
     /// Tiny sample class on how to query a GEDCOM file.
     /// </summary>
-    public class Step2QueryTree
+    public static class Step2QueryTree
     {
         /// <summary>
         /// Queries the tree for any individual with a name, just to show how to query.

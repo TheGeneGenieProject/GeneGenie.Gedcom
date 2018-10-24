@@ -11,7 +11,7 @@ namespace GeneGenie.Gedcom.Sample
     /// <summary>
     /// Sample console app showing how to read, query, change and save a GEDCOM file.
     /// </summary>
-    public class Program
+    public static class Program
     {
         /// <summary>
         /// App entry point.

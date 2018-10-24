@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom.Sample
     /// <summary>
     /// Tiny sample class on how to save a GEDCOM file.
     /// </summary>
-    public class Step4SaveTree
+    public static class Step4SaveTree
     {
         /// <summary>
         /// Saves the sample database out to a new file.

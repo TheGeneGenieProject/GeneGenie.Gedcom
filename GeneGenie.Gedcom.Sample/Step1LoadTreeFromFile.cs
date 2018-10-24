@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom.Sample
     /// <summary>
     /// Tiny sample class on how to load a GEDCOM file.
     /// </summary>
-    public class Step1LoadTreeFromFile
+    public static class Step1LoadTreeFromFile
     {
         /// <summary>
         /// Loads the presidents tree.

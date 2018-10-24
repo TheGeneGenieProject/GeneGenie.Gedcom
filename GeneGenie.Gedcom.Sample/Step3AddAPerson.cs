@@ -11,7 +11,7 @@ namespace GeneGenie.Gedcom.Sample
     /// <summary>
     /// Tiny sample class on how to add a person to a database.
     /// </summary>
-    public class Step3AddAPerson
+    public static class Step3AddAPerson
     {
         /// <summary>
         /// Adds a sample person (well, a cartoon mouse) to the presidents file. The mouse may do a better job if elected president.
