@@ -8,6 +8,7 @@
 namespace GeneGenie.Gedcom.Data
 {
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
@@ -18,7 +19,7 @@ namespace GeneGenie.Gedcom.Data
         /// <summary>
         /// All month names that might come up in GEDCOM date formats, abbreviated, non English as well.
         /// </summary>
-        public static readonly string[][] MonthNames;
+        public static readonly ImmutableList<string[]> MonthNames;
 
         /// <summary>
         /// Delimiters that are valid for parsing the date parts of a GEDCOM date record.
@@ -161,8 +162,7 @@ namespace GeneGenie.Gedcom.Data
 
         static StaticDateData()
         {
-            MonthNames = new string[][]
-            {
+            MonthNames = ImmutableList.Create(
                 ShortMonths,
                 ShortMonthsPunc,
                 ShortMonthsExt,
@@ -173,8 +173,7 @@ namespace GeneGenie.Gedcom.Data
                 LongFrenMonths,
                 ShortHebrMonths,
                 ShortHebrMonthsPunc,
-                LongHebrMonths,
-            };
+                LongHebrMonths);
         }
     }
 }
