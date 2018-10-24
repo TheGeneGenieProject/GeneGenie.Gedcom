@@ -65,14 +65,11 @@ You'll want to make sure that the file you just read was parsed OK and handle an
 
     GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
 
-## Status
-
-In beta. Should be usable but we welcome bug reports, suggestions and pull requests.
-
 ### Current appveyor status
-[![Build status](https://ci.appveyor.com/api/projects/status/5o7cb79h0p7gci61?svg=true)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom)
-[![Tests status](https://appveyor-shields-badge.herokuapp.com/api/testResults/ryanoneill1970/genegenie-gedcom/badge.svg)](https://ci.appveyor.com/project/ryanoneill1970/genegenie-gedcom)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/RyanONeill1970/genegenie-gedcom/master.svg)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom) [![Codecov branch](https://img.shields.io/codecov/c/github/TheGeneGenieProject/GeneGenie.Gedcom/master.svg)](https://codecov.io/gh/TheGeneGenieProject/GeneGenie.Gedcom) [![AppVeyor tests](https://img.shields.io/appveyor/tests/RyanONeill1970/genegenie-gedcom.svg)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom/build/tests)
+
+[![Build stats](https://buildstats.info/appveyor/chart/ryanoneill1970/genegenie-gedcom)](https://ci.appveyor.com/project/ryanoneill1970/genegenie-gedcom/history)
 
 ## Contributing
 
-We would love your help, subject to a few points. See [Contributing.md](Contributing.md) for guidelines.
+We would love your help, see [Contributing.md](Contributing.md) for guidelines.
