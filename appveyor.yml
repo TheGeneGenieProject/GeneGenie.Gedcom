@@ -20,7 +20,8 @@ deploy:
     branch: master
 
 test_script:
- - dotnet test GeneGenie.Gedcom.Tests/GeneGenie.Gedcom.Tests.csproj /p:AltCover=true /p:AltCoverAssemblyExcludeFilter=GeneGenie.Gedcom.Tests
+ - dotnet test GeneGenie.Gedcom.Tests/GeneGenie.Gedcom.Tests.csproj
+# - dotnet test GeneGenie.Gedcom.Tests/GeneGenie.Gedcom.Tests.csproj /p:AltCover=true /p:AltCoverAssemblyExcludeFilter=GeneGenie.Gedcom.Tests
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
