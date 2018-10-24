@@ -20,7 +20,4 @@ deploy:
     branch: master
 
 test_script:
-# - dotnet test GeneGenie.Gedcom.Tests/GeneGenie.Gedcom.Tests.csproj
   - cmd: SonarQube.bat
-#after_test:
-#  - cmd: SonarQube.bat
