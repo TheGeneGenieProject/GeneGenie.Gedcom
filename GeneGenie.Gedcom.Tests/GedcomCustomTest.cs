@@ -6,9 +6,8 @@
 
 namespace GeneGenie.Gedcom.Tests
 {
-    using System;
-    using System.Linq;
     using GeneGenie.Gedcom.Parser;
+    using System.Linq;
     using Xunit;
 
     /// <summary>
