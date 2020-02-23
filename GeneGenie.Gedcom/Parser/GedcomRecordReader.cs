@@ -1741,8 +1741,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = lineValue;
                         }
 
-                        // TODO: may want to use customs at some point
-                        // individualRecord.Events.Add(custom);
+                        individualRecord.Custom.Add(custom);
                         parseState.Records.Push(custom);
                         break;
                 }

@@ -59,6 +59,9 @@
         <None Update="Data\Sealing-test_2016-10-21.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Data\custom.ged">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Data\simple.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
