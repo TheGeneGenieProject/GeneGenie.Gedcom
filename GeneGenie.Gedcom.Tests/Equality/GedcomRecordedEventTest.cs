@@ -76,6 +76,22 @@ namespace GeneGenie.Gedcom.Tests.Equality
             Assert.Equal(0, rec1.CompareTo(rec2));
         }
 
+        [Fact]
+        private void Recorded_event_change_date_is_not_null_when_set()
+        {
+            var recordedEvent = new GedcomRecordedEvent { ChangeDate = new GedcomChangeDate(null) { Date1 = "1/1/2001" } };
+
+            Assert.NotNull(recordedEvent.ChangeDate);
+        }
+
+        [Fact]
+        private void Recorded_event_change_date_yields_correct_value_when_set()
+        {
+            var recordedEvent = new GedcomRecordedEvent { ChangeDate = new GedcomChangeDate(null) { Date1 = "1/1/2001" } };
+
+            Assert.Equal("1/1/2001", recordedEvent.ChangeDate.Date1);
+        }
+
         private GedcomRecordedEvent GenerateRecordedEvent()
         {
             return new GedcomRecordedEvent

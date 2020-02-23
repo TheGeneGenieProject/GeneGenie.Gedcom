@@ -32,6 +32,14 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Gets or sets the date that this record was changed.
+        /// </summary>
+        /// <value>
+        /// The date of the change.
+        /// </value>
+        public GedcomChangeDate ChangeDate { get; set; }
+
+        /// <summary>
         /// Gets or sets the database.
         /// </summary>
         /// <value>
@@ -114,45 +122,6 @@ namespace GeneGenie.Gedcom
                     place = value;
                     Changed();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the change date.
-        /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
-        public GedcomChangeDate ChangeDate
-        {
-            get
-            {
-                GedcomChangeDate realChangeDate = null;
-                GedcomChangeDate childChangeDate;
-                if (date != null)
-                {
-                    childChangeDate = date.ChangeDate;
-                    if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
-                    {
-                        realChangeDate = childChangeDate;
-                    }
-                }
-
-                if (place != null)
-                {
-                    childChangeDate = place.ChangeDate;
-                    if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
-                    {
-                        realChangeDate = childChangeDate;
-                    }
-                }
-
-                return realChangeDate;
-            }
-
-            set
-            {
-                changeDate = value;
             }
         }
 
