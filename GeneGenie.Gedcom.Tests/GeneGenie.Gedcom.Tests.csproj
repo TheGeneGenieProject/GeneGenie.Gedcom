@@ -62,6 +62,9 @@
         <None Update="Data\custom.ged">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Data\name.ged">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Data\simple.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>

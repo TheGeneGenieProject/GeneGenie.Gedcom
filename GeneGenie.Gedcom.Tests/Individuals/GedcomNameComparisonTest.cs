@@ -7,6 +7,7 @@
 namespace GeneGenie.Gedcom.Parser
 {
     using System.Collections.Generic;
+    using System.Linq;
     using GeneGenie.Gedcom.Tests.DataHelperExtensions;
     using Xunit;
 
@@ -202,6 +203,60 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Fact]
+        private void Nickname_part_can_be_roundtripped_to_file()
+        {
+            var rewrittenReader = RewrittenFile();
+
+            var person = rewrittenReader.Database.Individuals.Single();
+            Assert.Single(person.Names, n => n.Nick == "Joe");
+        }
+
+        [Fact]
+        private void Name_prefix_part_can_be_roundtripped_to_file()
+        {
+            var rewrittenReader = RewrittenFile();
+
+            var person = rewrittenReader.Database.Individuals.Single();
+            Assert.Single(person.Names, n => n.Prefix == "Dr.");
+        }
+
+        [Fact]
+        private void Given_name_part_can_be_roundtripped_to_file()
+        {
+            var rewrittenReader = RewrittenFile();
+
+            var person = rewrittenReader.Database.Individuals.Single();
+            Assert.Single(person.Names, n => n.Given == "Joseph");
+        }
+
+        [Fact]
+        private void Surname_prefix_name_part_can_be_roundtripped_to_file()
+        {
+            var rewrittenReader = RewrittenFile();
+
+            var person = rewrittenReader.Database.Individuals.Single();
+            Assert.Single(person.Names, n => n.SurnamePrefix == "Le");
+        }
+
+        [Fact]
+        private void Surname_name_part_can_be_roundtripped_to_file()
+        {
+            var rewrittenReader = RewrittenFile();
+
+            var person = rewrittenReader.Database.Individuals.Single();
+            Assert.Single(person.Names, n => n.Surname == "Einstein");
+        }
+
+        [Fact]
+        private void Surname_suffix_name_part_can_be_roundtripped_to_file()
+        {
+            var rewrittenReader = RewrittenFile();
+
+            var person = rewrittenReader.Database.Individuals.Single();
+            Assert.Single(person.Names, n => n.Suffix == "Jr.");
+        }
+
+        [Fact]
         private void Different_preferred_flags_are_not_equal()
         {
             var name1 = GenerateCompleteName();
@@ -234,6 +289,16 @@ namespace GeneGenie.Gedcom.Parser
             name.RomanizedVariations.Add(new GedcomVariation { Value = "Maria" });
 
             return name;
+        }
+
+        private GedcomRecordReader RewrittenFile()
+        {
+            var sourceFile = ".\\Data\\name.ged";
+            var originalReader = GedcomRecordReader.CreateReader(sourceFile);
+            var rewrittenPath = sourceFile + ".rewritten";
+            GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
+
+            return GedcomRecordReader.CreateReader(rewrittenPath);
         }
     }
 }

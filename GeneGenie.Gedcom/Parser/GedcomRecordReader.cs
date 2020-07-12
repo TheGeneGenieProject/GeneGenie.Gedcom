@@ -4626,8 +4626,8 @@ namespace GeneGenie.Gedcom.Parser
                     case "GIVN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            // Given from NAME has priority
-                            if (string.IsNullOrEmpty(name.Given))
+                            // Given name part has priority over parsed NAME tag if it is supplied.
+                            if (!string.IsNullOrEmpty(lineValue))
                             {
                                 name.Given = lineValue;
                             }
@@ -4637,15 +4637,19 @@ namespace GeneGenie.Gedcom.Parser
                     case "NICK":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            name.Nick = lineValue;
+                            // Nickname part has priority over parsed NAME tag if it is supplied.
+                            if (!string.IsNullOrEmpty(lineValue))
+                            {
+                                name.Nick = lineValue;
+                            }
                         }
 
                         break;
                     case "SPFX":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            // surname prefix from NAME has priority
-                            if (string.IsNullOrEmpty(name.SurnamePrefix))
+                            // Surname prefix part has priority over parsed NAME tag if it is supplied.
+                            if (!string.IsNullOrEmpty(lineValue))
                             {
                                 name.SurnamePrefix = lineValue;
                             }
@@ -4655,8 +4659,8 @@ namespace GeneGenie.Gedcom.Parser
                     case "SURN":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            // surname from NAME has priority
-                            if (string.IsNullOrEmpty(name.Given))
+                            // Surname part has priority over parsed NAME tag if it is supplied.
+                            if (!string.IsNullOrEmpty(lineValue))
                             {
                                 name.Surname = lineValue;
                             }
@@ -4666,8 +4670,8 @@ namespace GeneGenie.Gedcom.Parser
                     case "NSFX":
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
-                            // suffix from NAME has priority
-                            if (string.IsNullOrEmpty(name.Suffix))
+                            // Name suffix part has priority over parsed NAME tag if it is supplied.
+                            if (!string.IsNullOrEmpty(lineValue))
                             {
                                 name.Suffix = lineValue;
                             }

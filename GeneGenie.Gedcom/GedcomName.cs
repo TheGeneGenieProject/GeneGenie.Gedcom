@@ -499,6 +499,7 @@ namespace GeneGenie.Gedcom
             {
                 return (!string.IsNullOrEmpty(prefix)) ||
                         (!string.IsNullOrEmpty(given)) ||
+                        (!string.IsNullOrEmpty(nick)) ||
                         (!string.IsNullOrEmpty(surnamePrefix)) ||
                         (!string.IsNullOrEmpty(surname)) ||
                         (!string.IsNullOrEmpty(suffix));
@@ -721,8 +722,6 @@ namespace GeneGenie.Gedcom
         /// <param name="sw">The writer to output to.</param>
         public override void Output(TextWriter sw)
         {
-            // TODO: should output name parts?  not well supported by other
-            // apps?
             sw.Write(Environment.NewLine);
             sw.Write(Level.ToString());
             sw.Write(" NAME ");
@@ -744,6 +743,14 @@ namespace GeneGenie.Gedcom
                 string line = Type.Replace("@", "@@");
                 sw.Write(line);
             }
+
+            // Gedcom 5.5.5 spec says to always output these fields, even if blank.
+            OutputNamePart(sw, "NPFX", Prefix, Level + 1);
+            OutputNamePart(sw, "GIVN", Given, Level + 1);
+            OutputNamePart(sw, "NICK", Nick, Level + 1);
+            OutputNamePart(sw, "SPFX", SurnamePrefix, Level + 1);
+            OutputNamePart(sw, "SURN", Surname, Level + 1);
+            OutputNamePart(sw, "NSFX", Suffix, Level + 1);
 
             OutputStandard(sw);
 
@@ -806,6 +813,15 @@ namespace GeneGenie.Gedcom
                     }
                 }
             }
+        }
+
+        private void OutputNamePart(TextWriter sw, string tagName, string tagValue, int level)
+        {
+            sw.Write(Environment.NewLine);
+            sw.Write(level.ToString());
+            sw.Write(" " + tagName + " ");
+            var line = tagValue.Replace("@", "@@");
+            sw.Write(line);
         }
 
         private StringBuilder BuildName()
