@@ -1,0 +1,19 @@
+0 HEAD
+1 CHAR ASCII
+1 SOUR ID_OF_CREATING_FILE
+1 GEDC
+2 VERS 5.5
+2 FORM Lineage-Linked
+1 SUBM @SUBMITTER@
+0 @SUBMITTER@ SUBM
+1 NAME /Submitter/
+1 ADDR Submitters address
+0 @FATHER@ INDI
+1 NAME /Father/
+2 NPFX Dr.
+2 GIVN Joseph
+2 NICK Joe
+2 SPFX Le
+2 SURN Einstein
+2 NSFX Jr.
+0 TRLR
