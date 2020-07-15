@@ -108,7 +108,7 @@ namespace GeneGenie.Gedcom
                 {
                     string name = value;
 
-                    name = name.Trim();
+                    name = name is null ? string.Empty : name.Trim();
 
                     int surnameStartPos = name.IndexOf("/");
                     int surnameLength = 0;
