@@ -205,55 +205,49 @@ namespace GeneGenie.Gedcom.Parser
         [Fact]
         private void Nickname_part_can_be_roundtripped_to_file()
         {
-            var rewrittenReader = RewrittenFile();
+            var individuals = RewrittenFile();
 
-            var person = rewrittenReader.Database.Individuals.Single();
-            Assert.Single(person.Names, n => n.Nick == "Joe");
+            Assert.Single(individuals.Single().Names, n => n.Nick == "Joe");
         }
 
         [Fact]
         private void Name_prefix_part_can_be_roundtripped_to_file()
         {
-            var rewrittenReader = RewrittenFile();
+            var individuals = RewrittenFile();
 
-            var person = rewrittenReader.Database.Individuals.Single();
-            Assert.Single(person.Names, n => n.Prefix == "Dr.");
+            Assert.Single(individuals.Single().Names, n => n.Prefix == "Dr.");
         }
 
         [Fact]
         private void Given_name_part_can_be_roundtripped_to_file()
         {
-            var rewrittenReader = RewrittenFile();
+            var individuals = RewrittenFile();
 
-            var person = rewrittenReader.Database.Individuals.Single();
-            Assert.Single(person.Names, n => n.Given == "Joseph");
+            Assert.Single(individuals.Single().Names, n => n.Given == "Joseph");
         }
 
         [Fact]
         private void Surname_prefix_name_part_can_be_roundtripped_to_file()
         {
-            var rewrittenReader = RewrittenFile();
+            var individuals = RewrittenFile();
 
-            var person = rewrittenReader.Database.Individuals.Single();
-            Assert.Single(person.Names, n => n.SurnamePrefix == "Le");
+            Assert.Single(individuals.Single().Names, n => n.SurnamePrefix == "Le");
         }
 
         [Fact]
         private void Surname_name_part_can_be_roundtripped_to_file()
         {
-            var rewrittenReader = RewrittenFile();
+            var individuals = RewrittenFile();
 
-            var person = rewrittenReader.Database.Individuals.Single();
-            Assert.Single(person.Names, n => n.Surname == "Einstein");
+            Assert.Single(individuals.Single().Names, n => n.Surname == "Einstein");
         }
 
         [Fact]
         private void Surname_suffix_name_part_can_be_roundtripped_to_file()
         {
-            var rewrittenReader = RewrittenFile();
+            var individuals = RewrittenFile();
 
-            var person = rewrittenReader.Database.Individuals.Single();
-            Assert.Single(person.Names, n => n.Suffix == "Jr.");
+            Assert.Single(individuals.Single().Names, n => n.Suffix == "Jr.");
         }
 
         [Fact]
@@ -291,14 +285,16 @@ namespace GeneGenie.Gedcom.Parser
             return name;
         }
 
-        private GedcomRecordReader RewrittenFile()
+        private List<GedcomIndividualRecord> RewrittenFile()
         {
             var sourceFile = ".\\Data\\name.ged";
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
             var rewrittenPath = sourceFile + ".rewritten";
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);
 
-            return GedcomRecordReader.CreateReader(rewrittenPath);
+            var reader = GedcomRecordReader.CreateReader(rewrittenPath);
+
+            return reader.Database.Individuals;
         }
     }
 }
