@@ -30,7 +30,6 @@ namespace GeneGenie.Gedcom
 
         private int xrefCounter = 0;
 
-        private IndexedKeyCollection nameCollection;
         private IndexedKeyCollection placeNameCollection;
 
         // NOTE: having a collection for date strings saves memory
@@ -51,7 +50,6 @@ namespace GeneGenie.Gedcom
             notes = new List<GedcomNoteRecord>();
             submitters = new List<GedcomSubmitterRecord>();
 
-            nameCollection = new IndexedKeyCollection();
             placeNameCollection = new IndexedKeyCollection();
 
             surnames = new Dictionary<string, int>();
@@ -144,22 +142,19 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Gets or sets the name of the database, this is currently the full filename
         /// of the GEDCOM file the database was read from / saved to,
-        /// but could equally be a connection string for a real backend database
+        /// but could equally be a connection string for a real backend database.
         /// </summary>
         public virtual string Name { get; set; }
 
         /// <summary>
         /// Gets all the names used in the database, used primarily to save
-        /// memory by storing names only once
+        /// memory by storing names only once.
         /// </summary>
-        public IndexedKeyCollection NameCollection
-        {
-            get { return nameCollection; }
-        }
+        public IndexedKeyCollection NameCollection { get; } = new IndexedKeyCollection();
 
         /// <summary>
         /// Gets all the place names used in the database, used primarily to save
-        /// memory by storing names only once
+        /// memory by storing names only once.
         /// </summary>
         public IndexedKeyCollection PlaceNameCollection
         {

@@ -59,7 +59,7 @@ namespace GeneGenie.Gedcom.Helpers
         /// <returns>
         /// The xref as a string
         /// </returns>
-        /// <exception cref="Exception">ERROR FINDING EXISTING KEY:" + insert</exception>
+        /// <exception cref="Exception">ERROR FINDING EXISTING KEY:" + insert.</exception>
         public virtual string this[string str, int startIndex, int length]
         {
             get
@@ -72,8 +72,7 @@ namespace GeneGenie.Gedcom.Helpers
                 }
                 else
                 {
-                    int pos;
-                    bool found = Find(str, startIndex, length, out pos);
+                    bool found = Find(str, startIndex, length, out int pos);
 
                     if (!found)
                     {
