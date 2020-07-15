@@ -127,9 +127,9 @@ namespace GeneGenie.Gedcom
 
             set
             {
-                if (value != OtherMediaTypes)
+                if (value != otherMediaTypes)
                 {
-                    OtherMediaTypes = value;
+                    otherMediaTypes = value;
                     Changed();
                 }
             }
