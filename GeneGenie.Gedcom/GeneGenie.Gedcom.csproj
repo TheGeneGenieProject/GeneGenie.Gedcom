@@ -28,7 +28,7 @@
     <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <SignAssembly>true</SignAssembly>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
         <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
         <Authors>Ryan O'Neill, David A. Knight, Grant Winney</Authors>
         <PackageDescription>.Net Standard library for loading, saving, working with and analysing family trees stored in the GEDCOM format.</PackageDescription>
