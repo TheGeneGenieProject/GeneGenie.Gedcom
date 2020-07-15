@@ -56,5 +56,27 @@ namespace GeneGenie.Gedcom.Parser
 
             Assert.Equal("O'Neill", individual.Names.Single().Surname);
         }
+
+        [Fact]
+        private void Surname_with_leading_space_is_parsed_and_trimmed()
+        {
+            var sourceFile = ".\\Data\\name-spaced.ged";
+            var reader = GedcomRecordReader.CreateReader(sourceFile);
+
+            var individual = reader.Database.Individuals.Single();
+
+            Assert.Equal("Olsen", individual.Names.Single().Surname);
+        }
+
+        [Fact]
+        private void Given_name_with_leading_space_can_be_parsed()
+        {
+            var sourceFile = ".\\Data\\name-spaced.ged";
+            var reader = GedcomRecordReader.CreateReader(sourceFile);
+
+            var individual = reader.Database.Individuals.Single();
+
+            Assert.Equal("Peter /Olsen/", individual.Names.Single().Name);
+        }
     }
 }

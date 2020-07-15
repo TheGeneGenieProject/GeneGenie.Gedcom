@@ -1,0 +1,15 @@
+0 HEAD
+1 CHAR ASCII
+1 SOUR ID_OF_CREATING_FILE
+1 GEDC
+2 VERS 5.5
+2 FORM Lineage-Linked
+1 SUBM @SUBMITTER@
+0 @SUBMITTER@ SUBM
+1 NAME /Submitter/
+1 ADDR Submitters address
+
+0 @SPACED@ INDI
+1 NAME Peter / Olsen/
+
+0 TRLR
