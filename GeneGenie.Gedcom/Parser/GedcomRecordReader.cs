@@ -236,7 +236,6 @@ namespace GeneGenie.Gedcom.Parser
                         // file may not have same newline as environment so this isn't 100% correct
                         read += line.Length + Environment.NewLine.Length;
                         Parser.GedcomParse(line);
-                        line = null;
 
                         // to allow for inaccuracy above
                         int percentDone = (int)Math.Min(100, (read * 100.0F) / fileSize);
