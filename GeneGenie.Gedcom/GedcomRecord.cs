@@ -9,6 +9,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Xml;
     using GeneGenie.Gedcom.Enums;
@@ -688,10 +689,10 @@ namespace GeneGenie.Gedcom
                     changeDate.Level = Level + 1;
                 }
 
-                DateTime now = DateTime.Now;
+                DateTime now = SystemTime.Now;
 
-                changeDate.Date1 = now.ToString("dd MMM yyyy");
-                changeDate.Time = now.ToString("hh:mm:ss");
+                changeDate.Date1 = now.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
+                changeDate.Time = now.ToString("HH:mm:ss");
                 changeDate.DatePeriod = GedcomDatePeriod.Exact;
             }
         }
