@@ -8,8 +8,8 @@
 namespace GeneGenie.Gedcom.Parser
 {
     using System;
-    using GeneGenie.Gedcom.Helpers;
     using GeneGenie.Gedcom.Enums;
+    using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
     /// GedcomParser is responsible for parsing GEDCOM files.
@@ -115,7 +115,7 @@ namespace GeneGenie.Gedcom.Parser
         /// If set to true invalid GEDCOM files that use multiple spaces
         /// to separate level / xrefid / tags will be processed without
         /// generating an error.  royal.ged from Gedcom.pm (http://www.pjcj.net)
-        /// needs this as the tags are indented presumably for readability
+        /// needs this as the tags are indented presumably for readability.
         /// </summary>
         public bool IgnoreInvalidDelim { get; set; } = false;
 
@@ -131,7 +131,7 @@ namespace GeneGenie.Gedcom.Parser
         /// Some broken apps (Reunion for instance) omit
         /// CONT (and maybe CONC) values, leading to broken GEDCOM.
         /// When set to true the parser will deal with this by converting
-        /// the broken line to another CONC
+        /// the broken line to another CONC.
         /// </summary>
         public bool ApplyConcContOnNewLineHack { get; set; } = false;
 
@@ -156,9 +156,9 @@ namespace GeneGenie.Gedcom.Parser
         public bool AllowHyphenOrUnderscoreInTag { get; set; } = false;
 
         /// <summary>
-        /// Obtain a human readable error message for the given error state
+        /// Obtain a human readable error message for the given error state.
         /// </summary>
-        /// <param name="state">The error state</param>
+        /// <param name="state">The error state.</param>
         /// <returns>A friendlier string for the error.</returns>
         public static string GedcomErrorString(GedcomErrorState state)
         {
@@ -174,7 +174,7 @@ namespace GeneGenie.Gedcom.Parser
         /// used.  To support replacing XRefs you need to set XrefTagCollection
         /// to an instance of XRefIndexedKeyCollection before calling.
         /// </summary>
-        /// <param name="data">Data to parse, expected to be unicode</param>
+        /// <param name="data">Data to parse, expected to be unicode.</param>
         /// <returns>The last error encountered.</returns>
         public GedcomErrorState GedcomParse(string data)
         {

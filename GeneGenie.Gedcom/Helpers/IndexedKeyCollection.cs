@@ -44,7 +44,7 @@ namespace GeneGenie.Gedcom.Helpers
         /// Gets the <see cref="string"/> with the specified key from the xref collection.
         /// </summary>
         /// <param name="str">The key for looking up the xref.</param>
-        /// <returns>The xref as a string</returns>
+        /// <returns>The xref as a string.</returns>
         public virtual string this[string str]
         {
             get { return this[str, 0, str.Length]; }
@@ -57,7 +57,7 @@ namespace GeneGenie.Gedcom.Helpers
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <returns>
-        /// The xref as a string
+        /// The xref as a string.
         /// </returns>
         /// <exception cref="Exception">ERROR FINDING EXISTING KEY:" + insert.</exception>
         public virtual string this[string str, int startIndex, int length]

@@ -62,13 +62,13 @@ namespace GeneGenie.Gedcom
 
         /// <summary>
         /// Gets or sets hashtable of all top level GEDCOM records, key is the XRef.
-        /// Top level records are Individuals, Families, Sources, Repositories, and Media
+        /// Top level records are Individuals, Families, Sources, Repositories, and Media.
         /// </summary>
         public virtual Hashtable Table { get; set; }
 
         /// <summary>
         /// Gets total number of top level GEDCOM records in the database.
-        /// Top level records are Individuals, Families, Sources, Repositories, and Media
+        /// Top level records are Individuals, Families, Sources, Repositories, and Media.
         /// </summary>
         public virtual int Count
         {
@@ -175,7 +175,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Gets or sets the GedcomRecord associated with the given XRef.
         /// </summary>
-        /// <param name="key">TODO: Doc</param>
+        /// <param name="key">TODO: Doc.</param>
         public virtual GedcomRecord this[string key]
         {
             get
@@ -238,13 +238,13 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Add the given record to the database with the given XRef
+        /// Add the given record to the database with the given XRef.
         /// </summary>
         /// <param name="xrefID">
-        /// A <see cref="string"/>
+        /// A <see cref="string"/>.
         /// </param>
         /// <param name="record">
-        /// A <see cref="GedcomRecord"/>
+        /// A <see cref="GedcomRecord"/>.
         /// </param>
         public virtual void Add(string xrefID, GedcomRecord record)
         {
@@ -318,13 +318,13 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Remove the given record with the given XRef from the database
+        /// Remove the given record with the given XRef from the database.
         /// </summary>
         /// <param name="xrefID">
-        /// A <see cref="string"/>
+        /// A <see cref="string"/>.
         /// </param>
         /// <param name="record">
-        /// A <see cref="GedcomRecord"/>
+        /// A <see cref="GedcomRecord"/>.
         /// </param>
         public virtual void Remove(string xrefID, GedcomRecord record)
         {
@@ -391,13 +391,13 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Does the database contain a record with the given XRef
+        /// Does the database contain a record with the given XRef.
         /// </summary>
         /// <param name="xrefID">
-        /// A <see cref="string"/>
+        /// A <see cref="string"/>.
         /// </param>
         /// <returns>
-        /// A <see cref="bool"/>
+        /// A <see cref="bool"/>.
         /// </returns>
         public virtual bool Contains(string xrefID)
         {
@@ -425,22 +425,22 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// TODO: Doc
+        /// TODO: Doc.
         /// </summary>
-        /// <returns>TODO: Doc 2</returns>
+        /// <returns>TODO: Doc 2.</returns>
         public virtual IDictionaryEnumerator GetEnumerator()
         {
             return Table.GetEnumerator();
         }
 
         /// <summary>
-        /// Create a new XRef
+        /// Create a new XRef.
         /// </summary>
         /// <param name="prefix">
-        /// A <see cref="string"/>
+        /// A <see cref="string"/>.
         /// </param>
         /// <returns>
-        /// A <see cref="string"/> TODO: Doc
+        /// A <see cref="string"/> TODO: Doc.
         /// </returns>
         public string GenerateXref(string prefix)
         {
@@ -453,10 +453,10 @@ namespace GeneGenie.Gedcom
         /// combine will not take place if there are duplicate xrefs.
         /// </summary>
         /// <param name="database">
-        /// A <see cref="GedcomDatabase"/>
+        /// A <see cref="GedcomDatabase"/>.
         /// </param>
         /// <returns>
-        /// A <see cref="bool"/>
+        /// A <see cref="bool"/>.
         /// </returns>
         public virtual bool Combine(GedcomDatabase database)
         {
@@ -483,10 +483,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Add the given individual to the surnames list
+        /// Add the given individual to the surnames list.
         /// </summary>
         /// <param name="indi">
-        /// A <see cref="GedcomIndividualRecord"/>
+        /// A <see cref="GedcomIndividualRecord"/>.
         /// </param>
         protected virtual void BuildSurnameList(GedcomIndividualRecord indi)
         {

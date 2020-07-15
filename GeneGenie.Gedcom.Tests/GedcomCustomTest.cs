@@ -6,12 +6,12 @@
 
 namespace GeneGenie.Gedcom.Tests
 {
-    using GeneGenie.Gedcom.Parser;
     using System.Linq;
+    using GeneGenie.Gedcom.Parser;
     using Xunit;
 
     /// <summary>
-    /// Tests for ensuring the custom.ged file can be parsed and custom fields found
+    /// Tests for ensuring the custom.ged file can be parsed and custom fields found.
     /// </summary>
     public class GedcomCustomTest
     {
