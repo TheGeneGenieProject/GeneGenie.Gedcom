@@ -882,7 +882,7 @@ namespace GeneGenie.Gedcom.Parser
             // check address is not null?  Real solution is to use a stack for PreviousTag
             // like it should have been doing in the first place
             // PreviousTag is now using a stack so will return the parent tag, which should be ADDR
-            if (address != null || parseState.PreviousTag == "ADDR")
+            if (address != null && parseState.PreviousTag == "ADDR")
             {
                 switch (tag)
                 {
