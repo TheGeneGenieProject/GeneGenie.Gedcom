@@ -23,7 +23,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
     </ItemGroup>
 
     <PropertyGroup>
