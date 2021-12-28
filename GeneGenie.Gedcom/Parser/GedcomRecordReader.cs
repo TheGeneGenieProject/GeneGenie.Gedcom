@@ -2801,7 +2801,17 @@ namespace GeneGenie.Gedcom.Parser
                             case "FORM":
                                 if (lineValueType == GedcomLineValueType.DataType)
                                 {
-                                    multimediaRecord.Files[multimediaRecord.Files.Count - 1].Format = lineValue;
+                                    if (multimediaRecord.Files.Count > 0)
+                                    {
+                                        multimediaRecord.Files[multimediaRecord.Files.Count - 1].Format = lineValue;
+                                    }
+                                    else
+                                    {
+                                        GedcomMultimediaFile file = new GedcomMultimediaFile();
+                                        file.Database = Database;
+                                        file.Format = lineValue;
+                                        multimediaRecord.Files.Add(file);
+                                    }
                                 }
 
                                 break;
