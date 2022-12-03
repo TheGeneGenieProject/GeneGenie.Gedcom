@@ -1,0 +1,488 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GeneGenie.Gedcom.Tests</name>
+    </assembly>
+    <members>
+        <member name="T:GeneGenie.Gedcom.Address.Tests.GedcomAddressComparisonTest">
+            <summary>
+            Tests for equality of addresses.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.DataHelperExtensions.GedcomIndividualRecordFactory">
+            <summary>
+            Helper functions to create people with names for unit testing.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.DataHelperExtensions.GedcomIndividualRecordFactory.NamedPerson(GeneGenie.Gedcom.GedcomDatabase,System.String)">
+            <summary>
+            Create an individual with a specific name.
+            </summary>
+            <param name="gedcomDb">The gedcom database to attach the name and individual to.</param>
+            <param name="name">The name to place directly into the name field.</param>
+            <returns>The constructed individual.</returns>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.DataHelperExtensions.GedcomIndividualRecordFactory.NamedPerson(GeneGenie.Gedcom.GedcomDatabase,System.String,System.String)">
+            <summary>
+            Create an individual with a specific name.
+            </summary>
+            <param name="gedcomDb">The gedcom database to attach the name and individual to.</param>
+            <param name="givenName">The given name (first name) to attach to the new individual.</param>
+            <param name="surname">The surname (last name) to attach to the new individual.</param>
+            <returns>The constructed individual.</returns>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnselEncoderTest">
+            <summary>
+            Rigorous tests to ensure that Ansel files can be can be properly loaded and converted to Unicode.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnselEncoderTest.Ansel_charset_is_recognised">
+            <summary>
+            Checks that the Ansel encoding is recognised.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnselEncoderTest.Record_count_is_33_children_plus_two_parents">
+            <summary>
+            Test to catch the addition of child records so that we can add tests for them.
+            If this fails, we need to test the characters in the new entries.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnselEncoderTest.Characters_can_be_translated_to_unicode(System.String,System.String,System.String)">
+            <summary>
+            Uses the Ansel test file supplied by Heiner Eichmann to test every character in Ansel can be decoded into Unicode.
+            The expected test data has been rigorously checked to ensure the Unicode characters match exactly. If your editor
+            is not Unicode aware updates them, they'll probably fail.
+            </summary>
+            <param name="childName">The name of the child test record in the Ansel.ged file.</param>
+            <param name="birthPlace">The expected text to find in the birth place field, after translation to Unicode.</param>
+            <param name="deathPlace">The expected text to find in the death place field, after translation to Unicode.</param>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnsiEncoderTest">
+            <summary>
+            Rigorous tests to ensure that ANSI files can be can be properly loaded and converted to Unicode.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnsiEncoderTest.Ansi_charset_is_recognised">
+            <summary>
+            Checks that the ANSI encoding is recognised.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnsiEncoderTest.Record_count_is_125_individuals">
+            <summary>
+            Test to catch the addition of child records so that we can add tests for them.
+            If this fails, we need to test the characters in the new entries.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.EncoderTests.GedcomAnsiEncoderTest.Characters_can_be_translated_to_unicode(System.String,System.Int32,System.String)">
+            <summary>
+            Uses the Ansi test file to test every character in ANSI can be decoded into Unicode.
+            </summary>
+            <param name="childName">The name of the child test record in the ansi.ged file.</param>
+            <param name="rawAnsiValue">The expected integer value to find in the birth place field, before any translation.</param>
+            <param name="expectedUnicode">The expected text to find in the birth place field, after translation to Unicode.</param>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomEventTest">
+            <summary>
+            Tests for equality of family records.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomEventTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomEventTest"/> class.
+            Comparison tests for event.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomHeaderTest">
+            <summary>
+            Tests for equality of multimedia files.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomHeaderTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomHeaderTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomMultimediaFileTest">
+            <summary>
+            Tests for equality of multimedia files.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomMultimediaFileTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomMultimediaFileTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomMultimediaRecordTest">
+            <summary>
+            Tests for equality of multimedia records.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomMultimediaRecordTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomMultimediaRecordTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomNoteRecordTest">
+            <summary>
+            Test suite for equality of GedcomNoteRecord.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomNoteRecordTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomNoteRecordTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomPlaceTest">
+            <summary>
+            Tests for equality of family records.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomPlaceTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomPlaceTest"/> class.
+            Comparison tests for places.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomRecordedEventTest">
+            <summary>
+            Test suite for equality of GedcomRecordedEvent.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomRecordedEventTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomRecordedEventTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomRepositoryCitationTest">
+            <summary>
+            Test suite for equality of GedcomRepositoryCitation.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomRepositoryCitationTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomRepositoryCitationTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomRepositoryRecordTest">
+            <summary>
+            Test suite for equality of GedcomRepositoryRecord.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomRepositoryRecordTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomRepositoryRecordTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomSourceCitationTest">
+            <summary>
+            Test suite for equality of GedcomSourceCitation.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomSourceCitationTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomSourceCitationTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomSourceRecordTest">
+            <summary>
+            Test suite for equality of GedcomSourceRecord.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomSourceRecordTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomSourceRecordTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomSubmissionRecordTest">
+            <summary>
+            Test suite for equality of GedcomSubmissionRecord.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomSubmissionRecordTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomSubmissionRecordTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Equality.GedcomSubmitterRecordTest">
+            <summary>
+            Test suite for equality of GedcomSubmitterRecord.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Equality.GedcomSubmitterRecordTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Equality.GedcomSubmitterRecordTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.GedComComparisonTests">
+            <summary>
+            Class GedComComparisonTests.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomAssociation_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom association is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomDate_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom date is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomEvent_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom event is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomFamilyLink_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom family link is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomFamilyRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom family record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomHeader_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom header is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomIndividualRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom individual record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomMultimediaRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom multimedia record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomName_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom name is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomNoteRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom note record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomPlace_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom place is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomRepositoryCitation_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom repository citation is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomRepositoryRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom repository record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomSourceCitation_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom source citation is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomSourceRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom source record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomSubmissionRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom submission record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedComComparisonTests.GedComComparison_GedcomSubmitterRecord_IsEquivalentTo_ExpectAreEqual">
+            <summary>
+            GedCOM comparison gedcom submitter record is equivalent to expect are equal.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.GedcomCustomTest">
+            <summary>
+            Tests for ensuring the custom.ged file can be parsed and custom fields found.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.GedcomSimpleTest">
+            <summary>
+            Tests for ensuring the simple.ged file can be parsed as expected.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.GedcomToDoTests">
+            <summary>
+            All of the tests that need writing, converting from old comments and old unit tests.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.GedcomVariationComparisonTest">
+            <summary>
+            Tests for equality of addresses.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.IndexedKeyCollectionTest">
+            <summary>
+            TODO: More tests and simplify / split the tests that are there.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Individuals.GedcomAssociationComparisonTest">
+            <summary>
+            Tests for equality of associations.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Individuals.GedcomAssociationComparisonTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Individuals.GedcomAssociationComparisonTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Individuals.GedcomFamilyLinkComparisonTest">
+            <summary>
+            Tests for equality of family links.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Individuals.GedcomFamilyRecordComparisonTest">
+            <summary>
+            Tests for equality of family records.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.Individuals.GedcomFamilyRecordComparisonTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Tests.Individuals.GedcomFamilyRecordComparisonTest"/> class.
+            Comparison tests for GedcomFamilyRecord.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Tests.Individuals.GedcomSpouseSealingTest">
+            <summary>
+            Tests that the spousal sealing record can be added, removed and round tripped to storage.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Date.Tests.GedcomDateCompareTest">
+            <summary>
+            Checks that the date comparision works, which is complex as GEDCOM dates can have a lot of prefixes.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Date.Tests.GedcomDateMatchTest">
+            <summary>
+            Checks the mechanism for testing how similar dates are.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Date.Tests.GedcomDateNullEqualTest">
+            <summary>
+            Null comparison tests for dates, ensuring a real date never matches a null.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Date.Tests.GedcomDateOutputTest">
+            <summary>
+            Unit tests and data for ensuring changed dates and times are output in correct format.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Date.Tests.GedcomDateParseTest">
+            <summary>
+            Unit tests and data for ensuring dates can be parsed from GEDCOM files.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Date.Tests.GedcomDatePeriodTest">
+            <summary>
+            Tests that all date periods are handled and can be parsed.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.GedcomDeleteTest">
+            <summary>
+            Tests for deleting individuals, ensuring that sources etc are also deleted if no longer referenced.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Parser.GedcomIdentTest">
+            <summary>
+            Checks that the IDENT tag does not muck up the import of a file as shown by
+            http://www.tamurajones.net/GEDCOMIdentifiersCONCAndCONT.xhtml .
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Parser.GedcomRecordWriterTest">
+            <summary>
+            Tests for ensuring that GEDCOM files can be loaded, saved and reopened without data loss.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Parser.GedcomRecordWriterTest.#ctor(Xunit.Abstractions.ITestOutputHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Parser.GedcomRecordWriterTest"/> class.
+            </summary>
+            <param name="output">A helper class used to log output to the test runner.</param>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Parser.GedcomRecordWriterTest.AttachFileContentsToTest(System.String,System.String)">
+            <summary>
+            To help diagnose file differences, this function logs the contents of the files to the test runner.
+            </summary>
+            <param name="sourceFile">Path to source file to show.</param>
+            <param name="rewrittenPath">Path to file that has been rewritten.</param>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Parser.HeinerEichmannAllTagsTest">
+            <summary>
+            Ensures that the parser loads a file that contains all known GEDCOM tags.
+            TODO: Could do with validating that it actually understood every tag in that file.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Parser.HeinerEichmannAllTagsTest.Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses">
+            <summary>
+            File sourced from http://heiner-eichmann.de/gedcom/allged.htm .
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Parser.GedcomIndividualComparisonTest">
+            <summary>
+            Tests for equality of individuals.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Parser.GedcomIndividualComparisonTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Parser.GedcomIndividualComparisonTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Parser.GedcomNameComparisonTest">
+            <summary>
+            Tests for equality of names and name lists.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Parser.GedcomNameComparisonTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Parser.GedcomNameComparisonTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Parser.GedcomNameParsingTest">
+            <summary>
+            Tests for name parsing.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Parser.GedcomNameParsingTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.Parser.GedcomNameParsingTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.Parser.GedcomRecordCountTest">
+            <summary>
+            Tests to ensure that the correct number of families and individuals are read.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.GedcomIndividualMatchTest">
+            <summary>
+            Tests the ability to match individuals on user entered data.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.GedcomIndividualMatchTest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GeneGenie.Gedcom.GedcomIndividualMatchTest"/> class.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.GedcomSourceReaderTest">
+            <summary>
+            Tests that source records are read in for the varying record types.
+            </summary>
+        </member>
+        <member name="T:GeneGenie.Gedcom.GedcomTortureTest">
+            <summary>
+            Loads the torture test files to test every tag can be read at least without falling over.
+            </summary>
+        </member>
+    </members>
+</doc>

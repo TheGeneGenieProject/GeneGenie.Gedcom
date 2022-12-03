@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// Source Media Type
+    /// Source Media Type.
     /// </summary>
     public enum SourceMediaType
     {

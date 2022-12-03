@@ -14,7 +14,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     public class GedcomRepositoryCitation : GedcomRecord, IEquatable<GedcomRepositoryCitation>
@@ -307,6 +307,7 @@ namespace GeneGenie.Gedcom
             return IsEquivalentTo(obj as GedcomRepositoryCitation);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

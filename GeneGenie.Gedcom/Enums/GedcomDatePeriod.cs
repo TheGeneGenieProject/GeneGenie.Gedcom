@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// How accurate is the date and what range does it span?
+    /// How accurate is the date and what range does it span?.
     /// </summary>
     public enum GedcomDatePeriod
     {

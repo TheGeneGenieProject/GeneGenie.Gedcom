@@ -11,18 +11,18 @@ namespace GeneGenie.Gedcom.Parser
     using System.Text;
 
     /// <summary>
-    /// An encoder/decoder for the the ANSEL/US-MARC character set
+    /// An encoder/decoder for the the ANSEL/US-MARC character set.
     /// </summary>
     public class AnselEncoder : Encoding
     {
         private readonly Decoder decoder = new AnselDecoder();
 
         /// <summary>
-        /// Gets the code page of ANSEL
+        /// Gets the code page of ANSEL.
         /// </summary>
         /// <returns>The code page identifier of the current <see cref="T:System.Text.Encoding" />.</returns>
         /// <remarks>
-        /// Windows Latin-1 (close enough!)
+        /// Windows Latin-1 (close enough!).
         /// </remarks>
         public override int CodePage
         {
@@ -30,7 +30,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Gets the human-readable name of the character set
+        /// Gets the human-readable name of the character set.
         /// </summary>
         /// <returns>The human-readable description of the current <see cref="T:System.Text.Encoding" />.</returns>
         public override string EncodingName
@@ -39,7 +39,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Returns a decoder for the ANSEL character set
+        /// Returns a decoder for the ANSEL character set.
         /// </summary>
         /// <returns>
         /// A <see cref="T:System.Text.Decoder" /> that converts an encoded sequence of bytes into a sequence of characters.
@@ -95,7 +95,7 @@ namespace GeneGenie.Gedcom.Parser
         /********************** UNSUPPORTED FEATURES **********************/
 
         /// <summary>
-        /// Not Implemented
+        /// Not Implemented.
         /// </summary>
         /// <param name="chars">The character array containing the set of characters to encode.</param>
         /// <param name="index">The index of the first character to encode.</param>

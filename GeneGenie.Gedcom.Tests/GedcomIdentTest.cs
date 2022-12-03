@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom.Parser
 
     /// <summary>
     /// Checks that the IDENT tag does not muck up the import of a file as shown by
-    /// http://www.tamurajones.net/GEDCOMIdentifiersCONCAndCONT.xhtml
+    /// http://www.tamurajones.net/GEDCOMIdentifiersCONCAndCONT.xhtml .
     /// </summary>
     public class GedcomIdentTest
     {

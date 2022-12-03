@@ -16,6 +16,7 @@ namespace GeneGenie.Gedcom
     /// <seealso cref="System.Collections.Generic.List{T}" />
     public class GedcomRecordList<T> : ObservableCollection<T>
     {
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             int hc = 0;

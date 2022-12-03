@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// Child Linkage Status
+    /// Child Linkage Status.
     /// </summary>
     public enum ChildLinkageStatus
     {

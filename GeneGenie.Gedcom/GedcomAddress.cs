@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom
     using System.Xml;
 
     /// <summary>
-    /// Stores details of an address
+    /// Stores details of an address.
     /// </summary>
     public class GedcomAddress : IComparable<GedcomAddress>, IComparable, IEquatable<GedcomAddress>
     {
@@ -671,7 +671,7 @@ namespace GeneGenie.Gedcom
         /// nodes of the given root.
         /// </summary>
         /// <param name="root">
-        /// A <see cref="XmlNode"/>
+        /// A <see cref="XmlNode"/>.
         /// </param>
         public void GenerateXML(XmlNode root)
         {
@@ -747,13 +747,13 @@ namespace GeneGenie.Gedcom
 
         /// <summary>
         /// Get the GEDCOM 5.5 lines for the data in this object.
-        /// Lines start at the given level
+        /// Lines start at the given level.
         /// </summary>
         /// <param name="sw">
-        /// A <see cref="TextWriter"/>
+        /// A <see cref="TextWriter"/>.
         /// </param>
         /// <param name="level">
-        /// A <see cref="int"/>
+        /// A <see cref="int"/>.
         /// </param>
         public void Output(TextWriter sw, int level)
         {

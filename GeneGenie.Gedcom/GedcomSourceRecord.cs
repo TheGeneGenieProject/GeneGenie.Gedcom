@@ -15,59 +15,59 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     /// <seealso cref="System.IComparable" />
     public class GedcomSourceRecord : GedcomRecord, IComparable, IComparable<GedcomSourceRecord>, IEquatable<GedcomSourceRecord>
     {
         /// <summary>
-        /// The events recorded
+        /// The events recorded.
         /// </summary>
         private ObservableCollection<GedcomRecordedEvent> eventsRecorded;
 
         /// <summary>
-        /// The agency
+        /// The agency.
         /// </summary>
         private string agency;
 
         /// <summary>
-        /// The data notes
+        /// The data notes.
         /// </summary>
         private GedcomRecordList<string> dataNotes;
 
         /// <summary>
-        /// The originator
+        /// The originator.
         /// </summary>
         private string originator;
 
         /// <summary>
-        /// The title
+        /// The title.
         /// </summary>
         private string title;
 
         /// <summary>
-        /// The filed by
+        /// The filed by.
         /// </summary>
         private string filedBy;
 
         /// <summary>
-        /// The publication facts
+        /// The publication facts.
         /// </summary>
         private string publicationFacts;
 
         /// <summary>
-        /// The text
+        /// The text.
         /// </summary>
         private string text;
 
         /// <summary>
-        /// The repository citations
+        /// The repository citations.
         /// </summary>
         private GedcomRecordList<GedcomRepositoryCitation> repositoryCitations;
 
         /// <summary>
-        /// The citations
+        /// The citations.
         /// </summary>
         private GedcomRecordList<GedcomSourceCitation> citations;
 
@@ -106,7 +106,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets the originator text. HACK
+        /// Gets or sets the originator text. HACK.
         /// </summary>
         public StringBuilder OriginatorText { get; set; }
 
@@ -121,7 +121,7 @@ namespace GeneGenie.Gedcom
         public StringBuilder PublicationText { get; set; }
 
         /// <summary>
-        /// Gets or sets the text text. TODO: What?
+        /// Gets or sets the text text. TODO: What?.
         /// </summary>
         public StringBuilder TextText { get; set; }
 
@@ -429,7 +429,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the first record's title precedes the second in the sort order;
         /// &gt;0 if the second record's title precedes the first;
-        /// 0 if the titles are equal
+        /// 0 if the titles are equal.
         /// </returns>
         public static int CompareByTitle(GedcomSourceRecord sourceA, GedcomSourceRecord sourceB)
         {
@@ -443,7 +443,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the first record precedes the second in the sort order;
         /// &gt;0 if the second record precedes the first;
-        /// 0 if the records are equal
+        /// 0 if the records are equal.
         /// </returns>
         public int CompareTo(object sourceB)
         {
@@ -800,7 +800,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the first record precedes the second in the sort order;
         /// &gt;0 if the second record precedes the first;
-        /// 0 if the records are equal
+        /// 0 if the records are equal.
         /// </returns>
         public int CompareTo(GedcomSourceRecord other)
         {
@@ -831,6 +831,7 @@ namespace GeneGenie.Gedcom
             return IsEquivalentTo(obj as GedcomSourceRecord);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new
