@@ -1,12 +1,12 @@
 # GeneGenie.Gedcom
 
-A .Net Standard library for loading, saving, working with and analysing family trees stored in the GEDCOM format.
+A .Net 6.0 library for loading, saving, working with and analysing family trees stored in the GEDCOM format.
 
 Thank you to David A Knight who developed Gedcom.Net from which this project was forked.
 
 ## Installation
 
-Whilst we are below version 1.0 we won't be releasing a Nuget package (unless the .Net core / 4.5.x multi targeting issue [#5](../../issues/5) is handled before then). To use the library, please download the source and star / set the repository as watched so you receive updates.
+Whilst we are below version 1.0 we won't be releasing a Nuget package is handled before then). To use the library, please download the source and star / set the repository as watched so you receive updates.
 
 ## Basic usage
 
