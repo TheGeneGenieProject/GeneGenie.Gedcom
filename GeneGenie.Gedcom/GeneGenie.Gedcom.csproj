@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\ContributorLicenceAgreement.md" Link="ContributorLicenceAgreement.md" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -27,9 +23,12 @@
     </ItemGroup>
 
     <PropertyGroup>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AssemblyDescription>"GEDCOM file management library"</AssemblyDescription>
+		<AssemblyProduct>"GeneGenie.Gedcom"</AssemblyProduct>
+		<AssemblyTitle>"GeneGenie.Gedcom"</AssemblyTitle>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <SignAssembly>true</SignAssembly>
-        <Version>1.0.3</Version>
+        <Version>1.1.0</Version>
         <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
         <Authors>Ryan O'Neill, David A. Knight, Grant Winney</Authors>
         <PackageDescription>.Net Standard library for loading, saving, working with and analysing family trees stored in the GEDCOM format.</PackageDescription>
@@ -50,12 +49,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="System.Collections.Immutable">
-        <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.Collections.Immutable.dll</HintPath>
-      </Reference>
     </ItemGroup>
     
 </Project>
