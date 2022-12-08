@@ -5932,11 +5932,12 @@
             Gets percentage progress of GedcomRead.
             </summary>
         </member>
-        <member name="M:GeneGenie.Gedcom.Parser.GedcomRecordReader.CreateReader(System.String)">
+        <member name="M:GeneGenie.Gedcom.Parser.GedcomRecordReader.CreateReader(System.String,System.Boolean)">
             <summary>
             A static helper for reading a gedcom file and returning the reader in one go.
             </summary>
             <param name="gedcomFilePath">The gedcom file path.</param>
+            <param name="replaceXRefs">The value indicating whether [replace x refs].</param>
             <returns>The reader used to load the file.</returns>
         </member>
         <member name="M:GeneGenie.Gedcom.Parser.GedcomRecordReader.ReadGedcom">

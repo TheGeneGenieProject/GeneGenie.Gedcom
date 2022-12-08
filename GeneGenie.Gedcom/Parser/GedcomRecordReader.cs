@@ -1,4 +1,4 @@
-// <copyright file="GedcomRecordReader.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomRecordReader.cs" company="GeneGenie.com">
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
@@ -110,11 +110,7 @@ namespace GeneGenie.Gedcom.Parser
         /// will cause new ids to be generated created for the
         /// records being read.
         /// </summary>
-        public bool ReplaceXRefs
-        {
-            get { return xrefCollection.ReplaceXRefs; }
-            set { xrefCollection.ReplaceXRefs = value; }
-        }
+        public bool ReplaceXRefs { get; set; }
 
         /// <summary>
         /// Gets percentage progress of GedcomRead.
@@ -128,10 +124,12 @@ namespace GeneGenie.Gedcom.Parser
         /// A static helper for reading a gedcom file and returning the reader in one go.
         /// </summary>
         /// <param name="gedcomFilePath">The gedcom file path.</param>
+        /// <param name="replaceXRefs">The value indicating whether [replace x refs].</param>
         /// <returns>The reader used to load the file.</returns>
-        public static GedcomRecordReader CreateReader(string gedcomFilePath)
+        public static GedcomRecordReader CreateReader(string gedcomFilePath, bool replaceXRefs = true)
         {
             var reader = new GedcomRecordReader();
+            reader.ReplaceXRefs = replaceXRefs;
             reader.ReadGedcom(gedcomFilePath);
             return reader;
         }
@@ -851,7 +849,7 @@ namespace GeneGenie.Gedcom.Parser
             xrefCollection = new XRefIndexedKeyCollection();
 
             // always replace xrefs
-            xrefCollection.ReplaceXRefs = true;
+            xrefCollection.ReplaceXRefs = ReplaceXRefs;
             Parser.XrefCollection = xrefCollection;
 
             Parser.ResetParseState();

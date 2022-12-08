@@ -323,6 +323,20 @@
             Tests for equality of addresses.
             </summary>
         </member>
+        <member name="T:GeneGenie.Gedcom.Tests.GedcomXRefTest">
+            <summary>
+            Tests that source records are read in for the varying record types.
+            </summary>
+        </member>
+        <member name="M:GeneGenie.Gedcom.Tests.GedcomXRefTest.CompareGedcomRecordXRefLists``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Compares two lists of records to see if they are equal.
+            Uses the automated record id from the base class for sorting.
+            </summary>
+            <typeparam name="T">A class that inherits from <see cref="T:GeneGenie.Gedcom.GedcomRecord"/> and implements Equals/GetHashCode.</typeparam>
+            <param name="list1">The first list of records.</param>
+            <param name="list2">The second list of records.</param>
+        </member>
         <member name="T:GeneGenie.Gedcom.Tests.IndexedKeyCollectionTest">
             <summary>
             TODO: More tests and simplify / split the tests that are there.
