@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
     </PropertyGroup>
@@ -84,7 +84,10 @@
 
     <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    </PropertyGroup>
+        <AssemblyDescription>"Unit tests for the GeneGenie.Gedcom library"</AssemblyDescription>
+        <AssemblyProduct>GeneGenie.Gedcom.Tests"</AssemblyProduct>
+        <AssemblyTitle>GeneGenie.Gedcom.Tests"</AssemblyTitle>
+	</PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <CodeAnalysisRuleSet />
