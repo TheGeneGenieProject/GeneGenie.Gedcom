@@ -1,5 +1,7 @@
 # GeneGenie.Gedcom
 
+## Current work will be on the new dev branch, this branch is being kept here until that version is stable.
+
 A .Net 6.0 library for loading, saving, working with and analysing family trees stored in the GEDCOM format.
 
 Thank you to David A Knight who developed Gedcom.Net from which this project was forked.
@@ -10,7 +12,7 @@ Whilst we are below version 1.0 we won't be releasing a Nuget package is handled
 
 ## Basic usage
 
-If you would like to see a specific sample **please let us know what you want via [Twitter (@ryanoneill1970)](https://twitter.com/ryanoneill1970) or create an issue in GitHub**.
+If you would like to see a specific sample **please let us know what you want via Mastodon (@ryanoneill1970@mastodon.social or create an issue in GitHub**.
 
 Check the sample project out for working code, basic operations are;
 
