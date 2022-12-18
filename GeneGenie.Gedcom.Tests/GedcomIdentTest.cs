@@ -1,4 +1,4 @@
-// <copyright file="GedcomIdentTest.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomIdentTest.cs" company="GeneGenie.com">
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
@@ -31,7 +31,7 @@ namespace GeneGenie.Gedcom.Parser
             var noteXref = reader.Database.Individuals.Single().Notes.First();
             var note = reader.Database.Notes.Single(n => n.XrefId == noteXref);
 
-            Assert.Equal("First line of a note.\nSecond line of a note.\nThird line of a note.", note.Text);
+            Assert.Equal("First line of a note.\r\nSecond line of a note.\r\nThird line of a note.", note.Text);
         }
 
         [Fact]

@@ -44,7 +44,7 @@ namespace GeneGenie.Gedcom.Tests
         {
             var reader = GetReader("./Data/simple.ged");
             var creatorAddress = reader.Database.Submitters.SingleOrDefault()?.Address.AddressLine;
-            Assert.Equal("Submitters address\naddress continued here", creatorAddress);
+            Assert.Equal("Submitters address\r\naddress continued here", creatorAddress);
         }
 
         [Fact]
