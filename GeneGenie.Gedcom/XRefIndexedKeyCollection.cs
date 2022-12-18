@@ -11,7 +11,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Helpers;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     /// <seealso cref="IndexedKeyCollection" />
     public class XRefIndexedKeyCollection : IndexedKeyCollection
@@ -55,7 +55,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the TODO: Doc
+        /// Gets the TODO: Doc.
         /// </summary>
         /// <value>
         /// The <see cref="string"/>.
@@ -63,7 +63,7 @@ namespace GeneGenie.Gedcom
         /// <param name="str">The string.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
-        /// <returns>TODO: Doc</returns>
+        /// <returns>TODO: Doc.</returns>
         public override string this[string str, int startIndex, int length]
         {
             get

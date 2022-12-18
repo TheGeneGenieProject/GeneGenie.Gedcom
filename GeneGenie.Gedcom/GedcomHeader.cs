@@ -43,7 +43,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The database.
         /// </value>
-        /// <exception cref="Exception">Database can only have one header</exception>
+        /// <exception cref="Exception">Database can only have one header.</exception>
         public override GedcomDatabase Database
         {
             get

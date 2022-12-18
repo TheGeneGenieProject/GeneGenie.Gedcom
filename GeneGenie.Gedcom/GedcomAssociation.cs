@@ -191,6 +191,7 @@ namespace GeneGenie.Gedcom
             return Equals(obj as GedcomAssociation);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

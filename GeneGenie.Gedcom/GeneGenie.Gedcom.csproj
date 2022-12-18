@@ -1,12 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <ReleaseVersion>0.6</ReleaseVersion>
-        <Configurations>Release;Debug</Configurations>
+		<TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
-    <ItemGroup>
+	<PropertyGroup>
+		<!--
+			Make sure any documentation comments which are included in code get checked for syntax during the build, but do
+			not report warnings for missing comments.
+
+			CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do)
+			CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
+		-->
+		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
         <Compile Include="..\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
     </ItemGroup>
 
@@ -30,11 +39,14 @@
 
     <PropertyGroup>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <SignAssembly>true</SignAssembly>
-        <Version>1.0.3</Version>
+        <AssemblyDescription>"GEDCOM file management library"</AssemblyDescription>
+        <AssemblyProduct>GeneGenie.Gedcom"</AssemblyProduct>
+        <AssemblyTitle>GeneGenie.Gedcom"</AssemblyTitle>
+		<SignAssembly>true</SignAssembly>
+        <Version>1.1.0</Version>
         <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
         <Authors>Ryan O'Neill, David A. Knight, Grant Winney</Authors>
-        <PackageDescription>.Net Standard library for loading, saving, working with and analysing family trees stored in the GEDCOM format.</PackageDescription>
+        <PackageDescription>.Net 6.0 library for loading, saving, working with and analysing family trees stored in the GEDCOM format.</PackageDescription>
         <PackageLicenseUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/master/Licence.txt</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom</PackageProjectUrl>
         <PackageIconUrl>https://avatars0.githubusercontent.com/u/22330020?s=200&amp;v=4</PackageIconUrl>
@@ -52,12 +64,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="System.Collections.Immutable">
-        <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.Collections.Immutable.dll</HintPath>
-      </Reference>
     </ItemGroup>
     
 </Project>

@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// Defines the current error status the parser is in
+    /// Defines the current error status the parser is in.
     /// </summary>
     public enum GedcomErrorState
     {

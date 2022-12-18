@@ -11,7 +11,7 @@ namespace GeneGenie.Gedcom.Parser
     using System.Text;
 
     /// <summary>
-    /// Decodes ANSEL characters into Unicode decomposed characters
+    /// Decodes ANSEL characters into Unicode decomposed characters.
     /// </summary>
     internal class AnselDecoder : Decoder
     {
@@ -193,7 +193,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Decode the ANSEL Code point into the Unicode code point
+        /// Decode the ANSEL Code point into the Unicode code point.
         /// </summary>
         /// <param name="anselCodePoint">The ansel code point.</param>
         /// <returns>The Unicode character (or diacritic) mapped from the passed Ansel code point.</returns>

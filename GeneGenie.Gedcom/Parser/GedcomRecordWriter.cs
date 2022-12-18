@@ -110,7 +110,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Outputs the currently set GedcomDatabase to the currently set file
+        /// Outputs the currently set GedcomDatabase to the currently set file.
         /// </summary>
         public void WriteGedcom()
         {

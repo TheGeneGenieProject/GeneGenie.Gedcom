@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// GEDCOM Event Types
+    /// GEDCOM Event Types.
     /// </summary>
     public enum GedcomEventType
     {

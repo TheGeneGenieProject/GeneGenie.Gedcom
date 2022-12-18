@@ -9,7 +9,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
     using Xunit;
 
     /// <summary>
-    /// Test suite for equality of GedcomSourceCitation
+    /// Test suite for equality of GedcomSourceCitation.
     /// </summary>
     public class GedcomSourceCitationTest
     {

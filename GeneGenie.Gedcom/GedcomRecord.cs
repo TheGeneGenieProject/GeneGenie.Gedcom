@@ -15,49 +15,49 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// GEDCOM Record
+    /// GEDCOM Record.
     /// </summary>
     public abstract class GedcomRecord
     {
         private GedcomRestrictionNotice restrictionNotice;
 
         /// <summary>
-        /// The level
+        /// The level.
         /// </summary>
         private int level;
 
         /// <summary>
-        /// The user reference number
+        /// The user reference number.
         /// </summary>
         private string userReferenceNumber;
 
         /// <summary>
-        /// The user reference type
+        /// The user reference type.
         /// </summary>
         private string userReferenceType;
 
         /// <summary>
-        /// The automated record identifier
+        /// The automated record identifier.
         /// </summary>
         private string automatedRecordId;
 
         /// <summary>
-        /// The change date
+        /// The change date.
         /// </summary>
         private GedcomChangeDate changeDate;
 
         /// <summary>
-        /// The notes
+        /// The notes.
         /// </summary>
         private GedcomRecordList<string> notes;
 
         /// <summary>
-        /// The multimedia
+        /// The multimedia.
         /// </summary>
         private GedcomRecordList<string> multimedia;
 
         /// <summary>
-        /// The sources
+        /// The sources.
         /// </summary>
         private GedcomRecordList<GedcomSourceCitation> sources;
 
@@ -126,7 +126,7 @@ namespace GeneGenie.Gedcom
         /// record is set to level 0, this breaks the parsing mechanism,
         /// so we need to record the level the record used to occur on
         /// TODO: this is a bit of a hack as it adds parsing related code to non
-        /// parsing data
+        /// parsing data.
         /// </summary>
         public int ParsingLevel { get; set; }
 
@@ -217,7 +217,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The change date.
         /// </value>
-        /// <exception cref="Exception">MISSING DATABASE: " + this.RecordType.ToString()</exception>
+        /// <exception cref="Exception">MISSING DATABASE: " + this.RecordType.ToString().</exception>
         public virtual GedcomChangeDate ChangeDate
         {
             get
@@ -397,7 +397,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Deletes this instance.
         /// </summary>
-        /// <exception cref="Exception">Ref Count already 0</exception>
+        /// <exception cref="Exception">Ref Count already 0.</exception>
         public virtual void Delete()
         {
             /* if (RefCount == 0) // This was causing individual deletes not to happen properly.

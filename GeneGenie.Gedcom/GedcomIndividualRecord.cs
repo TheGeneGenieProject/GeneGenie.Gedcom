@@ -27,9 +27,6 @@ namespace GeneGenie.Gedcom
         private GedcomRecordList<GedcomName> names;
         private GedcomSex sex;
 
-        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
-        public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
-
         private GedcomRecordList<GedcomIndividualEvent> events;
         private GedcomRecordList<GedcomIndividualEvent> attributes;
 
@@ -50,7 +47,7 @@ namespace GeneGenie.Gedcom
         private string permanentRecordFileNumber;
 
         /// <summary>
-        /// The ancestral file number..
+        /// The ancestral file number.
         /// </summary>
         private string ancestralFileNumber;
 
@@ -110,6 +107,9 @@ namespace GeneGenie.Gedcom
 
             database.Add(XRefID, this);
         }
+
+        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
+        public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
         /// <summary>
         /// Gets the type of the record.

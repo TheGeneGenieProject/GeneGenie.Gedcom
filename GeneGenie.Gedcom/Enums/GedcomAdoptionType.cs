@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// GEDCOM Adoption Type
+    /// GEDCOM Adoption Type.
     /// </summary>
     public enum GedcomAdoptionType
     {

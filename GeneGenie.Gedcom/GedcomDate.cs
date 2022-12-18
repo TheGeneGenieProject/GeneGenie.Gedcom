@@ -184,7 +184,7 @@ namespace GeneGenie.Gedcom
         // Util properties to get the date as a string
 
         /// <summary>
-        /// Gets
+        /// Gets.
         /// </summary>
         /// TODO: Doc
         /// TODO: cache this value, clear cache when _DatePeriod / _Date1 / _Date2 / _Time change
@@ -278,7 +278,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="a">First date to compare.</param>
         /// <param name="b">Second date to compare.</param>
-        /// <returns>bool</returns>
+        /// <returns>bool.</returns>
         public static bool operator <(GedcomDate a, GedcomDate b)
         {
             int ret = CompareByDate(a, b);
@@ -291,7 +291,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="a">First date to compare.</param>
         /// <param name="b">Second date to compare.</param>
-        /// <returns>bool</returns>
+        /// <returns>bool.</returns>
         public static bool operator >(GedcomDate a, GedcomDate b)
         {
             int ret = CompareByDate(a, b);
@@ -304,7 +304,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="a">First date to compare.</param>
         /// <param name="b">Second date to compare.</param>
-        /// <returns>bool</returns>
+        /// <returns>bool.</returns>
         public static bool operator !=(GedcomDate a, GedcomDate b)
         {
             return !(a == b);
@@ -315,7 +315,7 @@ namespace GeneGenie.Gedcom
         /// </summary>
         /// <param name="a">First date to compare.</param>
         /// <param name="b">Second date to compare.</param>
-        /// <returns>bool</returns>
+        /// <returns>bool.</returns>
         public static bool operator ==(GedcomDate a, GedcomDate b)
         {
             bool ret = false;
@@ -621,7 +621,6 @@ namespace GeneGenie.Gedcom
                     // TODO: no FrenCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
-                    break;
                 case GedcomDateType.Gregorian:
                     calendar = new GregorianCalendar();
                     Date1 = dataString;
@@ -638,7 +637,6 @@ namespace GeneGenie.Gedcom
                     // TODO: no RomanCalendar!
                     Date1 = dataString;
                     throw new NotImplementedException();
-                    break;
             }
 
             string[] dateSplit = SplitDateString(dataString);
@@ -824,7 +822,7 @@ namespace GeneGenie.Gedcom
         /// <param name="dateTimeA">First date to compare.</param>
         /// <param name="dateTimeB">Second date to compare.</param>
         /// <returns>Returns a float rather than an int to allow for some fuzziness
-        /// e.g.  10-11-2000 is 10 NOV 2000 or 11 OCT 2000
+        /// e.g.  10-11-2000 is 10 NOV 2000 or 11 OCT 2000.
         /// </returns>
         private decimal MatchDateTimes(DateTime? dateTimeA, DateTime? dateTimeB)
         {

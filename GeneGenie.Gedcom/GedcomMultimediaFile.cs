@@ -10,7 +10,7 @@ namespace GeneGenie.Gedcom
     using System;
 
     /// <summary>
-    /// A multimedia file
+    /// A multimedia file.
     /// </summary>
     public class GedcomMultimediaFile : IComparable, IComparable<GedcomMultimediaFile>, IEquatable<GedcomMultimediaFile>
     {
@@ -125,7 +125,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Compares an object to this GedcomMultimediaFile to determine sort order.
         /// </summary>
-        /// <param name="obj">The object to compare to the current instance</param>
+        /// <param name="obj">The object to compare to the current instance.</param>
         /// <returns>Returns a value determine the sort order of the compared objects.</returns>
         public int CompareTo(object obj)
         {
@@ -135,7 +135,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Compares two GedcomMultimediaFile instances to determine sort order.
         /// </summary>
-        /// <param name="other">The GedcomMultimediaFile to compare to the current instance</param>
+        /// <param name="other">The GedcomMultimediaFile to compare to the current instance.</param>
         /// <returns>Returns a value determine the sort order of the compared GedcomMultimediaFile objects.</returns>
         public int CompareTo(GedcomMultimediaFile other)
         {
@@ -168,8 +168,8 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Compares two instances of GedcomMultimediaFile to determine equality.
         /// </summary>
-        /// <param name="other">The GedcomMultimediaFile to compare to the current instance</param>
-        /// <returns>True if equal, otherwise False</returns>
+        /// <param name="other">The GedcomMultimediaFile to compare to the current instance.</param>
+        /// <returns>True if equal, otherwise False.</returns>
         public bool Equals(GedcomMultimediaFile other)
         {
             return CompareTo(other) == 0;
@@ -178,13 +178,14 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Compares an object to this GedcomMultimediaFile to determine equality.
         /// </summary>
-        /// <param name="obj">The object to compare to the current instance</param>
-        /// <returns>True if equal, otherwise False</returns>
+        /// <param name="obj">The object to compare to the current instance.</param>
+        /// <returns>True if equal, otherwise False.</returns>
         public override bool Equals(object obj)
         {
             return CompareTo(obj as GedcomMultimediaFile) == 0;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

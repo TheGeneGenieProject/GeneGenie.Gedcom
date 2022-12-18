@@ -11,7 +11,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// How an individal is linked to a family
+    /// How an individal is linked to a family.
     /// </summary>
     public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable, IEquatable<GedcomFamilyLink>
     {
@@ -283,6 +283,7 @@ namespace GeneGenie.Gedcom
             return Equals(obj as GedcomFamilyLink);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new
