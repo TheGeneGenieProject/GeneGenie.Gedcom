@@ -13,6 +13,7 @@ namespace GeneGenie.Gedcom.Parser
     public class StaticData
     {
         // TODO: These should be in the same place as the codes they map to otherwise they'll get out of sync. Change to Dictionary and merge.
+
         /// <summary>
         /// Descriptions for each parse error.
         /// </summary>

@@ -1256,6 +1256,7 @@ namespace GeneGenie.Gedcom
             return Equals(obj as GedcomFamilyRecord);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

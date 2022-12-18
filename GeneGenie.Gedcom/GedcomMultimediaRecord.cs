@@ -14,7 +14,7 @@ namespace GeneGenie.Gedcom
 
     /// <summary>
     /// A multimedia record, this can consist of any number of files
-    /// of varying types
+    /// of varying types.
     /// </summary>
     public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
     {
@@ -160,7 +160,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the first record's title precedes the second in the sort order;
         /// &gt;0 if the second record's title precedes the first;
-        /// 0 if the titles are equal
+        /// 0 if the titles are equal.
         /// </returns>
         public static int CompareByTitle(GedcomMultimediaRecord mediaA, GedcomMultimediaRecord mediaB)
         {
@@ -288,6 +288,7 @@ namespace GeneGenie.Gedcom
             return IsEquivalentTo(obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

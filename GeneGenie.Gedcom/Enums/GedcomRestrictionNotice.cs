@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// GEDCOM Restriction Types
+    /// GEDCOM Restriction Types.
     /// </summary>
     /// <remarks>
     /// Signifies that access to information has been denied or otherwise restricted.

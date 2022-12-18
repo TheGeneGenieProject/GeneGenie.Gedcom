@@ -14,7 +14,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitation>, IComparable<GedcomSourceCitation>, IComparable
@@ -452,7 +452,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if this citation precedes the other in the sort order;
         /// &gt;0 if the other citation precedes this one;
-        /// 0 if the citations are equal
+        /// 0 if the citations are equal.
         /// </returns>
         public int CompareTo(GedcomSourceCitation citation)
         {
@@ -507,13 +507,14 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if this object precedes the other in the sort order;
         /// &gt;0 if the other object precedes this one;
-        /// 0 if the objects are equal
+        /// 0 if the objects are equal.
         /// </returns>
         public int CompareTo(object obj)
         {
             return CompareTo(obj as GedcomSourceCitation);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new
