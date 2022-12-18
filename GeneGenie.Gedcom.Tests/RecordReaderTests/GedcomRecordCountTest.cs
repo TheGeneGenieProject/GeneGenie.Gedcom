@@ -1,4 +1,4 @@
-// <copyright file="GedcomRecordCountTest.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomRecordCountTest.cs" company="GeneGenie.com">
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
@@ -14,8 +14,8 @@ namespace GeneGenie.Gedcom.Parser
     public class GedcomRecordCountTest
     {
         [Theory]
-        [InlineData(".\\Data\\simple.ged", 1)]
-        [InlineData(".\\Data\\presidents.ged", 1042)]
+        [InlineData("./Data/simple.ged", 1)]
+        [InlineData("./Data/presidents.ged", 1042)]
         private void Correct_family_count_can_be_read(string file, int familyCount)
         {
             var reader = GedcomRecordReader.CreateReader(file);
@@ -24,8 +24,8 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData(".\\Data\\simple.ged", 3)]
-        [InlineData(".\\Data\\presidents.ged", 2145)]
+        [InlineData("./Data/simple.ged", 3)]
+        [InlineData("./Data/presidents.ged", 2145)]
         private void Correct_individual_count_can_be_read(string file, int individualCount)
         {
             var reader = GedcomRecordReader.CreateReader(file);
@@ -34,7 +34,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData(".\\Data\\allged.ged", "(C) 1997-2000 by H. Eichmann. You can use and distribute this file freely as long as you do not charge for it")]
+        [InlineData("./Data/allged.ged", "(C) 1997-2000 by H. Eichmann. You can use and distribute this file freely as long as you do not charge for it")]
         private void Copyright_can_be_read(string file, string expectedCopyright)
         {
             var reader = GedcomRecordReader.CreateReader(file);
@@ -43,7 +43,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData(".\\Data\\allged.ged", "/Submitter-Name/")]
+        [InlineData("./Data/allged.ged", "/Submitter-Name/")]
         private void Submitter_name_can_be_read(string file, string expectedName)
         {
             var reader = GedcomRecordReader.CreateReader(file);
@@ -52,7 +52,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData(".\\Data\\allged.ged", "Corporation address line 1\r\nCorporation address line 2\r\nCorporation address line 3\r\nCorporation address line 4")]
+        [InlineData("./Data/allged.ged", "Corporation address line 1\nCorporation address line 2\nCorporation address line 3\nCorporation address line 4")]
         private void Corporation_address_can_be_read(string file, string expected)
         {
             var reader = GedcomRecordReader.CreateReader(file);

@@ -26,7 +26,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void File_id()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var id = reader.Database.Header.ApplicationName;
             Assert.Equal("ID_OF_CREATING_FILE", id);
         }
@@ -34,7 +34,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Creator_name()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var creatorName = reader.Database.Submitters.SingleOrDefault()?.Name;
             Assert.Equal("/Submitter/", creatorName);
         }
@@ -42,15 +42,15 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Creator_address()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var creatorAddress = reader.Database.Submitters.SingleOrDefault()?.Address.AddressLine;
-            Assert.Equal("Submitters address\r\naddress continued here", creatorAddress);
+            Assert.Equal("Submitters address\naddress continued here", creatorAddress);
         }
 
         [Fact]
         private void Family_count()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var familiesCount = reader.Database.Families.Count;
             Assert.Equal(1, familiesCount);
         }
@@ -58,7 +58,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Individual_count()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var familiesCount = reader.Database.Individuals.Count;
             Assert.Equal(3, familiesCount);
         }
@@ -66,7 +66,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Father_name()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var father = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Father/");
             Assert.NotNull(father);
         }
@@ -74,7 +74,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Father_birth_date()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var father = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Father/");
             Assert.Equal(father?.Birth.Date.DateTime1, new DateTime(1899, 1, 1));
         }
@@ -82,7 +82,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Father_birth_place()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var father = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Father/");
             Assert.Equal("birth place", father?.Birth.Place.Name);
         }
@@ -90,7 +90,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Father_death_date()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var father = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Father/");
             Assert.Equal(father?.Death.Date.DateTime1, new DateTime(1990, 12, 31));
         }
@@ -98,7 +98,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Father_death_place()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var father = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Father/");
             Assert.Equal("death place", father?.Death.Place.Name);
         }
@@ -106,7 +106,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Mother_name()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
             Assert.NotNull(mother);
         }
@@ -114,7 +114,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Mother_birth_date()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
             Assert.Equal(mother?.Birth.Date.DateTime1, new DateTime(1899, 1, 1));
         }
@@ -122,7 +122,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Mother_birth_place()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
             Assert.Equal("birth place", mother?.Birth.Place.Name);
         }
@@ -130,7 +130,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Mother_death_date()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
             Assert.Equal(mother?.Death.Date.DateTime1, new DateTime(1990, 12, 31));
         }
@@ -138,7 +138,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Mother_death_place()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
             Assert.Equal("death place", mother?.Death.Place.Name);
         }
@@ -146,7 +146,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Family_marriage_date()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var family = reader.Database.Families.SingleOrDefault();
             Assert.Equal(family?.Marriage.Date.DateTime1, new DateTime(1950, 4, 1));
         }
@@ -154,7 +154,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Family_marriage_place()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var family = reader.Database.Families.SingleOrDefault();
             Assert.Equal("marriage place", family?.Marriage.Place.Name);
         }
@@ -162,7 +162,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Child_name()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var child = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Child/");
             Assert.NotNull(child);
         }
@@ -170,7 +170,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Child_birth_date()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var child = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Child/");
             Assert.Equal(child?.Birth.Date.DateTime1, new DateTime(1950, 7, 31));
         }
@@ -178,7 +178,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Child_birth_place()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var child = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Child/");
             Assert.Equal("birth place", child?.Birth.Place.Name);
         }
@@ -186,7 +186,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Child_death_date()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var child = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Child/");
             Assert.Equal(child?.Death.Date.DateTime1, new DateTime(2000, 2, 29));
         }
@@ -194,7 +194,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Child_death_place()
         {
-            var reader = GetReader(".\\Data\\simple.ged");
+            var reader = GetReader("./Data/simple.ged");
             var child = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Child/");
             Assert.Equal("death place", child?.Death.Place.Name);
         }

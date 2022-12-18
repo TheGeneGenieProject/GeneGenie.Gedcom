@@ -22,7 +22,7 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [Fact]
         public void Ansi_charset_is_recognised()
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Ansi.ged");
+            var reader = GedcomRecordReader.CreateReader("./Data/Ansi.ged");
 
             Assert.Equal(GedcomCharset.Ansi, reader.Parser.Charset);
         }
@@ -34,7 +34,7 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [Fact]
         public void Record_count_is_125_individuals()
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Ansi.ged");
+            var reader = GedcomRecordReader.CreateReader("./Data/Ansi.ged");
 
             Assert.Equal(125, reader.Database.Individuals.Count);
         }
@@ -171,7 +171,7 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [InlineData("/Latin Small Letter Y With Diaeresis/", 255, "ÿ")]
         public void Characters_can_be_translated_to_unicode(string childName, int rawAnsiValue, string expectedUnicode)
         {
-            var reader = GedcomRecordReader.CreateReader(".\\Data\\Ansi.ged");
+            var reader = GedcomRecordReader.CreateReader("./Data/Ansi.ged");
 
             var child = reader.Database.Individuals.First(i => i.GetName().Name == childName);
 

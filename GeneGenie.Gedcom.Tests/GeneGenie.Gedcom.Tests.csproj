@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-
         <IsPackable>false</IsPackable>
+        <ReleaseVersion>0.6</ReleaseVersion>
     </PropertyGroup>
 
 	<PropertyGroup>
@@ -102,6 +102,7 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <CodeAnalysisRuleSet />
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
 </Project>

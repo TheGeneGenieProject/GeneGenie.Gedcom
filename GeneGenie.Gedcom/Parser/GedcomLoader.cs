@@ -30,7 +30,7 @@ namespace GeneGenie.Gedcom.Parser
             parser.AllowTabs = false;
             parser.AllowHyphenOrUnderscoreInTag = false;
 
-            var dir = ".\\Data";
+            var dir = "./Data";
             var gedcomFile = Path.Combine(dir, file);
             var fi = new FileInfo(gedcomFile);
 
