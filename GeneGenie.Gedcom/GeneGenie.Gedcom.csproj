@@ -15,13 +15,8 @@
 		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
-	<ItemGroup>
-        <Compile Include="..\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
-    </ItemGroup>
-
     <ItemGroup>
         <Content Include="..\Licence.txt" Link="Licence.txt" />
-        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,10 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
         <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
     </ItemGroup>
