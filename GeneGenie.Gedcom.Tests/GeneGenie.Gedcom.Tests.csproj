@@ -6,27 +6,16 @@
         <ReleaseVersion>0.6</ReleaseVersion>
     </PropertyGroup>
 
-	<PropertyGroup>
-		<!--
-			Make sure any documentation comments which are included in code get checked for syntax during the build, but do
-			not report warnings for missing comments.
+    <PropertyGroup>
+        <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
 
-			CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do)
-			CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
-		-->
-		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <LangVersion>latest</LangVersion>
         <CodeAnalysisRuleSet />
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="coverlet.msbuild" Version="3.2.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
         <PackageReference Include="xunit" Version="2.4.2" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -56,16 +45,16 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Data\name-spaced.ged">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Data\Sealing-test_2016-10-21.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Data\custom.ged">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Data\name.ged">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Data\simple.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -86,7 +75,7 @@
         <AssemblyDescription>"Unit tests for the GeneGenie.Gedcom library"</AssemblyDescription>
         <AssemblyProduct>GeneGenie.Gedcom.Tests"</AssemblyProduct>
         <AssemblyTitle>GeneGenie.Gedcom.Tests"</AssemblyTitle>
-	</PropertyGroup>
+    </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <CodeAnalysisRuleSet />

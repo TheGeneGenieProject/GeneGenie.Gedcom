@@ -45,6 +45,9 @@ namespace GeneGenie.Gedcom.Parser
 
         private StreamReader stream;
 
+        // Newline varies by input file, we scan for it on open so we can preserve for writing.
+        private string newlineDelimiter;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GedcomRecordReader"/> class.
         /// Create a GedcomRecordReader for reading a GEDCOM file into a GedcomDatabase.
@@ -222,6 +225,8 @@ namespace GeneGenie.Gedcom.Parser
                     }
                 }
 
+                newlineDelimiter = DetectNewline(gedcomFile, enc);
+
                 stream = new StreamReader(gedcomFile, enc);
 
                 while (!stream.EndOfStream)
@@ -231,8 +236,7 @@ namespace GeneGenie.Gedcom.Parser
 
                     if (line != null)
                     {
-                        // file may not have same newline as environment so this isn't 100% correct
-                        read += line.Length + Environment.NewLine.Length;
+                        read += line.Length + newlineDelimiter.Length;
                         Parser.GedcomParse(line);
 
                         // to allow for inaccuracy above
@@ -499,6 +503,47 @@ namespace GeneGenie.Gedcom.Parser
             Database.Loading = false;
 
             return success;
+        }
+
+        private static string DetectNewline(string gedcomFile, Encoding enc)
+        {
+            using (var sr = new StreamReader(gedcomFile, enc))
+            {
+                return DetectNewline(sr);
+            }
+        }
+
+        internal static string DetectNewline(StreamReader sr)
+        {
+            int i = 0;
+            while (!sr.EndOfStream && i < 512)
+            {
+                var nextChar = sr.Read();
+
+                if (nextChar == '\r')
+                {
+                    nextChar = sr.Read();
+
+                    if (nextChar == '\n')
+                    {
+                        // This is a Windows CRLF formatted line.
+                        return "\r\n";
+                    }
+
+                    // Odd format, just a CR on it's own.
+                    return "\r";
+                }
+                else if (nextChar == '\n')
+                {
+                    // Looks like Linux / Unix.
+                    sr.Read(); // Throw away the LF character.
+                    return "\n";
+                }
+
+                i++;
+            }
+
+            return Environment.NewLine;
         }
 
         private void Parser_ParseError(object sender, EventArgs e)
@@ -884,7 +929,7 @@ namespace GeneGenie.Gedcom.Parser
                 switch (tag)
                 {
                     case "CONT":
-                        address.AddressLine += Environment.NewLine;
+                        address.AddressLine += newlineDelimiter;
                         address.AddressLine += lineValue;
                         done = true;
                         break;
@@ -2855,7 +2900,7 @@ namespace GeneGenie.Gedcom.Parser
                 switch (tag)
                 {
                     case "CONT":
-                        noteRecord.ParsedText.Append(Environment.NewLine);
+                        noteRecord.ParsedText.Append(newlineDelimiter);
                         noteRecord.ParsedText.Append(lineValue);
                         break;
                     case "CONC":
@@ -3190,7 +3235,7 @@ namespace GeneGenie.Gedcom.Parser
                             if (!string.IsNullOrEmpty(sourceRecord.Text))
                             {
                                 capacity += sourceRecord.Text.Length;
-                                capacity += Environment.NewLine.Length;
+                                capacity += newlineDelimiter.Length;
                             }
 
                             sourceRecord.TextText = new StringBuilder(capacity);
@@ -3202,7 +3247,7 @@ namespace GeneGenie.Gedcom.Parser
                             else
                             {
                                 sourceRecord.TextText.Append(sourceRecord.Text);
-                                sourceRecord.TextText.Append(Environment.NewLine);
+                                sourceRecord.TextText.Append(newlineDelimiter);
                                 sourceRecord.TextText.Append(lineValue);
                             }
                         }
@@ -3262,7 +3307,7 @@ namespace GeneGenie.Gedcom.Parser
                     switch (tag)
                     {
                         case "CONT":
-                            sourceRecord.OriginatorText.Append(Environment.NewLine);
+                            sourceRecord.OriginatorText.Append(newlineDelimiter);
                             sourceRecord.OriginatorText.Append(lineValue);
                             break;
                         case "CONC":
@@ -3275,7 +3320,7 @@ namespace GeneGenie.Gedcom.Parser
                     switch (tag)
                     {
                         case "CONT":
-                            sourceRecord.TitleText.Append(Environment.NewLine);
+                            sourceRecord.TitleText.Append(newlineDelimiter);
                             sourceRecord.TitleText.Append(lineValue);
                             break;
                         case "CONC":
@@ -3288,7 +3333,7 @@ namespace GeneGenie.Gedcom.Parser
                     switch (tag)
                     {
                         case "CONT":
-                            sourceRecord.PublicationText.Append(Environment.NewLine);
+                            sourceRecord.PublicationText.Append(newlineDelimiter);
                             sourceRecord.PublicationText.Append(lineValue);
                             break;
                         case "CONC":
@@ -3303,7 +3348,7 @@ namespace GeneGenie.Gedcom.Parser
                     switch (tag)
                     {
                         case "CONT":
-                            sourceRecord.TextText.Append(Environment.NewLine);
+                            sourceRecord.TextText.Append(newlineDelimiter);
                             sourceRecord.TextText.Append(lineValue);
                             break;
                         case "CONC":
@@ -3814,7 +3859,7 @@ namespace GeneGenie.Gedcom.Parser
                         else if (tag == "CONT" &&
                                  eventRecord.EventType == GedcomEventType.DSCRFact)
                         {
-                            eventRecord.Classification += Environment.NewLine;
+                            eventRecord.Classification += newlineDelimiter;
                             eventRecord.Classification += lineValue;
                         }
                         else if (tag == "CONC" &&
@@ -4238,7 +4283,7 @@ namespace GeneGenie.Gedcom.Parser
                     case "CONT":
                         if (sourceRecord != null)
                         {
-                            sourceRecord.Title += Environment.NewLine;
+                            sourceRecord.Title += newlineDelimiter;
                             sourceRecord.Title += lineValue;
                         }
 
@@ -4259,7 +4304,7 @@ namespace GeneGenie.Gedcom.Parser
                                 if (!string.IsNullOrEmpty(sourceCitation.Text))
                                 {
                                     capacity += sourceCitation.Text.Length;
-                                    capacity += Environment.NewLine.Length;
+                                    capacity += newlineDelimiter.Length;
                                 }
 
                                 sourceCitation.ParsedText = new StringBuilder(capacity);
@@ -4267,7 +4312,7 @@ namespace GeneGenie.Gedcom.Parser
 
                             if (!string.IsNullOrEmpty(sourceCitation.Text))
                             {
-                                sourceCitation.ParsedText.Append(Environment.NewLine);
+                                sourceCitation.ParsedText.Append(newlineDelimiter);
                             }
 
                             sourceCitation.ParsedText.Append(lineValue);
@@ -4338,7 +4383,7 @@ namespace GeneGenie.Gedcom.Parser
                                 if (!string.IsNullOrEmpty(sourceCitation.Text))
                                 {
                                     capacity += sourceCitation.Text.Length;
-                                    capacity += Environment.NewLine.Length;
+                                    capacity += newlineDelimiter.Length;
                                 }
 
                                 sourceCitation.ParsedText = new StringBuilder(capacity);
@@ -4346,7 +4391,7 @@ namespace GeneGenie.Gedcom.Parser
 
                             if (!string.IsNullOrEmpty(sourceCitation.Text))
                             {
-                                sourceCitation.ParsedText.Append(Environment.NewLine);
+                                sourceCitation.ParsedText.Append(newlineDelimiter);
                             }
 
                             sourceCitation.ParsedText.Append(lineValue);
@@ -4365,11 +4410,11 @@ namespace GeneGenie.Gedcom.Parser
                     {
                         if (sourceCitation.ParsedText == null)
                         {
-                            int capacity = lineValue.Length + Environment.NewLine.Length;
+                            int capacity = lineValue.Length + newlineDelimiter.Length;
                             sourceCitation.ParsedText = new StringBuilder(capacity);
                         }
 
-                        sourceCitation.ParsedText.Append(Environment.NewLine);
+                        sourceCitation.ParsedText.Append(newlineDelimiter);
                         sourceCitation.ParsedText.Append(lineValue);
                     }
                 }
@@ -4391,11 +4436,11 @@ namespace GeneGenie.Gedcom.Parser
                     {
                         if (sourceCitation.ParsedText == null)
                         {
-                            int capacity = lineValue.Length + Environment.NewLine.Length;
+                            int capacity = lineValue.Length + newlineDelimiter.Length;
                             sourceCitation.ParsedText = new StringBuilder(capacity);
                         }
 
-                        sourceCitation.ParsedText.Append(Environment.NewLine);
+                        sourceCitation.ParsedText.Append(newlineDelimiter);
                         sourceCitation.ParsedText.Append(lineValue);
                     }
                 }

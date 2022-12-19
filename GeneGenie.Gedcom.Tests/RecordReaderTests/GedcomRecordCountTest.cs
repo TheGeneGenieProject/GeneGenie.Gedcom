@@ -2,7 +2,6 @@
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
-// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom.Parser
 {
@@ -52,7 +51,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData("./Data/allged.ged", "Corporation address line 1\nCorporation address line 2\nCorporation address line 3\nCorporation address line 4")]
+        [InlineData("./Data/allged.ged", "Corporation address line 1\r\nCorporation address line 2\r\nCorporation address line 3\r\nCorporation address line 4")]
         private void Corporation_address_can_be_read(string file, string expected)
         {
             var reader = GedcomRecordReader.CreateReader(file);

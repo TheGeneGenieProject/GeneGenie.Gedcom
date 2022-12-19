@@ -35,7 +35,6 @@
         <AssemblyTitle>GeneGenie.Gedcom"</AssemblyTitle>
 		<SignAssembly>true</SignAssembly>
         <Version>1.1.0</Version>
-        <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
         <Authors>Ryan O'Neill, David A. Knight, Grant Winney</Authors>
         <PackageDescription>.Net 6.0 library for loading, saving, working with and analysing family trees stored in the GEDCOM format.</PackageDescription>
         <PackageLicenseUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/master/Licence.txt</PackageLicenseUrl>

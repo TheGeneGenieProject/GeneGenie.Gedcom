@@ -31,7 +31,7 @@ namespace GeneGenie.Gedcom.Parser
             var noteXref = reader.Database.Individuals.Single().Notes.First();
             var note = reader.Database.Notes.Single(n => n.XrefId == noteXref);
 
-            Assert.Equal("First line of a note.\nSecond line of a note.\nThird line of a note.", note.Text);
+            Assert.Equal("First line of a note.\r\nSecond line of a note.\r\nThird line of a note.", note.Text);
         }
 
         [Fact]
