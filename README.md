@@ -67,14 +67,24 @@ You'll want to make sure that the file you just read was parsed OK and handle an
 
     GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
 
-### Current build status
-Migrating to GitHub Actions
+## Build status
+[![Build and run tests](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml/badge.svg)](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml)
 
 ### Code quality
-[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Quality gate](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=alert_status)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=bugs)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Reliability) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=vulnerabilities)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Security) [![Code smells](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=code_smells)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Maintainability) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=coverage)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Coverage) [![Duplications](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=duplicated_lines_density)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Duplications) [![Reliability](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Security](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=security_rating)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Security](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_index)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=ncloc)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom)
-
-[![Build stats](https://buildstats.info/appveyor/chart/ryanoneill1970/genegenie-gedcom)](https://ci.appveyor.com/project/ryanoneill1970/genegenie-gedcom/history)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=bugs)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![CodeQL](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/codeql.yml/badge.svg)](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/codeql.yml)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=coverage)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 
 ## Contributing
 
 We would love your help, see [Contributing.md](Contributing.md) for guidelines.
+
