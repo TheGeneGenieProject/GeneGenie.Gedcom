@@ -1,0 +1,7 @@
+# Allow inheritence of settings from directory above.
+root = false
+
+[*.{cs,vb}]
+dotnet_diagnostic.CA1303.severity = none
+dotnet_diagnostic.CA1812.severity = none
+dotnet_diagnostic.CA1848.severity = none
