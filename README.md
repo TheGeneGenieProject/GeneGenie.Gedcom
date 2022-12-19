@@ -20,7 +20,7 @@ Check the sample project out for working code, basic operations are;
 
 To load a tree into memory use the following static helper.
 
-    var gedcomReader = GedcomRecordReader.CreateReader("Data\\presidents.ged");
+    var gedcomReader = GedcomRecordReader.CreateReader("Data/presidents.ged");
 
 There are other variants of this helper and non static methods that allow you to specify additional parameters such as encoding.
 
