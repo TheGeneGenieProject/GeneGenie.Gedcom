@@ -22,7 +22,7 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [Fact]
         public void Ansel_charset_is_recognised()
         {
-            var reader = GedcomRecordReader.CreateReader("./Data/Ansel.ged");
+            var reader = GedcomRecordReader.CreateReader("./Data/ANSEL.GED");
 
             Assert.Equal(GedcomCharset.Ansel, reader.Parser.Charset);
         }
@@ -34,7 +34,7 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [Fact]
         public void Record_count_is_33_children_plus_two_parents()
         {
-            var reader = GedcomRecordReader.CreateReader("./Data/Ansel.ged");
+            var reader = GedcomRecordReader.CreateReader("./Data/ANSEL.GED");
 
             Assert.Equal(35, reader.Database.Individuals.Count);
         }
@@ -44,7 +44,7 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         /// The expected test data has been rigorously checked to ensure the Unicode characters match exactly. If your editor
         /// is not Unicode aware updates them, they'll probably fail.
         /// </summary>
-        /// <param name="childName">The name of the child test record in the Ansel.ged file.</param>
+        /// <param name="childName">The name of the child test record in the ANSEL.GED file.</param>
         /// <param name="birthPlace">The expected text to find in the birth place field, after translation to Unicode.</param>
         /// <param name="deathPlace">The expected text to find in the death place field, after translation to Unicode.</param>
         [Theory]
@@ -83,7 +83,7 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [InlineData("code: FE (Unicode: comma above, 0313) /high comma, centered/", "A̓B̓C̓D̓E̓F̓G̓H̓I̓J̓K̓L̓M̓N̓O̓P̓Q̓R̓S̓T̓U̓V̓W̓X̓Y̓Z̓", "a̓b̓c̓d̓e̓f̓g̓h̓i̓j̓k̓l̓m̓n̓o̓p̓q̓r̓s̓t̓u̓v̓w̓x̓y̓z̓")]
         public void Characters_can_be_translated_to_unicode(string childName, string birthPlace, string deathPlace)
         {
-            var reader = GedcomRecordReader.CreateReader("./Data/Ansel.ged");
+            var reader = GedcomRecordReader.CreateReader("./Data/ANSEL.GED");
 
             var child = reader.Database.Individuals.First(i => i.GetName().Name == childName);
 

@@ -53,7 +53,7 @@
             The expected test data has been rigorously checked to ensure the Unicode characters match exactly. If your editor
             is not Unicode aware updates them, they'll probably fail.
             </summary>
-            <param name="childName">The name of the child test record in the Ansel.ged file.</param>
+            <param name="childName">The name of the child test record in the ANSEL.GED file.</param>
             <param name="birthPlace">The expected text to find in the birth place field, after translation to Unicode.</param>
             <param name="deathPlace">The expected text to find in the death place field, after translation to Unicode.</param>
         </member>
