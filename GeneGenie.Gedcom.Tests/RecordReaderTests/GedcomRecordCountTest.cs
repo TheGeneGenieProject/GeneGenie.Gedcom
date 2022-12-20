@@ -5,6 +5,7 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
+    using System;
     using Xunit;
 
     /// <summary>
@@ -50,11 +51,11 @@ namespace GeneGenie.Gedcom.Parser
             Assert.Equal(expectedName, reader.Database.Header.Submitter.Name);
         }
 
-        [Theory]
-        [InlineData("./Data/allged.ged", "Corporation address line 1\r\nCorporation address line 2\r\nCorporation address line 3\r\nCorporation address line 4")]
-        private void Corporation_address_can_be_read(string file, string expected)
+        [Fact]
+        private void Corporation_address_can_be_read()
         {
-            var reader = GedcomRecordReader.CreateReader(file);
+            var reader = GedcomRecordReader.CreateReader("./Data/allged.ged");
+            var expected = $"Corporation address line 1{Environment.NewLine}Corporation address line 2{Environment.NewLine}Corporation address line 3{Environment.NewLine}Corporation address line 4";
 
             Assert.Equal(expected, reader.Database.Header.CorporationAddress.AddressLine);
         }
