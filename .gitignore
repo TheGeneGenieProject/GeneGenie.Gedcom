@@ -287,3 +287,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# JtBrains Rider
+**/.idea/**
