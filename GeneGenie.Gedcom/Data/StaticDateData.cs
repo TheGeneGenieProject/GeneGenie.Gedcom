@@ -35,7 +35,7 @@ namespace GeneGenie.Gedcom.Data
         /// Longer strings that match the start of shorter strings should be listed first (ABT. before ABT).
         ///
         /// Of particular note;
-        ///  C or CIRCA from BROSKEEP files, C may be due to the date  being set from a baptism / christening, but if that is the
+        ///  C or CIRCA from BROSKEEP files, C may be due to the date being set from a baptism / christening, but if that is the
         ///  case estimate is still reasonable to go with.
         ///
         ///  BROSKEEP seems to be stupid and doesn't make proper use of CAL e.g 'BU.9-6-1825' for a death date means it is really

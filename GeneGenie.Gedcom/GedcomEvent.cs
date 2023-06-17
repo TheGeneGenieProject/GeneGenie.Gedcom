@@ -75,7 +75,7 @@ namespace GeneGenie.Gedcom
             "SSN",
             "TITL",
 
-            // GEDCOM allows custom records, beginging with _
+            // GEDCOM allows custom records, beginning with _
             "_UNKN",
         };
 
@@ -757,7 +757,7 @@ namespace GeneGenie.Gedcom
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant husband");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent husband");
                     }
                 }
 
@@ -785,7 +785,7 @@ namespace GeneGenie.Gedcom
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant wife");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent wife");
                     }
                 }
 

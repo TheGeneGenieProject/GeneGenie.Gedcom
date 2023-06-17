@@ -899,7 +899,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Sets the name of the prefered.
+        /// Sets the name of the preferred.
         /// </summary>
         /// <param name="name">The name.</param>
         public void SetPreferedName(GedcomName name)
@@ -1002,7 +1002,7 @@ namespace GeneGenie.Gedcom
 
             GedcomFamilyLink link = SpouseIn.FirstOrDefault(f => (f.PreferedSpouse == true));
 
-            // shouldn't need this as we automatically set the prefered on loading
+            // shouldn't need this as we automatically set the preferred on loading
             // do the check anyway though just incase.
             if (link == null && SpouseIn.Count > 0)
             {
@@ -1367,7 +1367,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant associated individual");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent associated individual");
                 }
             }
 

@@ -46,7 +46,7 @@
              Longer strings that match the start of shorter strings should be listed first (ABT. before ABT).
             
              Of particular note;
-              C or CIRCA from BROSKEEP files, C may be due to the date  being set from a baptism / christening, but if that is the
+              C or CIRCA from BROSKEEP files, C may be due to the date being set from a baptism / christening, but if that is the
               case estimate is still reasonable to go with.
             
               BROSKEEP seems to be stupid and doesn't make proper use of CAL e.g 'BU.9-6-1825' for a death date means it is really
@@ -257,7 +257,7 @@
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.LevelMissingDelim">
             <summary>
-            Delimeter after level not found
+            Delimiter after level not found
             </summary>
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.LevelInvalid">
@@ -267,7 +267,7 @@
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.XrefIDMissingDelim">
             <summary>
-            Delimeter after XrefID not found
+            Delimiter after XrefID not found
             </summary>
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.XrefIDTooLong">
@@ -282,7 +282,7 @@
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.TagMissingDelimOrTerm">
             <summary>
-            Delimeter, or newline after the tag was not found
+            Delimiter, or newline after the tag was not found
             </summary>
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.LineValueExpected">
@@ -292,7 +292,7 @@
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.LineValueMissingTerm">
             <summary>
-            newline after line value not found
+            Newline after line value not found
             </summary>
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.LineValueInvalid">
@@ -302,7 +302,7 @@
         </member>
         <member name="F:GeneGenie.Gedcom.Enums.GedcomErrorState.InvalidDelim">
             <summary>
-            Deliminator in GEDCOM is a single space, this error will occur
+            Delimiter in GEDCOM is a single space, this error will occur
             when a multi space delimiter is detected
             </summary>
         </member>
@@ -1343,7 +1343,7 @@
         <member name="T:GeneGenie.Gedcom.GedcomAssociation">
             <summary>
             How the given individual is associated to another.
-            Each GedcomIndividal contains a list of these.
+            Each GedcomIndividual contains a list of these.
             </summary>
         </member>
         <member name="M:GeneGenie.Gedcom.GedcomAssociation.#ctor">
@@ -2250,7 +2250,7 @@
         </member>
         <member name="T:GeneGenie.Gedcom.GedcomFamilyLink">
             <summary>
-            How an individal is linked to a family.
+            How an individual is linked to a family.
             </summary>
         </member>
         <member name="M:GeneGenie.Gedcom.GedcomFamilyLink.#ctor">
@@ -2313,10 +2313,10 @@
         </member>
         <member name="P:GeneGenie.Gedcom.GedcomFamilyLink.PreferedSpouse">
             <summary>
-            Gets or sets a value indicating whether [prefered spouse].
+            Gets or sets a value indicating whether [preferred spouse].
             </summary>
             <value>
-              <c>true</c> if [prefered spouse]; otherwise, <c>false</c>.
+              <c>true</c> if [preferred spouse]; otherwise, <c>false</c>.
             </value>
         </member>
         <member name="M:GeneGenie.Gedcom.GedcomFamilyLink.IsEquivalentTo(System.Object)">
@@ -3204,7 +3204,7 @@
         </member>
         <member name="M:GeneGenie.Gedcom.GedcomIndividualRecord.SetPreferedName(GeneGenie.Gedcom.GedcomName)">
             <summary>
-            Sets the name of the prefered.
+            Sets the name of the preferred.
             </summary>
             <param name="name">The name.</param>
         </member>
@@ -5388,7 +5388,7 @@
         </member>
         <member name="M:GeneGenie.Gedcom.Helpers.EnumHelper.ToDescription(System.Enum)">
             <summary>
-            Outputs a string version of an enum by using the <see cref="T:System.ComponentModel.DescriptionAttribute"/>  attribute.
+            Outputs a string version of an enum by using the <see cref="T:System.ComponentModel.DescriptionAttribute"/> attribute.
             Fails over to the enum name if the <see cref="T:System.ComponentModel.DescriptionAttribute"/> does not exist.
             </summary>
             <param name="e">The enum to output.</param>
@@ -5981,7 +5981,7 @@
         </member>
         <member name="P:GeneGenie.Gedcom.Parser.GedcomRecordWriter.ApplicationVersion">
             <summary>
-            Gets or sets the application version that created the GEDCOME file.
+            Gets or sets the application version that created the GEDCOM file.
             </summary>
         </member>
         <member name="P:GeneGenie.Gedcom.Parser.GedcomRecordWriter.ApplicationSystemId">

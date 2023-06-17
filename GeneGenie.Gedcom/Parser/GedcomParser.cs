@@ -20,7 +20,7 @@ namespace GeneGenie.Gedcom.Parser
     /// </summary>
     public class GedcomParser
     {
-        // arbitary magic max level number
+        // arbitrary magic max level number
         private const int MaxLevel = 99;
         private const int MaxXRefLength = 22;
 
@@ -186,7 +186,7 @@ namespace GeneGenie.Gedcom.Parser
 
             // Tags are always the same, data.Substring was allocating lots
             // of memory, instead use a special collection which matches via
-            // array index, e.g   tagCollection[str, index, length] to avoid
+            // array index, e.g. tagCollection[str, index, length] to avoid
             // the extra allocations, and caches the resulting string for
             // use again without having to substring
             if (TagCollection == null)
@@ -503,7 +503,7 @@ namespace GeneGenie.Gedcom.Parser
 
                                 // TODO: no line value, but have hit the terminator
                                 // what should this be allowed for?
-                                // Family Tree Maker outputs emtpy CONT (and CONC?)
+                                // Family Tree Maker outputs empty CONT (and CONC?)
                                 else if (Tag == "CONT" || Tag == "CONC")
                                 {
                                     LineValue = " ";
