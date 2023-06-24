@@ -11,7 +11,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// How an individal is linked to a family.
+    /// How an individual is linked to a family.
     /// </summary>
     public class GedcomFamilyLink : GedcomRecord, IComparable<GedcomFamilyLink>, IComparable, IEquatable<GedcomFamilyLink>
     {
@@ -183,10 +183,10 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [prefered spouse].
+        /// Gets or sets a value indicating whether [preferred spouse].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [prefered spouse]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [preferred spouse]; otherwise, <c>false</c>.
         /// </value>
         public bool PreferedSpouse
         {

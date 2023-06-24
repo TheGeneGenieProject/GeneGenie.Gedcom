@@ -8,7 +8,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
     using Xunit;
 
     /// <summary>
-    /// Tests for equality of multimedia files.
+    /// Tests for equality of headers.
     /// </summary>
     public class GedcomHeaderTest
     {

@@ -23,7 +23,7 @@ namespace GeneGenie.Gedcom.Enums
         LevelExpected,
 
         /// <summary>
-        /// Delimeter after level not found
+        /// Delimiter after level not found
         /// </summary>
         LevelMissingDelim,
 
@@ -33,7 +33,7 @@ namespace GeneGenie.Gedcom.Enums
         LevelInvalid,
 
         /// <summary>
-        /// Delimeter after XrefID not found
+        /// Delimiter after XrefID not found
         /// </summary>
         XrefIDMissingDelim,
 
@@ -48,7 +48,7 @@ namespace GeneGenie.Gedcom.Enums
         TagExpected,
 
         /// <summary>
-        /// Delimeter, or newline after the tag was not found
+        /// Delimiter, or newline after the tag was not found
         /// </summary>
         TagMissingDelimOrTerm,
 
@@ -58,7 +58,7 @@ namespace GeneGenie.Gedcom.Enums
         LineValueExpected,
 
         /// <summary>
-        /// newline after line value not found
+        /// Newline after line value not found
         /// </summary>
         LineValueMissingTerm,
 
@@ -68,7 +68,7 @@ namespace GeneGenie.Gedcom.Enums
         LineValueInvalid,
 
         /// <summary>
-        /// Deliminator in GEDCOM is a single space, this error will occur
+        /// Delimiter in GEDCOM is a single space, this error will occur
         /// when a multi space delimiter is detected
         /// </summary>
         InvalidDelim,

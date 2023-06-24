@@ -56,7 +56,7 @@ namespace GeneGenie.Gedcom.Parser
             // we don't care if delims are multiple spaces
             Parser.IgnoreInvalidDelim = true;
 
-            // we don't care if lines are missing delimeters
+            // we don't care if lines are missing delimiters
             Parser.IgnoreMissingTerms = true;
 
             // apply hack for lines that are just part of the line value
@@ -428,7 +428,7 @@ namespace GeneGenie.Gedcom.Parser
                             case GedcomRecordType.Individual:
                                 // TODO: don't increase ref count on individuals,
                                 // a bit of a hack, only place where it may be
-                                // needed is on assocciations
+                                // needed is on associations
                                 break;
                             case GedcomRecordType.Family:
                                 // TODO: don't increase ref count on families
@@ -4555,7 +4555,7 @@ namespace GeneGenie.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid pedegree linkage type: " + lineValue);
+                                Debug.WriteLine("Invalid pedigree linkage type: " + lineValue);
 
                                 childOf.Pedigree = PedigreeLinkageType.Unknown;
                             }
@@ -5015,7 +5015,7 @@ namespace GeneGenie.Gedcom.Parser
             string ret = tag;
             switch (tag)
             {
-                // we convert _AKA to the admitedly invalid AKA, but we deal
+                // we convert _AKA to the admittedly invalid AKA, but we deal
                 // with that as a valid tag as it is known to occur in some
                 // files.  Ends up adding a name with a type of aka
                 case "_AKA":

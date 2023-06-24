@@ -910,7 +910,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant husband");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent husband");
                 }
             }
 
@@ -937,7 +937,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant wife");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent wife");
                 }
             }
 
@@ -1016,7 +1016,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant child");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent child");
                 }
             }
 
