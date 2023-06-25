@@ -44,6 +44,9 @@
         <None Update="Data\Ansi.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Data\changedate.ged">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Data\name-spaced.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
