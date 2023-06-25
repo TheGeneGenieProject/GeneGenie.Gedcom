@@ -1644,6 +1644,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        familyRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -2001,6 +2002,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        individualRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -2812,6 +2814,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        multimediaRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -2919,6 +2922,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        noteRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3125,6 +3129,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        repositoryRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3279,6 +3284,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        sourceRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3661,6 +3667,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        submitterRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3762,6 +3769,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        submissionRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
