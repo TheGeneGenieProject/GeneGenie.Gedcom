@@ -620,6 +620,7 @@ namespace GeneGenie.Gedcom
                 foreach (string submitterID in SubmitterRecords)
                 {
                     record = Database[submitterID];
+                    if (record == null) continue;
                     childChangeDate = record.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
