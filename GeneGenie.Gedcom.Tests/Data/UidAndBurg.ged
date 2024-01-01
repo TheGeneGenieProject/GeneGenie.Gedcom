@@ -1,0 +1,20 @@
+﻿0 HEAD
+1 SOUR PhpGedView
+2 NAME PhpGedView Online Genealogy
+2 VERS 3.3.8 final
+1 DATE 1 Apr 2006
+0 @I1@ INDI
+1 _UID A5A812A4C0FE44C9A98F8D4627073B69AB88
+1 NAME TestGivenName /TestSurname/
+2 SURN TestSurname
+2 GIVN TestGivenName
+1 SEX M
+1 BIRT
+2 DATE 9 OCT 1990
+2 _BURG unbekannt
+1 CHAN
+2 DATE 28 DEC 2023
+3 TIME 11:21:46
+0 @SUBM@ SUBM
+1 NAME Test for GeneGenie
+0 TRLR

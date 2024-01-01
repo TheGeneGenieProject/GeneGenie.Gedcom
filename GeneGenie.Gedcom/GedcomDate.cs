@@ -578,7 +578,7 @@ namespace GeneGenie.Gedcom
             if (dataString.StartsWith("@#"))
             {
                 dataString = dataString.Substring(2);
-                int i = dataString.IndexOf("@", 2); // TODO: Subtle bug? Should the 2 be there as already trimmed above?
+                int i = dataString.IndexOf("@", 2);
                 if (i != -1)
                 {
                     dateType = dataString.Substring(0, i).ToUpper();
@@ -588,19 +588,19 @@ namespace GeneGenie.Gedcom
 
             switch (dateType)
             {
-                case "@#DGREGORIAN@":
+                case "DGREGORIAN":
                     DateType = GedcomDateType.Gregorian;
                     break;
-                case "@#DJULIAN@":
+                case "DJULIAN":
                     DateType = GedcomDateType.Julian;
                     break;
-                case "@#DHEBREW@":
+                case "DHEBREW":
                     DateType = GedcomDateType.Hebrew;
                     break;
-                case "@#DROMAN@":
+                case "DROMAN":
                     DateType = GedcomDateType.Roman;
                     break;
-                case "@#DUNKNOWN@":
+                case "DUNKNOWN":
                     DateType = GedcomDateType.Unknown;
                     break;
                 default:

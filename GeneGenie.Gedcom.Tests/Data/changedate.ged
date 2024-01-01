@@ -1,0 +1,87 @@
+0 HEAD
+1 CHAR ASCII
+1 SOUR ID_OF_CREATING_FILE
+1 GEDC
+2 VERS 5.5
+2 FORM Lineage-Linked
+1 SUBM @SUBMITTER@
+1 NOTE Small example file containing all types of records, each with a CHANge date 
+0 @SUBMISSION@ SUBN
+1 SUBM @SUBMITTER@
+1 FAMF NameOfFamilyFile
+1 TEMP Abreviated temple code
+1 ANCE 1
+1 DESC 1
+1 ORDI yes
+1 CHAN 
+2 DATE 01 JUN 2023
+3 TIME 10:11:11
+0 @SUBMITTER@ SUBM
+1 NAME /Submitter/
+1 ADDR Submitters address
+2 CONT address continued here
+1 CHAN 
+2 DATE 02 JUN 2023
+3 TIME 10:11:12
+0 @FATHER@ INDI
+1 NAME /Father/
+1 SEX M
+1 BIRT
+2 PLAC birth place
+2 DATE 1 JAN 1899
+1 DEAT
+2 PLAC death place
+2 DATE 31 DEC 1990
+1 FAMS @FAMILY@
+2 SOUR @SOURCE1@
+3 PAGE 42
+1 CHAN 
+2 DATE 03 JUN 2023
+3 TIME 10:11:13
+0 @MOTHER@ INDI
+1 NAME /Mother/
+1 SEX F
+1 BIRT
+2 PLAC birth place
+2 DATE 1 JAN 1899
+1 DEAT
+2 PLAC death place
+2 DATE 31 DEC 1990
+1 FAMS @FAMILY@
+0 @FAMILY@ FAM
+1 HUSB @FATHER@
+1 WIFE @MOTHER@
+1 CHAN 
+2 DATE 04 JUN 2023
+3 TIME 10:11:14
+0 @SOURCE1@ SOUR
+1 TITL Some source
+1 CHAN 
+2 DATE 05 JUN 2023
+3 TIME 10:11:15
+0 @R1@ REPO
+1 NAME Some repository
+1 PHON +1-800-000-0000
+1 CHAN
+2 DATE 06 JUN 2023
+3 TIME 10:11:16
+0 @N1@ NOTE
+1 CONC Some note
+1 CHAN
+2 DATE 07 JUN 2023
+3 TIME 10:11:17
+0 @M1@ OBJE
+1 TITL Some multimedia
+1 FORM PICT
+1 BLOB
+2 CONT .HM.......k.1..F.jwA.Dzzzzw............A....1.........0U.66..E.8
+2 CONT .......A..k.a6.A.......A..k.........../6....G.......0../..U.....
+2 CONT .w1/m........HC0..../...zzzzzzzz..5zzk..AnA..U..W6U....2rRrRrRrR
+2 CONT .Dw...............k.1.......1..A...5ykE/zzzx/.g//.Hxzk6/.Tzy/.k1
+2 CONT /Dw/.Tvz.E5zzUE9/kHz.Tw2/DzzzEEA.kE2zk5yzk2/zzs21.U2/Dw/.Tw/.Tzy
+2 CONT /.fy/.HzzkHzzzo21Ds00.E2.UE2.U62/.k./Ds0.UE0/Do0..E8/UE2.U62.U9w
+2 CONT /.Tx/.20.jg2/jo2..9u/.0U.6A.zk
+1 CHAN
+2 DATE 08 JUN 2023
+3 TIME 10:11:18
+0 TRLR

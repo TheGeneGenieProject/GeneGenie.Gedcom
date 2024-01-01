@@ -18,10 +18,10 @@ namespace GeneGenie.Gedcom.Tests
     public class GedcomXRefTest
     {
         [Theory]
-        [InlineData(".\\Data\\simple.ged")]
-        [InlineData(".\\Data\\presidents.ged")]
-        [InlineData(".\\Data\\Spouse-sealing.ged")]
-        [InlineData(".\\Data\\superfluous-ident-test.ged")]
+        [InlineData("./Data/simple.ged")]
+        [InlineData("./Data/presidents.ged")]
+        [InlineData("./Data/Spouse-sealing.ged")]
+        [InlineData("./Data/superfluous-ident-test.ged")]
         private void Original_record_id(string sourceFile)
         {
             var originalReader = GedcomRecordReader.CreateReader(sourceFile, false);

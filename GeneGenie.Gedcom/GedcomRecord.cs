@@ -465,7 +465,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant note");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent note");
                 }
             }
         }

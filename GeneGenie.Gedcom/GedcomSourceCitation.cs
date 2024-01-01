@@ -273,7 +273,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant source");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent source");
                 }
 
                 if (!string.IsNullOrEmpty(Page))

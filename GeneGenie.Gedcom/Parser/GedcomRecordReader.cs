@@ -56,7 +56,7 @@ namespace GeneGenie.Gedcom.Parser
             // we don't care if delims are multiple spaces
             Parser.IgnoreInvalidDelim = true;
 
-            // we don't care if lines are missing delimeters
+            // we don't care if lines are missing delimiters
             Parser.IgnoreMissingTerms = true;
 
             // apply hack for lines that are just part of the line value
@@ -222,6 +222,8 @@ namespace GeneGenie.Gedcom.Parser
                     }
                 }
 
+                var newlineDelimiter = DetectNewline(gedcomFile, enc);
+
                 stream = new StreamReader(gedcomFile, enc);
 
                 while (!stream.EndOfStream)
@@ -231,8 +233,7 @@ namespace GeneGenie.Gedcom.Parser
 
                     if (line != null)
                     {
-                        // file may not have same newline as environment so this isn't 100% correct
-                        read += line.Length + Environment.NewLine.Length;
+                        read += line.Length + newlineDelimiter.Length;
                         Parser.GedcomParse(line);
 
                         // to allow for inaccuracy above
@@ -427,7 +428,7 @@ namespace GeneGenie.Gedcom.Parser
                             case GedcomRecordType.Individual:
                                 // TODO: don't increase ref count on individuals,
                                 // a bit of a hack, only place where it may be
-                                // needed is on assocciations
+                                // needed is on associations
                                 break;
                             case GedcomRecordType.Family:
                                 // TODO: don't increase ref count on families
@@ -499,6 +500,47 @@ namespace GeneGenie.Gedcom.Parser
             Database.Loading = false;
 
             return success;
+        }
+
+        private static string DetectNewline(string gedcomFile, Encoding enc)
+        {
+            using (var sr = new StreamReader(gedcomFile, enc))
+            {
+                return DetectNewline(sr);
+            }
+        }
+
+        internal static string DetectNewline(StreamReader sr)
+        {
+            int i = 0;
+            while (!sr.EndOfStream && i < 512)
+            {
+                var nextChar = sr.Read();
+
+                if (nextChar == '\r')
+                {
+                    nextChar = sr.Read();
+
+                    if (nextChar == '\n')
+                    {
+                        // This is a Windows CRLF formatted line.
+                        return "\r\n";
+                    }
+
+                    // Odd format, just a CR on it's own.
+                    return "\r";
+                }
+                else if (nextChar == '\n')
+                {
+                    // Looks like Linux / Unix.
+                    sr.Read(); // Throw away the LF character.
+                    return "\n";
+                }
+
+                i++;
+            }
+
+            return Environment.NewLine;
         }
 
         private void Parser_ParseError(object sender, EventArgs e)
@@ -1602,6 +1644,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        familyRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -1959,6 +2002,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        individualRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -2770,6 +2814,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        multimediaRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -2877,6 +2922,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        noteRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3083,6 +3129,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        repositoryRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3237,6 +3284,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        sourceRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3619,6 +3667,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        submitterRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3720,6 +3769,7 @@ namespace GeneGenie.Gedcom.Parser
                         break;
                     case "CHAN":
                         GedcomChangeDate date = new GedcomChangeDate(Database);
+                        submissionRecord.ChangeDate = date;
                         date.Level = level;
                         parseState.Records.Push(date);
                         break;
@@ -3757,7 +3807,7 @@ namespace GeneGenie.Gedcom.Parser
                             custom.Classification = lineValue;
                         }
 
-                        // TODO: may want to use customs at some point
+                        eventRecord.Custom.Add(custom);
                         parseState.Records.Push(custom);
                         break;
                 }
@@ -4513,7 +4563,7 @@ namespace GeneGenie.Gedcom.Parser
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid pedegree linkage type: " + lineValue);
+                                Debug.WriteLine("Invalid pedigree linkage type: " + lineValue);
 
                                 childOf.Pedigree = PedigreeLinkageType.Unknown;
                             }
@@ -4973,7 +5023,7 @@ namespace GeneGenie.Gedcom.Parser
             string ret = tag;
             switch (tag)
             {
-                // we convert _AKA to the admitedly invalid AKA, but we deal
+                // we convert _AKA to the admittedly invalid AKA, but we deal
                 // with that as a valid tag as it is known to occur in some
                 // files.  Ends up adding a name with a type of aka
                 case "_AKA":

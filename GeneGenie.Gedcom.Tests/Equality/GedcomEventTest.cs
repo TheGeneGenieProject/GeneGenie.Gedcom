@@ -9,7 +9,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
     using Xunit;
 
     /// <summary>
-    /// Tests for equality of family records.
+    /// Tests for equality of GedcomEvent.
     /// </summary>
     public class GedcomEventTest
     {

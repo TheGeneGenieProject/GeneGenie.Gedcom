@@ -115,7 +115,7 @@ namespace GeneGenie.Gedcom.Helpers
         }
 
         /// <summary>
-        /// Outputs a string version of an enum by using the <see cref="DescriptionAttribute"/>  attribute.
+        /// Outputs a string version of an enum by using the <see cref="DescriptionAttribute"/> attribute.
         /// Fails over to the enum name if the <see cref="DescriptionAttribute"/> does not exist.
         /// </summary>
         /// <param name="e">The enum to output.</param>

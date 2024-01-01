@@ -8,7 +8,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
     using Xunit;
 
     /// <summary>
-    /// Tests for equality of family records.
+    /// Tests for equality of GedcomPlace.
     /// </summary>
     public class GedcomPlaceTest
     {
