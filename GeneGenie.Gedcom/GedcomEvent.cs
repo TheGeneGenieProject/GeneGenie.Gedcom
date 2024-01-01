@@ -212,6 +212,9 @@ namespace GeneGenie.Gedcom
             get { return GedcomRecordType.Event; }
         }
 
+        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an event.</summary>
+        public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
+
         /// <summary>
         /// Gets the gedcom tag.
         /// </summary>
