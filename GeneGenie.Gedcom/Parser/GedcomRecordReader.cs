@@ -3431,7 +3431,8 @@ namespace GeneGenie.Gedcom.Parser
             }
 
             // _ParseState.PreviousLevel + 3)
-            else if ((!string.IsNullOrEmpty(parseState.PreviousTag)) && level == sourceRecord.Level + 3)
+            else if ((!string.IsNullOrEmpty(parseState.PreviousTag)) && level == sourceRecord.Level + 3
+                && sourceRecord.EventsRecorded.Count >0)
             {
                 GedcomRecordedEvent recordedEvent = sourceRecord.EventsRecorded[sourceRecord.EventsRecorded.Count - 1];
                 switch (tag)

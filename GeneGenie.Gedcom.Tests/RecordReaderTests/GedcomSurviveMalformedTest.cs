@@ -17,6 +17,12 @@ namespace GeneGenie.Gedcom
     public class GedcomSurviveMalformedTest
     {
         [Fact]
+        private void Heredis7SourceRecord()
+        {
+            var reader = GedcomRecordReader.CreateReader("./Data/Heredis7PC.ged");
+        }
+
+        [Fact]
         private void SubmitterReferenceWithWrongId()
         {
             var reader = GedcomRecordReader.CreateReader("./Data/SubmitterReference.ged");
