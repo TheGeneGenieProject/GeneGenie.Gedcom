@@ -1,7 +1,12 @@
-﻿[*.cs]
+# Allow inheritence of settings from directory above.
+root = false
 
-# CS1591: Missing XML comment for publicly visible type or member
-dotnet_diagnostic.CS1591.severity = none
-
-# SA1600: Elements should be documented
-dotnet_diagnostic.SA1600.severity = none
+# Remove junk warnings from unit tests, mostly because we are certain of the input data.
+[*.{cs,vb}]
+dotnet_diagnostic.CA1062.severity = none
+dotnet_diagnostic.CA1307.severity = none
+dotnet_diagnostic.CA1310.severity = none
+dotnet_diagnostic.CA1707.severity = none
+dotnet_diagnostic.CA1812.severity = none
+dotnet_diagnostic.CA2007.severity = none
+dotnet_diagnostic.IDE0057.severity = none

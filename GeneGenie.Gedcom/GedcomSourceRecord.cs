@@ -121,7 +121,7 @@ namespace GeneGenie.Gedcom
         public StringBuilder PublicationText { get; set; }
 
         /// <summary>
-        /// Gets or sets the text text. TODO: What?.
+        /// Gets or sets the text text. TODO: What?
         /// </summary>
         public StringBuilder TextText { get; set; }
 

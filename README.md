@@ -1,8 +1,8 @@
 # GeneGenie.Gedcom
 
-## Current work will be on the new dev branch, this branch is being kept here until that version is stable.
+## Current working dev branch for code quality, .net 7 and improved tests.
 
-A .Net 6.0 library for loading, saving, working with and analysing family trees stored in the GEDCOM format.
+A .Net library for loading, saving, working with and analysing family trees stored in the GEDCOM format.
 
 Thank you to David A Knight who developed Gedcom.Net from which this project was forked.
 
@@ -20,7 +20,7 @@ Check the sample project out for working code, basic operations are;
 
 To load a tree into memory use the following static helper.
 
-    var gedcomReader = GedcomRecordReader.CreateReader("Data\\presidents.ged");
+    var gedcomReader = GedcomRecordReader.CreateReader("Data/presidents.ged");
 
 There are other variants of this helper and non static methods that allow you to specify additional parameters such as encoding.
 
@@ -67,14 +67,24 @@ You'll want to make sure that the file you just read was parsed OK and handle an
 
     GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
 
-### Current build status
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/RyanONeill1970/genegenie-gedcom/master.svg)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom) [![NuGet](https://img.shields.io/nuget/v/GeneGenie.Gedcom.svg)](https://www.nuget.org/packages/GeneGenie.Gedcom) [![AppVeyor tests](https://img.shields.io/appveyor/tests/RyanONeill1970/genegenie-gedcom.svg)](https://ci.appveyor.com/project/RyanONeill1970/genegenie-gedcom/build/tests)
+## Build status
+[![Build and run tests](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml/badge.svg)](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml)
 
 ### Code quality
-[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Quality gate](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=alert_status)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=bugs)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Reliability) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=vulnerabilities)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Security) [![Code smells](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=code_smells)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Maintainability) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=coverage)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Coverage) [![Duplications](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=duplicated_lines_density)](https://sonarcloud.io/component_measures?id=GeneGenie.Gedcom&metric=Duplications) [![Reliability](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Security](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=security_rating)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Security](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_index)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom) [![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=ncloc)](https://sonarcloud.io/dashboard?id=GeneGenie.Gedcom)
-
-[![Build stats](https://buildstats.info/appveyor/chart/ryanoneill1970/genegenie-gedcom)](https://ci.appveyor.com/project/ryanoneill1970/genegenie-gedcom/history)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=bugs)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![CodeQL](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/codeql.yml/badge.svg)](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/codeql.yml)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=coverage)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 
 ## Contributing
 
 We would love your help, see [Contributing.md](Contributing.md) for guidelines.
+

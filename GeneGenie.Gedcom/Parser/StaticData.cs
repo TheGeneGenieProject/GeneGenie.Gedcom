@@ -22,14 +22,14 @@ namespace GeneGenie.Gedcom.Parser
             "No Error",
 
             "Level expected but not found",
-            "Level needs trailing delimeter",
+            "Level needs trailing delimiter",
             "Level is invalid",
 
-            "Xref id needs trailing delimeter",
+            "Xref id needs trailing delimiter",
             "Xref too long",
 
             "Tag expected",
-            "Tag needs trailing delimeter or newline",
+            "Tag needs trailing delimiter or newline",
 
             "Line value expected",
             "Line value needs trailing newline",

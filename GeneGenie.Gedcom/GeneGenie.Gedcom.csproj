@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
 	<PropertyGroup>
@@ -12,16 +12,11 @@
 			CS1573: Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do)
 			CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
 		-->
-		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+		<DocumentationFile></DocumentationFile>
 	</PropertyGroup>
-
-	<ItemGroup>
-        <Compile Include="..\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
-    </ItemGroup>
 
     <ItemGroup>
         <Content Include="..\Licence.txt" Link="Licence.txt" />
-        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -29,12 +24,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
     </ItemGroup>
 
     <PropertyGroup>
@@ -44,7 +35,6 @@
         <AssemblyTitle>GeneGenie.Gedcom"</AssemblyTitle>
 		<SignAssembly>true</SignAssembly>
         <Version>1.1.0</Version>
-        <AssemblyOriginatorKeyFile>StrongName.snk</AssemblyOriginatorKeyFile>
         <Authors>Ryan O'Neill, David A. Knight, Grant Winney</Authors>
         <PackageDescription>.Net 6.0 library for loading, saving, working with and analysing family trees stored in the GEDCOM format.</PackageDescription>
         <PackageLicenseUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/master/Licence.txt</PackageLicenseUrl>
@@ -52,6 +42,7 @@
         <PackageIconUrl>https://avatars0.githubusercontent.com/u/22330020?s=200&amp;v=4</PackageIconUrl>
         <RepositoryUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom</RepositoryUrl>
         <PackageTags>gedcom genegenie gene genie parser genealogy family tree</PackageTags>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -63,7 +54,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     </ItemGroup>
     
 </Project>

@@ -338,6 +338,7 @@ namespace GeneGenie.Gedcom
                 foreach (string submitterID in SubmitterRecords)
                 {
                     record = Database[submitterID];
+                    if (record == null) continue;
                     childChangeDate = record.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
@@ -910,7 +911,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant husband");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent husband");
                 }
             }
 
@@ -937,7 +938,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant wife");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent wife");
                 }
             }
 
@@ -1016,7 +1017,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant child");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent child");
                 }
             }
 

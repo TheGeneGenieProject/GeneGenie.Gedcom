@@ -32,7 +32,7 @@ namespace GeneGenie.Gedcom.Sample
 
         private static GedcomDatabase LoadGedcomFromFile()
         {
-            var gedcomReader = GedcomRecordReader.CreateReader("Data\\presidents.ged");
+            var gedcomReader = GedcomRecordReader.CreateReader("Data/presidents.ged");
             if (gedcomReader.Parser.ErrorState != Enums.GedcomErrorState.NoError)
             {
                 Console.WriteLine($"Could not read file, encountered error {gedcomReader.Parser.ErrorState} press a key to continue.");
