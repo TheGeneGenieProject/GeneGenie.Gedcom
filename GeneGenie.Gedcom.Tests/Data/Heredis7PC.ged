@@ -1,0 +1,21 @@
+0 HEAD
+1 SOUR HEREDIS 7 PC
+2 VERS MAC X 10.0
+2 CORP bsd concept ©
+3 WEB www.heredis.com
+1 DATE 28 MAR 2006
+1 GEDC
+2 VERS 5.5
+2 FORM LINEAGE-LINKED
+1 CHAR MACINTOSH
+1 PLAC
+2 FORM Town , Area code , County , Region , Country, Subdivision
+1 SUBM @S0@
+0 @S0@ SUBM
+1 NAME Smith
+0 @S1@ SOUR
+1 TYPE Other
+2 CALN 
+3 MEDI Autre type
+1 QUAY 2
+0 TRLR

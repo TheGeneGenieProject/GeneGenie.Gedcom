@@ -71,6 +71,9 @@
         <None Update="Data\TortureTests\TGC551.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Data\Heredis7PC.ged">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Data\SubmitterReference.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
