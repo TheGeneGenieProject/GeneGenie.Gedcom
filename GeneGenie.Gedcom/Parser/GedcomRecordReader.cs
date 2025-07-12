@@ -134,6 +134,14 @@ namespace GeneGenie.Gedcom.Parser
             return reader;
         }
 
+        public static GedcomRecordReader CreateReaderFromString(string gedcomString, bool replaceXRefs = true)
+        {
+            var reader = new GedcomRecordReader();
+            reader.ReplaceXRefs = replaceXRefs;
+            reader.ReadGedcom1(gedcomString);
+            return reader;
+        }
+
         /// <summary>
         /// Starts reading the gedcom file currently set via the GedcomFile property.
         /// </summary>
@@ -142,6 +150,8 @@ namespace GeneGenie.Gedcom.Parser
         {
             return ReadGedcom(GedcomFile);
         }
+
+
 
         /// <summary>
         /// Starts reading the specified gedcom file.
@@ -166,100 +176,7 @@ namespace GeneGenie.Gedcom.Parser
 
             // Register additional code pages from nuget package so we can deal with exotic character sets.
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            try
-            {
-                stream = null;
-                Encoding enc = Encoding.Default;
-
-                using (FileStream fileStream = File.OpenRead(gedcomFile))
-                {
-                    ResetParse();
-
-                    byte[] bom = new byte[4];
-
-                    fileStream.Read(bom, 0, 4);
-
-                    // look for BOMs, if found we will ignore the CHAR tag
-                    // don't use .net look for bom as we also want to detect
-                    // unicode where there isn't a BOM, as far as the parser
-                    // is concerned the data is utf16le if we detect this way
-                    // as the conversion is already done
-                    if (bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
-                    {
-                        Parser.Charset = GedcomCharset.UTF16LE;
-                        enc = Encoding.UTF8;
-                    }
-                    else if (bom[0] == 0xFE && bom[1] == 0xFF)
-                    {
-                        Parser.Charset = GedcomCharset.UTF16LE;
-                        enc = Encoding.BigEndianUnicode;
-                    }
-                    else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0x00 && bom[3] == 0x00)
-                    {
-                        Parser.Charset = GedcomCharset.UTF16LE;
-                        enc = Encoding.UTF32;
-                    }
-                    else if (bom[0] == 0xFF && bom[1] == 0xFE)
-                    {
-                        Parser.Charset = GedcomCharset.UTF16LE;
-                        enc = Encoding.Unicode;
-                    }
-                    else if (bom[0] == 0x00 && bom[1] == 0x00 && bom[2] == 0xFE && bom[3] == 0xFF)
-                    {
-                        Parser.Charset = GedcomCharset.UTF16LE;
-                        enc = Encoding.UTF32;
-                    }
-                    else if (bom[0] == 0x00 && bom[2] == 0x00)
-                    {
-                        Parser.Charset = GedcomCharset.UTF16LE;
-                        enc = Encoding.BigEndianUnicode;
-                    }
-                    else if (bom[1] == 0x00 && bom[3] == 0x00)
-                    {
-                        Parser.Charset = GedcomCharset.UTF16LE;
-                        enc = Encoding.Unicode;
-                    }
-                }
-
-                var newlineDelimiter = DetectNewline(gedcomFile, enc);
-
-                stream = new StreamReader(gedcomFile, enc);
-
-                while (!stream.EndOfStream)
-                {
-                    lineNumber++;
-                    string line = stream.ReadLine();
-
-                    if (line != null)
-                    {
-                        read += line.Length + newlineDelimiter.Length;
-                        Parser.GedcomParse(line);
-
-                        // to allow for inaccuracy above
-                        int percentDone = (int)Math.Min(100, (read * 100.0F) / fileSize);
-                        if (percentDone != percent)
-                        {
-                            percent = percentDone;
-                            if (PercentageDone != null)
-                            {
-                                PercentageDone(this, EventArgs.Empty);
-                            }
-                        }
-                    }
-                }
-
-                Flush();
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    stream.Dispose();
-                }
-            }
-
-            success = Parser.ErrorState == GedcomErrorState.NoError;
+            success = GetGedcomFromFile(gedcomFile, fileSize, ref read);
 
             if (success)
             {
@@ -502,12 +419,485 @@ namespace GeneGenie.Gedcom.Parser
             return success;
         }
 
+        public bool ReadGedcom1(string gedcomFile)
+        {
+            bool success = false;
+
+            GedcomFile = gedcomFile;
+
+            percent = 0;
+
+          
+            long fileSize = 0;
+            long read = 0;
+
+            missingReferences = new List<string>();
+            sourceCitations = new List<GedcomSourceCitation>();
+            repoCitations = new List<GedcomRepositoryCitation>();
+
+            // Register additional code pages from nuget package so we can deal with exotic character sets.
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            success = GetGedcomFromFile1(gedcomFile, fileSize, ref read);
+
+            if (success)
+            {
+                percent = 100;
+
+                // cleanup header record, don't want submitter record or content description in the main
+                // database submitters / notes
+                GedcomHeader header = Database.Header;
+
+                if (header != null)
+                {
+                    if (header.Notes.Count > 0)
+                    {
+                        string xref = header.Notes[0];
+
+                        // belongs in content description, not top level record notes
+                        header.Notes.Remove(xref);
+                        header.ContentDescription = (GedcomNoteRecord)Database[xref];
+
+                        // fix up level, note is inline in the header + remove from database
+                        // list of notes
+                        header.ContentDescription.Level = 1;
+                        header.ContentDescription.XRefID = string.Empty;
+                        Database.Remove(xref, header.ContentDescription);
+                    }
+
+                    // brothers keeper doesn't output a source name, so set the name to
+                    // the same as the ID if it is empty
+                    if (string.IsNullOrEmpty(header.ApplicationName) && !string.IsNullOrEmpty(header.ApplicationSystemId))
+                    {
+                        header.ApplicationName = header.ApplicationSystemId;
+                    }
+                }
+
+                // add any missing child in and spouse in linkage
+                foreach (GedcomFamilyRecord family in Database.Families)
+                {
+                    string husbandID = family.Husband;
+                    if (!string.IsNullOrEmpty(husbandID))
+                    {
+                        GedcomIndividualRecord husband = Database[husbandID] as GedcomIndividualRecord;
+                        if (husband != null)
+                        {
+                            GedcomFamilyLink famLink = null;
+
+                            if (!husband.SpouseInFamily(family.XRefID, out famLink))
+                            {
+                                famLink = new GedcomFamilyLink();
+                                famLink.Database = Database;
+                                famLink.Family = family.XRefID;
+                                famLink.Individual = husbandID;
+                                famLink.Level = 1;
+                                famLink.PreferedSpouse = husband.SpouseIn.Count == 0;
+                                husband.SpouseIn.Add(famLink);
+                            }
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Husband in family points to non individual record");
+                        }
+                    }
+
+                    string wifeID = family.Wife;
+                    if (!string.IsNullOrEmpty(wifeID))
+                    {
+                        GedcomIndividualRecord wife = Database[wifeID] as GedcomIndividualRecord;
+                        if (wife != null)
+                        {
+                            GedcomFamilyLink famLink = null;
+
+                            if (!wife.SpouseInFamily(family.XRefID, out famLink))
+                            {
+                                famLink = new GedcomFamilyLink();
+                                famLink.Database = Database;
+                                famLink.Family = family.XRefID;
+                                famLink.Individual = wifeID;
+                                famLink.Level = 1;
+                                wife.SpouseIn.Add(famLink);
+                            }
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Wife in family points to non individual record");
+                        }
+                    }
+
+                    foreach (string childID in family.Children)
+                    {
+                        GedcomIndividualRecord child = Database[childID] as GedcomIndividualRecord;
+
+                        if (child != null)
+                        {
+                            GedcomFamilyLink famLink = null;
+
+                            // add a family link record if one doesn't already exist
+                            if (!child.ChildInFamily(family.XRefID, out famLink))
+                            {
+                                famLink = new GedcomFamilyLink();
+                                famLink.Database = Database;
+                                famLink.Family = family.XRefID;
+                                famLink.Individual = childID;
+                                famLink.Level = 1;
+                                famLink.Status = ChildLinkageStatus.Unknown;
+
+                                // pedigree now set below
+                                child.ChildIn.Add(famLink);
+                            }
+
+                            // set pedigree here to allow for ADOP/FOST in the FAM tag
+                            // FAM record overrides link status if they differ
+                            famLink.Pedigree = family.GetLinkageType(childID);
+                            famLink.FatherPedigree = family.GetHusbandLinkageType(childID);
+                            famLink.MotherPedigree = family.GetWifeLinkageType(childID);
+
+                            // check BIRT event for a FAMC record, check ADOP for FAMC / ADOP records
+                            foreach (GedcomIndividualEvent indiEv in child.Events)
+                            {
+                                if (indiEv.Famc == family.XRefID)
+                                {
+                                    switch (indiEv.EventType)
+                                    {
+                                        case GedcomEventType.Birth:
+                                            // BIRT records do not state father/mother birth,
+                                            // all we can say is both are natural
+                                            famLink.Pedigree = PedigreeLinkageType.Birth;
+                                            break;
+                                        case GedcomEventType.ADOP:
+                                            switch (indiEv.AdoptedBy)
+                                            {
+                                                case GedcomAdoptionType.Husband:
+                                                    famLink.FatherPedigree = PedigreeLinkageType.Adopted;
+                                                    break;
+                                                case GedcomAdoptionType.Wife:
+                                                    famLink.MotherPedigree = PedigreeLinkageType.Adopted;
+                                                    break;
+                                                case GedcomAdoptionType.HusbandAndWife:
+                                                default:
+                                                    // default is both as well, has to be adopted by someone if
+                                                    // there is an event on the family.
+                                                    famLink.Pedigree = PedigreeLinkageType.Adopted;
+                                                    break;
+                                            }
+
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("Child in family points to non individual record");
+                        }
+                    }
+
+                    family.ClearLinkageTypes();
+                }
+
+                // look for any broken references / update ref counts
+                foreach (string xref in missingReferences)
+                {
+                    GedcomRecord record = Database[xref];
+                    if (record != null)
+                    {
+                        switch (record.RecordType)
+                        {
+                            case GedcomRecordType.Individual:
+                                // TODO: don't increase ref count on individuals,
+                                // a bit of a hack, only place where it may be
+                                // needed is on associations
+                                break;
+                            case GedcomRecordType.Family:
+                                // TODO: don't increase ref count on families
+                                break;
+                            default:
+                                record.RefCount++;
+                                break;
+                        }
+                    }
+                    else if (!removedNotes.Contains(xref))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Missing reference: " + xref);
+                    }
+                }
+
+                missingReferences = null;
+
+                // link sources with citations which reference them
+                foreach (GedcomSourceCitation citation in sourceCitations)
+                {
+                    GedcomSourceRecord source = Database[citation.Source] as GedcomSourceRecord;
+                    if (source != null)
+                    {
+                        source.Citations.Add(citation);
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Missing source reference: " + citation.Source);
+                    }
+                }
+
+                sourceCitations = null;
+
+                // link repos with citations which reference them
+                foreach (GedcomRepositoryCitation citation in repoCitations)
+                {
+                    GedcomRepositoryRecord repo = Database[citation.Repository] as GedcomRepositoryRecord;
+                    if (repo != null)
+                    {
+                        repo.Citations.Add(citation);
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Missing repo reference: " + citation.Repository);
+                    }
+                }
+
+                repoCitations = null;
+
+                // find any sources without a title and give them one, happens with Database1.ged,
+                // could be bad parsing, not sure, try and make up for it anyway
+                int missingSourceTitleCount = 1;
+                foreach (GedcomSourceRecord source in Database.Sources)
+                {
+                    if (string.IsNullOrEmpty(source.Title))
+                    {
+                        source.Title = string.Format("Source {0}", missingSourceTitleCount++);
+                    }
+                }
+
+                Database.Name = gedcomFile;
+            }
+
+            if (PercentageDone != null)
+            {
+                PercentageDone(this, EventArgs.Empty);
+            }
+
+            Database.Loading = false;
+
+            return success;
+        }
+
+
+        private bool GetGedcomFromFile(string gedcomFile, long fileSize, ref long read)
+        {
+            bool success;
+            try
+            {
+                stream = null;
+                Encoding enc = Encoding.Default;
+
+                using (FileStream fileStream = File.OpenRead(gedcomFile))
+                {
+                    ResetParse();
+
+                    byte[] bom = new byte[4];
+
+                    fileStream.Read(bom, 0, 4);
+
+                    // look for BOMs, if found we will ignore the CHAR tag
+                    // don't use .net look for bom as we also want to detect
+                    // unicode where there isn't a BOM, as far as the parser
+                    // is concerned the data is utf16le if we detect this way
+                    // as the conversion is already done
+                    if (bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF8;
+                    }
+                    else if (bom[0] == 0xFE && bom[1] == 0xFF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.BigEndianUnicode;
+                    }
+                    else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0x00 && bom[3] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF32;
+                    }
+                    else if (bom[0] == 0xFF && bom[1] == 0xFE)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.Unicode;
+                    }
+                    else if (bom[0] == 0x00 && bom[1] == 0x00 && bom[2] == 0xFE && bom[3] == 0xFF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF32;
+                    }
+                    else if (bom[0] == 0x00 && bom[2] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.BigEndianUnicode;
+                    }
+                    else if (bom[1] == 0x00 && bom[3] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.Unicode;
+                    }
+                }
+
+                var newlineDelimiter = DetectNewline(gedcomFile, enc);
+
+                stream = new StreamReader(gedcomFile, enc);
+
+                while (!stream.EndOfStream)
+                {
+                    lineNumber++;
+                    string line = stream.ReadLine();
+
+                    if (line != null)
+                    {
+                        read += line.Length + newlineDelimiter.Length;
+                        Parser.GedcomParse(line);
+
+                        // to allow for inaccuracy above
+                        int percentDone = (int)Math.Min(100, (read * 100.0F) / fileSize);
+                        if (percentDone != percent)
+                        {
+                            percent = percentDone;
+                            if (PercentageDone != null)
+                            {
+                                PercentageDone(this, EventArgs.Empty);
+                            }
+                        }
+                    }
+                }
+
+                Flush();
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Dispose();
+                }
+            }
+
+            success = Parser.ErrorState == GedcomErrorState.NoError;
+            return success;
+        }
+
+        private bool GetGedcomFromFile1(string gedcomFile, long fileSize, ref long read)
+        {
+            bool success;
+            try
+            {
+                stream = null;
+                Encoding enc = Encoding.Default;
+
+                using (Stream fileStream = GenerateStreamFromString(gedcomFile, enc))
+                {
+                    ResetParse();
+
+                    byte[] bom = new byte[4];
+
+                    fileStream.Read(bom, 0, 4);
+
+                    // look for BOMs, if found we will ignore the CHAR tag
+                    // don't use .net look for bom as we also want to detect
+                    // unicode where there isn't a BOM, as far as the parser
+                    // is concerned the data is utf16le if we detect this way
+                    // as the conversion is already done
+                    if (bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF8;
+                    }
+                    else if (bom[0] == 0xFE && bom[1] == 0xFF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.BigEndianUnicode;
+                    }
+                    else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0x00 && bom[3] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF32;
+                    }
+                    else if (bom[0] == 0xFF && bom[1] == 0xFE)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.Unicode;
+                    }
+                    else if (bom[0] == 0x00 && bom[1] == 0x00 && bom[2] == 0xFE && bom[3] == 0xFF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF32;
+                    }
+                    else if (bom[0] == 0x00 && bom[2] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.BigEndianUnicode;
+                    }
+                    else if (bom[1] == 0x00 && bom[3] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.Unicode;
+                    }
+                }
+                string newlineDelimiter = "";
+                using (Stream fileStream = GenerateStreamFromString(gedcomFile, enc))
+                {
+                    var streamReader = new StreamReader(fileStream, enc, true, 1024, true);
+                    newlineDelimiter = DetectNewline(streamReader);
+                }
+                stream = new StreamReader(GenerateStreamFromString(gedcomFile, enc));
+
+                while (!stream.EndOfStream)
+                {
+                    lineNumber++;
+                    string line = stream.ReadLine();
+
+                    if (line != null)
+                    {
+                        read += line.Length + newlineDelimiter.Length;
+                        Parser.GedcomParse(line);
+
+                        // to allow for inaccuracy above
+                        int percentDone = (int)Math.Min(100, (read * 100.0F) / fileSize);
+                        if (percentDone != percent)
+                        {
+                            percent = percentDone;
+                            if (PercentageDone != null)
+                            {
+                                PercentageDone(this, EventArgs.Empty);
+                            }
+                        }
+                    }
+                }
+
+                Flush();
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Dispose();
+                }
+            }
+
+            success = Parser.ErrorState == GedcomErrorState.NoError;
+            return success;
+        }
+
         private static string DetectNewline(string gedcomFile, Encoding enc)
         {
             using (var sr = new StreamReader(gedcomFile, enc))
             {
                 return DetectNewline(sr);
             }
+        }
+
+        public static Stream GenerateStreamFromString(string s, Encoding enc)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream, enc);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
 
         internal static string DetectNewline(StreamReader sr)
@@ -3432,7 +3822,7 @@ namespace GeneGenie.Gedcom.Parser
 
             // _ParseState.PreviousLevel + 3)
             else if ((!string.IsNullOrEmpty(parseState.PreviousTag)) && level == sourceRecord.Level + 3
-                && sourceRecord.EventsRecorded.Count >0)
+                && sourceRecord.EventsRecorded.Count > 0)
             {
                 GedcomRecordedEvent recordedEvent = sourceRecord.EventsRecorded[sourceRecord.EventsRecorded.Count - 1];
                 switch (tag)
