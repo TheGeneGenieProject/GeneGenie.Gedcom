@@ -44,9 +44,9 @@ namespace GeneGenie.Gedcom.Data
         /// </summary>
         internal static readonly List<GedcomDatePeriodParserMapping> PeriodMappings = new List<GedcomDatePeriodParserMapping>
         {
-            { new GedcomDatePeriodParserMapping { Text = "ABOUT", MapsTo = GedcomDatePeriod.Estimate, TextPosition = GedcomDatePeriodPosition.Prefix } },
-            { new GedcomDatePeriodParserMapping { Text = "ABT.", MapsTo = GedcomDatePeriod.Estimate, TextPosition = GedcomDatePeriodPosition.Prefix } },
-            { new GedcomDatePeriodParserMapping { Text = "ABT", MapsTo = GedcomDatePeriod.Estimate, TextPosition = GedcomDatePeriodPosition.Prefix } },
+            { new GedcomDatePeriodParserMapping { Text = "ABOUT", MapsTo = GedcomDatePeriod.About, TextPosition = GedcomDatePeriodPosition.Prefix } },
+            { new GedcomDatePeriodParserMapping { Text = "ABT.", MapsTo = GedcomDatePeriod.About, TextPosition = GedcomDatePeriodPosition.Prefix } },
+            { new GedcomDatePeriodParserMapping { Text = "ABT", MapsTo = GedcomDatePeriod.About, TextPosition = GedcomDatePeriodPosition.Prefix } },
             { new GedcomDatePeriodParserMapping { Text = "AFTER", MapsTo = GedcomDatePeriod.After, TextPosition = GedcomDatePeriodPosition.Prefix } },
             { new GedcomDatePeriodParserMapping { Text = "AFT.", MapsTo = GedcomDatePeriod.After, TextPosition = GedcomDatePeriodPosition.Prefix } },
             { new GedcomDatePeriodParserMapping { Text = "AFT", MapsTo = GedcomDatePeriod.After, TextPosition = GedcomDatePeriodPosition.Prefix } },

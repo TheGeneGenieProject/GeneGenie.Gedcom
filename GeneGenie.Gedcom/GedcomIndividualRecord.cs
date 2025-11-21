@@ -992,7 +992,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Gets the family.
+        /// Gets the family with the preferred spouse.
         /// </summary>
         /// <returns>
         /// Family.
@@ -1017,6 +1017,65 @@ namespace GeneGenie.Gedcom
 
             return fam;
         }
+
+        /// <summary>
+        /// Gets the families for this individual with all spouses, sorted by marriage dates. Marriage with unknown
+        /// dates are put at the end of the list.
+        /// </summary>
+        /// <returns>
+        /// Family.
+        /// </returns>
+        public GedcomRecordList<GedcomFamilyRecord> GetFamilies()
+        {
+            GedcomRecordList<GedcomFamilyRecord> list = new GedcomRecordList<GedcomFamilyRecord>();
+            GedcomRecordList<int> yearList = new GedcomRecordList<int>();
+
+
+            foreach (GedcomFamilyLink link in SpouseIn)
+            {
+                GedcomFamilyRecord fam = Database[link.Family] as GedcomFamilyRecord;
+
+
+                // Sort by marriage year, lowest to highest
+                // string rec = childrenRec.Children[i];
+                // var indiv = dbGed.Individuals.FirstOrDefault(f => f.XrefId == rec);
+                int marriageyear = -1; // means unknown
+
+                if ((fam.Marriage == null) || (fam.Marriage.Date == null) || (fam.Marriage.Date.Date1 == null))
+                    marriageyear = -1;
+                else
+                {
+                    string dt1 = fam.Marriage.Date.Date1;
+                    dt1 = dt1.Substring(Math.Max(dt1.Length - 4, 0), 4);
+                    if (int.TryParse(dt1, out marriageyear) == false)
+                        marriageyear = -1;
+                }
+
+                bool wasInserted = false;
+                if (marriageyear != -1)
+                {
+                    for (int j = 0; j < yearList.Count; j++)
+                    {
+                        if (marriageyear < yearList[j] || yearList[j] == -1)
+                        {
+                            list.Insert(j, fam);
+                            yearList.Insert(j, marriageyear);
+                            wasInserted = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (wasInserted == false)
+                {
+                    list.Add(fam);
+                    yearList.Add(marriageyear);
+                }
+            }
+
+            return list;
+        }
+
 
         /// <summary>
         /// Sets the preferred spouse.
