@@ -25,7 +25,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Custom_marriage_name_tag_can_be_read()
         {
-            var reader = GetReader(".\\Data\\custom.ged");
+            var reader = GetReader("./Data/custom.ged");
 
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 
@@ -35,7 +35,7 @@ namespace GeneGenie.Gedcom.Tests
         [Fact]
         private void Custom_marriage_name_value_can_be_read()
         {
-            var reader = GetReader(".\\Data\\custom.ged");
+            var reader = GetReader("./Data/custom.ged");
 
             var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 

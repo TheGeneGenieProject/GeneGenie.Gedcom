@@ -11,38 +11,38 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     public class GedcomSubmissionRecord : GedcomRecord, IEquatable<GedcomSubmissionRecord>
     {
         /// <summary>
-        /// The submitter
+        /// The submitter.
         /// </summary>
         private string submitter;
 
         /// <summary>
-        /// The family file
+        /// The family file.
         /// </summary>
         private string familyFile;
 
         /// <summary>
-        /// The temple code
+        /// The temple code.
         /// </summary>
         private string templeCode;
 
         /// <summary>
-        /// The generations of ancestors
+        /// The generations of ancestors.
         /// </summary>
         private int generationsOfAncestors;
 
         /// <summary>
-        /// The generations of decendants
+        /// The generations of decendants.
         /// </summary>
         private int generationsOfDecendants;
 
         /// <summary>
-        /// The ordinance process flag
+        /// The ordinance process flag.
         /// </summary>
         private bool ordinanceProcessFlag;
 

@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// Defines the parse states for GEDCOM file
+    /// Defines the parse states for GEDCOM file.
     /// </summary>
     public enum GedcomState
     {

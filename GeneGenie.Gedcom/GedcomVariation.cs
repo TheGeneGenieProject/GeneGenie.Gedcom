@@ -10,7 +10,7 @@ namespace GeneGenie.Gedcom
     using System;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     public class GedcomVariation : IComparable<GedcomVariation>, IComparable, IEquatable<GedcomVariation>
     {
@@ -163,6 +163,7 @@ namespace GeneGenie.Gedcom
             return Equals(obj as GedcomVariation);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

@@ -287,7 +287,7 @@ namespace GeneGenie.Gedcom.Parser
 
         private List<GedcomIndividualRecord> RewrittenFile()
         {
-            var sourceFile = ".\\Data\\name.ged";
+            var sourceFile = "./Data/name.ged";
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
             var rewrittenPath = sourceFile + ".rewritten";
             GedcomRecordWriter.OutputGedcom(originalReader.Database, rewrittenPath);

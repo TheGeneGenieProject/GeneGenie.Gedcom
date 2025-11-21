@@ -13,7 +13,7 @@ namespace GeneGenie.Gedcom
     /// <summary>
     /// Used for holding the age of an individual for a given event,
     /// this is an object rather than it just being a straight forward
-    /// number to allow for vague values to be given, e.g. &lt; 10
+    /// number to allow for vague values to be given, e.g. &lt; 10.
     /// </summary>
     public class GedcomAge
     {
@@ -36,7 +36,7 @@ namespace GeneGenie.Gedcom
         public GedcomChangeDate ChangeDate { get; set; }
 
         /// <summary>
-        /// Gets or sets
+        /// Gets or sets.
         /// </summary>
         /// TODO: Docs
         public int Equality

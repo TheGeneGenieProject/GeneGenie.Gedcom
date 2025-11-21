@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// GEDCOM Record Types
+    /// GEDCOM Record Types.
     /// </summary>
     public enum GedcomRecordType
     {

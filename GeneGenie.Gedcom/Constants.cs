@@ -17,12 +17,12 @@ namespace GeneGenie.Gedcom
         public const string UnknownName = "unknown /unknown/";
 
         /// <summary>
-        /// The unknown name part
+        /// The unknown name part.
         /// </summary>
         public const string UnknownNamePart = "unknown";
 
         /// <summary>
-        /// The unknown soundex
+        /// The unknown soundex.
         /// </summary>
         public const string UnknownSoundex = "u525";
     }

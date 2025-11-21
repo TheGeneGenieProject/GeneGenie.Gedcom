@@ -403,7 +403,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the this record precedes the other in the sort order;
         /// &gt;0 if the other record precedes this one;
-        /// 0 if the records are equal
+        /// 0 if the records are equal.
         /// </returns>
         public int CompareTo(GedcomPlace place)
         {

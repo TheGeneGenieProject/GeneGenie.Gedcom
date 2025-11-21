@@ -8,7 +8,7 @@
 namespace GeneGenie.Gedcom.Enums
 {
     /// <summary>
-    /// Marriage Start Status
+    /// Marriage Start Status.
     /// </summary>
     public enum MarriageStartStatus
     {

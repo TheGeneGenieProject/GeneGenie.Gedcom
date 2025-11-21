@@ -13,7 +13,7 @@ namespace GeneGenie.Gedcom.Parser
 
     /// <summary>
     /// GedcomParseState is used to maintain the current parser status
-    /// for GedcomRecordReader
+    /// for GedcomRecordReader.
     /// </summary>
     public class GedcomParseState
     {
@@ -70,7 +70,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Gets or sets the stack of previous tag names / levels
+        /// Gets or sets the stack of previous tag names / levels.
         /// </summary>
         public Stack<GedcomTagLevel> PreviousTags { get; protected set; }
 
@@ -85,10 +85,10 @@ namespace GeneGenie.Gedcom.Parser
         public GedcomDatabase Database { get; set; }
 
         /// <summary>
-        /// Obtain the name of the parent GEDCOM tag
+        /// Obtain the name of the parent GEDCOM tag.
         /// </summary>
         /// <param name="level">
-        /// A <see cref="int"/>.  The level of the current tag
+        /// A <see cref="int"/>.  The level of the current tag.
         /// </param>
         /// <returns>
         /// A <see cref="string"/>.  The name of the parent GEDCOM tag.
@@ -117,7 +117,7 @@ namespace GeneGenie.Gedcom.Parser
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="level">The level.</param>
-        /// <exception cref="Exception">Only 99 levels supported, as per GEDCOM spec</exception>
+        /// <exception cref="Exception">Only 99 levels supported, as per GEDCOM spec.</exception>
         public void AddPreviousTag(string name, int level)
         {
             if (level > 99)

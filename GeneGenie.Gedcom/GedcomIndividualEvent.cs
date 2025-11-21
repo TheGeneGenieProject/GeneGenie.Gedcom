@@ -18,7 +18,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// An event relating to a given individual
+    /// An event relating to a given individual.
     /// </summary>
     public class GedcomIndividualEvent : GedcomEvent
     {
@@ -113,7 +113,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Gets or sets the individual's record.
         /// </summary>
-        /// <exception cref="Exception">Must set a GedcomIndividualRecord on a GedcomIndividualEvent</exception>
+        /// <exception cref="Exception">Must set a GedcomIndividualRecord on a GedcomIndividualEvent.</exception>
         public GedcomIndividualRecord IndiRecord
         {
             get

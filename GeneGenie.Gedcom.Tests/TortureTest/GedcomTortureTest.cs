@@ -15,7 +15,7 @@ namespace GeneGenie.Gedcom
     public class GedcomTortureTest
     {
         [Theory]
-        [InlineData(".\\Data\\TortureTests\\TGC551.ged")]
+        [InlineData("./Data/TortureTests/TGC551.ged")]
         private void Files_can_be_loaded_without_exceptions(string sourceFile)
         {
             GedcomRecordReader.CreateReader(sourceFile);

@@ -14,7 +14,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// Defines a generic event or fact
+    /// Defines a generic event or fact.
     /// </summary>
     public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>, IEquatable<GedcomEvent>
     {
@@ -75,7 +75,7 @@ namespace GeneGenie.Gedcom
             "SSN",
             "TITL",
 
-            // GEDCOM allows custom records, beginging with _
+            // GEDCOM allows custom records, beginning with _
             "_UNKN",
         };
 
@@ -133,62 +133,62 @@ namespace GeneGenie.Gedcom
         };
 
         /// <summary>
-        /// The GEDCOM event type
+        /// The GEDCOM event type.
         /// </summary>
         private GedcomEventType eventType;
 
         /// <summary>
-        /// The classification
+        /// The classification.
         /// </summary>
         private string classification;
 
         /// <summary>
-        /// The certainty
+        /// The certainty.
         /// </summary>
         private GedcomCertainty certainty = GedcomCertainty.Unknown;
 
         /// <summary>
-        /// The record
+        /// The record.
         /// </summary>
         private GedcomRecord record;
 
         /// <summary>
-        /// Used for Gedcom 6 XML output
+        /// Used for Gedcom 6 XML output.
         /// </summary>
         private string eventXRefID;
 
         /// <summary>
-        /// The event name
+        /// The event name.
         /// </summary>
         private string eventName;
 
         /// <summary>
-        /// The date
+        /// The date.
         /// </summary>
         private GedcomDate date;
 
         /// <summary>
-        /// The place
+        /// The place.
         /// </summary>
         private GedcomPlace place;
 
         /// <summary>
-        /// The address
+        /// The address.
         /// </summary>
         private GedcomAddress address;
 
         /// <summary>
-        /// The responsible agency
+        /// The responsible agency.
         /// </summary>
         private string responsibleAgency;
 
         /// <summary>
-        /// The religious affiliation
+        /// The religious affiliation.
         /// </summary>
         private string religiousAffiliation;
 
         /// <summary>
-        /// The cause
+        /// The cause.
         /// </summary>
         private string cause;
 
@@ -211,6 +211,9 @@ namespace GeneGenie.Gedcom
         {
             get { return GedcomRecordType.Event; }
         }
+
+        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an event.</summary>
+        public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
         /// <summary>
         /// Gets the gedcom tag.
@@ -579,7 +582,7 @@ namespace GeneGenie.Gedcom
         /// <summary>
         /// Attempts to determine a standard event type from a textual
         /// description.  Always returns GenericEvent if one can't be found
-        /// even though where the string came from maybe a FACT
+        /// even though where the string came from maybe a FACT.
         /// </summary>
         /// <param name="readable">The type name as a string.</param>
         /// <returns>
@@ -757,7 +760,7 @@ namespace GeneGenie.Gedcom
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant husband");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent husband");
                     }
                 }
 
@@ -785,7 +788,7 @@ namespace GeneGenie.Gedcom
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Pointer to non existant wife");
+                        System.Diagnostics.Debug.WriteLine("Pointer to non existent wife");
                     }
                 }
 

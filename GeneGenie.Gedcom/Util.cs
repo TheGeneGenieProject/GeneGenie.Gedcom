@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom
     using System.Text;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     public static class Util
     {

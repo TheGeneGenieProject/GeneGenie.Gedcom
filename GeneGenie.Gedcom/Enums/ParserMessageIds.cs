@@ -11,7 +11,7 @@ namespace GeneGenie.Gedcom.Enums
     /// Codes;
     ///  001 - 100 - Informational
     ///  101 - 200 - Warnings
-    ///  201 - 300 - Errors
+    ///  201 - 300 - Errors.
     /// </summary>
     public enum ParserMessageIds
     {

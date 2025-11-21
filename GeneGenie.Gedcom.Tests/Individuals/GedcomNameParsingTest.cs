@@ -1,4 +1,4 @@
-// <copyright file="GedcomNameParsingTest.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomNameParsingTest.cs" company="GeneGenie.com">
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
@@ -60,7 +60,7 @@ namespace GeneGenie.Gedcom.Parser
         [Fact]
         private void Surname_with_leading_space_is_parsed_and_trimmed()
         {
-            var sourceFile = ".\\Data\\name-spaced.ged";
+            var sourceFile = "./Data/name-spaced.ged";
             var reader = GedcomRecordReader.CreateReader(sourceFile);
 
             var individual = reader.Database.Individuals.Single();
@@ -71,7 +71,7 @@ namespace GeneGenie.Gedcom.Parser
         [Fact]
         private void Given_name_with_leading_space_can_be_parsed()
         {
-            var sourceFile = ".\\Data\\name-spaced.ged";
+            var sourceFile = "./Data/name-spaced.ged";
             var reader = GedcomRecordReader.CreateReader(sourceFile);
 
             var individual = reader.Database.Individuals.Single();

@@ -1,0 +1,55 @@
+0 HEAD
+1 FILE SubmitterReference.ged
+1 COPR (c) Some person
+2 DATE 19 Mrz 2016
+3 TIME 12:42:09
+1 CHAR UTF-8
+1 LANG German
+1 GEDC
+2 VERS 5.5.1
+1 PLAC
+2 FORM Town , Region , Country 
+1 SUBM @S1@
+1 SOUR PhpGedView
+2 NAME PhpGedView Online Genealogy
+2 VERS 3.3.8 final
+1 DATE 4 Mar 2006
+0 @S1@ SUBM
+1 NAME First Submitter
+1 ADDR
+2 POST 90425
+2 CITY Nürnberg
+2 CTRY Deutschland
+0 @S2@ SUBM
+1 NAME Second Submitter
+1 ADDR
+2 POST 9100
+2 CITY Zürich
+2 CTRY Schweiz
+0 @I19@ INDI
+1 SEX F
+1 NAME Elisabeth /Example-Name/
+2 GIVN Elisabeth
+2 SURN Example
+2 _MARNM Example-Name
+1 RELI 
+1 ADDR
+2 POST 9103
+2 CITY Altenstadt
+2 STAE SG
+2 CTRY CH, Europa
+1 BIRT 
+2 DATE 1928
+2 _BURG 
+1 DEAT
+2 DATE 1957
+1 NOTE 
+1 SUBM @S@
+1 CHAN
+2 DATE 1 FEB 2016
+0 @F3@ FAM
+1 WIVE @I19@
+1 MARR
+2 DATE unbekannt
+1 SUBM @S@
+0 TRLR

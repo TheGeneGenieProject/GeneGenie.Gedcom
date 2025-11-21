@@ -13,7 +13,7 @@ namespace GeneGenie.Gedcom
 
     /// <summary>
     /// How the given individual is associated to another.
-    /// Each GedcomIndividal contains a list of these.
+    /// Each GedcomIndividual contains a list of these.
     /// </summary>
     public class GedcomAssociation : GedcomRecord, IComparable, IComparable<GedcomAssociation>, IEquatable<GedcomAssociation>
     {
@@ -191,6 +191,7 @@ namespace GeneGenie.Gedcom
             return Equals(obj as GedcomAssociation);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

@@ -41,7 +41,7 @@ namespace GeneGenie.Gedcom.Parser
         public string ApplicationName { get; set; }
 
         /// <summary>
-        /// Gets or sets the application version that created the GEDCOME file.
+        /// Gets or sets the application version that created the GEDCOM file.
         /// </summary>
         public string ApplicationVersion { get; set; }
 
@@ -110,7 +110,7 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         /// <summary>
-        /// Outputs the currently set GedcomDatabase to the currently set file
+        /// Outputs the currently set GedcomDatabase to the currently set file.
         /// </summary>
         public void WriteGedcom()
         {

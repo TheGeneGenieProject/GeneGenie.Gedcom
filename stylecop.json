@@ -1,9 +1,0 @@
-﻿{
-  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
-  "settings": {
-    "documentationRules": {
-        "companyName": "GeneGenie.com",
-        "copyrightText": "Copyright (c) {companyName}. All Rights Reserved.\r\nLicensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information."
-    }
-  }
-}

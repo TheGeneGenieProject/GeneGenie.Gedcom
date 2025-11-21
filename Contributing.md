@@ -30,4 +30,4 @@ Major changes should have benchmarks wrapped around the old and new code to prov
 
 ### Style guidelines
 
-The StyleCop.Analyzer nuget package is used in all projects to help enforce style guidelines. These guidelines are there to ensure a consistent style, I don't necessarily agree with all of them but they represent a good compromise. When we remove the final few build warnings from the compiler, style violations will be treated as errors and will halt any build.
+The .editorconfig settings file is used in all projects to help enforce style guidelines. These guidelines are there to ensure a consistent style, I don't necessarily agree with all of them but they represent a good compromise. When we remove the final few build warnings from the compiler, style violations will be treated as errors and will halt any build.

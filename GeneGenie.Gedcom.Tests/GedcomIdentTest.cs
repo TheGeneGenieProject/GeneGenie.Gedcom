@@ -1,4 +1,4 @@
-// <copyright file="GedcomIdentTest.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomIdentTest.cs" company="GeneGenie.com">
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
@@ -7,12 +7,13 @@
 
 namespace GeneGenie.Gedcom.Parser
 {
+    using System;
     using System.Linq;
     using Xunit;
 
     /// <summary>
     /// Checks that the IDENT tag does not muck up the import of a file as shown by
-    /// http://www.tamurajones.net/GEDCOMIdentifiersCONCAndCONT.xhtml
+    /// http://www.tamurajones.net/GEDCOMIdentifiersCONCAndCONT.xhtml .
     /// </summary>
     public class GedcomIdentTest
     {
@@ -26,18 +27,19 @@ namespace GeneGenie.Gedcom.Parser
         [Fact]
         private void Multiline_note_is_read_when_dodgy_ident_tag_is_used()
         {
-            var reader = Read(".\\Data\\superfluous-ident-test.ged");
+            var reader = Read("./Data/superfluous-ident-test.ged");
+            var expected = $"First line of a note.{Environment.NewLine}Second line of a note.{Environment.NewLine}Third line of a note.";
 
             var noteXref = reader.Database.Individuals.Single().Notes.First();
             var note = reader.Database.Notes.Single(n => n.XrefId == noteXref);
 
-            Assert.Equal("First line of a note.\r\nSecond line of a note.\r\nThird line of a note.", note.Text);
+            Assert.Equal(expected, note.Text);
         }
 
         [Fact]
         private void Multiline_note_is_parsed_as_one_note()
         {
-            var reader = Read(".\\Data\\superfluous-ident-test.ged");
+            var reader = Read("./Data/superfluous-ident-test.ged");
 
             var noteXref = reader.Database.Individuals.Single().Notes.First();
 

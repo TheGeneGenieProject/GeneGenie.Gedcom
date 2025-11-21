@@ -2,8 +2,6 @@
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
-// <author> Copyright (C) 2008 David A Knight david@ritter.demon.co.uk </author>
-// <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
 namespace GeneGenie.Gedcom
 {

@@ -8,7 +8,7 @@ namespace GeneGenie.Gedcom.Tests.Equality
     using Xunit;
 
     /// <summary>
-    /// Test suite for equality of GedcomNoteRecord
+    /// Test suite for equality of GedcomNoteRecord.
     /// </summary>
     public class GedcomNoteRecordTest
     {

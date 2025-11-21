@@ -1,4 +1,4 @@
-// <copyright file="GedcomRecordWriterTest.cs" company="GeneGenie.com">
+﻿// <copyright file="GedcomRecordWriterTest.cs" company="GeneGenie.com">
 // Copyright (c) GeneGenie.com. All Rights Reserved.
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
@@ -28,9 +28,9 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData(".\\Data\\presidents.ged")]
-        [InlineData(".\\Data\\Spouse-sealing.ged")]
-        [InlineData(".\\Data\\superfluous-ident-test.ged")]
+        [InlineData("./Data/presidents.ged")]
+        [InlineData("./Data/Spouse-sealing.ged")]
+        [InlineData("./Data/superfluous-ident-test.ged")]
         private void Gedcom_databases_are_equal_after_rewriting(string sourceFile)
         {
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
@@ -44,9 +44,9 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData(".\\Data\\presidents.ged")]
-        [InlineData(".\\Data\\Spouse-sealing.ged")]
-        [InlineData(".\\Data\\superfluous-ident-test.ged")]
+        [InlineData("./Data/presidents.ged")]
+        [InlineData("./Data/Spouse-sealing.ged")]
+        [InlineData("./Data/superfluous-ident-test.ged")]
         private void Gedcom_headers_are_equal_after_rewriting(string sourceFile)
         {
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);
@@ -60,9 +60,9 @@ namespace GeneGenie.Gedcom.Parser
         }
 
         [Theory]
-        [InlineData(".\\Data\\presidents.ged")]
-        [InlineData(".\\Data\\Spouse-sealing.ged")]
-        [InlineData(".\\Data\\superfluous-ident-test.ged")]
+        [InlineData("./Data/presidents.ged")]
+        [InlineData("./Data/Spouse-sealing.ged")]
+        [InlineData("./Data/superfluous-ident-test.ged")]
         private void Individuals_are_equal_after_rewriting(string sourceFile)
         {
             var originalReader = GedcomRecordReader.CreateReader(sourceFile);

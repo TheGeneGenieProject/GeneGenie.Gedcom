@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// An event relating to a given family
+    /// An event relating to a given family.
     /// </summary>
     public class GedcomFamilyEvent : GedcomEvent, IEquatable<GedcomFamilyEvent>
     {
@@ -92,7 +92,7 @@ namespace GeneGenie.Gedcom
         /// <value>
         /// The family record.
         /// </value>
-        /// <exception cref="Exception">Must set a GedcomFamilyRecord on a GedcomFamilyEvent</exception>
+        /// <exception cref="Exception">Must set a GedcomFamilyRecord on a GedcomFamilyEvent.</exception>
         public GedcomFamilyRecord FamRecord
         {
             get

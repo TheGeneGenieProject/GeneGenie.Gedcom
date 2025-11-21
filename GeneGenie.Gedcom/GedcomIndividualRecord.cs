@@ -27,9 +27,6 @@ namespace GeneGenie.Gedcom
         private GedcomRecordList<GedcomName> names;
         private GedcomSex sex;
 
-        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
-        public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
-
         private GedcomRecordList<GedcomIndividualEvent> events;
         private GedcomRecordList<GedcomIndividualEvent> attributes;
 
@@ -50,7 +47,7 @@ namespace GeneGenie.Gedcom
         private string permanentRecordFileNumber;
 
         /// <summary>
-        /// The ancestral file number..
+        /// The ancestral file number.
         /// </summary>
         private string ancestralFileNumber;
 
@@ -110,6 +107,9 @@ namespace GeneGenie.Gedcom
 
             database.Add(XRefID, this);
         }
+
+        /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
+        public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
         /// <summary>
         /// Gets the type of the record.
@@ -620,6 +620,7 @@ namespace GeneGenie.Gedcom
                 foreach (string submitterID in SubmitterRecords)
                 {
                     record = Database[submitterID];
+                    if (record == null) continue;
                     childChangeDate = record.ChangeDate;
                     if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                     {
@@ -899,7 +900,7 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
-        /// Sets the name of the prefered.
+        /// Sets the name of the preferred.
         /// </summary>
         /// <param name="name">The name.</param>
         public void SetPreferedName(GedcomName name)
@@ -1002,7 +1003,7 @@ namespace GeneGenie.Gedcom
 
             GedcomFamilyLink link = SpouseIn.FirstOrDefault(f => (f.PreferedSpouse == true));
 
-            // shouldn't need this as we automatically set the prefered on loading
+            // shouldn't need this as we automatically set the preferred on loading
             // do the check anyway though just incase.
             if (link == null && SpouseIn.Count > 0)
             {
@@ -1426,7 +1427,7 @@ namespace GeneGenie.Gedcom
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Pointer to non existant associated individual");
+                    System.Diagnostics.Debug.WriteLine("Pointer to non existent associated individual");
                 }
             }
 

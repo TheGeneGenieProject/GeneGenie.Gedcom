@@ -12,7 +12,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// TODO: Doc
+    /// TODO: Doc.
     /// </summary>
     public class GedcomRecordedEvent : IComparable<GedcomRecordedEvent>, IComparable, IEquatable<GedcomRecordedEvent>
     {
@@ -132,7 +132,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the first event precedes the second in the sort order;
         /// &gt;0 if the second event precedes the first;
-        /// 0 if the events are equal
+        /// 0 if the events are equal.
         /// </returns>
         public int CompareTo(GedcomRecordedEvent other)
         {
@@ -169,7 +169,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the first event precedes the second in the sort order;
         /// &gt;0 if the second event precedes the first;
-        /// 0 if the events are equal
+        /// 0 if the events are equal.
         /// </returns>
         public int CompareTo(object obj)
         {
@@ -200,6 +200,7 @@ namespace GeneGenie.Gedcom
             return CompareTo(obj as GedcomRecordedEvent) == 0;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return new

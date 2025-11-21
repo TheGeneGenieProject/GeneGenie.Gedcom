@@ -14,7 +14,7 @@ namespace GeneGenie.Gedcom
     using GeneGenie.Gedcom.Enums;
 
     /// <summary>
-    /// GEDCOM Note Record
+    /// GEDCOM Note Record.
     /// </summary>
     /// <seealso cref="GedcomRecord" />
     public class GedcomNoteRecord : GedcomRecord, IEquatable<GedcomNoteRecord>

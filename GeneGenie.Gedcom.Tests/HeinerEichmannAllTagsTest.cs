@@ -17,7 +17,7 @@ namespace GeneGenie.Gedcom.Parser
     public class HeinerEichmannAllTagsTest
     {
         /// <summary>
-        /// File sourced from http://heiner-eichmann.de/gedcom/allged.htm
+        /// File sourced from http://heiner-eichmann.de/gedcom/allged.htm .
         /// </summary>
         [Fact]
         private void Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses()

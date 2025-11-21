@@ -188,7 +188,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if the first record's name precedes the second in the sort order;
         /// &gt;0 if the second record's name precedes the first;
-        /// 0 if the names are equal
+        /// 0 if the names are equal.
         /// </returns>
         public static int CompareByName(GedcomRepositoryRecord repoA, GedcomRepositoryRecord repoB)
         {
@@ -202,7 +202,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if this record precedes the other in the sort order;
         /// &gt;0 if the other record precedes this one;
-        /// 0 if the records are equal
+        /// 0 if the records are equal.
         /// </returns>
         public int CompareTo(object repoB)
         {
@@ -307,7 +307,7 @@ namespace GeneGenie.Gedcom
         /// <returns>
         /// &lt;0 if this record precedes the other in the sort order;
         /// &gt;0 if the other record precedes this one;
-        /// 0 if the records are equal
+        /// 0 if the records are equal.
         /// </returns>
         public int CompareTo(GedcomRepositoryRecord other)
         {
