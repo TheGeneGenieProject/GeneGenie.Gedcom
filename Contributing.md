@@ -18,7 +18,7 @@ If you find any problems and do not have the time to delve into the code to fix 
 
 Any changes you commit should have passing unit tests covering them, see [the Microsoft style guidelines for unit tests](https://github.com/aspnet/Home/wiki/Engineering-guidelines#unit-tests-and-functional-tests). Unit tests should be written in xUnit.
 
-If you can supply failing test data then it would be most appreciated.
+If you can supply failing test data then it would be most appreciated..
 
 ### Documentation
 
