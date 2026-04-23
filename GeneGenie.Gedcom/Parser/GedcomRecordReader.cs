@@ -138,7 +138,7 @@ namespace GeneGenie.Gedcom.Parser
         {
             var reader = new GedcomRecordReader();
             reader.ReplaceXRefs = replaceXRefs;
-            reader.ReadGedcom1(gedcomString);
+            reader.ReadGedcomFromString(gedcomString);
             return reader;
         }
 
@@ -419,11 +419,11 @@ namespace GeneGenie.Gedcom.Parser
             return success;
         }
 
-        public bool ReadGedcom1(string gedcomFile)
+        public bool ReadGedcomFromString(string gedcomString)
         {
             bool success = false;
 
-            GedcomFile = gedcomFile;
+            GedcomFile = gedcomString;
 
             percent = 0;
 
@@ -437,7 +437,7 @@ namespace GeneGenie.Gedcom.Parser
 
             // Register additional code pages from nuget package so we can deal with exotic character sets.
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            success = GetGedcomFromFile1(gedcomFile, fileSize, ref read);
+            success = GetGedcomFromString(gedcomString, fileSize, ref read);
 
             if (success)
             {
@@ -667,7 +667,7 @@ namespace GeneGenie.Gedcom.Parser
                     }
                 }
 
-                Database.Name = gedcomFile;
+                Database.Name = gedcomString;
             }
 
             if (PercentageDone != null)
@@ -780,7 +780,7 @@ namespace GeneGenie.Gedcom.Parser
             return success;
         }
 
-        private bool GetGedcomFromFile1(string gedcomFile, long fileSize, ref long read)
+        private bool GetGedcomFromString(string gedcomFile, long fileSize, ref long read)
         {
             bool success;
             try

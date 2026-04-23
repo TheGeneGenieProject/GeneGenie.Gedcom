@@ -1,0 +1,15 @@
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  request-copilot:
+    if: github.event.review.user.login != 'github-copilot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request Copilot review
+        run: |
+          gh api \
+            -X POST \
+            repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
+            -f reviewers='["github-copilot[bot]"]'
