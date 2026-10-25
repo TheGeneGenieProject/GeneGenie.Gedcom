@@ -9,6 +9,7 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using GeneGenie.Gedcom.Enums;
 
@@ -232,6 +233,38 @@ namespace GeneGenie.Gedcom
                     sw.Write(" MEDI ");
                     sw.Write(file.SourceMediaType);
                 }
+
+                // A title that is only the file name was invented by the Title getter, so it is not written back.
+                if (!string.IsNullOrEmpty(file.Title))
+                {
+                    sw.Write(Environment.NewLine);
+                    sw.Write(levelPlusTwo);
+                    sw.Write(" TITL ");
+                    sw.Write(file.Title);
+                }
+
+                if (file.IsPrimary)
+                {
+                    sw.Write(Environment.NewLine);
+                    sw.Write(levelPlusTwo);
+                    sw.Write(" _PRIM Y");
+                }
+            }
+
+            // The record-level title (GEDCOM 5.5) is kept separately from each file's title (GEDCOM 5.5.1).
+            string explicitTitle = title;
+            if (!string.IsNullOrEmpty(explicitTitle)
+                && !string.Equals(explicitTitle, string.Join(", ", files.Select(file => file.Filename)), StringComparison.Ordinal))
+            {
+                if (levelPlusOne == null)
+                {
+                    levelPlusOne = (Level + 1).ToString();
+                }
+
+                sw.Write(Environment.NewLine);
+                sw.Write(levelPlusOne);
+                sw.Write(" TITL ");
+                sw.Write(explicitTitle);
             }
         }
 

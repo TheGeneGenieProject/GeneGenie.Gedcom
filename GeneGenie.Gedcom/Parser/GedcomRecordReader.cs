@@ -2773,6 +2773,14 @@ namespace GeneGenie.Gedcom.Parser
                         }
 
                         break;
+                    case "_PRIM":
+                        // A primary flag next to the file list applies to the file it follows.
+                        if (lineValueType == GedcomLineValueType.DataType)
+                        {
+                            MarkPrimaryMultimedia(multimediaRecord, lineValue);
+                        }
+
+                        break;
 
                     case "FILE":
                         if (lineValueType == GedcomLineValueType.DataType)
@@ -2830,7 +2838,20 @@ namespace GeneGenie.Gedcom.Parser
             {
                 if (level == multimediaRecord.ParsingLevel + 2)
                 {
-                    if (parseState.PreviousTag == "REFN" && tag == "TYPE")
+                    // GEDCOM 5.5.1 puts TITL under FILE, beside FORM. It is not a child of FORM, so it
+                    // arrives with the previous tag still set to FORM and used to be dropped.
+                    if (tag == "TITL" && lineValueType == GedcomLineValueType.DataType)
+                    {
+                        if (multimediaRecord.Files.Count > 0)
+                        {
+                            multimediaRecord.Files[multimediaRecord.Files.Count - 1].Title = lineValue;
+                        }
+                    }
+                    else if (tag == "_PRIM" && lineValueType == GedcomLineValueType.DataType)
+                    {
+                        MarkPrimaryMultimedia(multimediaRecord, lineValue);
+                    }
+                    else if (parseState.PreviousTag == "REFN" && tag == "TYPE")
                     {
                         if (lineValueType == GedcomLineValueType.DataType)
                         {
@@ -4972,6 +4993,32 @@ namespace GeneGenie.Gedcom.Parser
             }
 
             return xref;
+        }
+
+        /// <summary>
+        /// _PRIM Y (also YES or 1) marks the multimedia file it follows as the one to show first.
+        /// When it appears before any FILE, it applies to the file that comes next.
+        /// </summary>
+        private void MarkPrimaryMultimedia(GedcomMultimediaRecord record, string value)
+        {
+            if (!value.Equals("Y", StringComparison.OrdinalIgnoreCase)
+                && !value.Equals("YES", StringComparison.OrdinalIgnoreCase)
+                && value != "1")
+            {
+                return;
+            }
+
+            if (record.Files.Count == 0)
+            {
+                record.Files.Add(new GedcomMultimediaFile
+                {
+                    Database = Database,
+                    IsPrimary = true
+                });
+                return;
+            }
+
+            record.Files[record.Files.Count - 1].IsPrimary = true;
         }
 
         private void AddMultimediaRecord(GedcomRecord record)

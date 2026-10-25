@@ -19,6 +19,8 @@ namespace GeneGenie.Gedcom
         private string filename;
         private string format;
         private string sourceMediaType;
+        private string title;
+        private bool isPrimary;
 
         private GedcomChangeDate changeDate;
 
@@ -111,6 +113,49 @@ namespace GeneGenie.Gedcom
         }
 
         /// <summary>
+        /// Gets or sets the title that belongs to this file.
+        /// GEDCOM 5.5.1 puts TITL under FILE, next to FORM, rather than on the OBJE record.
+        /// </summary>
+        public string Title
+        {
+            get
+            {
+                return title;
+            }
+
+            set
+            {
+                if (value != title)
+                {
+                    title = value;
+                    Changed();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether this file is the primary one for its record.
+        /// _PRIM is not part of the GEDCOM specification; Family Tree Maker and several other
+        /// programs write <c>_PRIM Y</c> to say which picture should be the profile image.
+        /// </summary>
+        public bool IsPrimary
+        {
+            get
+            {
+                return isPrimary;
+            }
+
+            set
+            {
+                if (value != isPrimary)
+                {
+                    isPrimary = value;
+                    Changed();
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the change date.
         /// </summary>
         /// <value>
@@ -162,6 +207,18 @@ namespace GeneGenie.Gedcom
                 return compare;
             }
 
+            compare = string.Compare(Title, other.Title);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
+            compare = IsPrimary.CompareTo(other.IsPrimary);
+            if (compare != 0)
+            {
+                return compare;
+            }
+
             return compare;
         }
 
@@ -193,6 +250,8 @@ namespace GeneGenie.Gedcom
                 Filename,
                 Format,
                 SourceMediaType,
+                Title,
+                IsPrimary,
             }.GetHashCode();
         }
 
