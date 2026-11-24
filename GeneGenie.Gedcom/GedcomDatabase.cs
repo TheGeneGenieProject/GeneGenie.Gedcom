@@ -23,6 +23,7 @@ public class GedcomDatabase : IEnumerator
     private List<GedcomMultimediaRecord> media;
     private List<GedcomNoteRecord> notes;
     private List<GedcomSubmitterRecord> submitters;
+    private List<GedcomLocationRecord> locations = [];
 
     private int xrefCounter = 0;
 
@@ -125,6 +126,15 @@ public class GedcomDatabase : IEnumerator
     public virtual List<GedcomNoteRecord> Notes
     {
         get { return notes; }
+    }
+
+    /// <summary>
+    /// Gets a list of all the stand-alone places (_LOC records) in the database. See
+    /// <see cref="GedcomLocationRecord"/>.
+    /// </summary>
+    public virtual List<GedcomLocationRecord> Locations
+    {
+        get { return locations; }
     }
 
     /// <summary>
@@ -305,6 +315,10 @@ public class GedcomDatabase : IEnumerator
         {
             submitters.Add((GedcomSubmitterRecord)record);
         }
+        else if (record is GedcomLocationRecord location)
+        {
+            locations.Add(location);
+        }
 
         record.Database = this;
     }
@@ -385,6 +399,10 @@ public class GedcomDatabase : IEnumerator
             else if (record is GedcomSubmitterRecord)
             {
                 submitters.Remove((GedcomSubmitterRecord)record);
+            }
+            else if (record is GedcomLocationRecord location)
+            {
+                locations.Remove(location);
             }
 
             // TODO: should we set this to null? part of the deletion

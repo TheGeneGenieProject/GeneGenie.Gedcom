@@ -162,6 +162,30 @@ public class GedcomPlace : GedcomRecord, IEquatable<GedcomPlace>, IComparable<Ge
     }
 
     /// <summary>
+    /// Gets or sets the XRefID of the stand-alone place (_LOC record) this place points to, from a _LOC
+    /// line under PLAC, or null if it has none. Some programs keep the coordinates there rather than on the
+    /// event (issue #168).
+    /// </summary>
+    public string LocationId { get; set; }
+
+    /// <summary>
+    /// Gets the stand-alone place (_LOC record) this place points to, or null if it has none or the record
+    /// isn't in the database. Use it to find coordinates that aren't on the event itself.
+    /// </summary>
+    public GedcomLocationRecord Location
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(LocationId) || Database == null)
+            {
+                return null;
+            }
+
+            return Database[LocationId] as GedcomLocationRecord;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the longitude.
     /// </summary>
     /// <value>
@@ -366,6 +390,15 @@ public class GedcomPlace : GedcomRecord, IEquatable<GedcomPlace>, IComparable<Ge
                 string line = Longitude.Replace("@", "@@");
                 sw.Write(line);
             }
+        }
+
+        if (!string.IsNullOrEmpty(LocationId))
+        {
+            sw.Write(Environment.NewLine);
+            sw.Write((Level + 1).ToString());
+            sw.Write(" _LOC @");
+            sw.Write(LocationId);
+            sw.Write("@");
         }
     }
 

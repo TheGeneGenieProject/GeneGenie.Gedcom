@@ -666,6 +666,16 @@ public class GedcomRecordReader
 
                     break;
 
+                case "_LOC":
+
+                    // Stand-alone place, pointed to from an event's PLAC (issue #168)
+                    if (!string.IsNullOrEmpty(xrefId))
+                    {
+                        current = new GedcomLocationRecord();
+                    }
+
+                    break;
+
                 case "TRLR":
 
                     break;
@@ -758,6 +768,9 @@ public class GedcomRecordReader
                     break;
                 case GedcomRecordType.CustomRecord:
                     ReadEventRecord();
+                    break;
+                case GedcomRecordType.Location:
+                    ReadLocationRecord();
                     break;
             }
         }
@@ -4204,6 +4217,16 @@ public class GedcomRecordReader
         }
     }
 
+    // Keeps every line of a _LOC record as read, so the whole record is written back.
+    private void ReadLocationRecord()
+    {
+        var location = (GedcomLocationRecord)parseState.Records.Peek();
+        var isPointer = lineValueType == GedcomLineValueType.PointerType;
+        var value = lineValueType == GedcomLineValueType.NoType ? string.Empty : lineValue;
+
+        location.AddLine(new GedcomLocationLine(level - location.ParsingLevel, tag, value ?? string.Empty, isPointer));
+    }
+
     private void ReadPlaceRecord()
     {
         GedcomPlace place;
@@ -4245,6 +4268,14 @@ public class GedcomRecordReader
                     break;
                 case "MAP":
                     // map, longitude / latitude stored as child nodes
+                    break;
+                case "_LOC":
+                    // A pointer to a stand-alone place (_LOC record), which may hold the coordinates.
+                    if (lineValueType == GedcomLineValueType.PointerType)
+                    {
+                        place.LocationId = lineValue;
+                    }
+
                     break;
                 case "NOTE":
                     AddNoteRecord(place);

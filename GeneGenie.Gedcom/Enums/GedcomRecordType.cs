@@ -125,4 +125,10 @@ public enum GedcomRecordType
     /// Header
     /// </summary>
     Header,
+
+    /// <summary>
+    /// A stand-alone place written as a _LOC record. Not part of the GEDCOM standard; see
+    /// <see cref="GedcomLocationRecord"/>.
+    /// </summary>
+    Location,
 }
