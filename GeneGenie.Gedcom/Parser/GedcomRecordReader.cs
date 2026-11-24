@@ -107,11 +107,10 @@ public class GedcomRecordReader
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether xrefs are replaced.
-    /// When reading GEDCOM files into a database the
-    /// xref ids may already exist, settings this to true
-    /// will cause new ids to be generated created for the
-    /// records being read.
+    /// Gets or sets a value indicating whether records are given new ids, such as XREF12, in place of the
+    /// ids they have in the file. New ids let files be combined without their ids clashing. Set this to
+    /// false to keep the file's ids, such as I123, so they can be used as permanent identifiers and are
+    /// written back unchanged (issue #75).
     /// </summary>
     public bool ReplaceXRefs { get; set; }
 
@@ -127,7 +126,10 @@ public class GedcomRecordReader
     /// A static helper for reading a gedcom file and returning the reader in one go.
     /// </summary>
     /// <param name="gedcomFilePath">The gedcom file path.</param>
-    /// <param name="replaceXRefs">The value indicating whether [replace x refs].</param>
+    /// <param name="replaceXRefs">
+    /// True, the default, to give records new ids; false to keep the ids from the file. See
+    /// <see cref="ReplaceXRefs"/>.
+    /// </param>
     /// <returns>The reader used to load the file.</returns>
     public static GedcomRecordReader CreateReader(string gedcomFilePath, bool replaceXRefs = true)
     {
@@ -227,6 +229,11 @@ public class GedcomRecordReader
             }
 
             var newlineDelimiter = DetectNewline(gedcomFile, enc);
+
+            if (!ReplaceXRefs)
+            {
+                ReserveXrefsInFile(gedcomFile, enc);
+            }
 
             stream = new StreamReader(gedcomFile, enc);
 
@@ -923,6 +930,29 @@ public class GedcomRecordReader
         }
 
         return current;
+    }
+
+    // When the file's ids are kept, an id the reader makes up for an inline record, such as NOTE1, mustn't
+    // be one a record later in the file uses (issue #75). Ids are on level 0 lines, as in 0 @I1@ INDI.
+    private void ReserveXrefsInFile(string gedcomFile, Encoding encoding)
+    {
+        foreach (var line in File.ReadLines(gedcomFile, encoding))
+        {
+            var trimmed = line.TrimStart();
+            var start = trimmed.IndexOf('@');
+
+            if (!trimmed.StartsWith('0') || start < 1 || trimmed[1..start].Trim().Length > 0)
+            {
+                continue;
+            }
+
+            var end = trimmed.IndexOf('@', start + 1);
+
+            if (end > start + 1)
+            {
+                Database.ReserveXref(trimmed[(start + 1)..end].Trim());
+            }
+        }
     }
 
     private void ResetParse()
