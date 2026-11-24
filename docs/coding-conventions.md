@@ -42,6 +42,53 @@ namespace GeneGenie.Gedcom.Parser
 Implicit usings aren't enabled, so add the `using` directives a file needs and remove any it no
 longer uses.
 
+Put one type in each file, named after the type.
+
+### Use `var` for local variables
+
+Declare local variables with `var`. The type is either clear from the right-hand side or not the
+interesting part, and the names line up:
+
+```csharp
+var hasHusband = !string.IsNullOrEmpty(family.Husband);
+var path = files.Write(lines);
+```
+
+Not `bool hasHusband = ...`. Give the type only where the compiler needs it, such as a collection
+expression (`string[] header = ["0 HEAD", "1 GEDC"];`) or a `null` that has to start with a type.
+`.editorconfig` suggests `var` in the editor.
+
+### Blank lines around blocks
+
+Leave a blank line before an `if`, `switch`, `for`, `foreach`, `while`, `do` or `try` statement, and
+after its closing brace, so each block stands apart from the statements around it. The exception is a
+block that is the first statement inside another block.
+
+```csharp
+var hasHusband = !string.IsNullOrEmpty(family.Husband);
+var hasWife = !string.IsNullOrEmpty(family.Wife);
+
+if (hasHusband == hasWife)
+{
+    return;
+}
+
+var spouseId = hasHusband ? family.Husband : family.Wife;
+```
+
+Not:
+
+```csharp
+var hasWife = !string.IsNullOrEmpty(family.Wife);
+if (hasHusband == hasWife)
+{
+    return;
+}
+var spouseId = hasHusband ? family.Husband : family.Wife;
+```
+
+Put one statement on each line.
+
 ### Document the public API
 
 This is a library that other developers build on, so every public type and member needs an XML
@@ -69,10 +116,29 @@ condition by accident.
 The library targets .NET 9, so new code can use current language features:
 
 - **Collection expressions** to initialise collections: `private readonly List<string> paths = [];`
-  rather than `new List<string>()`.
+  rather than `new List<string>()`. Use them for initialisers, not to end a query: keep
+  `.ToList()` or `.ToArray()` rather than wrapping a query in `[.. query]`.
 - **Primary constructors** for new classes that take simple state.
 - **Static classes** when a class has no instance state and all its members depend only on their
   arguments.
+
+### Order properties alphabetically where practical
+
+Declare properties and fields, and set them in object initialisers, in alphabetical order, so a given
+member is easy to find:
+
+```csharp
+var file = new GedcomMultimediaFile
+{
+    Database = database,
+    Filename = "jane.jpg",
+    Format = "jpg",
+};
+```
+
+This is a readability aid, not an absolute. Keep a more meaningful order where there is one, such as
+the order the GEDCOM specification writes tags in an `Output` method, and match the file you're
+editing rather than reshuffling it.
 
 ### Exceptions
 
@@ -102,6 +168,9 @@ case "UTF-8": // The GEDCOM 5.5.1 spelling.
 case "UTF8": // Non-standard, but written by some programs.
 ```
 
+Tag strings belong in the reader and writer. Once a value has been read, use the library's enums for
+closed sets (`GedcomSex`, `GedcomEventType`, `GedcomCharset`) rather than comparing strings.
+
 ### Keep the library's dependencies small
 
 - Don't add a logging framework or other package dependency without discussing it in an issue first.
@@ -119,7 +188,8 @@ case "UTF8": // Non-standard, but written by some programs.
 ### No new warnings
 
 The build still has some warnings, and the aim is to clear them and treat warnings as errors. Please
-don't add new ones, and fix any in code you change.
+don't add new ones, and fix any in code you change. Don't suppress a warning just to quieten the
+build; if suppressing one really is right, keep it to the smallest scope and add a comment saying why.
 
 ## Tests
 

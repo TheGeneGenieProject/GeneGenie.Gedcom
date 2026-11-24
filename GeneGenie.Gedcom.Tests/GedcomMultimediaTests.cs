@@ -6,6 +6,7 @@
 namespace GeneGenie.Gedcom.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using GeneGenie.Gedcom.Parser;
@@ -173,14 +174,14 @@ namespace GeneGenie.Gedcom.Tests
             return GedcomRecordReader.CreateReader(path).Database.Media.Single();
         }
 
-        private static string[] MediaWithOneFile()
+        private static IEnumerable<string> MediaWithOneFile()
         {
-            return [.. TempGedcomFiles.Gedcom("UTF-8", "0 @I1@ INDI", "1 NAME Jane /Roe/", "1 OBJE", "2 FILE a.jpg", "3 FORM jpg")];
+            return TempGedcomFiles.Gedcom("UTF-8", "0 @I1@ INDI", "1 NAME Jane /Roe/", "1 OBJE", "2 FILE a.jpg", "3 FORM jpg");
         }
 
-        private static string[] MediaWithRecordTitle()
+        private static IEnumerable<string> MediaWithRecordTitle()
         {
-            return [.. TempGedcomFiles.Gedcom("UTF-8", "0 @I1@ INDI", "1 NAME Jane /Roe/", "1 OBJE", "2 TITL Portrait", "2 FILE photos/jane.jpg", "3 FORM jpg")];
+            return TempGedcomFiles.Gedcom("UTF-8", "0 @I1@ INDI", "1 NAME Jane /Roe/", "1 OBJE", "2 TITL Portrait", "2 FILE photos/jane.jpg", "3 FORM jpg");
         }
     }
 }

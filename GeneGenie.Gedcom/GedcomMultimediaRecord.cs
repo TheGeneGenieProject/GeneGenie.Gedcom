@@ -252,9 +252,9 @@ namespace GeneGenie.Gedcom
             }
 
             // The record-level title (GEDCOM 5.5) is kept separately from each file's title (GEDCOM 5.5.1).
-            // Only a title that was actually set is written; the file-name fallback from the Title getter is not.
-            string explicitTitle = title;
-            if (!string.IsNullOrEmpty(explicitTitle))
+            // Only a title that was actually set is written, so read the field: the Title property falls back to
+            // the file names, which must not be written as a title.
+            if (!string.IsNullOrEmpty(title))
             {
                 if (levelPlusOne == null)
                 {
@@ -264,7 +264,7 @@ namespace GeneGenie.Gedcom
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusOne);
                 sw.Write(" TITL ");
-                sw.Write(explicitTitle);
+                sw.Write(title);
             }
         }
 

@@ -6,6 +6,7 @@
 namespace GeneGenie.Gedcom.Tests.EncoderTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using GeneGenie.Gedcom.Enums;
     using GeneGenie.Gedcom.Parser;
@@ -81,9 +82,9 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
             Assert.Equal("Brontë-Ångström", reader.Database.Individuals.Single().Names.Single().Surname);
         }
 
-        private static string[] PersonWithDiacritics(string charValue)
+        private static IEnumerable<string> PersonWithDiacritics(string charValue)
         {
-            return [.. TempGedcomFiles.Gedcom(charValue, "0 @I1@ INDI", "1 NAME Zoë /Brontë-Ångström/")];
+            return TempGedcomFiles.Gedcom(charValue, "0 @I1@ INDI", "1 NAME Zoë /Brontë-Ångström/");
         }
     }
 }

@@ -6,6 +6,7 @@
 namespace GeneGenie.Gedcom.Tests.Individuals
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using GeneGenie.Gedcom.Parser;
@@ -224,9 +225,9 @@ namespace GeneGenie.Gedcom.Tests.Individuals
             return reader.Database.Individuals.Single().Names.Single();
         }
 
-        private static string[] Person(params string[] nameLines)
+        private static IEnumerable<string> Person(params string[] nameLines)
         {
-            return [.. TempGedcomFiles.Gedcom("UTF-8", ["0 @I1@ INDI", .. nameLines])];
+            return TempGedcomFiles.Gedcom("UTF-8", ["0 @I1@ INDI", .. nameLines]);
         }
 
         private GedcomRecordReader ReadSurnameKeptInOnePart()
