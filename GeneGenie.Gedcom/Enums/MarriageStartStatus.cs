@@ -5,36 +5,35 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// Marriage Start Status.
+/// </summary>
+public enum MarriageStartStatus
 {
     /// <summary>
-    /// Marriage Start Status.
+    /// Single
     /// </summary>
-    public enum MarriageStartStatus
-    {
-        /// <summary>
-        /// Single
-        /// </summary>
-        Single = 0,
+    Single = 0,
 
-        /// <summary>
-        /// Private
-        /// </summary>
-        Private = 1,
+    /// <summary>
+    /// Private
+    /// </summary>
+    Private = 1,
 
-        /// <summary>
-        /// Partners
-        /// </summary>
-        Partners = 2,
+    /// <summary>
+    /// Partners
+    /// </summary>
+    Partners = 2,
 
-        /// <summary>
-        /// Other
-        /// </summary>
-        Other = 3,
+    /// <summary>
+    /// Other
+    /// </summary>
+    Other = 3,
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        Unknown = 4,
-    }
+    /// <summary>
+    /// Unknown
+    /// </summary>
+    Unknown = 4,
 }

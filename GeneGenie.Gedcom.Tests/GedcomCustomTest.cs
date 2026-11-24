@@ -4,42 +4,38 @@
 // </copyright>
 // <author> Copyright (C) 2020 Ryan O'Neill https://github.com/RyanONeill1970 </author>
 
-namespace GeneGenie.Gedcom.Tests
+namespace GeneGenie.Gedcom.Tests;
+
+/// <summary>
+/// Tests for ensuring the custom.ged file can be parsed and custom fields found.
+/// </summary>
+
+public class GedcomCustomTest
 {
-    using System.Linq;
-    using GeneGenie.Gedcom.Parser;
-    using Xunit;
-
-    /// <summary>
-    /// Tests for ensuring the custom.ged file can be parsed and custom fields found.
-    /// </summary>
-    public class GedcomCustomTest
+    private GedcomRecordReader GetReader(string file)
     {
-        private GedcomRecordReader GetReader(string file)
-        {
-            var reader = new GedcomRecordReader();
-            reader.ReadGedcom(file);
-            return reader;
-        }
+        var reader = new GedcomRecordReader();
+        reader.ReadGedcom(file);
+        return reader;
+    }
 
-        [Fact]
-        private void Custom_marriage_name_tag_can_be_read()
-        {
-            var reader = GetReader("./Data/custom.ged");
+    [Fact]
+    private void Custom_marriage_name_tag_can_be_read()
+    {
+        var reader = GetReader("./Data/custom.ged");
 
-            var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
+        var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 
-            Assert.Contains(mother.Custom, c => c.Tag == "_MARNM");
-        }
+        Assert.Contains(mother.Custom, c => c.Tag == "_MARNM");
+    }
 
-        [Fact]
-        private void Custom_marriage_name_value_can_be_read()
-        {
-            var reader = GetReader("./Data/custom.ged");
+    [Fact]
+    private void Custom_marriage_name_value_can_be_read()
+    {
+        var reader = GetReader("./Data/custom.ged");
 
-            var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
+        var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 
-            Assert.Contains(mother.Custom, c => c.Classification == "/Married name/");
-        }
+        Assert.Contains(mother.Custom, c => c.Classification == "/Married name/");
     }
 }

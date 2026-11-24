@@ -4,44 +4,39 @@
 // </copyright>
 // <author> Copyright (C) 2023 Herbert Oppmann gith@memotech.franken.de </author>
 
+namespace GeneGenie.Gedcom;
 
-namespace GeneGenie.Gedcom
+/// <summary>
+/// Tests to ensure that malformed GEDCOM files are survived.
+/// </summary>
+
+public class GedcomSurviveMalformedTest
 {
-    using System;
-    using GeneGenie.Gedcom.Parser;
-    using Xunit;
-
-    /// <summary>
-    /// Tests to ensure that malformed GEDCOM files are survived.
-    /// </summary>
-    public class GedcomSurviveMalformedTest
+    [Fact]
+    private void Heredis7SourceRecord()
     {
-        [Fact]
-        private void Heredis7SourceRecord()
-        {
-            var reader = GedcomRecordReader.CreateReader("./Data/Heredis7PC.ged");
-        }
+        var reader = GedcomRecordReader.CreateReader("./Data/Heredis7PC.ged");
+    }
 
-        [Fact]
-        private void SubmitterReferenceWithWrongId()
+    [Fact]
+    private void SubmitterReferenceWithWrongId()
+    {
+        var reader = GedcomRecordReader.CreateReader("./Data/SubmitterReference.ged");
+        GedcomChangeDate LatestChangeDate = null;
+        foreach (GedcomIndividualRecord indi in reader.Database.Individuals)
         {
-            var reader = GedcomRecordReader.CreateReader("./Data/SubmitterReference.ged");
-            GedcomChangeDate LatestChangeDate = null;
-            foreach (GedcomIndividualRecord indi in reader.Database.Individuals)
+            if ((LatestChangeDate == null) ||
+                ((indi.ChangeDate != null) && (indi.ChangeDate > LatestChangeDate)))
             {
-                if ((LatestChangeDate == null) ||
-                    ((indi.ChangeDate != null) && (indi.ChangeDate > LatestChangeDate)))
-                {
-                    LatestChangeDate = indi.ChangeDate;
-                }
+                LatestChangeDate = indi.ChangeDate;
             }
-            foreach (GedcomFamilyRecord fam in reader.Database.Families)
+        }
+        foreach (GedcomFamilyRecord fam in reader.Database.Families)
+        {
+            if ((LatestChangeDate == null) ||
+                ((fam.ChangeDate != null) && (fam.ChangeDate > LatestChangeDate)))
             {
-                if ((LatestChangeDate == null) ||
-                    ((fam.ChangeDate != null) && (fam.ChangeDate > LatestChangeDate)))
-                {
-                    LatestChangeDate = fam.ChangeDate;
-                }
+                LatestChangeDate = fam.ChangeDate;
             }
         }
     }

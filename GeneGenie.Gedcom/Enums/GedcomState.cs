@@ -5,31 +5,30 @@
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// Defines the parse states for GEDCOM file.
+/// </summary>
+public enum GedcomState
 {
     /// <summary>
-    /// Defines the parse states for GEDCOM file.
+    /// Reading the current level
     /// </summary>
-    public enum GedcomState
-    {
-        /// <summary>
-        /// Reading the current level
-        /// </summary>
-        Level,
+    Level,
 
-        /// <summary>
-        /// Reading the current ID
-        /// </summary>
-        XrefID,
+    /// <summary>
+    /// Reading the current ID
+    /// </summary>
+    XrefID,
 
-        /// <summary>
-        /// Reading the current tag name
-        /// </summary>
-        Tag,
+    /// <summary>
+    /// Reading the current tag name
+    /// </summary>
+    Tag,
 
-        /// <summary>
-        /// Reading the value for the current tag
-        /// </summary>
-        LineValue,
-    }
+    /// <summary>
+    /// Reading the value for the current tag
+    /// </summary>
+    LineValue,
 }

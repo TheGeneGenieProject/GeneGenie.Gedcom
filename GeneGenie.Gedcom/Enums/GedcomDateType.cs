@@ -5,29 +5,28 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// Calendars recognised in GEDCOM format.
+/// </summary>
+public enum GedcomDateType
 {
-    /// <summary>
-    /// Calendars recognised in GEDCOM format.
-    /// </summary>
-    public enum GedcomDateType
-    {
-        /// <summary>Gregorian calendar.</summary>
-        Gregorian,
+    /// <summary>Gregorian calendar.</summary>
+    Gregorian,
 
-        /// <summary>Julian calendar.</summary>
-        Julian,
+    /// <summary>Julian calendar.</summary>
+    Julian,
 
-        /// <summary>Hebrew calendar.</summary>
-        Hebrew,
+    /// <summary>Hebrew calendar.</summary>
+    Hebrew,
 
-        /// <summary>French calendar.</summary>
-        French,
+    /// <summary>French calendar.</summary>
+    French,
 
-        /// <summary>Roman calendar.</summary>
-        Roman,
+    /// <summary>Roman calendar.</summary>
+    Roman,
 
-        /// <summary>Unknown calendar.</summary>
-        Unknown, // TODO: Shouldn't this be first, as in 0 for the default int value?
-    }
+    /// <summary>Unknown calendar.</summary>
+    Unknown, // TODO: Shouldn't this be first, as in 0 for the default int value?
 }

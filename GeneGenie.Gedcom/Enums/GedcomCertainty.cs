@@ -5,36 +5,35 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// Indicates the credibility of a piece of information, based upon its supporting evidence.
+/// </summary>
+public enum GedcomCertainty
 {
     /// <summary>
-    /// Indicates the credibility of a piece of information, based upon its supporting evidence.
+    /// Unreliable
     /// </summary>
-    public enum GedcomCertainty
-    {
-        /// <summary>
-        /// Unreliable
-        /// </summary>
-        Unreliable = 0,
+    Unreliable = 0,
 
-        /// <summary>
-        /// Questionable
-        /// </summary>
-        Questionable = 1,
+    /// <summary>
+    /// Questionable
+    /// </summary>
+    Questionable = 1,
 
-        /// <summary>
-        /// Secondary
-        /// </summary>
-        Secondary = 2,
+    /// <summary>
+    /// Secondary
+    /// </summary>
+    Secondary = 2,
 
-        /// <summary>
-        /// Primary
-        /// </summary>
-        Primary = 3,
+    /// <summary>
+    /// Primary
+    /// </summary>
+    Primary = 3,
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        Unknown = 4,
-    }
+    /// <summary>
+    /// Unknown
+    /// </summary>
+    Unknown = 4,
 }

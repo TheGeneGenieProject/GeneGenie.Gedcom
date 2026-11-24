@@ -5,30 +5,28 @@
 // <author> Copyright (C) 2008 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom;
+
+/// <summary>
+/// TODO: Doc + i think we might be able to use an ObservableList instead.
+/// </summary>
+/// <typeparam name="T">TODO: Not sure what uses this yet.</typeparam>
+/// <seealso cref="System.Collections.Generic.List{T}" />
+
+public class GedcomRecordList<T> : ObservableCollection<T>
 {
-    using System.Collections.ObjectModel;
-
-    /// <summary>
-    /// TODO: Doc + i think we might be able to use an ObservableList instead.
-    /// </summary>
-    /// <typeparam name="T">TODO: Not sure what uses this yet.</typeparam>
-    /// <seealso cref="System.Collections.Generic.List{T}" />
-    public class GedcomRecordList<T> : ObservableCollection<T>
+    /// <inheritdoc/>
+    public override int GetHashCode()
     {
-        /// <inheritdoc/>
-        public override int GetHashCode()
+        int hc = 0;
+        if (Items != null)
         {
-            int hc = 0;
-            if (Items != null)
+            foreach (var p in Items)
             {
-                foreach (var p in Items)
-                {
-                    hc ^= p.GetHashCode();
-                }
+                hc ^= p.GetHashCode();
             }
-
-            return hc;
         }
+
+        return hc;
     }
 }

@@ -5,31 +5,30 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// GEDCOM Adoption Type.
+/// </summary>
+public enum GedcomAdoptionType
 {
     /// <summary>
-    /// GEDCOM Adoption Type.
+    /// None
     /// </summary>
-    public enum GedcomAdoptionType
-    {
-        /// <summary>
-        /// None
-        /// </summary>
-        None = 0,
+    None = 0,
 
-        /// <summary>
-        /// Husband
-        /// </summary>
-        Husband,
+    /// <summary>
+    /// Husband
+    /// </summary>
+    Husband,
 
-        /// <summary>
-        /// Wife
-        /// </summary>
-        Wife,
+    /// <summary>
+    /// Wife
+    /// </summary>
+    Wife,
 
-        /// <summary>
-        /// Husband and Wife
-        /// </summary>
-        HusbandAndWife,
-    }
+    /// <summary>
+    /// Husband and Wife
+    /// </summary>
+    HusbandAndWife,
 }

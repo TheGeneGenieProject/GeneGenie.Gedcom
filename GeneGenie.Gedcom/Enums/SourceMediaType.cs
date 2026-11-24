@@ -5,123 +5,122 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// Source Media Type.
+/// </summary>
+public enum SourceMediaType
 {
     /// <summary>
-    /// Source Media Type.
+    /// None
     /// </summary>
-    public enum SourceMediaType
-    {
-        /// <summary>
-        /// None
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        /// Audio
-        /// </summary>
-        Audio,
+    /// <summary>
+    /// Audio
+    /// </summary>
+    Audio,
 
-        /// <summary>
-        /// Book
-        /// </summary>
-        Book,
+    /// <summary>
+    /// Book
+    /// </summary>
+    Book,
 
-        /// <summary>
-        /// Card
-        /// </summary>
-        Card,
+    /// <summary>
+    /// Card
+    /// </summary>
+    Card,
 
-        /// <summary>
-        /// Electronic
-        /// </summary>
-        Electronic,
+    /// <summary>
+    /// Electronic
+    /// </summary>
+    Electronic,
 
-        /// <summary>
-        /// Fiche
-        /// </summary>
-        Fiche,
+    /// <summary>
+    /// Fiche
+    /// </summary>
+    Fiche,
 
-        /// <summary>
-        /// Film
-        /// </summary>
-        Film,
+    /// <summary>
+    /// Film
+    /// </summary>
+    Film,
 
-        /// <summary>
-        /// Magazine
-        /// </summary>
-        Magazine,
+    /// <summary>
+    /// Magazine
+    /// </summary>
+    Magazine,
 
-        /// <summary>
-        /// Manuscript
-        /// </summary>
-        Manuscript,
+    /// <summary>
+    /// Manuscript
+    /// </summary>
+    Manuscript,
 
-        /// <summary>
-        /// Map
-        /// </summary>
-        Map,
+    /// <summary>
+    /// Map
+    /// </summary>
+    Map,
 
-        /// <summary>
-        /// Newspaper
-        /// </summary>
-        Newspaper,
+    /// <summary>
+    /// Newspaper
+    /// </summary>
+    Newspaper,
 
-        /// <summary>
-        /// Photo
-        /// </summary>
-        Photo,
+    /// <summary>
+    /// Photo
+    /// </summary>
+    Photo,
 
-        /// <summary>
-        /// Tombstone
-        /// </summary>
-        Tombstone,
+    /// <summary>
+    /// Tombstone
+    /// </summary>
+    Tombstone,
 
-        /// <summary>
-        /// Video
-        /// </summary>
-        Video,
+    /// <summary>
+    /// Video
+    /// </summary>
+    Video,
 
-        // non standard gedcom media types
+    // non standard gedcom media types
 
-        /// <summary>
-        /// Civil Registry
-        /// </summary>
-        Civil_Registry,
+    /// <summary>
+    /// Civil Registry
+    /// </summary>
+    Civil_Registry,
 
-        /// <summary>
-        /// Family Archive CD
-        /// </summary>
-        Family_Archive_CD,
+    /// <summary>
+    /// Family Archive CD
+    /// </summary>
+    Family_Archive_CD,
 
-        /// <summary>
-        /// Microfilm
-        /// </summary>
-        Microfilm,
+    /// <summary>
+    /// Microfilm
+    /// </summary>
+    Microfilm,
 
-        /// <summary>
-        /// Census
-        /// </summary>
-        Census,
+    /// <summary>
+    /// Census
+    /// </summary>
+    Census,
 
-        /// <summary>
-        /// Letter
-        /// </summary>
-        Letter,
+    /// <summary>
+    /// Letter
+    /// </summary>
+    Letter,
 
-        /// <summary>
-        /// Official Document
-        /// </summary>
-        Official_Document,
+    /// <summary>
+    /// Official Document
+    /// </summary>
+    Official_Document,
 
-        /// <summary>
-        /// Microfiche
-        /// </summary>
-        Microfiche, // TODO: we should correct this one to be Fiche
+    /// <summary>
+    /// Microfiche
+    /// </summary>
+    Microfiche, // TODO: we should correct this one to be Fiche
 
-        /// <summary>
-        /// Other
-        /// </summary>
-        Other,
-    }
+    /// <summary>
+    /// Other
+    /// </summary>
+    Other,
 }

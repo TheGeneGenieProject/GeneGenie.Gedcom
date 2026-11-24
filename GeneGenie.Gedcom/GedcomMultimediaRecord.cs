@@ -5,330 +5,325 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom;
+
+/// <summary>
+/// A multimedia record, this can consist of any number of files
+/// of varying types.
+/// </summary>
+
+public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
 {
-    using System;
-    using System.IO;
-    using System.Text;
-    using GeneGenie.Gedcom.Enums;
+    private GedcomRecordList<GedcomMultimediaFile> files;
+
+    private string title;
 
     /// <summary>
-    /// A multimedia record, this can consist of any number of files
-    /// of varying types.
+    /// Initializes a new instance of the <see cref="GedcomMultimediaRecord"/> class.
     /// </summary>
-    public class GedcomMultimediaRecord : GedcomRecord, IEquatable<GedcomMultimediaRecord>
+    public GedcomMultimediaRecord()
     {
-        private GedcomRecordList<GedcomMultimediaFile> files;
+        files = new GedcomRecordList<GedcomMultimediaFile>();
+        files.CollectionChanged += ListChanged;
+    }
 
-        private string title;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GedcomMultimediaRecord"/> class.
+    /// </summary>
+    /// <param name="database">The database to associate with this record.</param>
+    public GedcomMultimediaRecord(GedcomDatabase database)
+        : this()
+    {
+        Database = database;
+        Level = 0;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomMultimediaRecord"/> class.
-        /// </summary>
-        public GedcomMultimediaRecord()
+        XRefID = database.GenerateXref("OBJE");
+        database.Add(XRefID, this);
+    }
+
+    /// <summary>
+    /// Gets the type of the record.
+    /// </summary>
+    /// <value>
+    /// The type of the record.
+    /// </value>
+    public override GedcomRecordType RecordType
+    {
+        get { return GedcomRecordType.Multimedia; }
+    }
+
+    /// <summary>
+    /// Gets the GEDCOM tag for a multimedia record.
+    /// </summary>
+    /// <value>
+    /// The GEDCOM tag.
+    /// </value>
+    public override string GedcomTag
+    {
+        get { return "OBJE"; }
+    }
+
+    /// <summary>
+    /// Gets the multimedia files.
+    /// </summary>
+    /// <value>
+    /// The multimedia files.
+    /// </value>
+    public GedcomRecordList<GedcomMultimediaFile> Files
+    {
+        get { return files; }
+    }
+
+    /// <summary>
+    /// Gets or sets the title.
+    /// </summary>
+    /// <value>
+    /// The title. When no title has been set, a list of the file names is returned instead;
+    /// that fallback is worked out on each read and is never stored or written out.
+    /// </value>
+    public string Title
+    {
+        get
         {
-            files = new GedcomRecordList<GedcomMultimediaFile>();
-            files.CollectionChanged += ListChanged;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomMultimediaRecord"/> class.
-        /// </summary>
-        /// <param name="database">The database to associate with this record.</param>
-        public GedcomMultimediaRecord(GedcomDatabase database)
-            : this()
-        {
-            Database = database;
-            Level = 0;
-
-            XRefID = database.GenerateXref("OBJE");
-            database.Add(XRefID, this);
-        }
-
-        /// <summary>
-        /// Gets the type of the record.
-        /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
-        public override GedcomRecordType RecordType
-        {
-            get { return GedcomRecordType.Multimedia; }
-        }
-
-        /// <summary>
-        /// Gets the GEDCOM tag for a multimedia record.
-        /// </summary>
-        /// <value>
-        /// The GEDCOM tag.
-        /// </value>
-        public override string GedcomTag
-        {
-            get { return "OBJE"; }
-        }
-
-        /// <summary>
-        /// Gets the multimedia files.
-        /// </summary>
-        /// <value>
-        /// The multimedia files.
-        /// </value>
-        public GedcomRecordList<GedcomMultimediaFile> Files
-        {
-            get { return files; }
-        }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        /// <value>
-        /// The title. When no title has been set, a list of the file names is returned instead;
-        /// that fallback is worked out on each read and is never stored or written out.
-        /// </value>
-        public string Title
-        {
-            get
+            if (string.IsNullOrEmpty(title))
             {
-                if (string.IsNullOrEmpty(title))
+                StringBuilder sb = new StringBuilder();
+                foreach (GedcomMultimediaFile file in files)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (GedcomMultimediaFile file in files)
+                    if (sb.Length > 0)
                     {
-                        if (sb.Length > 0)
-                        {
-                            sb.Append(", ");
-                        }
-
-                        sb.Append(file.Filename);
+                        sb.Append(", ");
                     }
 
-                    return sb.ToString();
+                    sb.Append(file.Filename);
                 }
 
-                return title;
+                return sb.ToString();
             }
 
-            set
+            return title;
+        }
+
+        set
+        {
+            if (value != title)
             {
-                if (value != title)
-                {
-                    title = value;
-                    Changed();
-                }
+                title = value;
+                Changed();
             }
         }
+    }
 
-        /// <summary>
-        /// Gets or sets the change date.
-        /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
-        public override GedcomChangeDate ChangeDate
+    /// <summary>
+    /// Gets or sets the change date.
+    /// </summary>
+    /// <value>
+    /// The change date.
+    /// </value>
+    public override GedcomChangeDate ChangeDate
+    {
+        get
         {
-            get
+            GedcomChangeDate realChangeDate = base.ChangeDate;
+            GedcomChangeDate childChangeDate;
+            foreach (GedcomMultimediaFile file in Files)
             {
-                GedcomChangeDate realChangeDate = base.ChangeDate;
-                GedcomChangeDate childChangeDate;
-                foreach (GedcomMultimediaFile file in Files)
+                childChangeDate = file.ChangeDate;
+                if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                 {
-                    childChangeDate = file.ChangeDate;
-                    if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
-                    {
-                        realChangeDate = childChangeDate;
-                    }
+                    realChangeDate = childChangeDate;
                 }
-
-                if (realChangeDate != null)
-                {
-                    realChangeDate.Level = Level + 2;
-                }
-
-                return realChangeDate;
             }
 
-            set
+            if (realChangeDate != null)
             {
-                base.ChangeDate = value;
+                realChangeDate.Level = Level + 2;
             }
+
+            return realChangeDate;
         }
 
-        /// <summary>
-        /// Compares the two passed records by title.
-        /// </summary>
-        /// <param name="mediaA">The first multimedia record.</param>
-        /// <param name="mediaB">The second multimedia record.</param>
-        /// <returns>
-        /// &lt;0 if the first record's title precedes the second in the sort order;
-        /// &gt;0 if the second record's title precedes the first;
-        /// 0 if the titles are equal.
-        /// </returns>
-        public static int CompareByTitle(GedcomMultimediaRecord mediaA, GedcomMultimediaRecord mediaB)
+        set
         {
-            return string.Compare(mediaA.Title, mediaB.Title);
+            base.ChangeDate = value;
         }
+    }
 
-        /// <summary>
-        /// Adds the multimedia file.
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        public void AddMultimediaFile(string filename)
+    /// <summary>
+    /// Compares the two passed records by title.
+    /// </summary>
+    /// <param name="mediaA">The first multimedia record.</param>
+    /// <param name="mediaB">The second multimedia record.</param>
+    /// <returns>
+    /// &lt;0 if the first record's title precedes the second in the sort order;
+    /// &gt;0 if the second record's title precedes the first;
+    /// 0 if the titles are equal.
+    /// </returns>
+    public static int CompareByTitle(GedcomMultimediaRecord mediaA, GedcomMultimediaRecord mediaB)
+    {
+        return string.Compare(mediaA.Title, mediaB.Title);
+    }
+
+    /// <summary>
+    /// Adds the multimedia file.
+    /// </summary>
+    /// <param name="filename">The filename.</param>
+    public void AddMultimediaFile(string filename)
+    {
+        FileInfo info = new FileInfo(filename);
+
+        GedcomMultimediaFile file = new GedcomMultimediaFile();
+        file.Database = Database;
+
+        file.Filename = filename;
+        file.Format = info.Extension;
+
+        files.Add(file);
+    }
+
+    /// <summary>
+    /// Outputs this instance as a GEDCOM record.
+    /// </summary>
+    /// <param name="sw">The writer to output to.</param>
+    public override void Output(TextWriter sw)
+    {
+        base.Output(sw);
+
+        string levelPlusOne = null;
+        string levelPlusTwo = null;
+
+        foreach (GedcomMultimediaFile file in files)
         {
-            FileInfo info = new FileInfo(filename);
-
-            GedcomMultimediaFile file = new GedcomMultimediaFile();
-            file.Database = Database;
-
-            file.Filename = filename;
-            file.Format = info.Extension;
-
-            files.Add(file);
-        }
-
-        /// <summary>
-        /// Outputs this instance as a GEDCOM record.
-        /// </summary>
-        /// <param name="sw">The writer to output to.</param>
-        public override void Output(TextWriter sw)
-        {
-            base.Output(sw);
-
-            string levelPlusOne = null;
-            string levelPlusTwo = null;
-
-            foreach (GedcomMultimediaFile file in files)
+            if (levelPlusOne == null)
             {
-                if (levelPlusOne == null)
-                {
-                    levelPlusOne = (Level + 1).ToString();
-                    levelPlusTwo = (Level + 2).ToString();
-                }
+                levelPlusOne = (Level + 1).ToString();
+                levelPlusTwo = (Level + 2).ToString();
+            }
 
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" FILE ");
+            sw.Write(Environment.NewLine);
+            sw.Write(levelPlusOne);
+            sw.Write(" FILE ");
 
-                // TODO: we don't support BLOB so we can end up without a filename
-                if (!string.IsNullOrEmpty(file.Filename))
-                {
-                    sw.Write(file.Filename);
-                }
+            // TODO: we don't support BLOB so we can end up without a filename
+            if (!string.IsNullOrEmpty(file.Filename))
+            {
+                sw.Write(file.Filename);
+            }
 
+            sw.Write(Environment.NewLine);
+            sw.Write(levelPlusTwo);
+            sw.Write(" FORM ");
+            if (!string.IsNullOrEmpty(file.Format))
+            {
+                sw.Write(file.Format);
+            }
+            else
+            {
+                sw.Write("Unknown");
+            }
+
+            if (!string.IsNullOrEmpty(file.SourceMediaType))
+            {
                 sw.Write(Environment.NewLine);
                 sw.Write(levelPlusTwo);
-                sw.Write(" FORM ");
-                if (!string.IsNullOrEmpty(file.Format))
-                {
-                    sw.Write(file.Format);
-                }
-                else
-                {
-                    sw.Write("Unknown");
-                }
-
-                if (!string.IsNullOrEmpty(file.SourceMediaType))
-                {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" MEDI ");
-                    sw.Write(file.SourceMediaType);
-                }
-
-                // GEDCOM 5.5.1 file-level title, written beside FORM under FILE.
-                if (!string.IsNullOrEmpty(file.Title))
-                {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" TITL ");
-                    sw.Write(file.Title);
-                }
-
-                if (file.IsPrimary)
-                {
-                    sw.Write(Environment.NewLine);
-                    sw.Write(levelPlusTwo);
-                    sw.Write(" _PRIM Y");
-                }
+                sw.Write(" MEDI ");
+                sw.Write(file.SourceMediaType);
             }
 
-            // The record-level title (GEDCOM 5.5) is kept separately from each file's title (GEDCOM 5.5.1).
-            // Only a title that was actually set is written, so read the field: the Title property falls back to
-            // the file names, which must not be written as a title.
-            if (!string.IsNullOrEmpty(title))
+            // GEDCOM 5.5.1 file-level title, written beside FORM under FILE.
+            if (!string.IsNullOrEmpty(file.Title))
             {
-                if (levelPlusOne == null)
-                {
-                    levelPlusOne = (Level + 1).ToString();
-                }
-
                 sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
+                sw.Write(levelPlusTwo);
                 sw.Write(" TITL ");
-                sw.Write(title);
+                sw.Write(file.Title);
+            }
+
+            if (file.IsPrimary)
+            {
+                sw.Write(Environment.NewLine);
+                sw.Write(levelPlusTwo);
+                sw.Write(" _PRIM Y");
             }
         }
 
-        /// <summary>
-        /// Compare the user entered data against the passed instance for similarity.
-        /// </summary>
-        /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
-        public override bool IsEquivalentTo(object obj)
+        // The record-level title (GEDCOM 5.5) is kept separately from each file's title (GEDCOM 5.5.1).
+        // Only a title that was actually set is written, so read the field: the Title property falls back to
+        // the file names, which must not be written as a title.
+        if (!string.IsNullOrEmpty(title))
         {
-            var media = obj as GedcomMultimediaRecord;
-
-            if (media == null)
+            if (levelPlusOne == null)
             {
-                return false;
+                levelPlusOne = (Level + 1).ToString();
             }
 
-            if (!GedcomGenericListComparer.CompareLists(Files, media.Files))
-            {
-                return false;
-            }
-
-            if (!Equals(Title, media.Title))
-            {
-                return false;
-            }
-
-            return true;
+            sw.Write(Environment.NewLine);
+            sw.Write(levelPlusOne);
+            sw.Write(" TITL ");
+            sw.Write(title);
         }
+    }
 
-        /// <summary>
-        /// Compare the user entered data against the passed instance for similarity.
-        /// </summary>
-        /// <param name="other">The GedcomMultimediaRecord to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
-        public bool Equals(GedcomMultimediaRecord other)
+    /// <summary>
+    /// Compare the user entered data against the passed instance for similarity.
+    /// </summary>
+    /// <param name="obj">The object to compare this instance against.</param>
+    /// <returns>
+    /// True if instance matches user data, otherwise false.
+    /// </returns>
+    public override bool IsEquivalentTo(object obj)
+    {
+        var media = obj as GedcomMultimediaRecord;
+
+        if (media == null)
         {
-            return IsEquivalentTo(other);
+            return false;
         }
 
-        /// <summary>
-        /// Compare the user entered data against the passed instance for similarity.
-        /// </summary>
-        /// <param name="obj">The object to compare this instance against.</param>
-        /// <returns>
-        /// True if instance matches user data, otherwise false.
-        /// </returns>
-        public override bool Equals(object obj)
+        if (!GedcomGenericListComparer.CompareLists(Files, media.Files))
         {
-            return IsEquivalentTo(obj);
+            return false;
         }
 
-        /// <inheritdoc/>
-        public override int GetHashCode()
+        if (!Equals(Title, media.Title))
         {
-            return new
-            {
-                Files,
-                Title,
-            }.GetHashCode();
+            return false;
         }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Compare the user entered data against the passed instance for similarity.
+    /// </summary>
+    /// <param name="other">The GedcomMultimediaRecord to compare this instance against.</param>
+    /// <returns>
+    /// True if instance matches user data, otherwise false.
+    /// </returns>
+    public bool Equals(GedcomMultimediaRecord other)
+    {
+        return IsEquivalentTo(other);
+    }
+
+    /// <summary>
+    /// Compare the user entered data against the passed instance for similarity.
+    /// </summary>
+    /// <param name="obj">The object to compare this instance against.</param>
+    /// <returns>
+    /// True if instance matches user data, otherwise false.
+    /// </returns>
+    public override bool Equals(object obj)
+    {
+        return IsEquivalentTo(obj);
+    }
+
+    /// <inheritdoc/>
+    public override int GetHashCode()
+    {
+        return new
+        {
+            Files,
+            Title,
+        }.GetHashCode();
     }
 }

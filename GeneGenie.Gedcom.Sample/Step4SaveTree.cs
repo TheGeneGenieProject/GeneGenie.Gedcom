@@ -4,24 +4,21 @@
 // </copyright>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Sample
-{
-    using System;
-    using GeneGenie.Gedcom.Parser;
+namespace GeneGenie.Gedcom.Sample;
 
+/// <summary>
+/// Tiny sample class on how to save a GEDCOM file.
+/// </summary>
+
+public static class Step4SaveTree
+{
     /// <summary>
-    /// Tiny sample class on how to save a GEDCOM file.
+    /// Saves the sample database out to a new file.
     /// </summary>
-    public static class Step4SaveTree
+    /// <param name="db">The database to save.</param>
+    public static void Save(GedcomDatabase db)
     {
-        /// <summary>
-        /// Saves the sample database out to a new file.
-        /// </summary>
-        /// <param name="db">The database to save.</param>
-        public static void Save(GedcomDatabase db)
-        {
-            GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
-            Console.WriteLine($"Output database to rewritten.ged.");
-        }
+        GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
+        Console.WriteLine($"Output database to rewritten.ged.");
     }
 }

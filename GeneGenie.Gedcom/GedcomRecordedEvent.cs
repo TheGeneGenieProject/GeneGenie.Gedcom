@@ -5,265 +5,261 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom;
+
+/// <summary>
+/// TODO: Doc.
+/// </summary>
+
+public class GedcomRecordedEvent : IComparable<GedcomRecordedEvent>, IComparable, IEquatable<GedcomRecordedEvent>
 {
-    using System;
-    using System.Linq;
-    using GeneGenie.Gedcom.Enums;
+    private GedcomDatabase database;
+
+    private GedcomRecordList<GedcomEventType> types;
+    private GedcomDate date;
+    private GedcomPlace place;
+
+    private GedcomChangeDate changeDate;
 
     /// <summary>
-    /// TODO: Doc.
+    /// Initializes a new instance of the <see cref="GedcomRecordedEvent"/> class.
     /// </summary>
-    public class GedcomRecordedEvent : IComparable<GedcomRecordedEvent>, IComparable, IEquatable<GedcomRecordedEvent>
+    public GedcomRecordedEvent()
     {
-        private GedcomDatabase database;
+    }
 
-        private GedcomRecordList<GedcomEventType> types;
-        private GedcomDate date;
-        private GedcomPlace place;
+    /// <summary>
+    /// Gets or sets the date that this record was changed.
+    /// </summary>
+    /// <value>
+    /// The date of the change.
+    /// </value>
+    public GedcomChangeDate ChangeDate { get; set; }
 
-        private GedcomChangeDate changeDate;
+    /// <summary>
+    /// Gets or sets the database.
+    /// </summary>
+    /// <value>
+    /// The database.
+    /// </value>
+    public GedcomDatabase Database
+    {
+        get { return database; }
+        set { database = value; }
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomRecordedEvent"/> class.
-        /// </summary>
-        public GedcomRecordedEvent()
+    /// <summary>
+    /// Gets or sets the types.
+    /// </summary>
+    /// <value>
+    /// The types.
+    /// </value>
+    public GedcomRecordList<GedcomEventType> Types
+    {
+        get
         {
+            if (types == null)
+            {
+                types = new GedcomRecordList<GedcomEventType>();
+            }
+
+            return types;
         }
 
-        /// <summary>
-        /// Gets or sets the date that this record was changed.
-        /// </summary>
-        /// <value>
-        /// The date of the change.
-        /// </value>
-        public GedcomChangeDate ChangeDate { get; set; }
-
-        /// <summary>
-        /// Gets or sets the database.
-        /// </summary>
-        /// <value>
-        /// The database.
-        /// </value>
-        public GedcomDatabase Database
+        set
         {
-            get { return database; }
-            set { database = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the types.
-        /// </summary>
-        /// <value>
-        /// The types.
-        /// </value>
-        public GedcomRecordList<GedcomEventType> Types
-        {
-            get
+            if (types != value)
             {
-                if (types == null)
-                {
-                    types = new GedcomRecordList<GedcomEventType>();
-                }
-
-                return types;
-            }
-
-            set
-            {
-                if (types != value)
-                {
-                    types = value;
-                    Changed();
-                }
+                types = value;
+                Changed();
             }
         }
+    }
 
-        /// <summary>
-        /// Gets or sets the date.
-        /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
-        public GedcomDate Date
+    /// <summary>
+    /// Gets or sets the date.
+    /// </summary>
+    /// <value>
+    /// The date.
+    /// </value>
+    public GedcomDate Date
+    {
+        get
         {
-            get
-            {
-                return date;
-            }
-
-            set
-            {
-                if (value != date)
-                {
-                    date = value;
-                    Changed();
-                }
-            }
+            return date;
         }
 
-        /// <summary>
-        /// Gets or sets the place.
-        /// </summary>
-        /// <value>
-        /// The place.
-        /// </value>
-        public GedcomPlace Place
+        set
         {
-            get
+            if (value != date)
             {
-                return place;
-            }
-
-            set
-            {
-                if (value != place)
-                {
-                    place = value;
-                    Changed();
-                }
+                date = value;
+                Changed();
             }
         }
+    }
 
-        /// <summary>
-        /// Compares this event to another record.
-        /// </summary>
-        /// <param name="other">A recorded event.</param>
-        /// <returns>
-        /// &lt;0 if the first event precedes the second in the sort order;
-        /// &gt;0 if the second event precedes the first;
-        /// 0 if the events are equal.
-        /// </returns>
-        public int CompareTo(GedcomRecordedEvent other)
+    /// <summary>
+    /// Gets or sets the place.
+    /// </summary>
+    /// <value>
+    /// The place.
+    /// </value>
+    public GedcomPlace Place
+    {
+        get
         {
-            if (other == null)
-            {
-                return 1;
-            }
+            return place;
+        }
 
-            var compare = CompareEvents(Types, other.Types);
-            if (compare != 0)
+        set
+        {
+            if (value != place)
             {
-                return compare;
+                place = value;
+                Changed();
             }
+        }
+    }
 
-            compare = GedcomGenericComparer.SafeCompareOrder(Date, other.Date);
-            if (compare != 0)
-            {
-                return compare;
-            }
+    /// <summary>
+    /// Compares this event to another record.
+    /// </summary>
+    /// <param name="other">A recorded event.</param>
+    /// <returns>
+    /// &lt;0 if the first event precedes the second in the sort order;
+    /// &gt;0 if the second event precedes the first;
+    /// 0 if the events are equal.
+    /// </returns>
+    public int CompareTo(GedcomRecordedEvent other)
+    {
+        if (other == null)
+        {
+            return 1;
+        }
 
-            compare = GedcomGenericComparer.SafeCompareOrder(Place, other.Place);
-            if (compare != 0)
-            {
-                return compare;
-            }
-
+        var compare = CompareEvents(Types, other.Types);
+        if (compare != 0)
+        {
             return compare;
         }
 
-        /// <summary>
-        /// Compares this event to another record.
-        /// </summary>
-        /// <param name="obj">A recorded event.</param>
-        /// <returns>
-        /// &lt;0 if the first event precedes the second in the sort order;
-        /// &gt;0 if the second event precedes the first;
-        /// 0 if the events are equal.
-        /// </returns>
-        public int CompareTo(object obj)
+        compare = GedcomGenericComparer.SafeCompareOrder(Date, other.Date);
+        if (compare != 0)
         {
-            return CompareTo(obj as GedcomRecordedEvent);
+            return compare;
         }
 
-        /// <summary>
-        /// Compare the GedcomRecordedEvent against the passed instance for similarity.
-        /// </summary>
-        /// <param name="other">The other instance to compare this instance against.</param>
-        /// <returns>
-        /// True if other instance matches this instance, otherwise False.
-        /// </returns>
-        public bool Equals(GedcomRecordedEvent other)
+        compare = GedcomGenericComparer.SafeCompareOrder(Place, other.Place);
+        if (compare != 0)
         {
-            return CompareTo(other) == 0;
+            return compare;
         }
 
-        /// <summary>
-        /// Compare the GedcomRecordedEvent against the passed instance for similarity.
-        /// </summary>
-        /// <param name="obj">The other instance to compare this instance against.</param>
-        /// <returns>
-        /// True if other instance matches this instance, otherwise False.
-        /// </returns>
-        public override bool Equals(object obj)
+        return compare;
+    }
+
+    /// <summary>
+    /// Compares this event to another record.
+    /// </summary>
+    /// <param name="obj">A recorded event.</param>
+    /// <returns>
+    /// &lt;0 if the first event precedes the second in the sort order;
+    /// &gt;0 if the second event precedes the first;
+    /// 0 if the events are equal.
+    /// </returns>
+    public int CompareTo(object obj)
+    {
+        return CompareTo(obj as GedcomRecordedEvent);
+    }
+
+    /// <summary>
+    /// Compare the GedcomRecordedEvent against the passed instance for similarity.
+    /// </summary>
+    /// <param name="other">The other instance to compare this instance against.</param>
+    /// <returns>
+    /// True if other instance matches this instance, otherwise False.
+    /// </returns>
+    public bool Equals(GedcomRecordedEvent other)
+    {
+        return CompareTo(other) == 0;
+    }
+
+    /// <summary>
+    /// Compare the GedcomRecordedEvent against the passed instance for similarity.
+    /// </summary>
+    /// <param name="obj">The other instance to compare this instance against.</param>
+    /// <returns>
+    /// True if other instance matches this instance, otherwise False.
+    /// </returns>
+    public override bool Equals(object obj)
+    {
+        return CompareTo(obj as GedcomRecordedEvent) == 0;
+    }
+
+    /// <inheritdoc/>
+    public override int GetHashCode()
+    {
+        return new
         {
-            return CompareTo(obj as GedcomRecordedEvent) == 0;
+            Types,
+            Date,
+            Place,
+        }.GetHashCode();
+    }
+
+    /// <summary>
+    /// Updates the changed date and time.
+    /// </summary>
+    protected virtual void Changed()
+    {
+        if (database == null)
+        {
+            // System.Console.WriteLine("Changed() called on record with no database set");
+            //
+            //              System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+            //              foreach (System.Diagnostics.StackFrame f in trace.GetFrames())
+            //              {
+            //                  System.Console.WriteLine(f);
+            //              }
         }
-
-        /// <inheritdoc/>
-        public override int GetHashCode()
+        else if (!database.Loading)
         {
-            return new
+            if (changeDate == null)
             {
-                Types,
-                Date,
-                Place,
-            }.GetHashCode();
-        }
-
-        /// <summary>
-        /// Updates the changed date and time.
-        /// </summary>
-        protected virtual void Changed()
-        {
-            if (database == null)
-            {
-                // System.Console.WriteLine("Changed() called on record with no database set");
-                //
-                //              System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
-                //              foreach (System.Diagnostics.StackFrame f in trace.GetFrames())
-                //              {
-                //                  System.Console.WriteLine(f);
-                //              }
-            }
-            else if (!database.Loading)
-            {
-                if (changeDate == null)
-                {
-                    changeDate = new GedcomChangeDate(database); // TODO: what level?
-                }
-
-                DateTime now = DateTime.Now;
-
-                changeDate.Date1 = now.ToString("dd MMM yyyy");
-                changeDate.Time = now.ToString("hh:mm:ss");
-            }
-        }
-
-        private static int CompareEvents(GedcomRecordList<GedcomEventType> list1, GedcomRecordList<GedcomEventType> list2)
-        {
-            if (list1.Count > list2.Count)
-            {
-                return 1;
-            }
-
-            if (list1.Count < list2.Count)
-            {
-                return -1;
+                changeDate = new GedcomChangeDate(database); // TODO: what level?
             }
 
-            var sortedList1 = list1.OrderBy(n => n.GetHashCode()).ToList();
-            var sortedList2 = list2.OrderBy(n => n.GetHashCode()).ToList();
-            for (var i = 0; i < sortedList1.Count; i++)
-            {
-                var compare = sortedList1.ElementAt(i).CompareTo(sortedList2.ElementAt(i));
-                if (compare != 0)
-                {
-                    return compare;
-                }
-            }
+            DateTime now = DateTime.Now;
 
-            return 0;
+            changeDate.Date1 = now.ToString("dd MMM yyyy");
+            changeDate.Time = now.ToString("hh:mm:ss");
         }
+    }
+
+    private static int CompareEvents(GedcomRecordList<GedcomEventType> list1, GedcomRecordList<GedcomEventType> list2)
+    {
+        if (list1.Count > list2.Count)
+        {
+            return 1;
+        }
+
+        if (list1.Count < list2.Count)
+        {
+            return -1;
+        }
+
+        var sortedList1 = list1.OrderBy(n => n.GetHashCode()).ToList();
+        var sortedList2 = list2.OrderBy(n => n.GetHashCode()).ToList();
+        for (var i = 0; i < sortedList1.Count; i++)
+        {
+            var compare = sortedList1.ElementAt(i).CompareTo(sortedList2.ElementAt(i));
+            if (compare != 0)
+            {
+                return compare;
+            }
+        }
+
+        return 0;
     }
 }

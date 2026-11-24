@@ -1,0 +1,19 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- System, System.IO, System.Linq and the other common namespaces come from ImplicitUsings. Each
+         project's own Usings.cs adds the rest as global usings, so source files have no using block.
+         See docs/coding-conventions.md. -->
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Run the .editorconfig style rules on every build, not just in the editor, so file-scoped
+         namespaces (IDE0161), using placement (IDE0065) and unused usings (IDE0005) are checked. -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- The licence header check (IDE0073) stays out of the build. Many files carry extra author
+         copyright lines from the original Gedcom.NET code, which must be kept, so their headers can't
+         match the template exactly. -->
+    <NoWarn>$(NoWarn);IDE0073</NoWarn>
+  </PropertyGroup>
+
+</Project>

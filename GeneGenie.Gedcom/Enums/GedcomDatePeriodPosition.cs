@@ -4,19 +4,18 @@
 // </copyright>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>When parsing date formats dates can be prefixed but are sometimes suffixed.
+/// This defines where to look for specific date period indicators.</summary>
+public enum GedcomDatePeriodPosition
 {
-    /// <summary>When parsing date formats dates can be prefixed but are sometimes suffixed.
-    /// This defines where to look for specific date period indicators.</summary>
-    public enum GedcomDatePeriodPosition
-    {
-        /// <summary>Error state for uninitialised instances.</summary>
-        NotSet = 0,
+    /// <summary>Error state for uninitialised instances.</summary>
+    NotSet = 0,
 
-        /// <summary>The text denoting the date period is before the dates.</summary>
-        Prefix = 1,
+    /// <summary>The text denoting the date period is before the dates.</summary>
+    Prefix = 1,
 
-        /// <summary>The text denoting the date period is after the dates.</summary>
-        Suffix = 2,
-    }
+    /// <summary>The text denoting the date period is after the dates.</summary>
+    Suffix = 2,
 }

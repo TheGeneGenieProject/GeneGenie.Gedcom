@@ -5,31 +5,30 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// Child Linkage Status.
+/// </summary>
+public enum ChildLinkageStatus
 {
     /// <summary>
-    /// Child Linkage Status.
+    /// Unknown
     /// </summary>
-    public enum ChildLinkageStatus
-    {
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        Unknown,
+    Unknown,
 
-        /// <summary>
-        /// Challenged
-        /// </summary>
-        Challenged,
+    /// <summary>
+    /// Challenged
+    /// </summary>
+    Challenged,
 
-        /// <summary>
-        /// Disproven
-        /// </summary>
-        Disproven,
+    /// <summary>
+    /// Disproven
+    /// </summary>
+    Disproven,
 
-        /// <summary>
-        /// Proven
-        /// </summary>
-        Proven,
-    }
+    /// <summary>
+    /// Proven
+    /// </summary>
+    Proven,
 }

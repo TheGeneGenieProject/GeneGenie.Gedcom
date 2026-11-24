@@ -5,34 +5,33 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Enums
+namespace GeneGenie.Gedcom.Enums;
+
+/// <summary>
+/// GEDCOM Restriction Types.
+/// </summary>
+/// <remarks>
+/// Signifies that access to information has been denied or otherwise restricted.
+/// </remarks>
+public enum GedcomRestrictionNotice
 {
     /// <summary>
-    /// GEDCOM Restriction Types.
+    /// None
     /// </summary>
-    /// <remarks>
-    /// Signifies that access to information has been denied or otherwise restricted.
-    /// </remarks>
-    public enum GedcomRestrictionNotice
-    {
-        /// <summary>
-        /// None
-        /// </summary>
-        None = 0,
+    None = 0,
 
-        /// <summary>
-        /// Confidential
-        /// </summary>
-        Confidential,
+    /// <summary>
+    /// Confidential
+    /// </summary>
+    Confidential,
 
-        /// <summary>
-        /// Locked
-        /// </summary>
-        Locked,
+    /// <summary>
+    /// Locked
+    /// </summary>
+    Locked,
 
-        /// <summary>
-        /// Privacy
-        /// </summary>
-        Privacy,
-    }
+    /// <summary>
+    /// Privacy
+    /// </summary>
+    Privacy,
 }

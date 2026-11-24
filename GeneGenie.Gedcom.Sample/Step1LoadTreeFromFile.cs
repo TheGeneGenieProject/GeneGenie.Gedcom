@@ -4,43 +4,40 @@
 // </copyright>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Sample
+namespace GeneGenie.Gedcom.Sample;
+
+/// <summary>
+/// Tiny sample class on how to load a GEDCOM file.
+/// </summary>
+
+public static class Step1LoadTreeFromFile
 {
-    using System;
-    using GeneGenie.Gedcom.Parser;
-
     /// <summary>
-    /// Tiny sample class on how to load a GEDCOM file.
+    /// Loads the presidents tree.
     /// </summary>
-    public static class Step1LoadTreeFromFile
+    /// <returns>A database reader that can be used to access the parsed database.</returns>
+    public static GedcomDatabase LoadPresidentsTree()
     {
-        /// <summary>
-        /// Loads the presidents tree.
-        /// </summary>
-        /// <returns>A database reader that can be used to access the parsed database.</returns>
-        public static GedcomDatabase LoadPresidentsTree()
+        var db = LoadGedcomFromFile();
+        if (db == null)
         {
-            var db = LoadGedcomFromFile();
-            if (db == null)
-            {
-                return null;
-            }
-
-            Console.WriteLine("Loaded presidents test file.");
-            return db;
+            return null;
         }
 
-        private static GedcomDatabase LoadGedcomFromFile()
-        {
-            var gedcomReader = GedcomRecordReader.CreateReader("Data/presidents.ged");
-            if (gedcomReader.Parser.ErrorState != Enums.GedcomErrorState.NoError)
-            {
-                Console.WriteLine($"Could not read file, encountered error {gedcomReader.Parser.ErrorState} press a key to continue.");
-                Console.ReadKey();
-                return null;
-            }
+        Console.WriteLine("Loaded presidents test file.");
+        return db;
+    }
 
-            return gedcomReader.Database;
+    private static GedcomDatabase LoadGedcomFromFile()
+    {
+        var gedcomReader = GedcomRecordReader.CreateReader("Data/presidents.ged");
+        if (gedcomReader.Parser.ErrorState != Enums.GedcomErrorState.NoError)
+        {
+            Console.WriteLine($"Could not read file, encountered error {gedcomReader.Parser.ErrorState} press a key to continue.");
+            Console.ReadKey();
+            return null;
         }
+
+        return gedcomReader.Database;
     }
 }

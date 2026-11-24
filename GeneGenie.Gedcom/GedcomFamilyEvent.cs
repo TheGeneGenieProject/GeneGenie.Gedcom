@@ -5,212 +5,208 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom;
+
+/// <summary>
+/// An event relating to a given family.
+/// </summary>
+
+public class GedcomFamilyEvent : GedcomEvent, IEquatable<GedcomFamilyEvent>
 {
-    using System;
-    using System.IO;
-    using GeneGenie.Gedcom.Enums;
+    private GedcomAge husbandAge;
+    private GedcomAge wifeAge;
 
     /// <summary>
-    /// An event relating to a given family.
+    /// Initializes a new instance of the <see cref="GedcomFamilyEvent"/> class.
     /// </summary>
-    public class GedcomFamilyEvent : GedcomEvent, IEquatable<GedcomFamilyEvent>
+    public GedcomFamilyEvent()
     {
-        private GedcomAge husbandAge;
-        private GedcomAge wifeAge;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomFamilyEvent"/> class.
-        /// </summary>
-        public GedcomFamilyEvent()
+    /// <summary>
+    /// Gets the type of the record.
+    /// </summary>
+    /// <value>
+    /// The type of the record.
+    /// </value>
+    public override GedcomRecordType RecordType
+    {
+        get { return GedcomRecordType.FamilyEvent; }
+    }
+
+    /// <summary>
+    /// Gets or sets the husband age.
+    /// </summary>
+    /// <value>
+    /// The husband age.
+    /// </value>
+    public GedcomAge HusbandAge
+    {
+        get
         {
+            return husbandAge;
         }
 
-        /// <summary>
-        /// Gets the type of the record.
-        /// </summary>
-        /// <value>
-        /// The type of the record.
-        /// </value>
-        public override GedcomRecordType RecordType
+        set
         {
-            get { return GedcomRecordType.FamilyEvent; }
-        }
-
-        /// <summary>
-        /// Gets or sets the husband age.
-        /// </summary>
-        /// <value>
-        /// The husband age.
-        /// </value>
-        public GedcomAge HusbandAge
-        {
-            get
+            if (value != husbandAge)
             {
-                return husbandAge;
+                husbandAge = value;
+                Changed();
             }
+        }
+    }
 
-            set
+    /// <summary>
+    /// Gets or sets the wife age.
+    /// </summary>
+    /// <value>
+    /// The wife age.
+    /// </value>
+    public GedcomAge WifeAge
+    {
+        get
+        {
+            return wifeAge;
+        }
+
+        set
+        {
+            if (value != wifeAge)
             {
-                if (value != husbandAge)
+                wifeAge = value;
+                Changed();
+            }
+        }
+    }
+
+    // util backpointer to the family record
+    // this event belongs in
+
+    /// <summary>
+    /// Gets or sets the family record.
+    /// </summary>
+    /// <value>
+    /// The family record.
+    /// </value>
+    /// <exception cref="Exception">Must set a GedcomFamilyRecord on a GedcomFamilyEvent.</exception>
+    public GedcomFamilyRecord FamRecord
+    {
+        get
+        {
+            return (GedcomFamilyRecord)Record;
+        }
+
+        set
+        {
+            if (value != Record)
+            {
+                Record = value;
+                if (Record != null)
                 {
-                    husbandAge = value;
-                    Changed();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the wife age.
-        /// </summary>
-        /// <value>
-        /// The wife age.
-        /// </value>
-        public GedcomAge WifeAge
-        {
-            get
-            {
-                return wifeAge;
-            }
-
-            set
-            {
-                if (value != wifeAge)
-                {
-                    wifeAge = value;
-                    Changed();
-                }
-            }
-        }
-
-        // util backpointer to the family record
-        // this event belongs in
-
-        /// <summary>
-        /// Gets or sets the family record.
-        /// </summary>
-        /// <value>
-        /// The family record.
-        /// </value>
-        /// <exception cref="Exception">Must set a GedcomFamilyRecord on a GedcomFamilyEvent.</exception>
-        public GedcomFamilyRecord FamRecord
-        {
-            get
-            {
-                return (GedcomFamilyRecord)Record;
-            }
-
-            set
-            {
-                if (value != Record)
-                {
-                    Record = value;
-                    if (Record != null)
+                    if (Record.RecordType != GedcomRecordType.Family)
                     {
-                        if (Record.RecordType != GedcomRecordType.Family)
-                        {
-                            throw new Exception("Must set a GedcomFamilyRecord on a GedcomFamilyEvent");
-                        }
-
-                        Database = Record.Database;
-                    }
-                    else
-                    {
-                        Database = null;
+                        throw new Exception("Must set a GedcomFamilyRecord on a GedcomFamilyEvent");
                     }
 
-                    Changed();
+                    Database = Record.Database;
                 }
+                else
+                {
+                    Database = null;
+                }
+
+                Changed();
             }
         }
+    }
 
-        /// <summary>
-        /// Gets or sets the change date.
-        /// </summary>
-        /// <value>
-        /// The change date.
-        /// </value>
-        public override GedcomChangeDate ChangeDate
+    /// <summary>
+    /// Gets or sets the change date.
+    /// </summary>
+    /// <value>
+    /// The change date.
+    /// </value>
+    public override GedcomChangeDate ChangeDate
+    {
+        get
         {
-            get
+            GedcomChangeDate realChangeDate = base.ChangeDate;
+            GedcomChangeDate childChangeDate;
+            if (husbandAge != null)
             {
-                GedcomChangeDate realChangeDate = base.ChangeDate;
-                GedcomChangeDate childChangeDate;
-                if (husbandAge != null)
+                childChangeDate = husbandAge.ChangeDate;
+                if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
                 {
-                    childChangeDate = husbandAge.ChangeDate;
-                    if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
-                    {
-                        realChangeDate = childChangeDate;
-                    }
+                    realChangeDate = childChangeDate;
                 }
-
-                if (wifeAge != null)
-                {
-                    childChangeDate = wifeAge.ChangeDate;
-                    if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
-                    {
-                        realChangeDate = childChangeDate;
-                    }
-                }
-
-                if (realChangeDate != null)
-                {
-                    realChangeDate.Level = Level + 2;
-                }
-
-                return realChangeDate;
             }
 
-            set
+            if (wifeAge != null)
             {
-                base.ChangeDate = value;
+                childChangeDate = wifeAge.ChangeDate;
+                if (childChangeDate != null && realChangeDate != null && childChangeDate > realChangeDate)
+                {
+                    realChangeDate = childChangeDate;
+                }
             }
+
+            if (realChangeDate != null)
+            {
+                realChangeDate.Level = Level + 2;
+            }
+
+            return realChangeDate;
         }
 
-        /// <summary>
-        /// Output GEDCOM format for this family event.
-        /// </summary>
-        /// <param name="sw">Where to output the data to.</param>
-        public override void Output(TextWriter sw)
+        set
         {
-            base.Output(sw);
-
-            string levelPlusOne = null;
-
-            if (HusbandAge != null)
-            {
-                if (levelPlusOne == null)
-                {
-                    levelPlusOne = (Level + 1).ToString();
-                }
-
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" HUSB ");
-
-                HusbandAge.Output(sw, Level + 2);
-            }
-
-            if (WifeAge != null)
-            {
-                if (levelPlusOne == null)
-                {
-                    levelPlusOne = (Level + 1).ToString();
-                }
-
-                sw.Write(Environment.NewLine);
-                sw.Write(levelPlusOne);
-                sw.Write(" WIFE ");
-
-                WifeAge.Output(sw, Level + 2);
-            }
+            base.ChangeDate = value;
         }
+    }
 
-        /// <inheritdoc />
-        public bool Equals(GedcomFamilyEvent other)
+    /// <summary>
+    /// Output GEDCOM format for this family event.
+    /// </summary>
+    /// <param name="sw">Where to output the data to.</param>
+    public override void Output(TextWriter sw)
+    {
+        base.Output(sw);
+
+        string levelPlusOne = null;
+
+        if (HusbandAge != null)
         {
-            return IsEquivalentTo(other);
+            if (levelPlusOne == null)
+            {
+                levelPlusOne = (Level + 1).ToString();
+            }
+
+            sw.Write(Environment.NewLine);
+            sw.Write(levelPlusOne);
+            sw.Write(" HUSB ");
+
+            HusbandAge.Output(sw, Level + 2);
         }
+
+        if (WifeAge != null)
+        {
+            if (levelPlusOne == null)
+            {
+                levelPlusOne = (Level + 1).ToString();
+            }
+
+            sw.Write(Environment.NewLine);
+            sw.Write(levelPlusOne);
+            sw.Write(" WIFE ");
+
+            WifeAge.Output(sw, Level + 2);
+        }
+    }
+
+    /// <inheritdoc />
+    public bool Equals(GedcomFamilyEvent other)
+    {
+        return IsEquivalentTo(other);
     }
 }

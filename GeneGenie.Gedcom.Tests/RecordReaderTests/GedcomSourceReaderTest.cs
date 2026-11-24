@@ -4,27 +4,23 @@
 // </copyright>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom;
+
+/// <summary>
+/// Tests that source records are read in for the varying record types.
+/// </summary>
+
+public class GedcomSourceReaderTest
 {
-    using System.Linq;
-    using GeneGenie.Gedcom.Parser;
-    using Xunit;
-
-    /// <summary>
-    /// Tests that source records are read in for the varying record types.
-    /// </summary>
-    public class GedcomSourceReaderTest
+    [Fact]
+    private void Correct_number_of_sources_loaded_for_individual()
     {
-        [Fact]
-        private void Correct_number_of_sources_loaded_for_individual()
-        {
-            var reader = GedcomRecordReader.CreateReader("./Data/multiple-sources.ged");
-            string personId = reader.Parser.XrefCollection["P1"];
+        var reader = GedcomRecordReader.CreateReader("./Data/multiple-sources.ged");
+        string personId = reader.Parser.XrefCollection["P1"];
 
-            var individual = reader.Database.Individuals.First(i => i.XRefID == personId);
+        var individual = reader.Database.Individuals.First(i => i.XRefID == personId);
 
-            Assert.Single(individual.Birth.Sources);
-            Assert.Single(individual.Death.Sources);
-        }
+        Assert.Single(individual.Birth.Sources);
+        Assert.Single(individual.Death.Sources);
     }
 }

@@ -4,64 +4,62 @@
 // </copyright>
 // <author> Copyright (C) 2016 Grant Winney </author>
 
-namespace GeneGenie.Gedcom.Tests.Individuals
+namespace GeneGenie.Gedcom.Tests.Individuals;
+
+/// <summary>
+/// Tests for equality of associations.
+/// </summary>
+
+public class GedcomAssociationComparisonTest
 {
-    using Xunit;
+    private GedcomAssociation assoc1;
+    private GedcomAssociation assoc2;
 
     /// <summary>
-    /// Tests for equality of associations.
+    /// Initializes a new instance of the <see cref="GedcomAssociationComparisonTest"/> class.
     /// </summary>
-    public class GedcomAssociationComparisonTest
+    public GedcomAssociationComparisonTest()
     {
-        private GedcomAssociation assoc1;
-        private GedcomAssociation assoc2;
+        assoc1 = GenerateCompleteAssociation();
+        assoc2 = GenerateCompleteAssociation();
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomAssociationComparisonTest"/> class.
-        /// </summary>
-        public GedcomAssociationComparisonTest()
+    [Fact]
+    private void Association_not_equal_to_null()
+    {
+        Assert.NotNull(assoc1);
+    }
+
+    [Fact]
+    private void Associations_with_different_individuals_not_equal()
+    {
+        assoc1.Individual = "@ I2 @";
+        assoc2.Individual = "@ I4 @";
+
+        Assert.NotEqual(assoc1, assoc2);
+    }
+
+    [Fact]
+    private void Associations_with_different_descriptions_not_equal()
+    {
+        assoc1.Description = "Godparent";
+        assoc2.Description = "Witness";
+
+        Assert.NotEqual(assoc1, assoc2);
+    }
+
+    [Fact]
+    private void Associations_with_same_facts_are_equal()
+    {
+        Assert.Equal(assoc1, assoc2);
+    }
+
+    private GedcomAssociation GenerateCompleteAssociation()
+    {
+        return new GedcomAssociation
         {
-            assoc1 = GenerateCompleteAssociation();
-            assoc2 = GenerateCompleteAssociation();
-        }
-
-        [Fact]
-        private void Association_not_equal_to_null()
-        {
-            Assert.NotNull(assoc1);
-        }
-
-        [Fact]
-        private void Associations_with_different_individuals_not_equal()
-        {
-            assoc1.Individual = "@ I2 @";
-            assoc2.Individual = "@ I4 @";
-
-            Assert.NotEqual(assoc1, assoc2);
-        }
-
-        [Fact]
-        private void Associations_with_different_descriptions_not_equal()
-        {
-            assoc1.Description = "Godparent";
-            assoc2.Description = "Witness";
-
-            Assert.NotEqual(assoc1, assoc2);
-        }
-
-        [Fact]
-        private void Associations_with_same_facts_are_equal()
-        {
-            Assert.Equal(assoc1, assoc2);
-        }
-
-        private GedcomAssociation GenerateCompleteAssociation()
-        {
-            return new GedcomAssociation
-            {
-                Individual = "@ I2 @",
-                Description = "Godparent",
-            };
-        }
+            Individual = "@ I2 @",
+            Description = "Godparent",
+        };
     }
 }

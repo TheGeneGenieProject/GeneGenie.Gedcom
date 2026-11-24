@@ -5,37 +5,36 @@
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 // <author> Copyright (C) 2007-2008 David A Knight david@ritter.demon.co.uk </author>
 
-namespace GeneGenie.Gedcom.Parser
+namespace GeneGenie.Gedcom.Parser;
+
+/// <summary>
+/// Lists of error strings etc that don't change.
+/// </summary>
+public class StaticData
 {
+    // TODO: These should be in the same place as the codes they map to otherwise they'll get out of sync. Change to Dictionary and merge.
+
     /// <summary>
-    /// Lists of error strings etc that don't change.
+    /// Descriptions for each parse error.
     /// </summary>
-    public class StaticData
+    public static readonly string[] ParseErrorDescriptions = new string[]
     {
-        // TODO: These should be in the same place as the codes they map to otherwise they'll get out of sync. Change to Dictionary and merge.
+        "No Error",
 
-        /// <summary>
-        /// Descriptions for each parse error.
-        /// </summary>
-        public static readonly string[] ParseErrorDescriptions = new string[]
-        {
-            "No Error",
+        "Level expected but not found",
+        "Level needs trailing delimiter",
+        "Level is invalid",
 
-            "Level expected but not found",
-            "Level needs trailing delimiter",
-            "Level is invalid",
+        "Xref id needs trailing delimiter",
+        "Xref too long",
 
-            "Xref id needs trailing delimiter",
-            "Xref too long",
+        "Tag expected",
+        "Tag needs trailing delimiter or newline",
 
-            "Tag expected",
-            "Tag needs trailing delimiter or newline",
+        "Line value expected",
+        "Line value needs trailing newline",
+        "Line value invalid",
 
-            "Line value expected",
-            "Line value needs trailing newline",
-            "Line value invalid",
-
-            "Unknown Error",
-        };
-    }
+        "Unknown Error",
+    };
 }

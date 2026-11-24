@@ -3,36 +3,34 @@
 // Licensed under the GNU Affero General Public License v3.0. See LICENSE in the project root for license information.
 // </copyright>
 
-namespace GeneGenie.Gedcom.Sample
+namespace GeneGenie.Gedcom.Sample;
+
+/// <summary>
+/// Sample console app showing how to read, query, change and save a GEDCOM file.
+/// </summary>
+
+public static class Program
 {
-    using System;
-
     /// <summary>
-    /// Sample console app showing how to read, query, change and save a GEDCOM file.
+    /// App entry point.
     /// </summary>
-    public static class Program
+    public static void Main()
     {
-        /// <summary>
-        /// App entry point.
-        /// </summary>
-        public static void Main()
+        var db = Step1LoadTreeFromFile.LoadPresidentsTree();
+        if (db == null)
         {
-            var db = Step1LoadTreeFromFile.LoadPresidentsTree();
-            if (db == null)
-            {
-                return;
-            }
-
-            Step2QueryTree.QueryTree(db);
-
-            Console.WriteLine($"Count of people before adding new person - {db.Individuals.Count}.");
-            Step3AddAPerson.AddPerson(db);
-            Console.WriteLine($"Count of people after adding new person - {db.Individuals.Count}.");
-
-            Step4SaveTree.Save(db);
-
-            Console.WriteLine("Finished, press a key to continue.");
-            Console.ReadKey();
+            return;
         }
+
+        Step2QueryTree.QueryTree(db);
+
+        Console.WriteLine($"Count of people before adding new person - {db.Individuals.Count}.");
+        Step3AddAPerson.AddPerson(db);
+        Console.WriteLine($"Count of people after adding new person - {db.Individuals.Count}.");
+
+        Step4SaveTree.Save(db);
+
+        Console.WriteLine("Finished, press a key to continue.");
+        Console.ReadKey();
     }
 }

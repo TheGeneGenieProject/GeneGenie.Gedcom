@@ -5,50 +5,47 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom;
+
+/// <summary>
+/// GEDCOM allows for custom tags to be added by applications.
+/// This is essentially a dummy object.
+/// </summary>
+
+public class GedcomCustomRecord : GedcomEvent
 {
-    using System.IO;
-    using GeneGenie.Gedcom.Enums;
+    private const string DefaultTagName = "_CUST";
 
     /// <summary>
-    /// GEDCOM allows for custom tags to be added by applications.
-    /// This is essentially a dummy object.
+    /// Initializes a new instance of the <see cref="GedcomCustomRecord"/> class.
     /// </summary>
-    public class GedcomCustomRecord : GedcomEvent
+    public GedcomCustomRecord()
     {
-        private const string DefaultTagName = "_CUST";
+        EventType = GedcomEventType.Custom;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GedcomCustomRecord"/> class.
-        /// </summary>
-        public GedcomCustomRecord()
-        {
-            EventType = GedcomEventType.Custom;
-        }
+    /// <inheritdoc/>
+    public override GedcomRecordType RecordType
+    {
+        get { return GedcomRecordType.CustomRecord; }
+    }
 
-        /// <inheritdoc/>
-        public override GedcomRecordType RecordType
-        {
-            get { return GedcomRecordType.CustomRecord; }
-        }
+    /// <inheritdoc/>
+    public override string GedcomTag
+    {
+        get { return Tag; }
+    }
 
-        /// <inheritdoc/>
-        public override string GedcomTag
-        {
-            get { return Tag; }
-        }
+    /// <summary>
+    /// Gets or sets the tag associated with this custom record.
+    /// </summary>
+    public string Tag { get; set; } = DefaultTagName;
 
-        /// <summary>
-        /// Gets or sets the tag associated with this custom record.
-        /// </summary>
-        public string Tag { get; set; } = DefaultTagName;
-
-        /// <summary>
-        /// Placeholder for GEDCOM output code, does not actually output any data.
-        /// </summary>
-        /// <param name="tw">The writer to output to.</param>
-        public override void Output(TextWriter tw)
-        {
-        }
+    /// <summary>
+    /// Placeholder for GEDCOM output code, does not actually output any data.
+    /// </summary>
+    /// <param name="tw">The writer to output to.</param>
+    public override void Output(TextWriter tw)
+    {
     }
 }

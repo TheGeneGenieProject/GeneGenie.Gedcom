@@ -4,43 +4,41 @@
 // </copyright>
 // <author> Copyright (C) 2020 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom
+namespace GeneGenie.Gedcom;
+
+/// <summary>
+/// Used to wrap DateTime.Now() so that it can be replaced for unit testing.
+/// </summary>
+
+public static class SystemTime
 {
-    using System;
+    private static Func<DateTime> now = () => DateTime.Now;
 
     /// <summary>
-    /// Used to wrap DateTime.Now() so that it can be replaced for unit testing.
+    /// Gets the current time or the time under test for unit tests.
     /// </summary>
-    public static class SystemTime
+    public static DateTime Now
     {
-        private static Func<DateTime> now = () => DateTime.Now;
-
-        /// <summary>
-        /// Gets the current time or the time under test for unit tests.
-        /// </summary>
-        public static DateTime Now
+        get
         {
-            get
-            {
-                return now();
-            }
+            return now();
         }
+    }
 
-        /// <summary>
-        /// Used to set the time to return when SystemTime.Now() is called.
-        /// </summary>
-        /// <param name="dateTimeNow">The time you want to return for the unit test.</param>
-        public static void SetDateTime(DateTime dateTimeNow)
-        {
-            now = () => dateTimeNow;
-        }
+    /// <summary>
+    /// Used to set the time to return when SystemTime.Now() is called.
+    /// </summary>
+    /// <param name="dateTimeNow">The time you want to return for the unit test.</param>
+    public static void SetDateTime(DateTime dateTimeNow)
+    {
+        now = () => dateTimeNow;
+    }
 
-        /// <summary>
-        /// Resets SystemTime.Now() to return the real time via DateTime.Now.
-        /// </summary>
-        public static void ResetDateTime()
-        {
-            now = () => DateTime.Now;
-        }
+    /// <summary>
+    /// Resets SystemTime.Now() to return the real time via DateTime.Now.
+    /// </summary>
+    public static void ResetDateTime()
+    {
+        now = () => DateTime.Now;
     }
 }

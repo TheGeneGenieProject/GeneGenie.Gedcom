@@ -5,28 +5,25 @@
 // <author> Copyright (C) 2007 David A Knight david@ritter.demon.co.uk </author>
 // <author> Copyright (C) 2016 Ryan O'Neill r@genegenie.com </author>
 
-namespace GeneGenie.Gedcom.Parser
+namespace GeneGenie.Gedcom.Parser;
+
+/// <summary>
+/// Ensures that the parser loads a file that contains all known GEDCOM tags.
+/// TODO: Could do with validating that it actually understood every tag in that file.
+/// </summary>
+
+public class HeinerEichmannAllTagsTest
 {
-    using GeneGenie.Gedcom.Enums;
-    using Xunit;
-
     /// <summary>
-    /// Ensures that the parser loads a file that contains all known GEDCOM tags.
-    /// TODO: Could do with validating that it actually understood every tag in that file.
+    /// File sourced from http://heiner-eichmann.de/gedcom/allged.htm .
     /// </summary>
-    public class HeinerEichmannAllTagsTest
+    [Fact]
+    private void Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses()
     {
-        /// <summary>
-        /// File sourced from http://heiner-eichmann.de/gedcom/allged.htm .
-        /// </summary>
-        [Fact]
-        private void Heiner_Eichmanns_test_file_with_nearly_all_tags_loads_and_parses()
-        {
-            var loader = new GedcomLoader();
+        var loader = new GedcomLoader();
 
-            var result = loader.LoadAndParse("allged.ged");
+        var result = loader.LoadAndParse("allged.ged");
 
-            Assert.Equal(GedcomErrorState.NoError, result.ErrorState);
-        }
+        Assert.Equal(GedcomErrorState.NoError, result.ErrorState);
     }
 }
