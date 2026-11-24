@@ -24,8 +24,12 @@ public class GedcomDatabase : IEnumerator
     private List<GedcomNoteRecord> notes;
     private List<GedcomSubmitterRecord> submitters;
     private List<GedcomLocationRecord> locations = [];
+    private List<GedcomUserDefinedRecord> userDefinedRecords = [];
 
     private int xrefCounter = 0;
+
+    // Ids taken by records in the file being read, which GenerateXref mustn't hand out (issue #75).
+    private readonly HashSet<string> reservedXrefs = [];
 
     private IndexedKeyCollection placeNameCollection;
 
@@ -135,6 +139,15 @@ public class GedcomDatabase : IEnumerator
     public virtual List<GedcomLocationRecord> Locations
     {
         get { return locations; }
+    }
+
+    /// <summary>
+    /// Gets a list of the top-level records with custom tags the library doesn't model, such as
+    /// Ancestry's _MTTAG records. See <see cref="GedcomUserDefinedRecord"/>.
+    /// </summary>
+    public virtual List<GedcomUserDefinedRecord> UserDefinedRecords
+    {
+        get { return userDefinedRecords; }
     }
 
     /// <summary>
@@ -319,6 +332,10 @@ public class GedcomDatabase : IEnumerator
         {
             locations.Add(location);
         }
+        else if (record is GedcomUserDefinedRecord userDefinedRecord)
+        {
+            userDefinedRecords.Add(userDefinedRecord);
+        }
 
         record.Database = this;
     }
@@ -404,6 +421,10 @@ public class GedcomDatabase : IEnumerator
             {
                 locations.Remove(location);
             }
+            else if (record is GedcomUserDefinedRecord userDefinedRecord)
+            {
+                userDefinedRecords.Remove(userDefinedRecord);
+            }
 
             // TODO: should we set this to null? part of the deletion
             // methods may still want to access the database
@@ -455,17 +476,31 @@ public class GedcomDatabase : IEnumerator
     }
 
     /// <summary>
-    /// Create a new XRef.
+    /// Creates an XRefID for a new record, such as I12, that no record in the database uses yet. When a
+    /// file is read with its own ids kept, ids used anywhere in that file are skipped too (issue #75).
     /// </summary>
-    /// <param name="prefix">
-    /// A <see cref="string"/>.
-    /// </param>
-    /// <returns>
-    /// A <see cref="string"/> TODO: Doc.
-    /// </returns>
+    /// <param name="prefix">The start of the id, such as I for an individual.</param>
+    /// <returns>The new id, the prefix followed by a number.</returns>
     public string GenerateXref(string prefix)
     {
-        return string.Format("{0}{1}", prefix, (++xrefCounter).ToString());
+        string xref;
+
+        do
+        {
+            xref = prefix + (++xrefCounter).ToString();
+        }
+        while (Contains(xref) || reservedXrefs.Contains(xref));
+
+        return xref;
+    }
+
+    /// <summary>
+    /// Stops <see cref="GenerateXref"/> handing out an id that a record in the file being read uses.
+    /// </summary>
+    /// <param name="xref">The id from the file.</param>
+    internal void ReserveXref(string xref)
+    {
+        reservedXrefs.Add(xref);
     }
 
     /// <summary>

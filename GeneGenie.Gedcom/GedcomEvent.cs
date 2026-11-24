@@ -207,7 +207,15 @@ public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>, 
         get { return GedcomRecordType.Event; }
     }
 
-    /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an event.</summary>
+    /// <summary>
+    /// Gets or sets the custom tags found directly under the event when the file was read, as
+    /// <see cref="GedcomCustomRecord"/> entries.
+    /// </summary>
+    /// <remarks>
+    /// Read these for the tags already parsed, such as a date or a note. They are never written to a file,
+    /// so changes made here aren't saved: to change a tag, or add or remove one, use
+    /// <see cref="GedcomRecord.CustomTags"/>, which holds the same tags as read and is written back.
+    /// </remarks>
     public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
     /// <summary>

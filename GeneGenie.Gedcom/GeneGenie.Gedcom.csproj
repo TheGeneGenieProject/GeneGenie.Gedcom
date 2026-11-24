@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
     </PropertyGroup>
 
 	<PropertyGroup>
@@ -16,33 +16,32 @@
 	</PropertyGroup>
 
     <ItemGroup>
-        <Content Include="..\Licence.txt" Link="Licence.txt" />
+        <!-- Packed as the package's licence, not as content, so it isn't copied into projects that use it. -->
+        <None Include="..\Licence.txt" Link="Licence.txt" Pack="true" PackagePath="\" />
+        <None Include="..\README.md" Link="README.md" Pack="true" PackagePath="\" />
+        <None Include="icon.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup>
         <None Include="..\ContributorLicenceAgreement.md" Link="ContributorLicenceAgreement.md" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="System.Collections.Immutable" Version="9.0.3" />
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.3" />
-    </ItemGroup>
-
+    <!-- The release workflow sets Version from the release tag, so this is only the default for local builds. -->
     <PropertyGroup>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <AssemblyDescription>"GEDCOM file management library"</AssemblyDescription>
-        <AssemblyProduct>GeneGenie.Gedcom"</AssemblyProduct>
-        <AssemblyTitle>GeneGenie.Gedcom"</AssemblyTitle>
-		<SignAssembly>true</SignAssembly>
-        <Version>1.1.0</Version>
         <Authors>Ryan O'Neill, David A. Knight, Grant Winney</Authors>
-        <PackageDescription>.Net 6.0 library for loading, saving, working with and analysing family trees stored in the GEDCOM format.</PackageDescription>
-        <PackageLicenseUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/master/Licence.txt</PackageLicenseUrl>
-        <PackageProjectUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom</PackageProjectUrl>
-        <PackageIconUrl>https://avatars0.githubusercontent.com/u/22330020?s=200&amp;v=4</PackageIconUrl>
-        <RepositoryUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom</RepositoryUrl>
-        <PackageTags>gedcom genegenie gene genie parser genealogy family tree</PackageTags>
+        <Company>GeneGenie.com</Company>
+        <Copyright>Copyright (c) GeneGenie.com</Copyright>
+        <Description>A .NET library for loading, saving, working with and analysing family trees stored in GEDCOM files. It reads GEDCOM 5.5.1, along with parts of GEDCOM 7, and writes GEDCOM 5.5.1.</Description>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageLicenseFile>Licence.txt</PackageLicenseFile>
+        <PackageProjectUrl>https://genegenie.com</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReleaseNotes>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/releases</PackageReleaseNotes>
+        <PackageTags>gedcom genegenie gene genie parser genealogy family tree</PackageTags>
+        <Product>GeneGenie.Gedcom</Product>
+        <RepositoryUrl>https://github.com/TheGeneGenieProject/GeneGenie.Gedcom</RepositoryUrl>
+        <Version>2.0.0</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -53,8 +52,12 @@
         <CodeAnalysisRuleSet />
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-    </ItemGroup>
-    
+    <!-- Source Link is built into the .NET SDK, so it needs no package reference. Embed the sources that
+         aren't in git, such as generated files, so debuggers can still step into them. -->
+    <PropertyGroup>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
 </Project>

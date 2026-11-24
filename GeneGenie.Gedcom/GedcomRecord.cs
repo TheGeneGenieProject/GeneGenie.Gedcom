@@ -55,6 +55,12 @@ public abstract class GedcomRecord
     /// </summary>
     private GedcomRecordList<GedcomSourceCitation> sources;
 
+    // Created when first used, as most records have no custom tags.
+    private List<GedcomCustomTag> customTags;
+
+    // Created when first used, as most records link to no multimedia.
+    private List<GedcomMultimediaLink> multimediaLinks;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="GedcomRecord"/> class.
     /// </summary>
@@ -123,6 +129,28 @@ public abstract class GedcomRecord
     /// parsing data.
     /// </summary>
     public int ParsingLevel { get; set; }
+
+    /// <summary>
+    /// Gets the custom tags directly under this record that the library doesn't otherwise model, such as
+    /// Ancestry's _APID on a citation, each with the lines under it, in the order read. They are written
+    /// back when the file is saved, and tags added here in code are written too (issue #166).
+    /// </summary>
+    /// <remarks>
+    /// Custom tags the library reads itself, such as _UID on a person, aren't listed here. Nor are custom
+    /// tags in the header or in a change date, or below a line that isn't a record of its own, such as one
+    /// under a citation's DATA.
+    /// </remarks>
+    public List<GedcomCustomTag> CustomTags
+    {
+        get { return customTags ??= []; }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this record was read from a NOTE or OBJE inside a custom tag.
+    /// The custom tag writes those lines itself, so the writer leaves the record out rather than saving
+    /// a second, unlinked copy each time the file is saved.
+    /// </summary>
+    internal bool IsInsideCustomTag { get; set; }
 
     /// <summary>
     /// Gets or sets the x reference identifier.
@@ -327,6 +355,20 @@ public abstract class GedcomRecord
 
             return multimedia;
         }
+    }
+
+    /// <summary>
+    /// Gets what sits under each of the record's links to a multimedia record, such as the GEDCOM 7 crop
+    /// marking a person's face in a photo, in the order read (issue #112).
+    /// </summary>
+    /// <remarks>
+    /// <see cref="Multimedia"/> is still the list of linked records, and it is what gets written. When the
+    /// file is saved, each of its ids is written with the details of a link here that points to the same
+    /// record, so to add a link with a crop in code, add the id to <see cref="Multimedia"/> as well.
+    /// </remarks>
+    public List<GedcomMultimediaLink> MultimediaLinks
+    {
+        get { return multimediaLinks ??= []; }
     }
 
     /// <summary>
@@ -752,10 +794,22 @@ public abstract class GedcomRecord
                 levelPlusOne = (Level + 1).ToString();
             }
 
+            // Each link's details go with the first id that points to its record, so two links to the same
+            // record keep their own details.
+            var unwritten = multimediaLinks?.ToList() ?? [];
+
             foreach (string multimediaID in Multimedia)
             {
                 sw.Write(Environment.NewLine);
                 sw.Write("{0} OBJE @{1}@", levelPlusOne, multimediaID);
+
+                var link = unwritten.FirstOrDefault(candidate => candidate.MultimediaId == multimediaID);
+
+                if (link != null)
+                {
+                    link.OutputDetails(sw, Level + 2);
+                    unwritten.Remove(link);
+                }
             }
         }
 
@@ -794,6 +848,27 @@ public abstract class GedcomRecord
             sw.Write(" RIN ");
             string line = AutomatedRecordId.Replace("@", "@@");
             sw.Write(line);
+        }
+
+        OutputCustomTags(sw, Level + 1);
+    }
+
+    /// <summary>
+    /// Writes the record's custom tags. <see cref="OutputStandard"/> calls it; a record whose lines another
+    /// record writes, such as a person's FAMC and FAMS links, is written with it directly.
+    /// </summary>
+    /// <param name="sw">The writer to output to.</param>
+    /// <param name="level">The level to write the custom tags at.</param>
+    internal void OutputCustomTags(TextWriter sw, int level)
+    {
+        if (customTags == null)
+        {
+            return;
+        }
+
+        foreach (var customTag in customTags)
+        {
+            customTag.Output(sw, level);
         }
     }
 }

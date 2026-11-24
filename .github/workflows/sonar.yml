@@ -18,10 +18,10 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: Setup .Net SDK (v9.0)
+      - name: Setup .Net SDK (v10.0)
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       # The scanner downloads its own Java runtime, so no separate JDK setup is needed.
       - name: Install dotnet global tools

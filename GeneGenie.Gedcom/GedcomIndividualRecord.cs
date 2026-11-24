@@ -102,7 +102,16 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
         database.Add(XRefID, this);
     }
 
-    /// <summary>Gets or sets the list of <see cref="GedcomCustomRecord"/> entries found when parsing an individual.</summary>
+    /// <summary>
+    /// Gets or sets the custom tags found directly under the individual when the file was read, such as
+    /// _WLNK, as <see cref="GedcomCustomRecord"/> entries.
+    /// </summary>
+    /// <remarks>
+    /// Read these for the tags already parsed, such as a date or a note. They are never written to a file,
+    /// so changes made here aren't saved: to change a tag, or add or remove one, use
+    /// <see cref="GedcomRecord.CustomTags"/>, which holds the same tags as read and is written back. For
+    /// _UID use <see cref="UniqueIds"/>.
+    /// </remarks>
     public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
     /// <summary>
@@ -111,6 +120,16 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
     /// which many GEDCOM 5.5.1 programs write, and are written back as _UID.
     /// </summary>
     public List<string> UniqueIds { get; } = [];
+
+    /// <summary>
+    /// Gets the individual's web links, such as their Find a Grave page, read from the _WLNK tags
+    /// Ancestry.com writes, in the order read (issue #166). They are kept in
+    /// <see cref="GedcomRecord.CustomTags"/>, so add or remove one there.
+    /// </summary>
+    public IReadOnlyList<GedcomWebLink> WebLinks
+    {
+        get { return CustomTags.Where(tag => tag.Tag == "_WLNK").Select(ToWebLink).ToList(); }
+    }
 
     /// <summary>
     /// Gets the type of the record.
@@ -1491,6 +1510,8 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
                     // like Family Tree Maker
                     break;
             }
+
+            link.OutputCustomTags(tw, Level + 2);
         }
 
         GedcomFamilyLink prefSpouse = SpouseIn.FirstOrDefault(s => s.PreferedSpouse == true);
@@ -1502,6 +1523,7 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
             tw.Write("@");
             tw.Write(prefSpouse.Family);
             tw.Write("@");
+            prefSpouse.OutputCustomTags(tw, Level + 2);
         }
 
         foreach (GedcomFamilyLink link in spouseIn)
@@ -1514,6 +1536,7 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
                 tw.Write("@");
                 tw.Write(link.Family);
                 tw.Write("@");
+                link.OutputCustomTags(tw, Level + 2);
             }
         }
 
@@ -1684,5 +1707,19 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
         }
 
         return 0;
+    }
+
+    // Ancestry puts the link's title in TITL and its address in a NOTE, usually inline but possibly a pointer.
+    private GedcomWebLink ToWebLink(GedcomCustomTag link)
+    {
+        var title = link.Children.FirstOrDefault(child => child.Tag == "TITL")?.Text;
+        var note = link.Children.FirstOrDefault(child => child.Tag == "NOTE");
+
+        if (note is { IsPointer: true })
+        {
+            return new GedcomWebLink(title, (Database?[note.Value] as GedcomNoteRecord)?.Text);
+        }
+
+        return new GedcomWebLink(title, note?.Text);
     }
 }

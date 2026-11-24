@@ -221,6 +221,23 @@ public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitatio
     }
 
     /// <summary>
+    /// Gets the web addresses for the cited record, read from WWW lines under the citation's DATA, in the
+    /// order read. GEDCOM 5.5.1 only has WWW in addresses, but Ancestry.com writes it here to link to the
+    /// record online (issue #153). Long addresses split over CONC lines are joined back together.
+    /// </summary>
+    public List<string> WebAddresses { get; } = [];
+
+    /// <summary>
+    /// Gets Ancestry.com's ids for the records this citation came from, read from its _APID lines, in the
+    /// order read, such as 1,62308::204854828 (issue #166). They are kept in
+    /// <see cref="GedcomRecord.CustomTags"/>, so add or remove one there.
+    /// </summary>
+    public IReadOnlyList<string> AncestryRecordIds
+    {
+        get { return CustomTags.Where(tag => tag.Tag == "_APID").Select(tag => tag.Value).ToList(); }
+    }
+
+    /// <summary>
     /// Deletes this instance.
     /// </summary>
     public override void Delete()
@@ -359,7 +376,7 @@ public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitatio
             }
         }
 
-        if (Date != null || !string.IsNullOrEmpty(Text))
+        if (Date != null || !string.IsNullOrEmpty(Text) || WebAddresses.Count > 0)
         {
             if (levelPlusOne == null)
             {
@@ -387,6 +404,15 @@ public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitatio
                 sw.Write(" TEXT ");
 
                 Util.SplitLineText(sw, Text, Level + 2, 248);
+            }
+
+            foreach (var webAddress in WebAddresses)
+            {
+                sw.Write(Environment.NewLine);
+                sw.Write((Level + 2).ToString());
+                sw.Write(" WWW ");
+
+                Util.SplitLineText(sw, webAddress, Level + 2, 248);
             }
         }
 
@@ -487,6 +513,12 @@ public class GedcomSourceCitation : GedcomRecord, IEquatable<GedcomSourceCitatio
         }
 
         compare = GedcomGenericComparer.SafeCompareOrder(Text, citation.Text);
+        if (compare != 0)
+        {
+            return compare;
+        }
+
+        compare = GedcomGenericListComparer.CompareListOrder(WebAddresses, citation.WebAddresses);
         if (compare != 0)
         {
             return compare;

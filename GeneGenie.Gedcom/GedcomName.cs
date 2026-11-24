@@ -110,17 +110,10 @@ public class GedcomName : GedcomRecord, IComparable<GedcomName>, IComparable, IE
                 int surnameLength = 0;
                 if (surnameStartPos == -1)
                 {
-                    surnameStartPos = name.LastIndexOf(" ");
-                    if (surnameStartPos != -1)
-                    {
-                        surnameLength = name.Length - surnameStartPos - 1;
-                        Surname = Database.NameCollection[name, surnameStartPos + 1, surnameLength];
-                    }
-                    else
-                    {
-                        Surname = string.Empty;
-                        surnameStartPos = name.Length; // No surname, must just be a given name only.
-                    }
+                    // GEDCOM marks the surname with slashes, so a name without them has none and is all given
+                    // name. Taking the last word as the surname split names such as Dukak Bey (issue #142).
+                    Surname = string.Empty;
+                    surnameStartPos = name.Length;
                 }
                 else
                 {

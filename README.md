@@ -1,90 +1,78 @@
 # GeneGenie.Gedcom
 
-## Current working dev branch for code quality, .net 7 and improved tests.
+[![NuGet](https://img.shields.io/nuget/v/GeneGenie.Gedcom)](https://www.nuget.org/packages/GeneGenie.Gedcom)
+[![NuGet downloads](https://img.shields.io/nuget/dt/GeneGenie.Gedcom)](https://www.nuget.org/packages/GeneGenie.Gedcom)
+[![Build and run tests](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml/badge.svg)](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=coverage)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 
-A .Net library for loading, saving, working with and analysing family trees stored in the GEDCOM format.
+A .NET library for loading, saving, working with and analysing family trees stored in GEDCOM files. It
+reads GEDCOM 5.5.1, along with parts of GEDCOM 7, and writes GEDCOM 5.5.1.
 
-Thank you to David A Knight who developed Gedcom.Net from which this project was forked.
+GeneGenie.Gedcom is part of [GeneGenie.com](https://genegenie.com), tools for researching your family
+history.
 
 ## Installation
 
-Whilst we are below version 1.0 we won't be releasing a Nuget package is handled before then). To use the library, please download the source and star / set the repository as watched so you receive updates.
+The library targets .NET 10. Add it to your project from [NuGet](https://www.nuget.org/packages/GeneGenie.Gedcom):
 
-## Basic usage
+    dotnet add package GeneGenie.Gedcom
 
-If you would like to see a specific sample **please let us know what you want via Mastodon (@ryanoneill1970@mastodon.social or create an issue in GitHub**.
+## Quick start
 
-Check the sample project out for working code, basic operations are;
+Read a file, check that it loaded, and write it back out:
 
-### Loading a tree
+    using GeneGenie.Gedcom.Enums;
+    using GeneGenie.Gedcom.Parser;
 
-To load a tree into memory use the following static helper.
+    var reader = GedcomRecordReader.CreateReader("family.ged");
 
-    var gedcomReader = GedcomRecordReader.CreateReader("Data/presidents.ged");
-
-There are other variants of this helper and non static methods that allow you to specify additional parameters such as encoding.
-
-You'll want to make sure that the file you just read was parsed OK and handle any failures;
-
-    if (gedcomReader.Parser.ErrorState != Parser.Enums.GedcomErrorState.NoError)
+    if (reader.Parser.ErrorState != GedcomErrorState.NoError)
     {
-        Console.WriteLine($"Could not read file, encountered error {gedcomReader.Parser.ErrorState}.");
+        Console.WriteLine($"Could not read the file: {reader.Parser.ErrorState}.");
+        return;
     }
 
-### Querying the tree
+    var db = reader.Database;
+    Console.WriteLine($"Found {db.Individuals.Count} people and {db.Families.Count} families.");
 
-    Console.WriteLine($"Found {db.Families.Count} families and {db.Individuals.Count} individuals.");
-    var individual = db
-        .Individuals
-        .FirstOrDefault(f => f.Names.Any());
+    GedcomRecordWriter.OutputGedcom(db, "rewritten.ged");
 
-    if (individual != null)
-    {
-        Console.WriteLine($"Individual found with a preferred name of '{individual.GetName()}'.");
-    }
+## Learn more
 
-### Adding a person to the tree
+- [Getting started](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/wiki/Getting-started): querying a tree and adding people to it.
+- [Creating a GEDCOM file](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/wiki/Creating-a-GEDCOM-file): building a file in code, and saving part of an existing file.
+- [Finding how two people are related](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/wiki/Finding-how-two-people-are-related): working out relationships such as "first cousin once removed".
+- [The sample project](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/tree/main/GeneGenie.Gedcom.Sample): a small console app that loads, queries, changes and saves a tree.
+- [Releases](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/releases): what changed in each version.
 
-    var individual = new GedcomIndividualRecord(db);
+If there's a sample you'd like to see, please [open an issue](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/issues)
+or ask on Mastodon at @ryanoneill1970@mastodon.social.
 
-    var name = individual.Names[0];
-    name.Given = "Michael";
-    name.Surname = "Mouse";
-    name.Nick = "Mickey";
+## Code quality
 
-    individual.Names.Add(name);
-
-    var birthDate = new GedcomDate(db);
-    birthDate.ParseDateString("24 Jan 1933");
-    individual.Events.Add(new GedcomIndividualEvent
-    {
-        Database = db,
-        Date = birthDate,
-        EventType = Enums.GedcomEventType.Birth
-    });
-
-### Saving the tree
-
-    GedcomRecordWriter.OutputGedcom(db, "Rewritten.ged");
-
-## Build status
-[![Build and run tests](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml/badge.svg)](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/sonar.yml)
-
-### Code quality
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=bugs)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 [![CodeQL](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/codeql.yml/badge.svg)](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/actions/workflows/codeql.yml)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=coverage)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=bugs)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=GeneGenie.Gedcom&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=GeneGenie.Gedcom)](https://sonarcloud.io/summary/new_code?id=GeneGenie.Gedcom)
 
 ## Contributing
 
-We would love your help, see [Contributing.md](Contributing.md) for guidelines.
+We would love your help. See [Contributing.md](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/dev/Contributing.md)
+for how to get started, and the [coding conventions](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/dev/docs/coding-conventions.md).
 
+## Credits
+
+Thank you to David A Knight, who wrote Gedcom.Net, from which this project was forked.
+
+## Licence
+
+GeneGenie.Gedcom is licensed under the [GNU Affero General Public License v3.0](https://github.com/TheGeneGenieProject/GeneGenie.Gedcom/blob/dev/Licence.txt).
