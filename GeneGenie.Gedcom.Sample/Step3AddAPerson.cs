@@ -18,14 +18,13 @@ public static class Step3AddAPerson
     /// <param name="db">The database to add the individual to.</param>
     public static void AddPerson(GedcomDatabase db)
     {
+        // A new record starts with one name, so set its parts rather than adding a second name.
         var individual = new GedcomIndividualRecord(db);
 
         var name = individual.Names[0];
         name.Given = "Michael";
         name.Surname = "Mouse";
         name.Nick = "Mickey";
-
-        individual.Names.Add(name);
 
         var birthDate = new GedcomDate(db);
         birthDate.ParseDateString("24 Jan 1933");
