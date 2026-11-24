@@ -36,6 +36,9 @@ namespace GeneGenie.Gedcom.Parser
 
         private List<string> removedNotes;
 
+        // The name whose surname prefix was given explicitly by an SPFX tag, rather than split from the NAME line.
+        private GedcomName nameWithExplicitSurnamePrefix;
+
         private int lineNumber = 0; // For reporting errors and warnings.
         private int level;
         private string tag;
@@ -4733,6 +4736,7 @@ namespace GeneGenie.Gedcom.Parser
                             if (!string.IsNullOrEmpty(lineValue))
                             {
                                 name.SurnamePrefix = lineValue;
+                                nameWithExplicitSurnamePrefix = name;
                             }
                         }
 
@@ -4743,6 +4747,17 @@ namespace GeneGenie.Gedcom.Parser
                             // Surname part has priority over parsed NAME tag if it is supplied.
                             if (!string.IsNullOrEmpty(lineValue))
                             {
+                                // NAME "Hendrik /van Veen/" is split into prefix "van" and surname "Veen". If SURN
+                                // then gives the whole "van Veen", the file keeps the surname in one part, so the
+                                // prefix split from NAME is dropped rather than repeated (issue #103).
+                                // A prefix set explicitly by SPFX is left alone.
+                                if (!ReferenceEquals(name, nameWithExplicitSurnamePrefix)
+                                    && !string.IsNullOrEmpty(name.SurnamePrefix)
+                                    && lineValue.StartsWith(name.SurnamePrefix + " ", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    name.SurnamePrefix = string.Empty;
+                                }
+
                                 name.Surname = lineValue;
                             }
                         }
