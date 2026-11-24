@@ -1,0 +1,5 @@
+# Commits that only reformat code. GitHub skips these in its blame view; for local
+# git blame, run: git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Use file-scoped namespaces and global usings.
+ecb32896dad527b2def5738b9a00f2597703dea7

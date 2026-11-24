@@ -14,8 +14,8 @@ format` all read it, and where it differs from this document, it wins.
 
 ### File layout
 
-Every `.cs` file starts with the licence header. `.editorconfig` marks a missing header as an error
-(`IDE0073`), so your editor will flag it:
+Every `.cs` file starts with the licence header. Files that came from the original Gedcom.NET code
+keep their `// <author>` lines below it.
 
 ```csharp
 // <copyright file="GedcomName.cs" company="GeneGenie.com">
@@ -24,23 +24,28 @@ Every `.cs` file starts with the licence header. `.editorconfig` marks a missing
 // </copyright>
 ```
 
-Namespaces are block-scoped (with braces), and `using` directives go inside the namespace. This is
-what `.editorconfig` asks for, and it matches the rest of the codebase:
+After the header comes a file-scoped namespace, then the type, with no `using` block:
 
 ```csharp
-namespace GeneGenie.Gedcom.Parser
-{
-    using System;
-    using System.Text;
+namespace GeneGenie.Gedcom.Parser;
 
-    public class GedcomRecordReader
-    {
-    }
+/// <summary>
+/// Reads a GEDCOM file into a <see cref="GedcomDatabase"/>.
+/// </summary>
+public class GedcomRecordReader
+{
 }
 ```
 
-Implicit usings aren't enabled, so add the `using` directives a file needs and remove any it no
-longer uses.
+Each project has one `Usings.cs` of `global using` directives, and every namespace the project uses
+goes there. `ImplicitUsings` is on (in `Directory.Build.props`), so `System`, `System.IO`,
+`System.Linq`, `System.Collections.Generic` and the other common namespaces are already available;
+don't repeat them. A `using` stays in a single file only when it can't be global, for example inside
+an `#if` block.
+
+The build checks these rules: `Directory.Build.props` turns on `EnforceCodeStyleInBuild`, and
+`.editorconfig` reports block-scoped namespaces (`IDE0161`), misplaced usings (`IDE0065`) and unused
+usings (`IDE0005`) as warnings.
 
 Put one type in each file, named after the type.
 
