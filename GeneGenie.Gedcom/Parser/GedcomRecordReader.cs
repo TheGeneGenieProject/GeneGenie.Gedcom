@@ -825,6 +825,9 @@ public class GedcomRecordReader
                 case GedcomRecordType.Location:
                     ReadLocationRecord();
                     break;
+                case GedcomRecordType.MultimediaLink:
+                    ReadMultimediaLinkRecord();
+                    break;
             }
         }
 
@@ -4296,6 +4299,44 @@ public class GedcomRecordReader
     }
 
     // Keeps every line of a _LOC record as read, so the whole record is written back.
+    private void ReadMultimediaLinkRecord()
+    {
+        var link = (GedcomMultimediaLink)parseState.Records.Peek();
+
+        if (level == link.ParsingLevel + 1)
+        {
+            if (tag == "TITL" && lineValueType == GedcomLineValueType.DataType)
+            {
+                link.Title = lineValue;
+            }
+            else if (tag == "CROP")
+            {
+                // GEDCOM 7, written by MyFamilyTree to mark a face in a photo (issue #112).
+                link.Crop = new GedcomCrop();
+            }
+        }
+        else if (level == link.ParsingLevel + 2 && parseState.PreviousTag == "CROP" && link.Crop != null)
+        {
+            var value = int.TryParse(lineValue, out var number) ? number : (int?)null;
+
+            switch (tag)
+            {
+                case "TOP":
+                    link.Crop.Top = value;
+                    break;
+                case "LEFT":
+                    link.Crop.Left = value;
+                    break;
+                case "HEIGHT":
+                    link.Crop.Height = value;
+                    break;
+                case "WIDTH":
+                    link.Crop.Width = value;
+                    break;
+            }
+        }
+    }
+
     private void ReadLocationRecord()
     {
         var location = (GedcomLocationRecord)parseState.Records.Peek();
@@ -5261,6 +5302,11 @@ public class GedcomRecordReader
         {
             record.Multimedia.Add(lineValue);
             missingReferences.Add(lineValue);
+
+            // The link is read as a record of its own, so the lines under it, such as a crop, are kept (issue #112).
+            var link = new GedcomMultimediaLink { Database = Database, Level = level, MultimediaId = lineValue };
+            record.MultimediaLinks.Add(link);
+            parseState.Records.Push(link);
         }
         else
         {

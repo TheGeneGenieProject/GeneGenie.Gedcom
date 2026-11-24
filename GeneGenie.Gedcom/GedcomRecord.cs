@@ -58,6 +58,9 @@ public abstract class GedcomRecord
     // Created when first used, as most records have no custom tags.
     private List<GedcomCustomTag> customTags;
 
+    // Created when first used, as most records link to no multimedia.
+    private List<GedcomMultimediaLink> multimediaLinks;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="GedcomRecord"/> class.
     /// </summary>
@@ -352,6 +355,20 @@ public abstract class GedcomRecord
 
             return multimedia;
         }
+    }
+
+    /// <summary>
+    /// Gets what sits under each of the record's links to a multimedia record, such as the GEDCOM 7 crop
+    /// marking a person's face in a photo, in the order read (issue #112).
+    /// </summary>
+    /// <remarks>
+    /// <see cref="Multimedia"/> is still the list of linked records, and it is what gets written. When the
+    /// file is saved, each of its ids is written with the details of a link here that points to the same
+    /// record, so to add a link with a crop in code, add the id to <see cref="Multimedia"/> as well.
+    /// </remarks>
+    public List<GedcomMultimediaLink> MultimediaLinks
+    {
+        get { return multimediaLinks ??= []; }
     }
 
     /// <summary>
@@ -777,10 +794,22 @@ public abstract class GedcomRecord
                 levelPlusOne = (Level + 1).ToString();
             }
 
+            // Each link's details go with the first id that points to its record, so two links to the same
+            // record keep their own details.
+            var unwritten = multimediaLinks?.ToList() ?? [];
+
             foreach (string multimediaID in Multimedia)
             {
                 sw.Write(Environment.NewLine);
                 sw.Write("{0} OBJE @{1}@", levelPlusOne, multimediaID);
+
+                var link = unwritten.FirstOrDefault(candidate => candidate.MultimediaId == multimediaID);
+
+                if (link != null)
+                {
+                    link.OutputDetails(sw, Level + 2);
+                    unwritten.Remove(link);
+                }
             }
         }
 

@@ -137,4 +137,9 @@ public enum GedcomRecordType
     /// <see cref="GedcomUserDefinedRecord"/>.
     /// </summary>
     UserDefinedRecord,
+
+    /// <summary>
+    /// A link to a multimedia record, with what sits under it. See <see cref="GedcomMultimediaLink"/>.
+    /// </summary>
+    MultimediaLink,
 }
