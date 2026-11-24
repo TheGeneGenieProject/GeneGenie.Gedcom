@@ -9,7 +9,6 @@ namespace GeneGenie.Gedcom
 {
     using System;
     using System.IO;
-    using System.Linq;
     using System.Text;
     using GeneGenie.Gedcom.Enums;
 
@@ -83,7 +82,8 @@ namespace GeneGenie.Gedcom
         /// Gets or sets the title.
         /// </summary>
         /// <value>
-        /// The title.
+        /// The title. When no title has been set, a list of the file names is returned instead;
+        /// that fallback is worked out on each read and is never stored or written out.
         /// </value>
         public string Title
         {
@@ -102,7 +102,7 @@ namespace GeneGenie.Gedcom
                         sb.Append(file.Filename);
                     }
 
-                    title = sb.ToString();
+                    return sb.ToString();
                 }
 
                 return title;
@@ -234,7 +234,7 @@ namespace GeneGenie.Gedcom
                     sw.Write(file.SourceMediaType);
                 }
 
-                // A title that is only the file name was invented by the Title getter, so it is not written back.
+                // GEDCOM 5.5.1 file-level title, written beside FORM under FILE.
                 if (!string.IsNullOrEmpty(file.Title))
                 {
                     sw.Write(Environment.NewLine);
@@ -252,9 +252,9 @@ namespace GeneGenie.Gedcom
             }
 
             // The record-level title (GEDCOM 5.5) is kept separately from each file's title (GEDCOM 5.5.1).
+            // Only a title that was actually set is written; the file-name fallback from the Title getter is not.
             string explicitTitle = title;
-            if (!string.IsNullOrEmpty(explicitTitle)
-                && !string.Equals(explicitTitle, string.Join(", ", files.Select(file => file.Filename)), StringComparison.Ordinal))
+            if (!string.IsNullOrEmpty(explicitTitle))
             {
                 if (levelPlusOne == null)
                 {
