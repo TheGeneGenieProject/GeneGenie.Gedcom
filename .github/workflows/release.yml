@@ -1,0 +1,88 @@
+name: Release
+
+# Pushing a tag such as v2.0.0 builds, tests and packs the library, publishes the package to NuGet and
+# creates a draft GitHub release with the packages attached. The draft lets the release notes be
+# checked before the release is made public.
+#
+# Running the workflow by hand from the Actions tab does everything except publish, so the package can
+# be checked before a tag is pushed. The packages are kept as a workflow artifact.
+on:
+  push:
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Build, pack and publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Create the GitHub release.
+      id-token: write  # Log in to NuGet with trusted publishing, so no API key is stored.
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # The full history is needed to check that the tag is on main.
+
+      - name: Setup .Net SDK (v10.0)
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Work out the version
+        id: version
+        run: |
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            version="${GITHUB_REF_NAME#v}"
+            if ! echo "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+              echo "::error::Tag $GITHUB_REF_NAME is not a version such as v2.0.0."
+              exit 1
+            fi
+            if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+              echo "::error::Tag $GITHUB_REF_NAME is not on main. Merge dev into main and tag the merge."
+              exit 1
+            fi
+          else
+            # A manual run takes the version from the project file and marks it as a trial build.
+            version="$(grep -oP '(?<=<Version>)[^<]+' GeneGenie.Gedcom/GeneGenie.Gedcom.csproj)-ci.$GITHUB_RUN_NUMBER"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Version $version"
+
+      - name: Test
+        run: dotnet test -c Release
+
+      - name: Pack
+        run: >
+          dotnet pack GeneGenie.Gedcom/GeneGenie.Gedcom.csproj -c Release -o artifacts
+          -p:Version=${{ steps.version.outputs.version }}
+          -p:ContinuousIntegrationBuild=true
+
+      - name: Keep the packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: packages
+          path: artifacts/
+
+      - name: Log in to NuGet
+        if: github.ref_type == 'tag'
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      # The symbols package (.snupkg) next to the package is pushed with it.
+      - name: Publish to NuGet
+        if: github.ref_type == 'tag'
+        run: >
+          dotnet nuget push "artifacts/*.nupkg"
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+
+      - name: Create a draft GitHub release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" artifacts/*
+          --draft --verify-tag --generate-notes
+          --title "GeneGenie.Gedcom ${{ steps.version.outputs.version }}"
