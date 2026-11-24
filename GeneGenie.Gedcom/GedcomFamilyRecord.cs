@@ -265,6 +265,21 @@ public class GedcomFamilyRecord : GedcomRecord, IEquatable<GedcomFamilyRecord>
     }
 
     /// <summary>
+    /// Gets the family's divorce (the GEDCOM DIV event), if it has one, so it can be read in the same way
+    /// as <see cref="Marriage"/> without searching <see cref="Events"/>.
+    /// </summary>
+    /// <value>
+    /// The first divorce event, or <c>null</c> if the family has none.
+    /// </value>
+    public GedcomFamilyEvent Divorce
+    {
+        get
+        {
+            return events.FirstOrDefault(familyEvent => familyEvent.EventType == GedcomEventType.DIV);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the start status.
     /// </summary>
     /// <value>
