@@ -24,6 +24,7 @@ public class GedcomDatabase : IEnumerator
     private List<GedcomNoteRecord> notes;
     private List<GedcomSubmitterRecord> submitters;
     private List<GedcomLocationRecord> locations = [];
+    private List<GedcomUserDefinedRecord> userDefinedRecords = [];
 
     private int xrefCounter = 0;
 
@@ -135,6 +136,15 @@ public class GedcomDatabase : IEnumerator
     public virtual List<GedcomLocationRecord> Locations
     {
         get { return locations; }
+    }
+
+    /// <summary>
+    /// Gets a list of the top-level records with custom tags the library doesn't model, such as
+    /// Ancestry's _MTTAG records. See <see cref="GedcomUserDefinedRecord"/>.
+    /// </summary>
+    public virtual List<GedcomUserDefinedRecord> UserDefinedRecords
+    {
+        get { return userDefinedRecords; }
     }
 
     /// <summary>
@@ -319,6 +329,10 @@ public class GedcomDatabase : IEnumerator
         {
             locations.Add(location);
         }
+        else if (record is GedcomUserDefinedRecord userDefinedRecord)
+        {
+            userDefinedRecords.Add(userDefinedRecord);
+        }
 
         record.Database = this;
     }
@@ -403,6 +417,10 @@ public class GedcomDatabase : IEnumerator
             else if (record is GedcomLocationRecord location)
             {
                 locations.Remove(location);
+            }
+            else if (record is GedcomUserDefinedRecord userDefinedRecord)
+            {
+                userDefinedRecords.Remove(userDefinedRecord);
             }
 
             // TODO: should we set this to null? part of the deletion

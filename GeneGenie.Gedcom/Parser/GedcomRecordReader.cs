@@ -32,6 +32,13 @@ public class GedcomRecordReader
     // The name whose surname prefix was given explicitly by an SPFX tag, rather than split from the NAME line.
     private GedcomName nameWithExplicitSurnamePrefix;
 
+    // While a custom tag is being kept, the level of each line above the current one and the list its
+    // children go in (issue #166). Empty when no custom tag is being kept.
+    private readonly Stack<(int Level, List<GedcomCustomTag> Children)> customTagParents = new();
+
+    // The record the custom tag being kept belongs to.
+    private GedcomRecord customTagOwner;
+
     private int lineNumber = 0; // For reporting errors and warnings.
     private int level;
     private string tag;
@@ -159,6 +166,7 @@ public class GedcomRecordReader
         missingReferences = new List<string>();
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
+        customTagParents.Clear();
 
         // Register additional code pages from nuget package so we can deal with exotic character sets.
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -562,6 +570,8 @@ public class GedcomRecordReader
         // pop previous levels from the stack
         current = PopStack(level);
 
+        var isUnderKeptCustomTag = KeepCustomTagLine(current);
+
         if (current == null)
         {
             switch (tag)
@@ -681,8 +691,24 @@ public class GedcomRecordReader
                     break;
                 default:
 
-                    // Unknown tag
-                    Debug.WriteLine("Unknown: " + tag + " at level: " + level);
+                    if (tag.StartsWith('_') && !string.IsNullOrEmpty(xrefId))
+                    {
+                        // A top-level record with a custom tag, such as Ancestry's _MTTAG (issue #166).
+                        var userDefinedRecord = new GedcomUserDefinedRecord
+                        {
+                            Tag = tag,
+                            Value = lineValueType == GedcomLineValueType.DataType ? lineValue : string.Empty,
+                        };
+                        customTagParents.Push((level, userDefinedRecord.Children));
+                        customTagOwner = userDefinedRecord;
+                        current = userDefinedRecord;
+                    }
+                    else
+                    {
+                        // Unknown tag
+                        Debug.WriteLine("Unknown: " + tag + " at level: " + level);
+                    }
+
                     break;
             }
 
@@ -699,8 +725,10 @@ public class GedcomRecordReader
                 parseState.Records.Push(current);
             }
         }
-        else
+        else if (!isUnderKeptCustomTag)
         {
+            // Lines under a custom tag that belongs to this record are kept with the tag, so the record's
+            // own reader doesn't mistake them for its date, text and so on (issue #166).
             switch (current.RecordType)
             {
                 case GedcomRecordType.Header:
@@ -912,6 +940,7 @@ public class GedcomRecordReader
         missingReferences = new List<string>();
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
+        customTagParents.Clear();
 
         removedNotes = new List<string>();
         lineNumber = 0;
@@ -1801,7 +1830,10 @@ public class GedcomRecordReader
                         }
                     }
 
+                    // Custom is obsolete, but still filled so that code reading it keeps working.
+#pragma warning disable CS0618
                     individualRecord.Custom.Add(custom);
+#pragma warning restore CS0618
                     parseState.Records.Push(custom);
                     break;
             }
@@ -3856,7 +3888,10 @@ public class GedcomRecordReader
                         custom.Classification = lineValue;
                     }
 
+                    // Custom is obsolete, but still filled so that code reading it keeps working.
+#pragma warning disable CS0618
                     eventRecord.Custom.Add(custom);
+#pragma warning restore CS0618
                     parseState.Records.Push(custom);
                     break;
             }
@@ -4432,6 +4467,14 @@ public class GedcomRecordReader
                     sourceCitation.Role = lineValue;
                 }
             }
+            else if (parseState.PreviousTag == "DATA" && tag == "WWW")
+            {
+                // Not in GEDCOM 5.5.1, but written by Ancestry.com (issue #153).
+                if (lineValueType == GedcomLineValueType.DataType)
+                {
+                    sourceCitation.WebAddresses.Add(lineValue);
+                }
+            }
             else
             {
                 if (tag == "DATE")
@@ -4493,7 +4536,21 @@ public class GedcomRecordReader
         }
         else if (parseState.PreviousTag != string.Empty && level == sourceCitation.ParsingLevel + 3)
         {
-            if (parseState.PreviousTag == "TEXT" || parseState.PreviousTag == "CONC" || parseState.PreviousTag == "CONT")
+            if (parseState.PreviousTag == "WWW" && sourceCitation.WebAddresses.Count > 0)
+            {
+                // A long web address split over CONC lines.
+                var last = sourceCitation.WebAddresses.Count - 1;
+
+                if (tag == "CONC")
+                {
+                    sourceCitation.WebAddresses[last] += lineValue;
+                }
+                else if (tag == "CONT")
+                {
+                    sourceCitation.WebAddresses[last] += Environment.NewLine + lineValue;
+                }
+            }
+            else if (parseState.PreviousTag == "TEXT" || parseState.PreviousTag == "CONC" || parseState.PreviousTag == "CONT")
             {
                 if (tag == "CONC")
                 {
@@ -5037,6 +5094,7 @@ public class GedcomRecordReader
             note.Level = 0; // new top level note, always 0 (not true, 1 in header, fixed up later)
             note.ParsingLevel = level;
             note.XRefID = Database.GenerateXref("NOTE");
+            note.IsInsideCustomTag = customTagParents.Count > 0;
 
             if (lineValue != string.Empty)
             {
@@ -5165,6 +5223,7 @@ public class GedcomRecordReader
             multimedia.Level = 0; // new top level multimedia, always 0
             multimedia.ParsingLevel = level;
             multimedia.XRefID = Database.GenerateXref("OBJE");
+            multimedia.IsInsideCustomTag = customTagParents.Count > 0;
 
             record.Multimedia.Add(multimedia.XRefID);
             parseState.Records.Push(multimedia);
@@ -5192,6 +5251,85 @@ public class GedcomRecordReader
         }
 
         return xref;
+    }
+
+    /// <summary>
+    /// Keeps custom tags the library doesn't model, with every line under them, on the record they belong
+    /// to, so they can be read and are written back (issue #166). The line is still read as usual too.
+    /// </summary>
+    /// <param name="current">The record the line belongs to, after the stack has been popped to its level.</param>
+    /// <returns>
+    /// True if the line is under a kept custom tag that belongs to <paramref name="current"/>, so the
+    /// record's reader should leave it alone. Lines under a custom tag that the reader made a
+    /// <see cref="GedcomCustomRecord"/> for are still read into that record.
+    /// </returns>
+    private bool KeepCustomTagLine(GedcomRecord current)
+    {
+        while (customTagParents.Count > 0 && customTagParents.Peek().Level >= level)
+        {
+            customTagParents.Pop();
+        }
+
+        if (customTagParents.Count > 0)
+        {
+            var child = NewCustomTag();
+            customTagParents.Peek().Children.Add(child);
+            customTagParents.Push((level, child.Children));
+            return current == customTagOwner;
+        }
+
+        if (!IsCustomTagToKeep(current))
+        {
+            return false;
+        }
+
+        var customTag = NewCustomTag();
+        current.CustomTags.Add(customTag);
+        customTagParents.Push((level, customTag.Children));
+        customTagOwner = current;
+        return false;
+    }
+
+    private GedcomCustomTag NewCustomTag()
+    {
+        var isPointer = lineValueType == GedcomLineValueType.PointerType;
+
+        if (isPointer)
+        {
+            missingReferences.Add(lineValue);
+        }
+
+        return new GedcomCustomTag
+        {
+            IsPointer = isPointer,
+            Tag = Parser.Tag,
+            Value = lineValueType == GedcomLineValueType.NoType ? string.Empty : lineValue ?? string.Empty,
+        };
+    }
+
+    private bool IsCustomTagToKeep(GedcomRecord current)
+    {
+        if (current == null || !Parser.Tag.StartsWith('_') || level != current.ParsingLevel + 1)
+        {
+            return false;
+        }
+
+        // Records that keep every line themselves, or whose lines the library writes afresh.
+        if (current is GedcomHeader or GedcomDate or GedcomCustomRecord or GedcomLocationRecord or GedcomUserDefinedRecord)
+        {
+            return false;
+        }
+
+        // Custom tags the library already reads and writes, which would otherwise be written twice.
+        return Parser.Tag switch
+        {
+            "_AKA" or "_DEG" or "_EMAIL" or "_URL" => false, // Renamed by TagMap.
+            "_UID" or "_MILT" or "_MDCL" or "_HEIG" or "_WEIG" => current is not GedcomIndividualRecord,
+            "_MSTAT" => current is not GedcomFamilyRecord,
+            "_LOC" => current is not GedcomPlace,
+            "_PRIM" => current is not GedcomMultimediaRecord,
+            _ => true,
+        };
     }
 
     // tag mapping for broken GEDCOM, if it is just

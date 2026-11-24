@@ -164,6 +164,11 @@ public class GedcomRecordWriter
         {
             var record = entry.Value as GedcomRecord;
 
+            if (record.IsInsideCustomTag)
+            {
+                continue;
+            }
+
             record.Output(writer);
             writer.Write(Environment.NewLine);
         }

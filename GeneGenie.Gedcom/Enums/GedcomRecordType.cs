@@ -131,4 +131,10 @@ public enum GedcomRecordType
     /// <see cref="GedcomLocationRecord"/>.
     /// </summary>
     Location,
+
+    /// <summary>
+    /// A top-level record with a custom tag the library doesn't model, such as Ancestry's _MTTAG. See
+    /// <see cref="GedcomUserDefinedRecord"/>.
+    /// </summary>
+    UserDefinedRecord,
 }

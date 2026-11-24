@@ -55,6 +55,9 @@ public abstract class GedcomRecord
     /// </summary>
     private GedcomRecordList<GedcomSourceCitation> sources;
 
+    // Created when first used, as most records have no custom tags.
+    private List<GedcomCustomTag> customTags;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="GedcomRecord"/> class.
     /// </summary>
@@ -123,6 +126,28 @@ public abstract class GedcomRecord
     /// parsing data.
     /// </summary>
     public int ParsingLevel { get; set; }
+
+    /// <summary>
+    /// Gets the custom tags directly under this record that the library doesn't otherwise model, such as
+    /// Ancestry's _APID on a citation, each with the lines under it, in the order read. They are written
+    /// back when the file is saved, and tags added here in code are written too (issue #166).
+    /// </summary>
+    /// <remarks>
+    /// Custom tags the library reads itself, such as _UID on a person, aren't listed here. Nor are custom
+    /// tags in the header or in a change date, or below a line that isn't a record of its own, such as one
+    /// under a citation's DATA.
+    /// </remarks>
+    public List<GedcomCustomTag> CustomTags
+    {
+        get { return customTags ??= []; }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this record was read from a NOTE or OBJE inside a custom tag.
+    /// The custom tag writes those lines itself, so the writer leaves the record out rather than saving
+    /// a second, unlinked copy each time the file is saved.
+    /// </summary>
+    internal bool IsInsideCustomTag { get; set; }
 
     /// <summary>
     /// Gets or sets the x reference identifier.
@@ -794,6 +819,27 @@ public abstract class GedcomRecord
             sw.Write(" RIN ");
             string line = AutomatedRecordId.Replace("@", "@@");
             sw.Write(line);
+        }
+
+        OutputCustomTags(sw, Level + 1);
+    }
+
+    /// <summary>
+    /// Writes the record's custom tags. <see cref="OutputStandard"/> calls it; a record whose lines another
+    /// record writes, such as a person's FAMC and FAMS links, is written with it directly.
+    /// </summary>
+    /// <param name="sw">The writer to output to.</param>
+    /// <param name="level">The level to write the custom tags at.</param>
+    internal void OutputCustomTags(TextWriter sw, int level)
+    {
+        if (customTags == null)
+        {
+            return;
+        }
+
+        foreach (var customTag in customTags)
+        {
+            customTag.Output(sw, level);
         }
     }
 }
