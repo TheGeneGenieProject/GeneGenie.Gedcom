@@ -187,7 +187,7 @@ public class GedcomVariation : IComparable<GedcomVariation>, IComparable, IEquat
             //                  System.Console.WriteLine(f);
             //              }
         }
-        else if (!database.Loading)
+        else if (!database.Loading && database.UpdateChangeDates)
         {
             if (ChangeDate == null)
             {

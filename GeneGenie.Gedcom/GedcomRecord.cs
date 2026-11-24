@@ -675,7 +675,7 @@ public abstract class GedcomRecord
             //                  System.Console.WriteLine(f);
             //              }
         }
-        else if (!Database.Loading)
+        else if (!Database.Loading && Database.UpdateChangeDates)
         {
             if (changeDate == null)
             {

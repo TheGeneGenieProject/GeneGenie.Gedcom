@@ -1218,7 +1218,7 @@ public class GedcomAddress : IComparable<GedcomAddress>, IComparable, IEquatable
             //  System.Console.WriteLine(f);
             // }
         }
-        else if (!database.Loading)
+        else if (!database.Loading && database.UpdateChangeDates)
         {
             if (ChangeDate == null)
             {

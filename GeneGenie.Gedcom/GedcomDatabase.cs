@@ -169,6 +169,13 @@ public class GedcomDatabase : IEnumerator
     public bool Loading { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether records are given a change date (CHAN) when they are
+    /// changed or created. Defaults to true. Set it to false in programs that repair or convert files, so
+    /// that records aren't all marked as changed; change dates read from the file are kept as they were.
+    /// </summary>
+    public bool UpdateChangeDates { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the GedcomRecord associated with the given XRef.
     /// </summary>
     /// <param name="key">TODO: Doc.</param>
