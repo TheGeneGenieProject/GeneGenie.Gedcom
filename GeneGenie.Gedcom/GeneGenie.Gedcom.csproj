@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
     </PropertyGroup>
 
 	<PropertyGroup>
@@ -21,11 +21,6 @@
 
     <ItemGroup>
         <None Include="..\ContributorLicenceAgreement.md" Link="ContributorLicenceAgreement.md" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="System.Collections.Immutable" Version="9.0.3" />
-        <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.3" />
     </ItemGroup>
 
     <PropertyGroup>
