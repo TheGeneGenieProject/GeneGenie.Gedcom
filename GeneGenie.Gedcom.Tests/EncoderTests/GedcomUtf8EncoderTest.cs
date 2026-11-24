@@ -5,18 +5,26 @@
 
 namespace GeneGenie.Gedcom.Tests.EncoderTests
 {
-    using System.IO;
+    using System;
     using System.Linq;
-    using System.Text;
     using GeneGenie.Gedcom.Enums;
     using GeneGenie.Gedcom.Parser;
+    using GeneGenie.Gedcom.Tests.DataHelperExtensions;
     using Xunit;
 
     /// <summary>
-    /// Tests that UTF-8 files are recognised from the CHAR tag and that their characters survive loading.
+    /// Tests that UTF-8 files are recognised from the CHAR tag and that their characters survive loading (issue #117).
     /// </summary>
-    public class GedcomUtf8EncoderTest
+    public sealed class GedcomUtf8EncoderTest : IDisposable
     {
+        private readonly TempGedcomFiles files = new();
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            files.Dispose();
+        }
+
         /// <summary>
         /// GEDCOM 5.5.1 spells the character set "UTF-8"; some programs write "UTF8".
         /// Both must be recognised, whether or not the file starts with a byte order mark.
@@ -30,13 +38,15 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [InlineData("UTF8", true)]
         public void Utf8_charset_is_recognised(string charValue, bool withBom)
         {
-            var reader = Load(charValue, withBom);
+            var path = files.Write(PersonWithDiacritics(charValue), withBom);
+
+            var reader = GedcomRecordReader.CreateReader(path);
 
             Assert.Equal(GedcomCharset.UTF16LE, reader.Parser.Charset);
         }
 
         /// <summary>
-        /// Names with diacritics must be read correctly from a UTF-8 file (issue #117).
+        /// A given name with diacritics must be read correctly from a UTF-8 file.
         /// </summary>
         /// <param name="charValue">The value of the CHAR tag in the header.</param>
         /// <param name="withBom">Whether the file starts with a UTF-8 byte order mark.</param>
@@ -44,39 +54,36 @@ namespace GeneGenie.Gedcom.Tests.EncoderTests
         [InlineData("UTF-8", false)]
         [InlineData("UTF8", false)]
         [InlineData("UTF-8", true)]
-        public void Diacritics_are_read_correctly(string charValue, bool withBom)
+        public void Given_name_with_diacritics_is_read_correctly(string charValue, bool withBom)
         {
-            var reader = Load(charValue, withBom);
+            var path = files.Write(PersonWithDiacritics(charValue), withBom);
 
-            var individual = reader.Database.Individuals.Single();
-            Assert.Equal("Zoë", individual.Names.Single().Given);
-            Assert.Equal("Brontë-Ångström", individual.Names.Single().Surname);
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("Zoë", reader.Database.Individuals.Single().Names.Single().Given);
         }
 
-        private static GedcomRecordReader Load(string charValue, bool withBom)
+        /// <summary>
+        /// A surname with diacritics must be read correctly from a UTF-8 file.
+        /// </summary>
+        /// <param name="charValue">The value of the CHAR tag in the header.</param>
+        /// <param name="withBom">Whether the file starts with a UTF-8 byte order mark.</param>
+        [Theory]
+        [InlineData("UTF-8", false)]
+        [InlineData("UTF8", false)]
+        [InlineData("UTF-8", true)]
+        public void Surname_with_diacritics_is_read_correctly(string charValue, bool withBom)
         {
-            string gedcom = string.Join(
-                "\n",
-                "0 HEAD",
-                "1 GEDC",
-                "2 VERS 5.5.1",
-                "2 FORM LINEAGE-LINKED",
-                $"1 CHAR {charValue}",
-                "0 @I1@ INDI",
-                "1 NAME Zoë /Brontë-Ångström/",
-                "0 TRLR",
-                string.Empty);
+            var path = files.Write(PersonWithDiacritics(charValue), withBom);
 
-            string path = Path.GetTempFileName();
-            try
-            {
-                File.WriteAllText(path, gedcom, new UTF8Encoding(withBom));
-                return GedcomRecordReader.CreateReader(path);
-            }
-            finally
-            {
-                File.Delete(path);
-            }
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("Brontë-Ångström", reader.Database.Individuals.Single().Names.Single().Surname);
+        }
+
+        private static string[] PersonWithDiacritics(string charValue)
+        {
+            return [.. TempGedcomFiles.Gedcom(charValue, "0 @I1@ INDI", "1 NAME Zoë /Brontë-Ångström/")];
         }
     }
 }

@@ -5,33 +5,72 @@
 
 namespace GeneGenie.Gedcom.Tests.Individuals
 {
+    using System;
     using System.IO;
     using System.Linq;
     using GeneGenie.Gedcom.Parser;
+    using GeneGenie.Gedcom.Tests.DataHelperExtensions;
     using Xunit;
 
     /// <summary>
     /// Tests for how a surname prefix taken from the NAME line is combined with the SPFX and SURN name parts (issue #103).
     /// </summary>
-    public class GedcomSurnamePrefixTest
+    public sealed class GedcomSurnamePrefixTest : IDisposable
     {
+        private readonly TempGedcomFiles files = new();
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            files.Dispose();
+        }
+
         /// <summary>
         /// When SURN holds the whole surname, including the prefix NAME was split on, the prefix must not be kept as well.
         /// </summary>
-        /// <param name="nameSurname">The surname as written between the slashes on the NAME line.</param>
+        /// <param name="surname">The surname as written between the slashes on the NAME line and in SURN.</param>
         [Theory]
         [InlineData("van Veen")]
         [InlineData("van der Berg")]
-        public void Surname_part_that_includes_the_prefix_is_not_prefixed_again(string nameSurname)
+        public void Surname_part_that_includes_the_prefix_leaves_no_separate_prefix(string surname)
         {
-            var name = ReadName(
-                $"1 NAME Hendrik /{nameSurname}/",
-                "2 GIVN Hendrik",
-                $"2 SURN {nameSurname}");
+            var path = files.Write(Person($"1 NAME Hendrik /{surname}/", "2 GIVN Hendrik", $"2 SURN {surname}"));
 
-            Assert.Equal(string.Empty, name.SurnamePrefix);
-            Assert.Equal(nameSurname, name.Surname);
-            Assert.Equal($"Hendrik /{nameSurname}/", name.Name);
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal(string.Empty, SingleName(reader).SurnamePrefix);
+        }
+
+        /// <summary>
+        /// A surname kept in one part by SURN is stored as given.
+        /// </summary>
+        /// <param name="surname">The surname as written between the slashes on the NAME line and in SURN.</param>
+        [Theory]
+        [InlineData("van Veen")]
+        [InlineData("van der Berg")]
+        public void Surname_part_that_includes_the_prefix_is_kept_whole(string surname)
+        {
+            var path = files.Write(Person($"1 NAME Hendrik /{surname}/", "2 GIVN Hendrik", $"2 SURN {surname}"));
+
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal(surname, SingleName(reader).Surname);
+        }
+
+        /// <summary>
+        /// The full name must show the prefix once, as the reporter saw "Hendrik /van van Veen/" before the fix.
+        /// </summary>
+        /// <param name="surname">The surname as written between the slashes on the NAME line and in SURN.</param>
+        [Theory]
+        [InlineData("van Veen")]
+        [InlineData("van der Berg")]
+        public void Surname_part_that_includes_the_prefix_gives_the_prefix_once_in_the_full_name(string surname)
+        {
+            var path = files.Write(Person($"1 NAME Hendrik /{surname}/", "2 GIVN Hendrik", $"2 SURN {surname}"));
+
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal($"Hendrik /{surname}/", SingleName(reader).Name);
         }
 
         /// <summary>
@@ -40,103 +79,159 @@ namespace GeneGenie.Gedcom.Tests.Individuals
         [Fact]
         public void Prefix_match_ignores_case()
         {
-            var name = ReadName(
-                "1 NAME Hendrik /Van Veen/",
-                "2 SURN van Veen");
+            var path = files.Write(Person("1 NAME Hendrik /Van Veen/", "2 SURN van Veen"));
 
-            Assert.Equal(string.Empty, name.SurnamePrefix);
-            Assert.Equal("van Veen", name.Surname);
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal(string.Empty, SingleName(reader).SurnamePrefix);
         }
 
         /// <summary>
-        /// A file that splits the surname with SPFX and SURN keeps the split.
+        /// A file that splits the surname with SPFX and SURN keeps its prefix part.
         /// </summary>
         [Fact]
-        public void Explicit_prefix_and_surname_parts_are_kept()
+        public void Explicit_prefix_part_is_kept()
         {
-            var name = ReadName(
-                "1 NAME Hendrik /van Veen/",
-                "2 SPFX van",
-                "2 SURN Veen");
+            var path = files.Write(Person("1 NAME Hendrik /van Veen/", "2 SPFX van", "2 SURN Veen"));
 
-            Assert.Equal("van", name.SurnamePrefix);
-            Assert.Equal("Veen", name.Surname);
-            Assert.Equal("Hendrik /van Veen/", name.Name);
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("van", SingleName(reader).SurnamePrefix);
         }
 
         /// <summary>
-        /// Without name parts, NAME is still split into prefix and surname as before.
+        /// A file that splits the surname with SPFX and SURN keeps its surname part.
         /// </summary>
         [Fact]
-        public void Name_line_alone_is_still_split_into_prefix_and_surname()
+        public void Explicit_surname_part_is_kept()
         {
-            var name = ReadName("1 NAME Hendrik /van Veen/");
+            var path = files.Write(Person("1 NAME Hendrik /van Veen/", "2 SPFX van", "2 SURN Veen"));
 
-            Assert.Equal("van", name.SurnamePrefix);
-            Assert.Equal("Veen", name.Surname);
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("Veen", SingleName(reader).Surname);
         }
 
         /// <summary>
-        /// A surname that does not start with the derived prefix replaces the surname but leaves the prefix alone.
+        /// Explicit SPFX and SURN parts give the prefix once in the full name.
+        /// </summary>
+        [Fact]
+        public void Explicit_parts_give_the_prefix_once_in_the_full_name()
+        {
+            var path = files.Write(Person("1 NAME Hendrik /van Veen/", "2 SPFX van", "2 SURN Veen"));
+
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("Hendrik /van Veen/", SingleName(reader).Name);
+        }
+
+        /// <summary>
+        /// Without name parts, the NAME line is still split into a prefix, as before the fix.
+        /// </summary>
+        [Fact]
+        public void Name_line_alone_is_split_into_a_prefix()
+        {
+            var path = files.Write(Person("1 NAME Hendrik /van Veen/"));
+
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("van", SingleName(reader).SurnamePrefix);
+        }
+
+        /// <summary>
+        /// Without name parts, the NAME line is still split into a surname, as before the fix.
+        /// </summary>
+        [Fact]
+        public void Name_line_alone_is_split_into_a_surname()
+        {
+            var path = files.Write(Person("1 NAME Hendrik /van Veen/"));
+
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("Veen", SingleName(reader).Surname);
+        }
+
+        /// <summary>
+        /// A SURN that does not start with the derived prefix leaves that prefix alone.
         /// </summary>
         [Fact]
         public void Different_surname_part_keeps_the_derived_prefix()
         {
-            var name = ReadName(
-                "1 NAME Hendrik /van Veen/",
-                "2 SURN Veene");
+            var path = files.Write(Person("1 NAME Hendrik /van Veen/", "2 SURN Veene"));
 
-            Assert.Equal("van", name.SurnamePrefix);
-            Assert.Equal("Veene", name.Surname);
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("van", SingleName(reader).SurnamePrefix);
         }
 
         /// <summary>
-        /// Writing the file out again must not duplicate the prefix or invent an SPFX value.
+        /// A SURN that does not start with the derived prefix still replaces the surname.
         /// </summary>
         [Fact]
-        public void Surname_kept_in_one_part_round_trips_without_a_prefix()
+        public void Different_surname_part_replaces_the_surname()
         {
-            string path = Path.GetTempFileName();
-            string rewritten = Path.GetTempFileName();
-            try
-            {
-                File.WriteAllText(path, Gedcom("1 NAME Hendrik /van Veen/", "2 GIVN Hendrik", "2 SURN van Veen"));
-                var reader = GedcomRecordReader.CreateReader(path);
-                GedcomRecordWriter.OutputGedcom(reader.Database, rewritten);
+            var path = files.Write(Person("1 NAME Hendrik /van Veen/", "2 SURN Veene"));
 
-                var lines = File.ReadAllLines(rewritten).Select(line => line.TrimEnd()).ToList();
-                Assert.Contains("1 NAME Hendrik /van Veen/", lines);
-                Assert.Contains("2 SURN van Veen", lines);
-                Assert.DoesNotContain(lines, line => line.StartsWith("2 SPFX ") && line.Length > "2 SPFX ".Length);
-            }
-            finally
-            {
-                File.Delete(path);
-                File.Delete(rewritten);
-            }
+            var reader = GedcomRecordReader.CreateReader(path);
+
+            Assert.Equal("Veene", SingleName(reader).Surname);
         }
 
-        private static GedcomName ReadName(params string[] nameLines)
+        /// <summary>
+        /// Saving a surname kept in one part writes the NAME line without a repeated prefix.
+        /// </summary>
+        [Fact]
+        public void Surname_kept_in_one_part_is_written_with_the_prefix_once_on_the_name_line()
         {
-            string path = Path.GetTempFileName();
-            try
-            {
-                File.WriteAllText(path, Gedcom(nameLines));
-                var reader = GedcomRecordReader.CreateReader(path);
-                return reader.Database.Individuals.Single().Names.Single();
-            }
-            finally
-            {
-                File.Delete(path);
-            }
+            var reader = ReadSurnameKeptInOnePart();
+            var output = files.NewPath();
+
+            GedcomRecordWriter.OutputGedcom(reader.Database, output);
+
+            Assert.Contains("1 NAME Hendrik /van Veen/", File.ReadAllLines(output));
         }
 
-        private static string Gedcom(params string[] nameLines)
+        /// <summary>
+        /// Saving a surname kept in one part writes SURN with the whole surname.
+        /// </summary>
+        [Fact]
+        public void Surname_kept_in_one_part_is_written_whole_in_the_surname_part()
         {
-            var lines = new[] { "0 HEAD", "1 GEDC", "2 VERS 5.5.1", "2 FORM LINEAGE-LINKED", "1 CHAR UTF-8", "0 @I1@ INDI" }
-                .Concat(nameLines)
-                .Concat(new[] { "0 TRLR", string.Empty });
-            return string.Join("\n", lines);
+            var reader = ReadSurnameKeptInOnePart();
+            var output = files.NewPath();
+
+            GedcomRecordWriter.OutputGedcom(reader.Database, output);
+
+            Assert.Contains("2 SURN van Veen", File.ReadAllLines(output));
+        }
+
+        /// <summary>
+        /// Saving a surname kept in one part must not invent an SPFX value.
+        /// </summary>
+        [Fact]
+        public void Surname_kept_in_one_part_is_written_without_a_prefix_value()
+        {
+            var reader = ReadSurnameKeptInOnePart();
+            var output = files.NewPath();
+
+            GedcomRecordWriter.OutputGedcom(reader.Database, output);
+
+            Assert.DoesNotContain(File.ReadAllLines(output), line => line.StartsWith("2 SPFX", StringComparison.Ordinal) && line.Trim() != "2 SPFX");
+        }
+
+        private static GedcomName SingleName(GedcomRecordReader reader)
+        {
+            return reader.Database.Individuals.Single().Names.Single();
+        }
+
+        private static string[] Person(params string[] nameLines)
+        {
+            return [.. TempGedcomFiles.Gedcom("UTF-8", ["0 @I1@ INDI", .. nameLines])];
+        }
+
+        private GedcomRecordReader ReadSurnameKeptInOnePart()
+        {
+            return GedcomRecordReader.CreateReader(files.Write(Person("1 NAME Hendrik /van Veen/", "2 GIVN Hendrik", "2 SURN van Veen")));
         }
     }
 }
