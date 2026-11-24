@@ -82,7 +82,8 @@ namespace GeneGenie.Gedcom
         /// Gets or sets the title.
         /// </summary>
         /// <value>
-        /// The title.
+        /// The title. When no title has been set, a list of the file names is returned instead;
+        /// that fallback is worked out on each read and is never stored or written out.
         /// </value>
         public string Title
         {
@@ -101,7 +102,7 @@ namespace GeneGenie.Gedcom
                         sb.Append(file.Filename);
                     }
 
-                    title = sb.ToString();
+                    return sb.ToString();
                 }
 
                 return title;
@@ -232,6 +233,38 @@ namespace GeneGenie.Gedcom
                     sw.Write(" MEDI ");
                     sw.Write(file.SourceMediaType);
                 }
+
+                // GEDCOM 5.5.1 file-level title, written beside FORM under FILE.
+                if (!string.IsNullOrEmpty(file.Title))
+                {
+                    sw.Write(Environment.NewLine);
+                    sw.Write(levelPlusTwo);
+                    sw.Write(" TITL ");
+                    sw.Write(file.Title);
+                }
+
+                if (file.IsPrimary)
+                {
+                    sw.Write(Environment.NewLine);
+                    sw.Write(levelPlusTwo);
+                    sw.Write(" _PRIM Y");
+                }
+            }
+
+            // The record-level title (GEDCOM 5.5) is kept separately from each file's title (GEDCOM 5.5.1).
+            // Only a title that was actually set is written; the file-name fallback from the Title getter is not.
+            string explicitTitle = title;
+            if (!string.IsNullOrEmpty(explicitTitle))
+            {
+                if (levelPlusOne == null)
+                {
+                    levelPlusOne = (Level + 1).ToString();
+                }
+
+                sw.Write(Environment.NewLine);
+                sw.Write(levelPlusOne);
+                sw.Write(" TITL ");
+                sw.Write(explicitTitle);
             }
         }
 
