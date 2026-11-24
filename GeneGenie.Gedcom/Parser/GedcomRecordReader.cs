@@ -300,6 +300,8 @@ namespace GeneGenie.Gedcom.Parser
                 // add any missing child in and spouse in linkage
                 foreach (GedcomFamilyRecord family in Database.Families)
                 {
+                    MoveLoneSpouseToMatchSex(family);
+
                     string husbandID = family.Husband;
                     if (!string.IsNullOrEmpty(husbandID))
                     {
@@ -5036,6 +5038,43 @@ namespace GeneGenie.Gedcom.Parser
             }
 
             record.Files[record.Files.Count - 1].IsPrimary = true;
+        }
+
+        /// <summary>
+        /// Moves the only spouse of a family into the husband or wife slot that matches their recorded sex.
+        /// Some programs (MyFamilyTree, for example) write a father with no partner as WIFE (issue #115).
+        /// The <see cref="GedcomIndividualRecord.Sex"/> setter makes the same correction, but it runs while
+        /// the individual is read, which is usually before the family record exists.
+        /// Families with two spouses, and a spouse whose sex isn't male or female, are left as written.
+        /// </summary>
+        /// <param name="family">The family to check.</param>
+        private void MoveLoneSpouseToMatchSex(GedcomFamilyRecord family)
+        {
+            var hasHusband = !string.IsNullOrEmpty(family.Husband);
+            var hasWife = !string.IsNullOrEmpty(family.Wife);
+
+            if (hasHusband == hasWife)
+            {
+                return;
+            }
+
+            var spouseId = hasHusband ? family.Husband : family.Wife;
+
+            if (Database[spouseId] is not GedcomIndividualRecord spouse)
+            {
+                return;
+            }
+
+            if (hasWife && spouse.Sex == GedcomSex.Male)
+            {
+                family.Husband = family.Wife;
+                family.Wife = null;
+            }
+            else if (hasHusband && spouse.Sex == GedcomSex.Female)
+            {
+                family.Wife = family.Husband;
+                family.Husband = null;
+            }
         }
 
         private void AddMultimediaRecord(GedcomRecord record)
