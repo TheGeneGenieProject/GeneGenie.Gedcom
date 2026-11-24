@@ -1118,8 +1118,9 @@ public class GedcomFamilyRecord : GedcomRecord, IEquatable<GedcomFamilyRecord>
             GedcomIndividualRecord child = (GedcomIndividualRecord)Database[childID];
             if (child != null)
             {
-                // only output _FREL / _MREL value here,
-                // real PEDI goes on the FAMC on the INDI tag
+                // Only a mixed pedigree (one parent adoptive, one natural) is written here, as Family Tree
+                // Maker's _FREL / _MREL. Every other pedigree goes on the child's FAMC line as standard PEDI.
+                // Both tags are written, so the natural parent isn't lost when the file is read back.
                 GedcomFamilyLink link = null;
                 if (child.ChildInFamily(XrefId, out link))
                 {
@@ -1128,12 +1129,18 @@ public class GedcomFamilyRecord : GedcomRecord, IEquatable<GedcomFamilyRecord>
                         case PedigreeLinkageType.FatherAdopted:
                             sw.Write(Environment.NewLine);
                             sw.Write(levelPlusTwo);
-                            sw.Write("_FREL Adopted");
+                            sw.Write(" _FREL Adopted");
+                            sw.Write(Environment.NewLine);
+                            sw.Write(levelPlusTwo);
+                            sw.Write(" _MREL Natural");
                             break;
                         case PedigreeLinkageType.MotherAdopted:
                             sw.Write(Environment.NewLine);
                             sw.Write(levelPlusTwo);
-                            sw.Write("_MREL Adopted");
+                            sw.Write(" _FREL Natural");
+                            sw.Write(Environment.NewLine);
+                            sw.Write(levelPlusTwo);
+                            sw.Write(" _MREL Adopted");
                             break;
                     }
                 }

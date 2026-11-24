@@ -28,6 +28,7 @@ public class GedcomRecordWriterTest
     [InlineData("./Data/presidents.ged")]
     [InlineData("./Data/Spouse-sealing.ged")]
     [InlineData("./Data/superfluous-ident-test.ged")]
+    [InlineData("./Data/FTM-pedigree-mapping.ged")]
     private void Gedcom_databases_are_equal_after_rewriting(string sourceFile)
     {
         var originalReader = GedcomRecordReader.CreateReader(sourceFile);
@@ -44,6 +45,7 @@ public class GedcomRecordWriterTest
     [InlineData("./Data/presidents.ged")]
     [InlineData("./Data/Spouse-sealing.ged")]
     [InlineData("./Data/superfluous-ident-test.ged")]
+    [InlineData("./Data/FTM-pedigree-mapping.ged")]
     private void Gedcom_headers_are_equal_after_rewriting(string sourceFile)
     {
         var originalReader = GedcomRecordReader.CreateReader(sourceFile);
@@ -60,6 +62,7 @@ public class GedcomRecordWriterTest
     [InlineData("./Data/presidents.ged")]
     [InlineData("./Data/Spouse-sealing.ged")]
     [InlineData("./Data/superfluous-ident-test.ged")]
+    [InlineData("./Data/FTM-pedigree-mapping.ged")]
     private void Individuals_are_equal_after_rewriting(string sourceFile)
     {
         var originalReader = GedcomRecordReader.CreateReader(sourceFile);

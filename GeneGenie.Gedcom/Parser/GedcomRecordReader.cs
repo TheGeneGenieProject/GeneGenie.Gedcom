@@ -371,6 +371,7 @@ public class GedcomRecordReader
                         famLink.Pedigree = family.GetLinkageType(childID);
                         famLink.FatherPedigree = family.GetHusbandLinkageType(childID);
                         famLink.MotherPedigree = family.GetWifeLinkageType(childID);
+                        SetPedigreeFromParents(famLink);
 
                         // check BIRT event for a FAMC record, check ADOP for FAMC / ADOP records
                         foreach (GedcomIndividualEvent indiEv in child.Events)
@@ -5031,6 +5032,43 @@ public class GedcomRecordReader
         }
 
         record.Files[record.Files.Count - 1].IsPrimary = true;
+    }
+
+    /// <summary>
+    /// Works out a child's overall pedigree from their relationship to each parent, when the file gave
+    /// only those. Family Tree Maker writes _FREL and _MREL on the CHIL line instead of PEDI (issue #43),
+    /// so without this the overall pedigree stays unknown and isn't written when the file is saved.
+    /// A pedigree the file gave directly, such as PEDI on the child's FAMC line, is kept.
+    /// </summary>
+    /// <param name="link">The child's link to the family.</param>
+    private static void SetPedigreeFromParents(GedcomFamilyLink link)
+    {
+        if (link.Pedigree != PedigreeLinkageType.Unknown)
+        {
+            return;
+        }
+
+        var father = link.FatherPedigree;
+        var mother = link.MotherPedigree;
+        var pedigree = PedigreeLinkageType.Unknown;
+
+        if (father == mother)
+        {
+            pedigree = father;
+        }
+        else if (father == PedigreeLinkageType.Adopted && mother == PedigreeLinkageType.Birth)
+        {
+            pedigree = PedigreeLinkageType.FatherAdopted;
+        }
+        else if (father == PedigreeLinkageType.Birth && mother == PedigreeLinkageType.Adopted)
+        {
+            pedigree = PedigreeLinkageType.MotherAdopted;
+        }
+
+        // Setting Pedigree also sets both parents' values, so put them back afterwards.
+        link.Pedigree = pedigree;
+        link.FatherPedigree = father;
+        link.MotherPedigree = mother;
     }
 
     /// <summary>
