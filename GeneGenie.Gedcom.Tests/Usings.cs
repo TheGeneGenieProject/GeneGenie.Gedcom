@@ -9,4 +9,3 @@ global using GeneGenie.Gedcom.Helpers;
 global using GeneGenie.Gedcom.Parser;
 global using GeneGenie.Gedcom.Tests.DataHelperExtensions;
 global using Xunit;
-global using Xunit.Abstractions;
