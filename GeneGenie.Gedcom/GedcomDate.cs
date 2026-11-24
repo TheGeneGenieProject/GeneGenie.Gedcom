@@ -13,6 +13,21 @@ namespace GeneGenie.Gedcom;
 
 public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IEquatable<GedcomDate>
 {
+    // The calendar names GEDCOM 7 writes before a date, and the GEDCOM 5.5.1 escapes they stand for.
+    private static readonly (string Name, string Escape)[] Gedcom7Calendars =
+    [
+        ("GREGORIAN", "DGREGORIAN"),
+        ("JULIAN", "DJULIAN"),
+        ("HEBREW", "DHEBREW"),
+    ];
+
+    // The months and words a GEDCOM 5.5.1 Gregorian date is written with.
+    private static readonly HashSet<string> GedcomDateWords = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC",
+        "ABT", "AFT", "AND", "BEF", "BET", "CAL", "EST", "FROM", "INT", "TO",
+    };
+
     private GedcomDateType dateType;
     private GedcomDatePeriod datePeriod;
 
@@ -64,6 +79,21 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
     public override string GedcomTag
     {
         get { return "DATE"; }
+    }
+
+    // The GEDCOM 5.5.1 escape naming the date's calendar, spelled as the specification spells it, such as
+    // @#DJULIAN@, or empty for the default Gregorian calendar.
+    private string CalendarEscape
+    {
+        get
+        {
+            return dateType switch
+            {
+                GedcomDateType.Gregorian => string.Empty,
+                GedcomDateType.French => "@#DFRENCH R@ ",
+                _ => $"@#D{dateType.ToString().ToUpperInvariant()}@ ",
+            };
+        }
     }
 
     /// <summary>
@@ -564,6 +594,15 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
 
         result.DataAfterExtraction = dataString.Substring(start, len).TrimStart(new char[] { ' ', '\t' });
 
+        // An interpreted date is followed by the phrase it was interpreted from, as in INT 2000 (about then).
+        // The phrase stays in the date's text, but isn't part of the date to parse (issue #118).
+        var phraseStart = result.DataAfterExtraction.IndexOf('(');
+
+        if (result.DatePeriod == GedcomDatePeriod.Interpretation && phraseStart > 0)
+        {
+            result.DataAfterExtraction = result.DataAfterExtraction.Substring(0, phraseStart).TrimEnd();
+        }
+
         if (result.DatePeriod == GedcomDatePeriod.Unknown || result.DatePeriod == GedcomDatePeriod.Exact)
         {
             // A lot of the time we'll get a partial date that maps to a date range, these should be treated as ranges and not exact dates.
@@ -580,6 +619,50 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Adds the wording GEDCOM 7 writes in a PHRASE line under a date. GEDCOM 5.5.1 writes a phrase in
+    /// brackets, after INT when there is a date too, as in INT 1 JAN 2000 (New year's day). It has no form
+    /// for a phrase with a date such as BEF 1900, which is kept as it is (issue #118).
+    /// </summary>
+    /// <param name="phrase">The text from the PHRASE line.</param>
+    internal void AddPhrase(string phrase)
+    {
+        if (string.IsNullOrWhiteSpace(phrase))
+        {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(Period))
+        {
+            // Some programs, such as MyFamilyTree, leave the date empty and put a date like AFT 2000 in the
+            // phrase. Use it as the date if it is made only of GEDCOM date words and parses, as the parser
+            // would also read wording such as "around 1900" as a date. It is tried on a spare date, so a
+            // phrase that isn't a valid date leaves no warnings here.
+            var isDate = false;
+
+            if (phrase.Split(' ', StringSplitOptions.RemoveEmptyEntries).All(IsDateWord))
+            {
+                var attempt = new GedcomDate();
+                attempt.ParseDateString(phrase);
+                isDate = attempt.DateTime1 != null;
+            }
+
+            ParseDateString(isDate ? phrase : $"({phrase})");
+        }
+        else if (DateTime1 != null && (DatePeriod == GedcomDatePeriod.Exact || periodInferred))
+        {
+            ParseDateString($"{CalendarEscape}INT {Period} ({phrase})");
+        }
+    }
+
+    // Whether a word can be part of a GEDCOM 5.5.1 Gregorian date: a number such as 2000 or 1680/81, a month,
+    // or a word such as AFT or BET.
+    private static bool IsDateWord(string word)
+    {
+        return word.All(character => char.IsAsciiDigit(character) || character == '/')
+            || GedcomDateWords.Contains(word);
     }
 
     /// <summary>
@@ -602,7 +685,21 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
             if (i != -1)
             {
                 dateType = dataString.Substring(0, i).ToUpper();
-                dataString = dataString.Substring(i + 1);
+                dataString = dataString.Substring(i + 1).TrimStart();
+            }
+        }
+        else
+        {
+            // GEDCOM 7 names the calendar without the escape, as in JULIAN 1 JAN 1700 (issue #118). FRENCH_R
+            // isn't listed, as French dates can't be parsed yet, so those are kept as text.
+            foreach (var (name, escape) in Gedcom7Calendars)
+            {
+                if (dataString.StartsWith(name + " ", StringComparison.OrdinalIgnoreCase))
+                {
+                    dateType = escape;
+                    dataString = dataString.Substring(name.Length + 1).TrimStart();
+                    break;
+                }
             }
         }
 
@@ -793,10 +890,7 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
         tw.Write(" DATE ");
 
         // only output type if it isn't the default (Gregorian)
-        if (dateType != GedcomDateType.Gregorian)
-        {
-            tw.Write("@#D{0}@ ", dateType.ToString());
-        }
+        tw.Write(CalendarEscape);
 
         if (!string.IsNullOrWhiteSpace(Period))
         {

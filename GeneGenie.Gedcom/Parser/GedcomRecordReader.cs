@@ -39,6 +39,9 @@ public class GedcomRecordReader
     // The record the custom tag being kept belongs to.
     private GedcomRecord customTagOwner;
 
+    // The last DATE line read and its level, for a GEDCOM 7 PHRASE under it (issue #118).
+    private (GedcomDate Date, int Level) lastDateLine;
+
     private int lineNumber = 0; // For reporting errors and warnings.
     private int level;
     private string tag;
@@ -579,6 +582,21 @@ public class GedcomRecordReader
 
         var isUnderKeptCustomTag = KeepCustomTagLine(current);
 
+        // A PHRASE only belongs to the DATE directly above it, not to a DATE the library doesn't read.
+        if (lastDateLine.Date != null && level <= lastDateLine.Level)
+        {
+            lastDateLine = default;
+        }
+
+        if (tag == "PHRASE" && parseState.PreviousTag == "DATE" && lastDateLine.Date != null && level == lastDateLine.Level + 1)
+        {
+            // GEDCOM 7 gives a date's wording in a PHRASE under it (issue #118).
+            if (lineValueType == GedcomLineValueType.DataType)
+            {
+                lastDateLine.Date.AddPhrase(lineValue);
+            }
+        }
+
         if (current == null)
         {
             switch (tag)
@@ -971,6 +989,7 @@ public class GedcomRecordReader
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
         customTagParents.Clear();
+        lastDateLine = default;
 
         removedNotes = new List<string>();
         lineNumber = 0;
@@ -4947,6 +4966,8 @@ public class GedcomRecordReader
                 // we treat a CHAN as a GedcomDate as that is all it really is
                 // and it contains the DATE as a child tag, so at level + 1
                 case "DATE":
+                    lastDateLine = (date, Parser.Level);
+
                     if (lineValueType == GedcomLineValueType.DataType)
                     {
                         DateParse(date, lineValue);
