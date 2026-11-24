@@ -1780,6 +1780,12 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.DataType)
                     {
                         custom.Classification = lineValue;
+
+                        // _UID is also kept as a custom record, so code that reads it from there still works.
+                        if (tag == "_UID")
+                        {
+                            individualRecord.UniqueIds.Add(lineValue);
+                        }
                     }
 
                     individualRecord.Custom.Add(custom);
@@ -1984,6 +1990,13 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.DataType)
                     {
                         individualRecord.AncestralFileNumber = lineValue;
+                    }
+
+                    break;
+                case "UID": // GEDCOM 7. The non-standard _UID is handled with the other custom tags.
+                    if (lineValueType == GedcomLineValueType.DataType)
+                    {
+                        individualRecord.UniqueIds.Add(lineValue);
                     }
 
                     break;

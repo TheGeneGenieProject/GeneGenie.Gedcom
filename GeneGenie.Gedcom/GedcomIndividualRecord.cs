@@ -106,6 +106,13 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
     public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
     /// <summary>
+    /// Gets the individual's unique identifiers, which stay the same when the file is exported again,
+    /// unlike <see cref="GedcomRecord.XRefID"/>. They are read from the GEDCOM 7 UID tag and from _UID,
+    /// which many GEDCOM 5.5.1 programs write, and are written back as _UID.
+    /// </summary>
+    public List<string> UniqueIds { get; } = [];
+
+    /// <summary>
     /// Gets the type of the record.
     /// </summary>
     /// <value>
@@ -1583,6 +1590,15 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
             tw.Write(" AFN ");
             string line = AncestralFileNumber.Replace("@", "@@");
             tw.Write(line);
+        }
+
+        // GEDCOM 5.5.1 has no UID tag, so unique ids are written as _UID, which most programs read.
+        foreach (var uniqueId in UniqueIds)
+        {
+            tw.Write(Environment.NewLine);
+            tw.Write(levelPlusOne);
+            tw.Write(" _UID ");
+            tw.Write(uniqueId.Replace("@", "@@"));
         }
 
         // NOTE: this should always be NULL, it is here as
