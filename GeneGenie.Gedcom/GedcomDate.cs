@@ -17,6 +17,15 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
     private GedcomDatePeriod datePeriod;
 
     private string period = null;
+
+    // The date text as it was parsed, without any calendar escape. It is written back unchanged so that
+    // interpreting the date (a year on its own as a range, ABT as an estimate) doesn't change the file.
+    // It is cleared when the date is changed in code.
+    private string textAsParsed;
+
+    // True when DatePeriod is the parser's interpretation rather than something the date said, such as a
+    // year on its own read as a range. Such a period isn't written as FROM when the date is rebuilt.
+    private bool periodInferred;
     private string time;
     private string date1;
     private int partsParsed1;
@@ -93,6 +102,8 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
             {
                 datePeriod = value;
                 period = null;
+                textAsParsed = null;
+                periodInferred = false;
                 Changed();
             }
         }
@@ -134,6 +145,7 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
             {
                 date1 = value;
                 period = null;
+                textAsParsed = null;
                 Changed();
             }
         }
@@ -163,6 +175,7 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
             {
                 date2 = value;
                 period = null;
+                textAsParsed = null;
                 Changed();
             }
         }
@@ -210,6 +223,11 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
     {
         get
         {
+            if (textAsParsed != null)
+            {
+                return textAsParsed;
+            }
+
             if (period == null)
             {
                 switch (datePeriod)
@@ -251,7 +269,12 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
                     case GedcomDatePeriod.Range:
                         // TODO: this is a hack as we don't parse _Date2 in
                         // properly yet and just end up with it all in _Date1
-                        if (string.IsNullOrEmpty(date2))
+                        if (periodInferred)
+                        {
+                            // The date didn't say FROM; the parser read a partial date as a range.
+                            period = date1;
+                        }
+                        else if (string.IsNullOrEmpty(date2))
                         {
                             period = string.Format("FROM {0}", date1);
                         }
@@ -548,6 +571,7 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
             if (dateSplit.Length == 1 || dateSplit.Length == 2)
             {
                 result.DatePeriod = GedcomDatePeriod.Range;
+                result.PeriodInferred = true;
             }
             else
             {
@@ -566,6 +590,7 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
     {
         // clear possible Period cached value;
         this.period = null;
+        textAsParsed = null;
 
         string dateType = string.Empty;
         var dataString = inputDate; // Preserve inputDate for feedback to the user if it is broken.
@@ -604,9 +629,11 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
         }
 
         period = dataString;
+        var textWithoutCalendar = dataString;
         var periodResult = ExtractDatePeriod(period);
         dataString = periodResult.DataAfterExtraction;
         DatePeriod = periodResult.DatePeriod;
+        periodInferred = periodResult.PeriodInferred;
 
         Calendar calendar = null;
 
@@ -750,6 +777,9 @@ public class GedcomDate : GedcomRecord, IComparable, IComparable<GedcomDate>, IE
             // to lack of any date entered.
             // accept as unparsable
         }
+
+        // Set last, because the property setters above clear it.
+        textAsParsed = textWithoutCalendar;
     }
 
     /// <summary>

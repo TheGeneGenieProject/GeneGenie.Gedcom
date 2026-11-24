@@ -15,4 +15,10 @@ public class GedcomDatePeriodParseResult
 
     /// <summary>Gets or sets the date period that has been parsed from the raw text.</summary>
     public GedcomDatePeriod DatePeriod { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the date period was worked out from the date rather than
+    /// written in it, such as a year on its own read as a range covering that year.
+    /// </summary>
+    public bool PeriodInferred { get; set; }
 }
