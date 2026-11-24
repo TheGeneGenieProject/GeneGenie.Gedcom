@@ -226,10 +226,7 @@ public sealed class GedcomAncestryTagTest : IDisposable
 
         var database = GedcomRecordReader.CreateReader(path).Database;
 
-        // Checks the obsolete Custom list still works for code that reads it.
-#pragma warning disable CS0618
         Assert.Single(database.Individuals.Single().Custom.Single(custom => custom.Tag == "_WLNK").Notes);
-#pragma warning restore CS0618
     }
 
     private static GedcomSourceCitation BirthCitation(GedcomDatabase database)

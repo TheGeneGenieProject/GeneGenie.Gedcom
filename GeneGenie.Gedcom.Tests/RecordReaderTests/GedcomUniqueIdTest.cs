@@ -61,10 +61,7 @@ public sealed class GedcomUniqueIdTest : IDisposable
 
         var individual = GedcomRecordReader.CreateReader(path).Database.Individuals.Single();
 
-        // Checks the obsolete Custom list still works for code that reads it.
-#pragma warning disable CS0618
         Assert.Contains(individual.Custom, custom => custom.Tag == "_UID" && custom.Classification == SecondId);
-#pragma warning restore CS0618
     }
 
     /// <summary>

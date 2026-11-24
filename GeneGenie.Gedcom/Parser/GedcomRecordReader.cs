@@ -1830,10 +1830,7 @@ public class GedcomRecordReader
                         }
                     }
 
-                    // Custom is obsolete, but still filled so that code reading it keeps working.
-#pragma warning disable CS0618
                     individualRecord.Custom.Add(custom);
-#pragma warning restore CS0618
                     parseState.Records.Push(custom);
                     break;
             }
@@ -3888,10 +3885,7 @@ public class GedcomRecordReader
                         custom.Classification = lineValue;
                     }
 
-                    // Custom is obsolete, but still filled so that code reading it keeps working.
-#pragma warning disable CS0618
                     eventRecord.Custom.Add(custom);
-#pragma warning restore CS0618
                     parseState.Records.Push(custom);
                     break;
             }

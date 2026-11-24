@@ -212,11 +212,10 @@ public class GedcomEvent : GedcomRecord, IComparable, IComparable<GedcomEvent>, 
     /// <see cref="GedcomCustomRecord"/> entries.
     /// </summary>
     /// <remarks>
-    /// These entries are never written to a file, so changes made here aren't saved. Use
-    /// <see cref="GedcomRecord.CustomTags"/>, which holds the same tags with every line under them and is
-    /// written back.
+    /// Read these for the tags already parsed, such as a date or a note. They are never written to a file,
+    /// so changes made here aren't saved: to change a tag, or add or remove one, use
+    /// <see cref="GedcomRecord.CustomTags"/>, which holds the same tags as read and is written back.
     /// </remarks>
-    [Obsolete("Changes made here aren't saved. Use CustomTags, which is written back when the file is saved.")]
     public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
     /// <summary>

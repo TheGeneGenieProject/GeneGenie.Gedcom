@@ -20,10 +20,7 @@ public class GedcomCustomRecordTest
     {
         var reader = GedcomRecordReader.CreateReader("./Data/UidAndBurg.ged");
         GedcomIndividualRecord indi = reader.Database.Individuals[0];
-        // Checks the obsolete Custom list still works for code that reads it.
-#pragma warning disable CS0618
         GedcomCustomRecord cr = indi.Custom[0];
-#pragma warning restore CS0618
         Assert.Equal("_UID", cr.Tag);
         Assert.Equal("A5A812A4C0FE44C9A98F8D4627073B69AB88", cr.Classification);
     }
@@ -37,10 +34,7 @@ public class GedcomCustomRecordTest
         var reader = GedcomRecordReader.CreateReader("./Data/UidAndBurg.ged");
         GedcomIndividualRecord indi = reader.Database.Individuals[0];
         GedcomEvent er = indi.Events[0];
-        // Checks the obsolete Custom list still works for code that reads it.
-#pragma warning disable CS0618
         GedcomCustomRecord cr = er.Custom[0];
-#pragma warning restore CS0618
         Assert.Equal("_BURG", cr.Tag);
         Assert.Equal("unbekannt", cr.Classification);
     }

@@ -107,11 +107,11 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
     /// _WLNK, as <see cref="GedcomCustomRecord"/> entries.
     /// </summary>
     /// <remarks>
-    /// These entries are never written to a file, so changes made here aren't saved. Use
-    /// <see cref="GedcomRecord.CustomTags"/>, which holds the same tags with every line under them and is
-    /// written back, or <see cref="UniqueIds"/> for _UID.
+    /// Read these for the tags already parsed, such as a date or a note. They are never written to a file,
+    /// so changes made here aren't saved: to change a tag, or add or remove one, use
+    /// <see cref="GedcomRecord.CustomTags"/>, which holds the same tags as read and is written back. For
+    /// _UID use <see cref="UniqueIds"/>.
     /// </remarks>
-    [Obsolete("Changes made here aren't saved. Use CustomTags, which is written back when the file is saved, or UniqueIds for _UID.")]
     public GedcomRecordList<GedcomCustomRecord> Custom { get; set; } = new GedcomRecordList<GedcomCustomRecord>();
 
     /// <summary>

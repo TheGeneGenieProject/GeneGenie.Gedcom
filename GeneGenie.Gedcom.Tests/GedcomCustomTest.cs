@@ -26,10 +26,7 @@ public class GedcomCustomTest
 
         var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 
-        // Checks the obsolete Custom list still works for code that reads it.
-#pragma warning disable CS0618
         Assert.Contains(mother.Custom, c => c.Tag == "_MARNM");
-#pragma warning restore CS0618
     }
 
     [Fact]
@@ -39,9 +36,6 @@ public class GedcomCustomTest
 
         var mother = reader.Database.Individuals.SingleOrDefault(x => x.GetName().Name == "/Mother/");
 
-        // Checks the obsolete Custom list still works for code that reads it.
-#pragma warning disable CS0618
         Assert.Contains(mother.Custom, c => c.Classification == "/Married name/");
-#pragma warning restore CS0618
     }
 }
