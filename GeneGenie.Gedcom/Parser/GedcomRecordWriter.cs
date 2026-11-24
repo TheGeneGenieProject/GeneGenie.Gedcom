@@ -154,7 +154,10 @@ public class GedcomRecordWriter
         writer.AllowLineTabsSave = AllowLineTabsSave;
         writer.AllowTabsSave = AllowTabsSave;
 
-        database.Header.Output(writer);
+        // A database created in code, rather than read from a file, has no header (issue #121). Write a
+        // default one so the output is still valid GEDCOM, without adding it to the caller's database.
+        var header = database.Header ?? new GedcomHeader();
+        header.Output(writer);
 
         // write records
         foreach (DictionaryEntry entry in database)
