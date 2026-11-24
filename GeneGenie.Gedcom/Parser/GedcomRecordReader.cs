@@ -1081,8 +1081,10 @@ namespace GeneGenie.Gedcom.Parser
                                 case "IBMPC": // Not a valid character set as the code page is ambiguous, but we try to import it anyway.
                                     enc = Encoding.GetEncoding(437);
                                     break;
-                                case "UTF8":
-                                    // this is correct, we will already have converted from utf8
+                                case "UTF-8": // The GEDCOM 5.5.1 spelling.
+                                case "UTF8": // Non-standard, but written by some programs.
+                                    // This is correct: the file is already being read as UTF-8 (the default
+                                    // encoding), so the text has already been converted to UTF-16 strings.
                                     charset = GedcomCharset.UTF16LE;
                                     break;
                                 case "ASCII":
