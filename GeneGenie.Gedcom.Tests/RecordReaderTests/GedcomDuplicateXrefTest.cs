@@ -300,6 +300,25 @@ public sealed class GedcomDuplicateXrefTest : IDisposable
         Assert.Contains($"1 WIFE @{database.Individuals.Single().XRefID}@", File.ReadAllLines(output));
     }
 
+    /// <summary>
+    /// ANCI and DESI point to submitters, the people interested in a person's ancestors or descendants,
+    /// so they find the submitter when a person shares the submitter's id.
+    /// </summary>
+    /// <param name="tag">The tag of the link.</param>
+    [Theory]
+    [InlineData("ANCI")]
+    [InlineData("DESI")]
+    public void Interest_link_finds_the_submitter_when_a_person_shares_its_id(string tag)
+    {
+        var path = files.Write(TempGedcomFiles.Gedcom("UTF-8", "0 @1@ SUBM", "1 NAME Ann Smith", "0 @1@ INDI", "1 NAME Bob /Smith/", "0 @2@ INDI", "1 NAME Cy /Smith/", $"1 {tag} @1@"));
+        var database = GedcomRecordReader.CreateReader(path, false).Database;
+        var person = database.Individuals.Single(individual => individual.XRefID == "2");
+
+        var submitter = database[tag == "ANCI" ? person.Anci.Single() : person.Desi.Single()];
+
+        Assert.IsType<GedcomSubmitterRecord>(submitter);
+    }
+
     private static IEnumerable<string> TwoPeopleWithOneId()
     {
         return TempGedcomFiles.Gedcom("UTF-8", "0 @I1@ INDI", "1 NAME Ann /Smith/", "0 @I1@ INDI", "1 NAME Bob /Smith/");

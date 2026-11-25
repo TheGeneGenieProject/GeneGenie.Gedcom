@@ -1028,13 +1028,15 @@ public class GedcomRecordReader
         return kindXrefs.TryGetValue((xref, kind), out var kindXref) ? kindXref : xref;
     }
 
-    // The tag of the kind of record a pointer with this tag points to. A custom pointer, such as _STF,
-    // points to a custom record with the same tag.
+    // The tag of the kind of record a pointer with this tag points to. ANCI and DESI point to the
+    // submitters interested in a person's ancestors or descendants. A custom pointer, such as _STF, points
+    // to a custom record with the same tag.
     private static string KindOfPointer(string pointerTag)
     {
         return pointerTag switch
         {
-            "ALIA" or "ANCI" or "ASSO" or "CHIL" or "DESI" or "HUSB" or "WIFE" => "INDI",
+            "ALIA" or "ASSO" or "CHIL" or "HUSB" or "WIFE" => "INDI",
+            "ANCI" or "DESI" => "SUBM",
             "FAMC" or "FAMS" => "FAM",
             _ => pointerTag,
         };
