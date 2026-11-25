@@ -87,6 +87,24 @@ public sealed class GedcomOriginalXrefTest : IDisposable
     }
 
     /// <summary>
+    /// A CHAR line that names another encoding makes the reader start the file again, and the ids the file
+    /// uses must still be kept from inline notes then (issue #184).
+    /// </summary>
+    /// <param name="charset">A character set that makes the reader start again.</param>
+    [Theory]
+    [InlineData("ANSI")]
+    [InlineData("ASCII")]
+    [InlineData("IBMPC")]
+    public void Inline_note_id_does_not_clash_when_the_character_set_starts_the_file_again(string charset)
+    {
+        var path = files.Write(Example(charset));
+
+        var database = GedcomRecordReader.CreateReader(path, replaceXRefs: false).Database;
+
+        Assert.Equal("Existing note", ((GedcomNoteRecord)database["NOTE1"]).Text);
+    }
+
+    /// <summary>
     /// A person added in code gets an id the file doesn't already use.
     /// </summary>
     [Fact]
@@ -115,10 +133,10 @@ public sealed class GedcomOriginalXrefTest : IDisposable
         Assert.Null(exception);
     }
 
-    private static IEnumerable<string> Example()
+    private static IEnumerable<string> Example(string charset = "UTF-8")
     {
         return TempGedcomFiles.Gedcom(
-            "UTF-8",
+            charset,
             "0 @I123@ INDI",
             "1 NAME Jan /Roe/",
             "1 FAMS @F7@",

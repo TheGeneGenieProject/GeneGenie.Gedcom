@@ -45,6 +45,11 @@ public class GedcomRecordReader
     // the order they first appear (issues #180 and #181). Empty for a valid file.
     private Dictionary<string, List<string>> sharedXrefs = [];
 
+    // The ids on the file's level 0 lines, which ids the reader makes up mustn't use when the file's ids
+    // are kept (issue #75). Kept here, not only in the database, because a CHAR line can make the reader
+    // start again with a new database (issue #184).
+    private List<string> xrefsInFile = [];
+
     // The new id given to each kind of record but one that shares an id, by the shared id as the parser
     // hands it over and the record's tag. Worked out again after each ResetParse.
     private readonly Dictionary<(string Xref, string Kind), string> kindXrefs = [];
@@ -201,6 +206,9 @@ public class GedcomRecordReader
         bool success = false;
 
         GedcomFile = gedcomFile;
+
+        // The ids of any file read before, which the scan below replaces.
+        xrefsInFile = [];
 
         percent = 0;
 
@@ -1143,6 +1151,7 @@ public class GedcomRecordReader
     private void ScanXrefsInFile(string gedcomFile, Encoding encoding)
     {
         var kindsByXref = new Dictionary<string, List<string>>();
+        xrefsInFile = [];
 
         foreach (var line in File.ReadLines(gedcomFile, encoding))
         {
@@ -1162,11 +1171,7 @@ public class GedcomRecordReader
             }
 
             var xref = trimmed[(start + 1)..end].Trim();
-
-            if (!ReplaceXRefs)
-            {
-                Database.ReserveXref(xref);
-            }
+            xrefsInFile.Add(xref);
 
             var recordTag = trimmed[(end + 1)..].TrimStart().Split(' ')[0];
 
@@ -1188,6 +1193,22 @@ public class GedcomRecordReader
         }
 
         sharedXrefs = kindsByXref.Where(entry => entry.Value.Count > 1).ToDictionary(entry => entry.Key, entry => entry.Value);
+        ReserveXrefsInFile();
+    }
+
+    // When the file's ids are kept, stops the database handing out one the file uses (issue #75). Called
+    // after the scan, and again whenever ResetParse starts a new database (issue #184).
+    private void ReserveXrefsInFile()
+    {
+        if (ReplaceXRefs)
+        {
+            return;
+        }
+
+        foreach (var xref in xrefsInFile)
+        {
+            Database.ReserveXref(xref);
+        }
     }
 
     // The tags the reader makes a top-level record for when the line has an id.
@@ -1209,6 +1230,7 @@ public class GedcomRecordReader
         Parser.ResetParseState();
         parseState = new GedcomParseState();
         xrefCollection.Database = parseState.Database;
+        ReserveXrefsInFile();
         missingReferences = [];
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
