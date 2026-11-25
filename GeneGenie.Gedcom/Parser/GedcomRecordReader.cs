@@ -39,6 +39,14 @@ public class GedcomRecordReader
     // The record the custom tag being kept belongs to.
     private GedcomRecord customTagOwner;
 
+    // Every custom tag read that points to a record, so a pointer can follow a record the reader
+    // renumbered (issue #180).
+    private readonly List<GedcomCustomTag> customPointers = [];
+
+    // The new id of each custom record renumbered because another record used its id, by its tag and
+    // old id (issue #180).
+    private readonly Dictionary<(string Tag, string Xref), string> renumberedRecords = [];
+
     // The last DATE line read and its level, for a GEDCOM 7 PHRASE under it (issue #118).
     private (GedcomDate Date, int Level) lastDateLine;
 
@@ -433,6 +441,8 @@ public class GedcomRecordReader
 
                 family.ClearLinkageTypes();
             }
+
+            FollowRenumberedRecords();
 
             // look for any broken references / update ref counts
             foreach (string xref in missingReferences)
@@ -936,7 +946,7 @@ public class GedcomRecordReader
                 // pop as we are at a higher level now
                 if (current.Level == 0 && current.RecordType != GedcomRecordType.Header)
                 {
-                    parseState.Database.Add(current.XRefID, current);
+                    AddTopLevelRecord(current);
                 }
 
                 current = null;
@@ -951,6 +961,66 @@ public class GedcomRecordReader
         }
 
         return current;
+    }
+
+    // Some programs, such as MacFamilyTree, give a custom record the same id as another record. That
+    // isn't valid GEDCOM, but it mustn't stop the file loading, and both records should be saved again
+    // (issue #180). The custom record moves to a new id, so a standard record keeps the id that people
+    // and families point to. Two standard records with the same id still fail, as they always have.
+    private void AddTopLevelRecord(GedcomRecord record)
+    {
+        var database = parseState.Database;
+        var existing = database[record.XRefID];
+
+        if (existing != null && record is GedcomUserDefinedRecord newCustom)
+        {
+            Renumber(newCustom);
+        }
+        else if (existing is GedcomUserDefinedRecord oldCustom)
+        {
+            database.Remove(oldCustom.XRefID, oldCustom);
+            Renumber(oldCustom);
+            database.Add(oldCustom.XRefID, oldCustom);
+        }
+
+        database.Add(record.XRefID, record);
+    }
+
+    private void Renumber(GedcomUserDefinedRecord record)
+    {
+        var newXref = parseState.Database.GenerateXref(XrefPrefix(record.XRefID));
+        renumberedRecords.TryAdd((record.Tag, record.XRefID), newXref);
+        record.XRefID = newXref;
+    }
+
+    // In MacFamilyTree's files, a pointer's tag names the kind of record it points to, as in
+    // 1 _STF @TF0@ pointing to 0 @TF0@ _STF, as do Ancestry's _MTTAG pointers. So a custom pointer with the
+    // same tag as a renumbered record follows it to its new id. Other pointers stay with the record that
+    // kept the id (issue #180).
+    private void FollowRenumberedRecords()
+    {
+        if (renumberedRecords.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var pointer in customPointers)
+        {
+            if (renumberedRecords.TryGetValue((pointer.Tag, pointer.Value), out var newXref))
+            {
+                // Keep the reference counts right, which are worked out from this list.
+                missingReferences[missingReferences.IndexOf(pointer.Value)] = newXref;
+                pointer.Value = newXref;
+            }
+        }
+    }
+
+    // The letters an id starts with, such as TF for TF0, so a new id looks like the one it replaces.
+    private static string XrefPrefix(string xref)
+    {
+        var prefix = new string(xref.TakeWhile(char.IsLetter).ToArray());
+
+        return prefix.Length > 0 ? prefix : "XREF";
     }
 
     // When the file's ids are kept, an id the reader makes up for an inline record, such as NOTE1, mustn't
@@ -992,6 +1062,8 @@ public class GedcomRecordReader
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
         customTagParents.Clear();
+        customPointers.Clear();
+        renumberedRecords.Clear();
         lastDateLine = default;
 
         removedNotes = new List<string>();
@@ -5390,12 +5462,19 @@ public class GedcomRecordReader
             missingReferences.Add(lineValue);
         }
 
-        return new GedcomCustomTag
+        var customTag = new GedcomCustomTag
         {
             IsPointer = isPointer,
             Tag = Parser.Tag,
             Value = lineValueType == GedcomLineValueType.NoType ? string.Empty : lineValue ?? string.Empty,
         };
+
+        if (isPointer)
+        {
+            customPointers.Add(customTag);
+        }
+
+        return customTag;
     }
 
     private bool IsCustomTagToKeep(GedcomRecord current)
