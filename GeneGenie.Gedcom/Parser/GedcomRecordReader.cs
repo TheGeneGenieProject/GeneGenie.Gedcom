@@ -39,13 +39,15 @@ public class GedcomRecordReader
     // The record the custom tag being kept belongs to.
     private GedcomRecord customTagOwner;
 
-    // Every custom tag read that points to a record, so a pointer can follow a record the reader
-    // renumbered (issue #180).
-    private readonly List<GedcomCustomTag> customPointers = [];
+    // The ids in the file that records of more than one kind use, each with the tags of those records in
+    // the order they first appear (issues #180 and #181). Empty for a valid file.
+    private Dictionary<string, List<string>> sharedXrefs = [];
 
-    // The new id of each custom record renumbered because another record used its id, by its tag and
-    // old id (issue #180).
-    private readonly Dictionary<(string Tag, string Xref), string> renumberedRecords = [];
+    // The new id given to each kind of record but one that shares an id, by the shared id as the parser
+    // hands it over and the record's tag. Worked out again after each ResetParse.
+    private readonly Dictionary<(string Xref, string Kind), string> kindXrefs = [];
+
+    private bool kindXrefsReady;
 
     // The last DATE line read and its level, for a GEDCOM 7 PHRASE under it (issue #118).
     private (GedcomDate Date, int Level) lastDateLine;
@@ -241,10 +243,7 @@ public class GedcomRecordReader
 
             var newlineDelimiter = DetectNewline(gedcomFile, enc);
 
-            if (!ReplaceXRefs)
-            {
-                ReserveXrefsInFile(gedcomFile, enc);
-            }
+            ScanXrefsInFile(gedcomFile, enc);
 
             stream = new StreamReader(gedcomFile, enc);
 
@@ -442,8 +441,6 @@ public class GedcomRecordReader
                 family.ClearLinkageTypes();
             }
 
-            FollowRenumberedRecords();
-
             // look for any broken references / update ref counts
             foreach (string xref in missingReferences)
             {
@@ -584,6 +581,8 @@ public class GedcomRecordReader
         tag = TagMap(Parser.Tag);
         lineValue = Parser.LineValue;
         lineValueType = Parser.LineValueType;
+
+        FollowKindOfRecord();
 
         GedcomRecord current = null;
 
@@ -963,56 +962,82 @@ public class GedcomRecordReader
         return current;
     }
 
-    // Some programs, such as MacFamilyTree, give a custom record the same id as another record. That
-    // isn't valid GEDCOM, but it mustn't stop the file loading, and both records should be saved again
-    // (issue #180). The custom record moves to a new id, so a standard record keeps the id that people
-    // and families point to. Two standard records with the same id still fail, as they always have.
+    // Two records of the same kind with one id, such as two 0 @I1@ INDI, aren't valid GEDCOM, but mustn't
+    // stop the file loading (issue #181). The later record gets a new id, so both are kept and saved. A
+    // link can't tell the two apart, so links find the first. Records of different kinds with one id are
+    // given ids of their own before they get here (see FollowKindOfRecord).
     private void AddTopLevelRecord(GedcomRecord record)
     {
         var database = parseState.Database;
-        var existing = database[record.XRefID];
 
-        if (existing != null && record is GedcomUserDefinedRecord newCustom)
+        if (database[record.XRefID] != null)
         {
-            Renumber(newCustom);
-        }
-        else if (existing is GedcomUserDefinedRecord oldCustom)
-        {
-            database.Remove(oldCustom.XRefID, oldCustom);
-            Renumber(oldCustom);
-            database.Add(oldCustom.XRefID, oldCustom);
+            record.XRefID = database.GenerateXref(XrefPrefix(record.XRefID));
         }
 
         database.Add(record.XRefID, record);
     }
 
-    private void Renumber(GedcomUserDefinedRecord record)
+    // Some programs give records of different kinds the same id: MacFamilyTree's _PTF and _STF records
+    // (issue #180), and programs that number each kind of record from 1, so 0 @1@ INDI and 0 @1@ FAM
+    // (issue #181). A link's tag names the kind of record it points to, as in 1 WIFE @1@ or
+    // 1 _STF @TF0@, so the file isn't ambiguous. Each kind but one gets a new id here, and each record and
+    // link uses the id for its kind, so every link still finds the right record. A standard record keeps
+    // the file's id, so standard links that name no kind still find it.
+    private void FollowKindOfRecord()
     {
-        var newXref = parseState.Database.GenerateXref(XrefPrefix(record.XRefID));
-        renumberedRecords.TryAdd((record.Tag, record.XRefID), newXref);
-        record.XRefID = newXref;
-    }
-
-    // In MacFamilyTree's files, a pointer's tag names the kind of record it points to, as in
-    // 1 _STF @TF0@ pointing to 0 @TF0@ _STF, as do Ancestry's _MTTAG pointers. So a custom pointer with the
-    // same tag as a renumbered record follows it to its new id. Other pointers stay with the record that
-    // kept the id (issue #180).
-    private void FollowRenumberedRecords()
-    {
-        if (renumberedRecords.Count == 0)
+        if (sharedXrefs.Count == 0)
         {
             return;
         }
 
-        foreach (var pointer in customPointers)
+        if (!kindXrefsReady)
         {
-            if (renumberedRecords.TryGetValue((pointer.Tag, pointer.Value), out var newXref))
+            GiveEachKindAnId();
+        }
+
+        if (level == 0 && !string.IsNullOrEmpty(xrefId))
+        {
+            xrefId = XrefForKind(xrefId, tag);
+        }
+        else if (lineValueType == GedcomLineValueType.PointerType)
+        {
+            lineValue = XrefForKind(lineValue, KindOfPointer(tag));
+        }
+    }
+
+    private void GiveEachKindAnId()
+    {
+        foreach (var (fileXref, kinds) in sharedXrefs)
+        {
+            // The id as the parser hands it over, which is a new one when the file's ids are replaced.
+            var xref = xrefCollection[fileXref, 0, fileXref.Length];
+            var keeper = kinds.Find(kind => !kind.StartsWith('_')) ?? kinds[0];
+
+            foreach (var kind in kinds.Where(kind => kind != keeper))
             {
-                // Keep the reference counts right, which are worked out from this list.
-                missingReferences[missingReferences.IndexOf(pointer.Value)] = newXref;
-                pointer.Value = newXref;
+                kindXrefs[(xref, kind)] = Database.GenerateXref(XrefPrefix(xref));
             }
         }
+
+        kindXrefsReady = true;
+    }
+
+    private string XrefForKind(string xref, string kind)
+    {
+        return kindXrefs.TryGetValue((xref, kind), out var kindXref) ? kindXref : xref;
+    }
+
+    // The tag of the kind of record a pointer with this tag points to. A custom pointer, such as _STF,
+    // points to a custom record with the same tag.
+    private static string KindOfPointer(string pointerTag)
+    {
+        return pointerTag switch
+        {
+            "ALIA" or "ANCI" or "ASSO" or "CHIL" or "DESI" or "HUSB" or "WIFE" => "INDI",
+            "FAMC" or "FAMS" => "FAM",
+            _ => pointerTag,
+        };
     }
 
     // The letters an id starts with, such as TF for TF0, so a new id looks like the one it replaces.
@@ -1023,10 +1048,14 @@ public class GedcomRecordReader
         return prefix.Length > 0 ? prefix : "XREF";
     }
 
+    // Reads the id on each level 0 line, as in 0 @I1@ INDI, before the file is parsed.
     // When the file's ids are kept, an id the reader makes up for an inline record, such as NOTE1, mustn't
-    // be one a record later in the file uses (issue #75). Ids are on level 0 lines, as in 0 @I1@ INDI.
-    private void ReserveXrefsInFile(string gedcomFile, Encoding encoding)
+    // be one a record later in the file uses (issue #75), so each is reserved. Ids that records of more
+    // than one kind use are noted, so each kind can be given an id of its own (issues #180 and #181).
+    private void ScanXrefsInFile(string gedcomFile, Encoding encoding)
     {
+        var kindsByXref = new Dictionary<string, List<string>>();
+
         foreach (var line in File.ReadLines(gedcomFile, encoding))
         {
             var trimmed = line.TrimStart();
@@ -1039,11 +1068,45 @@ public class GedcomRecordReader
 
             var end = trimmed.IndexOf('@', start + 1);
 
-            if (end > start + 1)
+            if (end <= start + 1)
             {
-                Database.ReserveXref(trimmed[(start + 1)..end].Trim());
+                continue;
+            }
+
+            var xref = trimmed[(start + 1)..end].Trim();
+
+            if (!ReplaceXRefs)
+            {
+                Database.ReserveXref(xref);
+            }
+
+            var recordTag = trimmed[(end + 1)..].TrimStart().Split(' ')[0];
+
+            if (!IsRecordTag(recordTag))
+            {
+                continue;
+            }
+
+            if (!kindsByXref.TryGetValue(xref, out var kinds))
+            {
+                kinds = [];
+                kindsByXref[xref] = kinds;
+            }
+
+            if (!kinds.Contains(recordTag))
+            {
+                kinds.Add(recordTag);
             }
         }
+
+        sharedXrefs = kindsByXref.Where(entry => entry.Value.Count > 1).ToDictionary(entry => entry.Key, entry => entry.Value);
+    }
+
+    // The tags the reader makes a top-level record for when the line has an id.
+    private static bool IsRecordTag(string recordTag)
+    {
+        return recordTag is "FAM" or "INDI" or "NOTE" or "OBJE" or "REPO" or "SOUR" or "SUBM" or "SUBN" or "_LOC"
+            || recordTag.StartsWith('_');
     }
 
     private void ResetParse()
@@ -1062,8 +1125,8 @@ public class GedcomRecordReader
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
         customTagParents.Clear();
-        customPointers.Clear();
-        renumberedRecords.Clear();
+        kindXrefs.Clear();
+        kindXrefsReady = false;
         lastDateLine = default;
 
         removedNotes = new List<string>();
@@ -5462,19 +5525,12 @@ public class GedcomRecordReader
             missingReferences.Add(lineValue);
         }
 
-        var customTag = new GedcomCustomTag
+        return new GedcomCustomTag
         {
             IsPointer = isPointer,
             Tag = Parser.Tag,
             Value = lineValueType == GedcomLineValueType.NoType ? string.Empty : lineValue ?? string.Empty,
         };
-
-        if (isPointer)
-        {
-            customPointers.Add(customTag);
-        }
-
-        return customTag;
     }
 
     private bool IsCustomTagToKeep(GedcomRecord current)

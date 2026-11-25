@@ -180,6 +180,136 @@ public sealed class GedcomDuplicateXrefTest : IDisposable
         Assert.Contains($"1 _STF @{field.XRefID}@", File.ReadAllLines(output));
     }
 
+    /// <summary>
+    /// Two records of the same kind that share an id are both kept, so neither is lost (issue #181).
+    /// </summary>
+    /// <param name="replaceXRefs">Whether the reader replaces the file's ids.</param>
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Records_of_the_same_kind_that_share_an_id_are_both_kept(bool replaceXRefs)
+    {
+        var path = files.Write(TwoPeopleWithOneId());
+
+        var database = GedcomRecordReader.CreateReader(path, replaceXRefs).Database;
+
+        Assert.Equal(2, database.Individuals.Count);
+    }
+
+    /// <summary>
+    /// Two records of the same kind that share an id are both written when the file is saved.
+    /// </summary>
+    /// <param name="name">The name of one of the people.</param>
+    [Theory]
+    [InlineData("1 NAME Ann /Smith/")]
+    [InlineData("1 NAME Bob /Smith/")]
+    public void Records_of_the_same_kind_that_share_an_id_are_both_saved(string name)
+    {
+        var database = GedcomRecordReader.CreateReader(files.Write(TwoPeopleWithOneId())).Database;
+        var output = files.NewPath();
+
+        GedcomRecordWriter.OutputGedcom(database, output);
+
+        Assert.Contains(name, File.ReadAllLines(output));
+    }
+
+    /// <summary>
+    /// A link to an id that two records of the same kind share can't tell them apart, so it finds the
+    /// first, as the file reads from the top.
+    /// </summary>
+    /// <param name="replaceXRefs">Whether the reader replaces the file's ids.</param>
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Link_to_an_id_two_records_of_one_kind_share_finds_the_first(bool replaceXRefs)
+    {
+        var path = files.Write(TempGedcomFiles.Gedcom("UTF-8", "0 @I1@ INDI", "1 NAME Ann /Smith/", "1 NOTE @N1@", "0 @N1@ NOTE First", "0 @N1@ NOTE Second"));
+        var database = GedcomRecordReader.CreateReader(path, replaceXRefs).Database;
+
+        var note = (GedcomNoteRecord)database[database.Individuals.Single().Notes.Single()];
+
+        Assert.Equal("First", note.Text);
+    }
+
+    /// <summary>
+    /// Some programs number each kind of record from 1, so a person and a family share an id. A WIFE link
+    /// names a person, so it finds the person (issue #181).
+    /// </summary>
+    /// <param name="replaceXRefs">Whether the reader replaces the file's ids.</param>
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Wife_link_finds_the_person_when_a_family_shares_her_id(bool replaceXRefs)
+    {
+        var path = files.Write(PersonAndFamilyWithOneId());
+        var database = GedcomRecordReader.CreateReader(path, replaceXRefs).Database;
+
+        var wife = database[database.Families.Single().Wife];
+
+        Assert.IsType<GedcomIndividualRecord>(wife);
+    }
+
+    /// <summary>
+    /// A FAMS link names a family, so it finds the family when a person shares the family's id.
+    /// </summary>
+    /// <param name="replaceXRefs">Whether the reader replaces the file's ids.</param>
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Spouse_link_finds_the_family_when_a_person_shares_its_id(bool replaceXRefs)
+    {
+        var path = files.Write(PersonAndFamilyWithOneId());
+        var database = GedcomRecordReader.CreateReader(path, replaceXRefs).Database;
+
+        var family = database[database.Individuals.Single().SpouseIn.Single().Family];
+
+        Assert.IsType<GedcomFamilyRecord>(family);
+    }
+
+    /// <summary>
+    /// A person and a family that share an id are both written when the file is saved.
+    /// </summary>
+    /// <param name="tag">The tag of one of the records.</param>
+    [Theory]
+    [InlineData("INDI")]
+    [InlineData("FAM")]
+    public void Person_and_family_that_share_an_id_are_both_saved(string tag)
+    {
+        var database = GedcomRecordReader.CreateReader(files.Write(PersonAndFamilyWithOneId())).Database;
+        var output = files.NewPath();
+
+        GedcomRecordWriter.OutputGedcom(database, output);
+
+        Assert.Contains(File.ReadAllLines(output), line => line.StartsWith("0 @") && line.EndsWith("@ " + tag));
+    }
+
+    /// <summary>
+    /// The saved family's WIFE link points to the person, not to the family itself.
+    /// </summary>
+    /// <param name="replaceXRefs">Whether the reader replaces the file's ids.</param>
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Saved_wife_link_points_to_the_person(bool replaceXRefs)
+    {
+        var database = GedcomRecordReader.CreateReader(files.Write(PersonAndFamilyWithOneId()), replaceXRefs).Database;
+        var output = files.NewPath();
+
+        GedcomRecordWriter.OutputGedcom(database, output);
+
+        Assert.Contains($"1 WIFE @{database.Individuals.Single().XRefID}@", File.ReadAllLines(output));
+    }
+
+    private static IEnumerable<string> TwoPeopleWithOneId()
+    {
+        return TempGedcomFiles.Gedcom("UTF-8", "0 @I1@ INDI", "1 NAME Ann /Smith/", "0 @I1@ INDI", "1 NAME Bob /Smith/");
+    }
+
+    private static IEnumerable<string> PersonAndFamilyWithOneId()
+    {
+        return TempGedcomFiles.Gedcom("UTF-8", "0 @1@ INDI", "1 NAME Ann /Smith/", "1 SEX F", "1 FAMS @1@", "0 @1@ FAM", "1 WIFE @1@");
+    }
+
     // The shape of MacFamilyTree's template records, where each pair of record kinds shares ids.
     private static IEnumerable<string> TemplateRecords()
     {
