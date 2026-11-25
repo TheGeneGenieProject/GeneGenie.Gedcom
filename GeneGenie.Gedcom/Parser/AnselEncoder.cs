@@ -56,7 +56,8 @@ public class AnselEncoder : Encoding
     /// </returns>
     public override int GetMaxCharCount(int byteCount)
     {
-        return byteCount;
+        // Diacritics carried over from the bytes before are written after the next letter (issue #183).
+        return byteCount + AnselDecoder.MaxPendingDiacritics;
     }
 
     /// <summary>
