@@ -19,6 +19,9 @@ public sealed class GedcomMultimediaTests : IDisposable
         files.Dispose();
     }
 
+    /// <summary>
+    /// A title and _PRIM flag written under FILE are read, and are still there after the file is saved and read again.
+    /// </summary>
     [Fact]
     public void File_level_title_and_primary_flag_round_trip()
     {
@@ -65,6 +68,9 @@ public sealed class GedcomMultimediaTests : IDisposable
         }
     }
 
+    /// <summary>
+    /// A title written directly under OBJE is read as the multimedia record's title.
+    /// </summary>
     [Fact]
     public void Record_level_title_is_kept()
     {

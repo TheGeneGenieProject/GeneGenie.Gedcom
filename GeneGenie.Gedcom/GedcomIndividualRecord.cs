@@ -24,9 +24,6 @@ public class GedcomIndividualRecord : GedcomRecord, IComparable, IComparable<Ged
     private GedcomRecordList<GedcomIndividualEvent> events;
     private GedcomRecordList<GedcomIndividualEvent> attributes;
 
-    // TODO
-    private object lDSIndividualOrdinances;
-
     private GedcomRecordList<GedcomFamilyLink> childIn;
     private GedcomRecordList<GedcomFamilyLink> spouseIn;
 

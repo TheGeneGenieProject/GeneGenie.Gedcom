@@ -12,32 +12,52 @@ namespace GeneGenie.Gedcom;
 
 public class GedcomSurviveMalformedTest
 {
+    /// <summary>
+    /// Heredis 7 writes a source record that breaks the specification, and the file still has to load.
+    /// </summary>
     [Fact]
-    private void Heredis7SourceRecord()
+    public void Heredis7SourceRecord()
     {
-        var reader = GedcomRecordReader.CreateReader("./Data/Heredis7PC.ged");
+        var exception = Record.Exception(() => GedcomRecordReader.CreateReader("./Data/Heredis7PC.ged"));
+
+        Assert.Null(exception);
     }
 
+    /// <summary>
+    /// Records that point to a submitter id that doesn't exist still give their change dates when asked.
+    /// </summary>
     [Fact]
-    private void SubmitterReferenceWithWrongId()
+    public void SubmitterReferenceWithWrongId()
     {
         var reader = GedcomRecordReader.CreateReader("./Data/SubmitterReference.ged");
-        GedcomChangeDate LatestChangeDate = null;
-        foreach (GedcomIndividualRecord indi in reader.Database.Individuals)
+
+        var exception = Record.Exception(() => FindLatestChangeDate(reader.Database));
+
+        Assert.Null(exception);
+    }
+
+    private static GedcomChangeDate FindLatestChangeDate(GedcomDatabase database)
+    {
+        GedcomChangeDate latestChangeDate = null;
+
+        foreach (var indi in database.Individuals)
         {
-            if ((LatestChangeDate == null) ||
-                ((indi.ChangeDate != null) && (indi.ChangeDate > LatestChangeDate)))
+            if ((latestChangeDate == null) ||
+                ((indi.ChangeDate != null) && (indi.ChangeDate > latestChangeDate)))
             {
-                LatestChangeDate = indi.ChangeDate;
+                latestChangeDate = indi.ChangeDate;
             }
         }
-        foreach (GedcomFamilyRecord fam in reader.Database.Families)
+
+        foreach (var fam in database.Families)
         {
-            if ((LatestChangeDate == null) ||
-                ((fam.ChangeDate != null) && (fam.ChangeDate > LatestChangeDate)))
+            if ((latestChangeDate == null) ||
+                ((fam.ChangeDate != null) && (fam.ChangeDate > latestChangeDate)))
             {
-                LatestChangeDate = fam.ChangeDate;
+                latestChangeDate = fam.ChangeDate;
             }
         }
+
+        return latestChangeDate;
     }
 }

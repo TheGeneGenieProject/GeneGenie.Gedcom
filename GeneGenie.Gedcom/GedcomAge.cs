@@ -216,7 +216,8 @@ public class GedcomAge
                     }
                     else if (isDigit)
                     {
-                        int thisVal = val = c - '0';
+                        var thisVal = c - '0';
+
                         if (val == -1)
                         {
                             val = thisVal;

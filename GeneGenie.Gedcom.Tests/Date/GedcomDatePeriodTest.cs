@@ -12,6 +12,10 @@ namespace GeneGenie.Gedcom.Date.Tests;
 
 public class GedcomDatePeriodTest
 {
+    /// <summary>
+    /// Date strings with the period each should be read as: a range, an exact date or an estimate.
+    /// </summary>
+    /// <returns>The date strings and expected periods.</returns>
     public static IEnumerable<object[]> ExpectedPeriodData()
     {
         yield return new object[] { "1899", GedcomDatePeriod.Range };

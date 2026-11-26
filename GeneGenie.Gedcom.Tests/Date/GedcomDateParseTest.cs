@@ -13,6 +13,10 @@ namespace GeneGenie.Gedcom.Date.Tests;
 
 public class GedcomDateParseTest
 {
+    /// <summary>
+    /// Years on their own, with and without surrounding spaces, and the first day each should be read as.
+    /// </summary>
+    /// <returns>The date strings and expected dates.</returns>
     public static IEnumerable<object[]> SinglePartDateData()
     {
         yield return new object[] { "1899", new DateTime(1899, 1, 1) };
@@ -22,6 +26,10 @@ public class GedcomDateParseTest
         yield return new object[] { "  1899  ", new DateTime(1899, 1, 1) };
     }
 
+    /// <summary>
+    /// Months with years, written as names or numbers, and the first day each should be read as.
+    /// </summary>
+    /// <returns>The date strings and expected dates.</returns>
     public static IEnumerable<object[]> TwoPartDateData()
     {
         yield return new object[] { "Feb 1896", new DateTime(1896, 2, 1) };
@@ -31,17 +39,29 @@ public class GedcomDateParseTest
         yield return new object[] { "Dec 1896", new DateTime(1896, 12, 1) };
     }
 
+    /// <summary>
+    /// Dates that don't exist but can be corrected, with the corrected date and the warning the reader should give.
+    /// </summary>
+    /// <returns>The date strings, corrected dates and expected warnings.</returns>
     public static IEnumerable<object[]> WarningDateData()
     {
         yield return new object[] { "29 Feb 2015", new DateTime(2015, 2, 28), ParserMessageIds.DayOfDateAdjusted };
     }
 
+    /// <summary>
+    /// Partial dates with the range each should cover and the message saying how it was read.
+    /// </summary>
+    /// <returns>The date strings, ranges and expected messages.</returns>
     public static IEnumerable<object[]> PartialDatesForExpandingData()
     {
         yield return new object[] { "2015", new DateTime(2015, 1, 1), new DateTime(2015, 12, 31, 23, 59, 59), ParserMessageIds.InterpretedAsYearRange };
         yield return new object[] { "Feb 2015", new DateTime(2015, 2, 1), new DateTime(2015, 2, 28, 23, 59, 59), ParserMessageIds.InterpretedAsMonthRange };
     }
 
+    /// <summary>
+    /// Dates that can't be read, with the error the reader should give.
+    /// </summary>
+    /// <returns>The date strings and expected errors.</returns>
     public static IEnumerable<object[]> ErrorDateData()
     {
         yield return new object[] { "32 13 2015", ParserMessageIds.DateIsNotValid };

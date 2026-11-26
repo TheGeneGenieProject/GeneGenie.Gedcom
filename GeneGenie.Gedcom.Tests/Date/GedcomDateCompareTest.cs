@@ -11,6 +11,10 @@ namespace GeneGenie.Gedcom.Date.Tests;
 
 public class GedcomDateCompareTest
 {
+    /// <summary>
+    /// Pairs of date strings that should compare as equal, including an empty pair and a difference only in case.
+    /// </summary>
+    /// <returns>The pairs of dates.</returns>
     public static IEnumerable<object[]> GetMatchedDates()
     {
         yield return new object[] { string.Empty, string.Empty };
@@ -19,17 +23,29 @@ public class GedcomDateCompareTest
         yield return new object[] { "Feb", "FEB" };
     }
 
+    /// <summary>
+    /// Pairs of date strings where the first sorts before the second as text, although both mean the same day.
+    /// </summary>
+    /// <returns>The pairs of dates.</returns>
     public static IEnumerable<object[]> GetEarlierDates()
     {
         yield return new object[] { "01 Jan 1900", "1 Jan 1900" };
     }
 
+    /// <summary>
+    /// Pairs of date strings that should not compare as equal.
+    /// </summary>
+    /// <returns>The pairs of dates.</returns>
     public static IEnumerable<object[]> GetUnmatchedDates()
     {
         yield return new object[] { "Jan 1900", string.Empty };
         yield return new object[] { "Jan 1900", "1900" };
     }
 
+    /// <summary>
+    /// Pairs of dates with the value a comparison should return: less than zero, zero or greater than zero.
+    /// </summary>
+    /// <returns>The pairs of dates and their expected sort values.</returns>
     public static IEnumerable<object[]> GetDistinctDateRangesAndExpectedSortValue()
     {
         yield return new object[] { "1 Jan 1900", "1 Jan 2000", -1 };
@@ -37,6 +53,11 @@ public class GedcomDateCompareTest
         yield return new object[] { "1 Jan 2000", "1 Jan 1900", 1 };
     }
 
+    /// <summary>
+    /// Parses a date string into a <see cref="GedcomDate"/> for the comparison tests.
+    /// </summary>
+    /// <param name="dateText">The date as it would appear in a GEDCOM file.</param>
+    /// <returns>The parsed date.</returns>
     public static GedcomDate CreateDate(string dateText)
     {
         var date = new GedcomDate();
