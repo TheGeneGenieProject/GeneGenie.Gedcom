@@ -510,11 +510,7 @@ public class GedcomRecordReader
             // link sources with citations which reference them
             foreach (GedcomSourceCitation citation in sourceCitations)
             {
-                GedcomSourceRecord source = Database[citation.Source] as GedcomSourceRecord;
-                if (source != null)
-                {
-                    source.Citations.Add(citation);
-                }
+                (Database[citation.Source] as GedcomSourceRecord)?.Citations.Add(citation);
             }
 
             sourceCitations = null;
@@ -522,11 +518,7 @@ public class GedcomRecordReader
             // link repos with citations which reference them
             foreach (GedcomRepositoryCitation citation in repoCitations)
             {
-                GedcomRepositoryRecord repo = Database[citation.Repository] as GedcomRepositoryRecord;
-                if (repo != null)
-                {
-                    repo.Citations.Add(citation);
-                }
+                (Database[citation.Repository] as GedcomRepositoryRecord)?.Citations.Add(citation);
             }
 
             repoCitations = null;
@@ -1470,13 +1462,6 @@ public class GedcomRecordReader
                     headerRecord.SubmitterXRefID = submXref;
                     break;
                 case "SUBN":
-                    if (lineValueType == GedcomLineValueType.PointerType)
-                    {
-                    }
-                    else
-                    {
-                    }
-
                     break;
                 case "COPR":
                     if (lineValueType == GedcomLineValueType.DataType)
