@@ -235,47 +235,52 @@ public class GedcomRecordReader
 
                 byte[] bom = new byte[4];
 
-                fileStream.Read(bom, 0, 4);
+                var bytesRead = fileStream.ReadAtLeast(bom, bom.Length, throwOnEndOfStream: false);
 
-                // look for BOMs, if found we will ignore the CHAR tag
-                // don't use .net look for bom as we also want to detect
-                // unicode where there isn't a BOM, as far as the parser
-                // is concerned the data is utf16le if we detect this way
-                // as the conversion is already done
-                if (bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
+                // A file shorter than a byte order mark has none, and the unread bytes would
+                // otherwise be zeros that look like UTF-16.
+                if (bytesRead == bom.Length)
                 {
-                    Parser.Charset = GedcomCharset.UTF16LE;
-                    enc = Encoding.UTF8;
-                }
-                else if (bom[0] == 0xFE && bom[1] == 0xFF)
-                {
-                    Parser.Charset = GedcomCharset.UTF16LE;
-                    enc = Encoding.BigEndianUnicode;
-                }
-                else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0x00 && bom[3] == 0x00)
-                {
-                    Parser.Charset = GedcomCharset.UTF16LE;
-                    enc = Encoding.UTF32;
-                }
-                else if (bom[0] == 0xFF && bom[1] == 0xFE)
-                {
-                    Parser.Charset = GedcomCharset.UTF16LE;
-                    enc = Encoding.Unicode;
-                }
-                else if (bom[0] == 0x00 && bom[1] == 0x00 && bom[2] == 0xFE && bom[3] == 0xFF)
-                {
-                    Parser.Charset = GedcomCharset.UTF16LE;
-                    enc = Encoding.UTF32;
-                }
-                else if (bom[0] == 0x00 && bom[2] == 0x00)
-                {
-                    Parser.Charset = GedcomCharset.UTF16LE;
-                    enc = Encoding.BigEndianUnicode;
-                }
-                else if (bom[1] == 0x00 && bom[3] == 0x00)
-                {
-                    Parser.Charset = GedcomCharset.UTF16LE;
-                    enc = Encoding.Unicode;
+                    // look for BOMs, if found we will ignore the CHAR tag
+                    // don't use .net look for bom as we also want to detect
+                    // unicode where there isn't a BOM, as far as the parser
+                    // is concerned the data is utf16le if we detect this way
+                    // as the conversion is already done
+                    if (bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF8;
+                    }
+                    else if (bom[0] == 0xFE && bom[1] == 0xFF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.BigEndianUnicode;
+                    }
+                    else if (bom[0] == 0xFF && bom[1] == 0xFE && bom[2] == 0x00 && bom[3] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF32;
+                    }
+                    else if (bom[0] == 0xFF && bom[1] == 0xFE)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.Unicode;
+                    }
+                    else if (bom[0] == 0x00 && bom[1] == 0x00 && bom[2] == 0xFE && bom[3] == 0xFF)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.UTF32;
+                    }
+                    else if (bom[0] == 0x00 && bom[2] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.BigEndianUnicode;
+                    }
+                    else if (bom[1] == 0x00 && bom[3] == 0x00)
+                    {
+                        Parser.Charset = GedcomCharset.UTF16LE;
+                        enc = Encoding.Unicode;
+                    }
                 }
             }
 
