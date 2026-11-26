@@ -14,6 +14,9 @@ public class GedcomTortureTest
 {
     [Theory]
     [InlineData("./Data/TortureTests/TGC551.ged")]
+    [InlineData("./Data/TortureTests/TGC551LF.ged")]
+    [InlineData("./Data/TortureTests/TGC55C.ged")]
+    [InlineData("./Data/TortureTests/TGC55CLF.ged")]
     private void Files_can_be_loaded_without_exceptions(string sourceFile)
     {
         GedcomRecordReader.CreateReader(sourceFile);

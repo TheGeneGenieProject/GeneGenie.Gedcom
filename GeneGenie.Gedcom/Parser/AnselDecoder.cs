@@ -13,9 +13,16 @@ namespace GeneGenie.Gedcom.Parser;
 
 internal class AnselDecoder : Decoder
 {
+    /// <summary>
+    /// The most diacritics ANSEL puts before one letter. A diacritic is written after the letter it comes
+    /// before, which may be in the next block of bytes the decoder is given, so a call can write up to this
+    /// many more characters than it was given bytes (issue #183).
+    /// </summary>
+    internal const int MaxPendingDiacritics = 2;
+
     // Push diacritic characters onto this stack so we can pull them off
     // after the latin combining character has been written.
-    private readonly Stack<char> diacritics = new Stack<char>(2); // ANSEL has a maximum of 2 diacritics added to a latin to form a precomposed character
+    private readonly Stack<char> diacritics = new Stack<char>(MaxPendingDiacritics);
 
     private readonly ushort[] charMapping = new ushort[]
     {
@@ -181,6 +188,17 @@ internal class AnselDecoder : Decoder
             else
             {
                 // Non-spacing combining character
+
+                // More diacritics in a row than ANSEL allows, which isn't valid. Write out the ones waiting, so
+                // no more are carried into the next call than GetMaxCharCount allows for.
+                if (diacritics.Count == MaxPendingDiacritics)
+                {
+                    while (diacritics.Count > 0)
+                    {
+                        chars[numCharsDecoded + charIndex] = diacritics.Pop();
+                        numCharsDecoded++;
+                    }
+                }
 
                 // Box the char and place onto the stack
                 diacritics.Push(unicodeChar);

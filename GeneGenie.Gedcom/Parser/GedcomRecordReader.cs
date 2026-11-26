@@ -22,7 +22,9 @@ public class GedcomRecordReader
 
     private int percent;
 
-    private List<string> missingReferences;
+    // Each pointer read, with its line and the kind of record its tag points to, checked once the whole
+    // file is read (issue #182).
+    private List<(string Xref, int Line, string Kind)> missingReferences;
 
     private List<GedcomSourceCitation> sourceCitations;
     private List<GedcomRepositoryCitation> repoCitations;
@@ -38,6 +40,32 @@ public class GedcomRecordReader
 
     // The record the custom tag being kept belongs to.
     private GedcomRecord customTagOwner;
+
+    // The ids in the file that records of more than one kind use, each with the tags of those records in
+    // the order they first appear (issues #180 and #181). Empty for a valid file.
+    private Dictionary<string, List<string>> sharedXrefs = [];
+
+    // The ids on the file's level 0 lines, which ids the reader makes up mustn't use when the file's ids
+    // are kept (issue #75). Kept here, not only in the database, because a CHAR line can make the reader
+    // start again with a new database (issue #184).
+    private List<string> xrefsInFile = [];
+
+    // The new id given to each kind of record but one that shares an id, by the shared id as the parser
+    // hands it over and the record's tag. Worked out again after each ResetParse.
+    private readonly Dictionary<(string Xref, string Kind), string> kindXrefs = [];
+
+    private bool kindXrefsReady;
+
+    // What the reader changed, dropped or couldn't read in the file (issue #182).
+    private readonly List<GedcomReaderWarning> warnings = [];
+
+    // The line each top-level record starts on, including inline notes, which become top-level records, for
+    // warnings raised once the record has been read. Records compare by their contents, so they are looked
+    // up by reference.
+    private readonly Dictionary<GedcomRecord, int> topLevelRecordLines = new(ReferenceEqualityComparer.Instance);
+
+    // The level of the last tag reported as unknown, so the lines under it aren't reported too, or -1.
+    private int unknownTagLevel = -1;
 
     // The last DATE line read and its level, for a GEDCOM 7 PHRASE under it (issue #118).
     private (GedcomDate Date, int Level) lastDateLine;
@@ -118,6 +146,23 @@ public class GedcomRecordReader
     public bool ReplaceXRefs { get; set; }
 
     /// <summary>
+    /// Gets what the reader changed, dropped or couldn't read in the last file it read, in the order
+    /// found, for example to show the user (issue #182). The reader is forgiving of files that break the
+    /// GEDCOM specification, so most still load, and this list says what it did to them.
+    /// </summary>
+    /// <remarks>
+    /// Not every warning means the file is invalid: <see cref="GedcomReaderWarningCode.UnknownTag"/> is
+    /// also given for valid tags the library doesn't read yet. Code that needs a valid file should look at
+    /// the <see cref="GedcomReaderWarning.Code"/> of each warning rather than reject any file with one. An
+    /// empty list doesn't promise that nothing was lost, either: so far, unknown tags are only reported on
+    /// people and families, and at the top level.
+    /// </remarks>
+    public IReadOnlyList<GedcomReaderWarning> Warnings
+    {
+        get { return warnings; }
+    }
+
+    /// <summary>
     /// Gets percentage progress of GedcomRead.
     /// </summary>
     public int Progress
@@ -162,13 +207,16 @@ public class GedcomRecordReader
 
         GedcomFile = gedcomFile;
 
+        // The ids of any file read before, which the scan below replaces.
+        xrefsInFile = [];
+
         percent = 0;
 
         FileInfo info = new FileInfo(gedcomFile);
         long fileSize = info.Length;
         long read = 0;
 
-        missingReferences = new List<string>();
+        missingReferences = [];
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
         customTagParents.Clear();
@@ -233,10 +281,7 @@ public class GedcomRecordReader
 
             var newlineDelimiter = DetectNewline(gedcomFile, enc);
 
-            if (!ReplaceXRefs)
-            {
-                ReserveXrefsInFile(gedcomFile, enc);
-            }
+            ScanXrefsInFile(gedcomFile, enc);
 
             stream = new StreamReader(gedcomFile, enc);
 
@@ -332,10 +377,6 @@ public class GedcomRecordReader
                             husband.SpouseIn.Add(famLink);
                         }
                     }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("Husband in family points to non individual record");
-                    }
                 }
 
                 string wifeID = family.Wife;
@@ -355,10 +396,6 @@ public class GedcomRecordReader
                             famLink.Level = 1;
                             wife.SpouseIn.Add(famLink);
                         }
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("Wife in family points to non individual record");
                     }
                 }
 
@@ -425,19 +462,21 @@ public class GedcomRecordReader
                             }
                         }
                     }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine("Child in family points to non individual record");
-                    }
                 }
 
                 family.ClearLinkageTypes();
             }
 
             // look for any broken references / update ref counts
-            foreach (string xref in missingReferences)
+            foreach (var (xref, line, kind) in missingReferences)
             {
                 GedcomRecord record = Database[xref];
+
+                if (record != null && IsStandardKind(kind) && record.GedcomTag != kind)
+                {
+                    Warn(GedcomReaderWarningCode.WrongKindOfRecord, $"This line points to a {record.GedcomTag} record where it should point to a {kind} record, so the link wasn't followed.", line, string.Empty);
+                }
+
                 if (record != null)
                 {
                     switch (record.RecordType)
@@ -457,7 +496,7 @@ public class GedcomRecordReader
                 }
                 else if (!removedNotes.Contains(xref))
                 {
-                    System.Diagnostics.Debug.WriteLine("Missing reference: " + xref);
+                    Warn(GedcomReaderWarningCode.MissingRecord, "This line points to a record that isn't in the file.", line, string.Empty);
                 }
             }
 
@@ -471,10 +510,6 @@ public class GedcomRecordReader
                 {
                     source.Citations.Add(citation);
                 }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("Missing source reference: " + citation.Source);
-                }
             }
 
             sourceCitations = null;
@@ -486,10 +521,6 @@ public class GedcomRecordReader
                 if (repo != null)
                 {
                     repo.Citations.Add(citation);
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("Missing repo reference: " + citation.Repository);
                 }
             }
 
@@ -562,9 +593,8 @@ public class GedcomRecordReader
 
     private void Parser_ParseError(object sender, EventArgs e)
     {
-        string error = GedcomParser.GedcomErrorString(Parser.ErrorState);
-        Debug.WriteLine(error);
-        System.Console.WriteLine(error);
+        var error = GedcomParser.GedcomErrorString(Parser.ErrorState);
+        Warn(GedcomReaderWarningCode.ParseError, $"This line couldn't be read ({error}), so the file wasn't loaded.");
     }
 
     private void Parser_TagFound(object sender, EventArgs e)
@@ -574,6 +604,13 @@ public class GedcomRecordReader
         tag = TagMap(Parser.Tag);
         lineValue = Parser.LineValue;
         lineValueType = Parser.LineValueType;
+
+        if (level <= unknownTagLevel)
+        {
+            unknownTagLevel = -1;
+        }
+
+        FollowKindOfRecord();
 
         GedcomRecord current = null;
 
@@ -599,6 +636,11 @@ public class GedcomRecordReader
 
         if (current == null)
         {
+            if (level == 0 && string.IsNullOrEmpty(xrefId) && IsRecordTag(tag))
+            {
+                Warn(GedcomReaderWarningCode.RecordWithoutXref, $"This {tag} record has no id, so nothing can point to it, and it wasn't read.");
+            }
+
             switch (tag)
             {
                 case "FAM":
@@ -649,7 +691,7 @@ public class GedcomRecordReader
                         {
                             // pointer to a note, this should not occur
                             // as we should be at level 0 here
-                            Debug.WriteLine("Spurious Note pointer: " + xrefId + "\t at level: " + level);
+                            Warn(GedcomReaderWarningCode.InvalidValue, "This note record has a pointer where its text should be, so the pointer was ignored.");
                         }
                     }
 
@@ -728,10 +770,10 @@ public class GedcomRecordReader
                         customTagOwner = userDefinedRecord;
                         current = userDefinedRecord;
                     }
-                    else
+                    else if (level == 0 && !IsRecordTag(tag))
                     {
-                        // Unknown tag
-                        Debug.WriteLine("Unknown: " + tag + " at level: " + level);
+                        // Lines under a record that wasn't read aren't reported again.
+                        Warn(GedcomReaderWarningCode.UnknownTag, $"The reader doesn't read top-level {tag} records, so it and the lines under it weren't read.");
                     }
 
                     break;
@@ -743,6 +785,11 @@ public class GedcomRecordReader
                 if (!string.IsNullOrEmpty(xrefId))
                 {
                     current.XRefID = xrefId;
+                }
+
+                if (level == 0)
+                {
+                    topLevelRecordLines[current] = lineNumber;
                 }
 
                 current.Database = parseState.Database;
@@ -861,6 +908,8 @@ public class GedcomRecordReader
 
                     if (address != null)
                     {
+                        Warn(GedcomReaderWarningCode.AddressReadAsResidence, "This person has an ADDR line directly under them, which isn't valid GEDCOM, so the address was read as a residence (RESI).", RecordLine(indi), indi.XRefID);
+
                         GedcomIndividualEvent resi = new GedcomIndividualEvent();
                         resi.EventType = GedcomEventType.RESIFact;
                         resi.Database = Database;
@@ -884,6 +933,7 @@ public class GedcomRecordReader
 
                     if (string.IsNullOrWhiteSpace(note.Text))
                     {
+                        Warn(GedcomReaderWarningCode.EmptyNoteDropped, "This note has no text, so it was dropped, along with the links to it.", RecordLine(note), note.XRefID);
                         removedNotes.Add(note.XRefID);
                         current = null;
                     }
@@ -936,7 +986,7 @@ public class GedcomRecordReader
                 // pop as we are at a higher level now
                 if (current.Level == 0 && current.RecordType != GedcomRecordType.Header)
                 {
-                    parseState.Database.Add(current.XRefID, current);
+                    AddTopLevelRecord(current);
                 }
 
                 current = null;
@@ -953,10 +1003,156 @@ public class GedcomRecordReader
         return current;
     }
 
-    // When the file's ids are kept, an id the reader makes up for an inline record, such as NOTE1, mustn't
-    // be one a record later in the file uses (issue #75). Ids are on level 0 lines, as in 0 @I1@ INDI.
-    private void ReserveXrefsInFile(string gedcomFile, Encoding encoding)
+    // Two records of the same kind with one id, such as two 0 @I1@ INDI, aren't valid GEDCOM, but mustn't
+    // stop the file loading (issue #181). The later record gets a new id, so both are kept and saved. A
+    // link can't tell the two apart, so links find the first. Records of different kinds with one id are
+    // given ids of their own before they get here (see FollowKindOfRecord).
+    private void AddTopLevelRecord(GedcomRecord record)
     {
+        var database = parseState.Database;
+
+        if (database[record.XRefID] != null)
+        {
+            record.XRefID = database.GenerateXref(XrefPrefix(record.XRefID));
+            Warn(GedcomReaderWarningCode.DuplicateXref, $"This {record.GedcomTag} record has the same id as an earlier {record.GedcomTag} record, so it was given the id {record.XRefID}. Links to the id find the earlier record.", RecordLine(record), record.XRefID);
+        }
+
+        database.Add(record.XRefID, record);
+    }
+
+    // Some programs give records of different kinds the same id: MacFamilyTree's _PTF and _STF records
+    // (issue #180), and programs that number each kind of record from 1, so 0 @1@ INDI and 0 @1@ FAM
+    // (issue #181). A link's tag names the kind of record it points to, as in 1 WIFE @1@ or
+    // 1 _STF @TF0@, so the file isn't ambiguous. Each kind but one gets a new id here, and each record and
+    // link uses the id for its kind, so every link still finds the right record. A standard record keeps
+    // the file's id, so standard links that name no kind still find it.
+    private void FollowKindOfRecord()
+    {
+        if (sharedXrefs.Count == 0)
+        {
+            return;
+        }
+
+        if (!kindXrefsReady)
+        {
+            GiveEachKindAnId();
+        }
+
+        if (level == 0 && !string.IsNullOrEmpty(xrefId))
+        {
+            var kindXref = XrefForKind(xrefId, tag);
+
+            if (kindXref != xrefId)
+            {
+                Warn(GedcomReaderWarningCode.DuplicateXref, $"This {tag} record has the same id as a record of another kind, so it was given the id {kindXref}. Links whose tag names a {tag} record find it.", lineNumber, kindXref);
+                xrefId = kindXref;
+            }
+        }
+        else if (lineValueType == GedcomLineValueType.PointerType)
+        {
+            lineValue = XrefForKind(lineValue, KindOfPointer(tag));
+        }
+    }
+
+    private void GiveEachKindAnId()
+    {
+        foreach (var (fileXref, kinds) in sharedXrefs)
+        {
+            // The id as the parser hands it over, which is a new one when the file's ids are replaced.
+            var xref = xrefCollection[fileXref, 0, fileXref.Length];
+            var keeper = kinds.Find(kind => !kind.StartsWith('_')) ?? kinds[0];
+
+            foreach (var kind in kinds.Where(kind => kind != keeper))
+            {
+                kindXrefs[(xref, kind)] = Database.GenerateXref(XrefPrefix(xref));
+            }
+        }
+
+        kindXrefsReady = true;
+    }
+
+    private string XrefForKind(string xref, string kind)
+    {
+        return kindXrefs.TryGetValue((xref, kind), out var kindXref) ? kindXref : xref;
+    }
+
+    // The tag of the kind of record a pointer with this tag points to. ANCI and DESI point to the
+    // submitters interested in a person's ancestors or descendants. A custom pointer, such as _STF, points
+    // to a custom record with the same tag.
+    private static string KindOfPointer(string pointerTag)
+    {
+        return pointerTag switch
+        {
+            "ALIA" or "ASSO" or "CHIL" or "HUSB" or "WIFE" => "INDI",
+            "ANCI" or "DESI" => "SUBM",
+            "FAMC" or "FAMS" => "FAM",
+            _ => pointerTag,
+        };
+    }
+
+    // Reports a problem on the current line, against the top-level record being read, if there is one.
+    private void Warn(GedcomReaderWarningCode code, string message)
+    {
+        var record = parseState.Records.LastOrDefault();
+
+        Warn(code, message, lineNumber, record?.XRefID);
+    }
+
+    private void Warn(GedcomReaderWarningCode code, string message, int line, string xref)
+    {
+        warnings.Add(new GedcomReaderWarning(line, code, message, xref));
+    }
+
+    // Reports a tag the reader doesn't read where it is, which is dropped. Custom tags are kept (issue
+    // #166), and the lines under a dropped tag go with it, so neither is reported.
+    private void WarnUnknownTag()
+    {
+        if (tag.StartsWith('_') || (unknownTagLevel >= 0 && level > unknownTagLevel))
+        {
+            return;
+        }
+
+        unknownTagLevel = level;
+        Warn(GedcomReaderWarningCode.UnknownTag, $"The reader doesn't read {tag} here, so it and the lines under it were dropped.");
+    }
+
+    // The line the record starts on, or the current line for a record that isn't top-level.
+    private int RecordLine(GedcomRecord record)
+    {
+        return topLevelRecordLines.TryGetValue(record, out var line) ? line : lineNumber;
+    }
+
+    // Notes a pointer on the current line, to check once the whole file is read that it points to a
+    // record of the kind its tag names.
+    private void AddReference(string xref)
+    {
+        missingReferences.Add((xref, lineNumber, KindOfPointer(tag)));
+    }
+
+    // Whether a link's kind is a standard record, so the link can be checked against it. A link with any
+    // other tag, such as one kept under a custom tag, may point to any kind of record.
+    private static bool IsStandardKind(string kind)
+    {
+        return kind is "FAM" or "INDI" or "NOTE" or "OBJE" or "REPO" or "SOUR" or "SUBM" or "SUBN";
+    }
+
+    // The letters an id starts with, such as TF for TF0, so a new id looks like the one it replaces.
+    private static string XrefPrefix(string xref)
+    {
+        var prefix = new string(xref.TakeWhile(char.IsLetter).ToArray());
+
+        return prefix.Length > 0 ? prefix : "XREF";
+    }
+
+    // Reads the id on each level 0 line, as in 0 @I1@ INDI, before the file is parsed.
+    // When the file's ids are kept, an id the reader makes up for an inline record, such as NOTE1, mustn't
+    // be one a record later in the file uses (issue #75), so each is reserved. Ids that records of more
+    // than one kind use are noted, so each kind can be given an id of its own (issues #180 and #181).
+    private void ScanXrefsInFile(string gedcomFile, Encoding encoding)
+    {
+        var kindsByXref = new Dictionary<string, List<string>>();
+        xrefsInFile = [];
+
         foreach (var line in File.ReadLines(gedcomFile, encoding))
         {
             var trimmed = line.TrimStart();
@@ -969,11 +1165,57 @@ public class GedcomRecordReader
 
             var end = trimmed.IndexOf('@', start + 1);
 
-            if (end > start + 1)
+            if (end <= start + 1)
             {
-                Database.ReserveXref(trimmed[(start + 1)..end].Trim());
+                continue;
+            }
+
+            var xref = trimmed[(start + 1)..end].Trim();
+            xrefsInFile.Add(xref);
+
+            var recordTag = trimmed[(end + 1)..].TrimStart().Split(' ')[0];
+
+            if (!IsRecordTag(recordTag))
+            {
+                continue;
+            }
+
+            if (!kindsByXref.TryGetValue(xref, out var kinds))
+            {
+                kinds = [];
+                kindsByXref[xref] = kinds;
+            }
+
+            if (!kinds.Contains(recordTag))
+            {
+                kinds.Add(recordTag);
             }
         }
+
+        sharedXrefs = kindsByXref.Where(entry => entry.Value.Count > 1).ToDictionary(entry => entry.Key, entry => entry.Value);
+        ReserveXrefsInFile();
+    }
+
+    // When the file's ids are kept, stops the database handing out one the file uses (issue #75). Called
+    // after the scan, and again whenever ResetParse starts a new database (issue #184).
+    private void ReserveXrefsInFile()
+    {
+        if (ReplaceXRefs)
+        {
+            return;
+        }
+
+        foreach (var xref in xrefsInFile)
+        {
+            Database.ReserveXref(xref);
+        }
+    }
+
+    // The tags the reader makes a top-level record for when the line has an id.
+    private static bool IsRecordTag(string recordTag)
+    {
+        return recordTag is "FAM" or "INDI" or "NOTE" or "OBJE" or "REPO" or "SOUR" or "SUBM" or "SUBN" or "_LOC"
+            || recordTag.StartsWith('_');
     }
 
     private void ResetParse()
@@ -988,10 +1230,16 @@ public class GedcomRecordReader
         Parser.ResetParseState();
         parseState = new GedcomParseState();
         xrefCollection.Database = parseState.Database;
-        missingReferences = new List<string>();
+        ReserveXrefsInFile();
+        missingReferences = [];
         sourceCitations = new List<GedcomSourceCitation>();
         repoCitations = new List<GedcomRepositoryCitation>();
         customTagParents.Clear();
+        kindXrefs.Clear();
+        kindXrefsReady = false;
+        warnings.Clear();
+        topLevelRecordLines.Clear();
+        unknownTagLevel = -1;
         lastDateLine = default;
 
         removedNotes = new List<string>();
@@ -1492,7 +1740,7 @@ public class GedcomRecordReader
                     }
                     catch
                     {
-                        System.Diagnostics.Debug.WriteLine("Unknown marriage start state: " + lineValue);
+                        Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a marriage start status the specification allows, so it was ignored.");
                     }
 
                     break;
@@ -1520,7 +1768,7 @@ public class GedcomRecordReader
                                 familyRecord.SetLinkageType(childID, PedigreeLinkageType.Adopted, linkTo);
                                 break;
                             default:
-                                System.Diagnostics.Debug.WriteLine("Unsupported value for " + tag + ": " + lineValue);
+                                Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a value the reader understands for {tag}, so it was ignored.");
                                 break;
                         }
 
@@ -1560,7 +1808,7 @@ public class GedcomRecordReader
                         }
                         catch
                         {
-                            Debug.WriteLine("Invalid restriction type: " + lineValue);
+                            Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a restriction notice the specification allows, so the record was marked confidential.");
 
                             // default to confidential to protect privacy
                             familyRecord.RestrictionNotice = GedcomRestrictionNotice.Confidential;
@@ -1663,7 +1911,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         familyRecord.Husband = lineValue;
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
 
                     break;
@@ -1671,7 +1919,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         familyRecord.Wife = lineValue;
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
 
                     break;
@@ -1679,7 +1927,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         familyRecord.Children.Add(lineValue);
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
 
                     break;
@@ -1692,7 +1940,7 @@ public class GedcomRecordReader
                         }
                         catch
                         {
-                            Debug.WriteLine("Invalid number for Number of children tag");
+                            Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a number, so the number of children was ignored.");
                         }
                     }
 
@@ -1701,7 +1949,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         familyRecord.SubmitterRecords.Add(lineValue);
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
                     else
                     {
@@ -1751,6 +1999,9 @@ public class GedcomRecordReader
                     break;
                 case "OBJE":
                     AddMultimediaRecord(familyRecord);
+                    break;
+                default:
+                    WarnUnknownTag();
                     break;
             }
         }
@@ -1813,7 +2064,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing family node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -1900,7 +2151,7 @@ public class GedcomRecordReader
                         childIn.Family = lineValue;
                         childIn.Individual = individualRecord.XRefID;
 
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
 
                         individualRecord.ChildIn.Add(childIn);
                         parseState.Records.Push(childIn);
@@ -1916,7 +2167,7 @@ public class GedcomRecordReader
                         spouseIn.Individual = individualRecord.XRefID;
                         spouseIn.PreferedSpouse = individualRecord.SpouseIn.Count == 0;
 
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
 
                         individualRecord.SpouseIn.Add(spouseIn);
                         parseState.Records.Push(spouseIn);
@@ -1930,7 +2181,7 @@ public class GedcomRecordReader
                         association.Level = level;
                         association.Individual = lineValue;
 
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
 
                         individualRecord.Associations.Add(association);
                         parseState.Records.Push(association);
@@ -1946,7 +2197,7 @@ public class GedcomRecordReader
                         }
                         catch
                         {
-                            Debug.WriteLine("Invalid restriction type: " + lineValue);
+                            Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a restriction notice the specification allows, so the record was marked confidential.");
 
                             // default to confidential to protect privacy
                             individualRecord.RestrictionNotice = GedcomRestrictionNotice.Confidential;
@@ -2017,7 +2268,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         individualRecord.SubmitterRecords.Add(lineValue);
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
                     else
                     {
@@ -2036,7 +2287,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         individualRecord.Alia.Add(lineValue);
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
                     else if (lineValueType == GedcomLineValueType.DataType)
                     {
@@ -2061,7 +2312,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         individualRecord.Anci.Add(lineValue);
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
 
                     break;
@@ -2069,7 +2320,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         individualRecord.Desi.Add(lineValue);
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
 
                     break;
@@ -2812,6 +3063,9 @@ public class GedcomRecordReader
                     }
 
                     break;
+                default:
+                    WarnUnknownTag();
+                    break;
             }
         }
         else if ((!string.IsNullOrEmpty(parseState.PreviousTag)) &&
@@ -2839,9 +3093,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing individual (" + individualRecord.XRefID + ") node: " + tag + "\t at level: " + level);
-            System.Console.WriteLine("Unknown state / tag parsing individual (" + individualRecord.XRefID + ") node: " + tag + "\t at level: " + level);
-            System.Console.WriteLine("Previous tag: " + parseState.PreviousTag + "\tPrevious Level: " + parseState.PreviousLevel);
+            WarnUnknownTag();
         }
     }
 
@@ -3014,7 +3266,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing multimedia node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -3075,7 +3327,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing note node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -3291,7 +3543,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing note node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -3390,7 +3642,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         citation.Repository = lineValue;
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
 
                     sourceRecord.RepositoryCitations.Add(citation);
@@ -3590,7 +3842,7 @@ public class GedcomRecordReader
                     {
                         // invalid, provide a name anyway
                         place.Name = "Unknown";
-                        Debug.WriteLine("invalid place node, no name at level: " + level);
+                        Warn(GedcomReaderWarningCode.InvalidValue, "This place has no name, so it was named Unknown.");
                     }
 
                     parseState.Records.Push(place);
@@ -3600,7 +3852,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing note node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -3814,7 +4066,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing submitter node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -3832,7 +4084,7 @@ public class GedcomRecordReader
                     if (lineValueType == GedcomLineValueType.PointerType)
                     {
                         submissionRecord.Submitter = lineValue;
-                        missingReferences.Add(lineValue);
+                        AddReference(lineValue);
                     }
                     else
                     {
@@ -3911,7 +4163,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing submission node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -3986,7 +4238,7 @@ public class GedcomRecordReader
                         if (lineValueType == GedcomLineValueType.PointerType)
                         {
                             individualEvent.Famc = lineValue;
-                            missingReferences.Add(lineValue);
+                            AddReference(lineValue);
                         }
 
                         done = true;
@@ -4097,7 +4349,7 @@ public class GedcomRecordReader
                         {
                             // invalid, provide a name anyway
                             place.Name = string.Empty;
-                            Debug.WriteLine("invalid place node, no name at level: " + level);
+                            Warn(GedcomReaderWarningCode.InvalidValue, "This place has no name, so it was named Unknown.");
                         }
 
                         parseState.Records.Push(place);
@@ -4258,7 +4510,7 @@ public class GedcomRecordReader
                             }
                             catch
                             {
-                                Debug.WriteLine("Invalid restriction type: " + lineValue);
+                                Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a restriction notice the specification allows, so the record was marked confidential.");
 
                                 // default to confidential to protect privacy
                                 eventRecord.RestrictionNotice = GedcomRestrictionNotice.Confidential;
@@ -4443,7 +4695,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing place node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -4661,7 +4913,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing source citation node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -4696,7 +4948,7 @@ public class GedcomRecordReader
                     {
                         // invalid, provide a name anyway
                         record.Place.Name = "Unknown";
-                        Debug.WriteLine("invalid place node, no name at level: " + level);
+                        Warn(GedcomReaderWarningCode.InvalidValue, "This place has no name, so it was named Unknown.");
                     }
 
                     break;
@@ -4715,7 +4967,7 @@ public class GedcomRecordReader
                         }
                         catch
                         {
-                            Debug.WriteLine("Invalid spouse sealing date status value: " + lineValue);
+                            Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a sealing status the specification allows, so it was ignored.");
 
                             record.Status = SpouseSealingDateStatus.NotSet;
                         }
@@ -4748,7 +5000,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing note node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -4771,7 +5023,7 @@ public class GedcomRecordReader
                         }
                         catch
                         {
-                            Debug.WriteLine("Invalid pedigree linkage type: " + lineValue);
+                            Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a pedigree linkage type the specification allows, so it was read as unknown.");
 
                             childOf.Pedigree = PedigreeLinkageType.Unknown;
                         }
@@ -4787,7 +5039,7 @@ public class GedcomRecordReader
                         }
                         catch
                         {
-                            Debug.WriteLine("Invalid child linkage status type: " + lineValue);
+                            Warn(GedcomReaderWarningCode.InvalidValue, $"{lineValue} isn't a child linkage status the specification allows, so it was read as unknown.");
 
                             childOf.Status = ChildLinkageStatus.Unknown;
                         }
@@ -4802,7 +5054,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing family link node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -4834,7 +5086,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing association node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -4988,7 +5240,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing name node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -5055,7 +5307,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing date node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -5123,7 +5375,7 @@ public class GedcomRecordReader
         else
         {
             // shouldn't be here
-            Debug.WriteLine("Unknown state / tag parsing repo node: " + tag + "\t at level: " + level);
+            WarnUnknownTag();
         }
     }
 
@@ -5136,7 +5388,7 @@ public class GedcomRecordReader
         if (lineValueType == GedcomLineValueType.PointerType)
         {
             sourceCitation.Source = lineValue;
-            missingReferences.Add(lineValue);
+            AddReference(lineValue);
         }
         else
         {
@@ -5171,7 +5423,7 @@ public class GedcomRecordReader
             {
                 record.Notes.Add(lineValue);
                 xref = lineValue;
-                missingReferences.Add(lineValue);
+                AddReference(lineValue);
             }
         }
         else
@@ -5188,6 +5440,7 @@ public class GedcomRecordReader
             }
 
             parseState.Records.Push(note);
+            topLevelRecordLines[note] = lineNumber;
 
             record.Notes.Add(note.XRefID);
             xref = note.XRefID;
@@ -5301,7 +5554,7 @@ public class GedcomRecordReader
         if (lineValueType == GedcomLineValueType.PointerType)
         {
             record.Multimedia.Add(lineValue);
-            missingReferences.Add(lineValue);
+            AddReference(lineValue);
 
             // The link is read as a record of its own, so the lines under it, such as a crop, are kept (issue #112).
             var link = new GedcomMultimediaLink { Database = Database, Level = level, MultimediaId = lineValue };
@@ -5328,7 +5581,7 @@ public class GedcomRecordReader
         if (lineValueType == GedcomLineValueType.PointerType)
         {
             xref = lineValue;
-            missingReferences.Add(xref);
+            AddReference(xref);
         }
         else
         {
@@ -5387,7 +5640,7 @@ public class GedcomRecordReader
 
         if (isPointer)
         {
-            missingReferences.Add(lineValue);
+            AddReference(lineValue);
         }
 
         return new GedcomCustomTag

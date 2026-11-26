@@ -76,6 +76,15 @@
         <None Update="Data\TortureTests\TGC551.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Data\TortureTests\TGC551LF.ged">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Data\TortureTests\TGC55C.ged">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Data\TortureTests\TGC55CLF.ged">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Data\Heredis7PC.ged">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
