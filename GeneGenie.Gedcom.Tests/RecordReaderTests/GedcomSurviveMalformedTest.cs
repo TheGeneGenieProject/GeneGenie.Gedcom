@@ -40,7 +40,7 @@ public class GedcomSurviveMalformedTest
     {
         GedcomChangeDate latestChangeDate = null;
 
-        foreach (GedcomIndividualRecord indi in database.Individuals)
+        foreach (var indi in database.Individuals)
         {
             if ((latestChangeDate == null) ||
                 ((indi.ChangeDate != null) && (indi.ChangeDate > latestChangeDate)))
@@ -49,7 +49,7 @@ public class GedcomSurviveMalformedTest
             }
         }
 
-        foreach (GedcomFamilyRecord fam in database.Families)
+        foreach (var fam in database.Families)
         {
             if ((latestChangeDate == null) ||
                 ((fam.ChangeDate != null) && (fam.ChangeDate > latestChangeDate)))
