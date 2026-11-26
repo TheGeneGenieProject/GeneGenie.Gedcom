@@ -6,6 +6,9 @@
 
 namespace GeneGenie.Gedcom.Tests.Equality;
 
+/// <summary>
+/// Checks that record lists holding the same items give the same hash code.
+/// </summary>
 public class GedcomRecordListTests
 {
     [Fact]

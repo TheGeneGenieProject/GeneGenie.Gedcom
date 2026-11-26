@@ -12,13 +12,19 @@ namespace GeneGenie.Gedcom;
 
 public class GedcomTortureTest
 {
+    /// <summary>
+    /// Each torture test file uses every tag the specification defines, so loading each one shows the reader can read every tag without failing.
+    /// </summary>
+    /// <param name="sourceFile">The torture test file to load.</param>
     [Theory]
     [InlineData("./Data/TortureTests/TGC551.ged")]
     [InlineData("./Data/TortureTests/TGC551LF.ged")]
     [InlineData("./Data/TortureTests/TGC55C.ged")]
     [InlineData("./Data/TortureTests/TGC55CLF.ged")]
-    private void Files_can_be_loaded_without_exceptions(string sourceFile)
+    public void Files_can_be_loaded_without_exceptions(string sourceFile)
     {
-        GedcomRecordReader.CreateReader(sourceFile);
+        var exception = Record.Exception(() => GedcomRecordReader.CreateReader(sourceFile));
+
+        Assert.Null(exception);
     }
 }
